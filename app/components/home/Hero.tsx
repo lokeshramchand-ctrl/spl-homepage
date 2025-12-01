@@ -4,18 +4,9 @@ export default function Hero() {
   return (
     <div className="hero">
       <div className="container">
-        <div className="hero-content">
-          <div className="badge">
-            <span className="badge-dot"></span>
-            Top AI for Grow Business
-          </div>
-          
+        <div className="hero-content">     
           <h1 className="hero-title">
-            Automate & <br />
-            <span className="text-gradient">
-              manage your business
-            </span> <br />
-            with ease
+           SPL Systems is a custom software studio engineering applications for tomorrow’s enterprises.<br />
           </h1>
           
           <p className="hero-desc">
@@ -27,21 +18,7 @@ export default function Hero() {
               Free Consultation
             </button>
             
-            <div className="trust-badge">
-              <div className="avatars">
-                {[1,2,3].map(i => (
-                  <div key={i} className="avatar">
-                    <Users size={12}/>
-                  </div>
-                ))}
-              </div>
-              <div className="rating-text">
-                <div className="rating-stars">
-                  {[1,2,3,4,5].map(i => <Star key={i} size={12} fill="currentColor" />)}
-                </div>
-                <span>4.8 Trust Score</span>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>

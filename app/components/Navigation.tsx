@@ -24,8 +24,7 @@ export default function Navigation() {
       <div className="container">
         <div className="nav-content">
           <Link href="/" className="logo">
-            <Star size={32} fill="white" />
-            <span>AutoBiz.ai</span>
+            <span>SPL Systems</span>
           </Link>
 
           <div className="nav-links">
