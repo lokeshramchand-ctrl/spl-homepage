@@ -42,7 +42,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
-  font-family: 'Vend Sans', sans-serif;
+    font-family: 'Vend Sans', sans-serif;
 
   transition: all 0.25s ease;
   backdrop-filter: blur(16px) saturate(180%);
@@ -53,8 +53,7 @@ body {
 .btn-primary {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-  /* Change to auto if your theme needs */
+  color: #fff; /* Change to auto if your theme needs */
 }
 
 /* Hover: Slightly brighter + scale */
@@ -127,7 +126,7 @@ body {
 
 .nav-links {
   display: none;
-
+  
 }
 
 .nav-links a {
@@ -148,17 +147,14 @@ body {
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   border-radius: 60px;
 }
-
 .navbar.scrolled {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(15px);
 }
 
 .navbar.scrolled a {
-  color: #111;
-  /* dark text when background is light */
+  color: #111; /* dark text when background is light */
 }
-
 .mobile-menu-btn {
   background: none;
   border: none;
@@ -242,15 +238,11 @@ body {
 }
 
 @media (min-width: 768px) {
-  .hero-title {
-    font-size: 3.75rem;
-  }
+  .hero-title { font-size: 3.75rem; }
 }
 
 @media (min-width: 1024px) {
-  .hero-title {
-    font-size: 4.5rem;
-  }
+  .hero-title { font-size: 4.5rem; }
 }
 
 
