@@ -147,7 +147,14 @@ body {
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   border-radius: 60px;
 }
-x 
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px);
+}
+
+.navbar.scrolled a {
+  color: #111; /* dark text when background is light */
+}
 .mobile-menu-btn {
   background: none;
   border: none;
