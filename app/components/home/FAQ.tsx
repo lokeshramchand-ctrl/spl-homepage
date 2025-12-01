@@ -5,7 +5,6 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   const faqs = [
     { q: "What is the AutoBiz.ai?", a: "AutoBiz.ai is an innovative AI solution designed to assist your business in achieving significant growth." },
     { q: "How does Walawe work?", a: "Walawe works by integrating seamlessly with your existing data stack, analyzing patterns, and providing actionable insights." },
