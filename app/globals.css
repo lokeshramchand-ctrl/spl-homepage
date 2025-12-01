@@ -110,7 +110,8 @@ body {
   transition: color 0.2s;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--accent-teal);
 }
 
@@ -127,6 +128,7 @@ body {
     display: flex;
     gap: 2rem;
   }
+
   .mobile-menu-btn {
     display: none;
   }
@@ -134,7 +136,11 @@ body {
 
 /* Hero Section */
 .hero {
-  background-color: var(--bg-dark);
+  background-image: url('./assets/hero2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   padding-top: 8rem;
   padding-bottom: 5rem;
   position: relative;
@@ -142,26 +148,6 @@ body {
   color: white;
 }
 
-.hero-bg-glow {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.glow-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.2;
-  width: 24rem;
-  height: 24rem;
-}
-.glow-1 { background-color: var(--accent-teal); top: 5rem; left: 2rem; }
-.glow-2 { background-color: var(--accent-blue); top: 10rem; right: 2rem; }
 
 .hero-content {
   position: relative;
@@ -175,6 +161,7 @@ body {
     text-align: left;
     margin: 0;
   }
+
   .hero {
     padding-top: 12rem;
     padding-bottom: 8rem;
@@ -210,10 +197,15 @@ body {
 }
 
 @media (min-width: 768px) {
-  .hero-title { font-size: 3.75rem; }
+  .hero-title {
+    font-size: 3.75rem;
+  }
 }
+
 @media (min-width: 1024px) {
-  .hero-title { font-size: 4.5rem; }
+  .hero-title {
+    font-size: 4.5rem;
+  }
 }
 
 .text-gradient {
@@ -244,6 +236,7 @@ body {
     justify-content: center;
   }
 }
+
 @media (min-width: 1024px) {
   .hero-actions {
     justify-content: flex-start;
@@ -274,7 +267,10 @@ body {
   color: white;
   font-size: 0.75rem;
 }
-.avatar:first-child { margin-left: 0; }
+
+.avatar:first-child {
+  margin-left: 0;
+}
 
 .rating-stars {
   display: flex;
@@ -373,10 +369,15 @@ body {
 }
 
 @media (min-width: 768px) {
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
 @media (min-width: 1024px) {
-  .features-grid { grid-template-columns: repeat(4, 1fr); }
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .feature-card {
@@ -402,10 +403,25 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.bg-pink { background-color: #fdf2f8; color: #ec4899; }
-.bg-green { background-color: #f0fdf4; color: #22c55e; }
-.bg-blue { background-color: #eff6ff; color: #3b82f6; }
-.bg-purple { background-color: #faf5ff; color: #a855f7; }
+.bg-pink {
+  background-color: #fdf2f8;
+  color: #ec4899;
+}
+
+.bg-green {
+  background-color: #f0fdf4;
+  color: #22c55e;
+}
+
+.bg-blue {
+  background-color: #eff6ff;
+  color: #3b82f6;
+}
+
+.bg-purple {
+  background-color: #faf5ff;
+  color: #a855f7;
+}
 
 .feature-title {
   font-size: 1.125rem;
@@ -453,11 +469,18 @@ body {
   color: #52525b;
 }
 
-.industry-item:hover { color: #d4d4d8; }
-.industry-item.active { color: white; }
+.industry-item:hover {
+  color: #d4d4d8;
+}
+
+.industry-item.active {
+  color: white;
+}
 
 @media (min-width: 768px) {
-  .industry-item { font-size: 1.875rem; }
+  .industry-item {
+    font-size: 1.875rem;
+  }
 }
 
 /* FAQ Section */
@@ -473,7 +496,9 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .faq-grid { grid-template-columns: 1fr 1fr; }
+  .faq-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .faq-item {
@@ -505,8 +530,15 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Footer */
@@ -543,7 +575,9 @@ body {
 }
 
 @media (min-width: 768px) {
-  .footer-grid { grid-template-columns: repeat(4, 1fr); }
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .footer-col h3 {
@@ -567,7 +601,9 @@ body {
   transition: color 0.2s;
 }
 
-.footer-col a:hover { color: white; }
+.footer-col a:hover {
+  color: white;
+}
 
 .footer-bottom {
   display: flex;
@@ -580,7 +616,9 @@ body {
 }
 
 @media (min-width: 768px) {
-  .footer-bottom { flex-direction: row; }
+  .footer-bottom {
+    flex-direction: row;
+  }
 }
 
 .footer-links {

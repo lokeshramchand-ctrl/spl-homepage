@@ -3,11 +3,6 @@ import { Users, Star } from 'lucide-react';
 export default function Hero() {
   return (
     <div className="hero">
-      <div className="hero-bg-glow">
-        <div className="glow-blob glow-1"></div>
-        <div className="glow-blob glow-2"></div>
-      </div>
-
       <div className="container">
         <div className="hero-content">
           <div className="badge">
