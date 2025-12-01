@@ -6,8 +6,8 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AutoBiz.ai - Automate & Manage Your Business",
-  description: "Top AI solutions for business growth.",
+  title: "SPL",
+  description: "Consulting and Solutions for the Digital Age",
 };
 
 export default function RootLayout({
