@@ -5,7 +5,7 @@ export default function Hero() {
     <div className="hero">
       <div className="container">
         <div className="hero-content">     
-          <h1 className="hero-title">
+          <h1 className="hero-title" id="heroText">
            SPL Systems is a custom software studio engineering applications for tomorrow’s enterprises.<br />
           </h1>
           
@@ -15,7 +15,7 @@ export default function Hero() {
           
           <div className="hero-actions">
             <button className="btn btn-primary">
-              Free Consultation
+              Our Work
             </button>
             
             
