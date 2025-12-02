@@ -81,20 +81,13 @@ export default function Footer() {
 
         {/* Huge Brand Section */}
         <div className="footer-brand-section">
-          {/* Abstract Graphic representing the dog/blocks from reference */}
-          <div className="brand-graphic">
-             <div className="bg-row" style={{marginLeft:'20px'}}><div className="pixel"></div></div>
-             <div className="bg-row" style={{marginLeft:'10px'}}><div className="pixel"></div><div className="pixel"></div></div>
-             <div className="bg-row"><div className="pixel"></div><div className="pixel"></div><div className="pixel"></div><div className="pixel"></div></div>
-             <div className="bg-row" style={{marginLeft:'10px'}}><div className="pixel"></div><div className="pixel"></div><div className="pixel"></div></div>
-             <div className="bg-row" style={{marginLeft:'20px'}}><div className="pixel"></div><div className="pixel"></div></div>
-          </div>
           
-          <h1 className="footer-huge-text">New Genre</h1>
+          
+          <h1 className="footer-huge-text">SPL Systems</h1>
         </div>
 
         <div className="copyright">
-          © 2021 - 2025 New Genre, Inc. All Rights Reserved
+          © 2014 - 2025 SPL Systems, Inc. All Rights Reserved
         </div>
       </div>
     </div>
