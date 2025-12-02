@@ -101,8 +101,14 @@ body {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 
+  transition: opacity 0.5s ease, transform 0.5s ease;
 
-  transition: background 0.3s ease;
+}
+
+.navbar.hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
 }
 
 
@@ -849,90 +855,118 @@ p {
     transform: translateY(0);
   }
 }
-
-/* Footer */
-.footer {
-  background-color: #09090b;
-  color: white;
-  padding-top: 5rem;
-  padding-bottom: 2.5rem;
-}
-
-.footer-cta {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 5rem;
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .footer-cta {
-    flex-direction: row;
-    align-items: center;
+/* --- NEW FOOTER (TwelveLabs Style) --- */
+  .footer {
+    /* The specific light gray to lime green gradient */
+    background: linear-gradient(180deg, #f4f4f5 0%, #e4e4e7 60%, #bef264 100%);
+    color: #18181b;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
   }
-}
 
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  border-top: 1px solid #27272a;
-  padding-top: 2.5rem;
-  margin-bottom: 4rem;
-}
-
-@media (min-width: 768px) {
   .footer-grid {
-    grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 6rem;
   }
-}
 
-.footer-col h3 {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #d4d4d8;
-  margin-bottom: 1rem;
-}
-
-.footer-col ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.footer-col a {
-  color: #71717a;
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: color 0.2s;
-}
-
-.footer-col a:hover {
-  color: white;
-}
-
-.footer-bottom {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #18181b;
-  padding-top: 2rem;
-  gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .footer-bottom {
-    flex-direction: row;
+  @media (min-width: 640px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
   }
-}
+  @media (min-width: 1024px) {
+    .footer-grid { grid-template-columns: repeat(4, 1fr); }
+  }
 
-.footer-links {
-  display: flex;
-  gap: 1.5rem;
-  font-size: 0.75rem;
-  color: #52525b;
-}
+  .footer-col h3 {
+    font-size: 0.95rem;
+    font-weight: 700; /* Bold headers */
+    color: #000;
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-col a {
+    color: #404040;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+
+  .footer-col a:hover { color: #000; text-decoration: underline; }
+
+  /* Badge styling */
+  .footer-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #71717a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1rem;
+    line-height: 1.2;
+  }
+
+  /* Massive Logo Section */
+  .footer-brand-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    opacity: 0.9;
+  }
+
+  @media (min-width: 768px) {
+    .footer-brand-section {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+
+  /* Mimicking the pixelated graphic block */
+  .brand-graphic {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .bg-row { display: flex; gap: 4px; }
+  .pixel { width: 12px; height: 12px; background: #18181b; border-radius: 2px; }
+
+  .footer-huge-text {
+    font-family: var(--font-sans);
+    font-size: 15vw; /* Responsive huge text */
+    font-weight: 400;
+    line-height: 0.8;
+    color: #18181b;
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+  
+  @media (min-width: 1024px) {
+    .footer-huge-text { font-size: 8rem; }
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #52525b;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 2rem;
+  }
