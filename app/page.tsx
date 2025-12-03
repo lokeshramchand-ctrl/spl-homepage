@@ -13,7 +13,7 @@ export default function Home() {
       <Hero />
       <StatsSection />
       <Features />
-      <Industries />
+    
       <FAQ />
     </main>
     </>

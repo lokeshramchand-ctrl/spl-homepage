@@ -218,14 +218,21 @@ body {
   }
 }
 
-/* Hero Section */
 .hero {
-  background-image: url('./assets/hero2.png');
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 255, 200, 0.2),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(70, 130, 255, 0.25),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    linear-gradient(135deg, #0b0c10, #0f1116);
+  
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   background-attachment: fixed;
-
   padding-top: 8rem;
   padding-bottom: 5rem;
   position: relative;
