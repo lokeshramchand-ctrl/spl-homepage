@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const steps = [
     {
@@ -34,114 +35,128 @@ export default function ProcessSection() {
     },
   ];
 
-  useEffect(() => {
+ useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
-      gsap.from(".process-card", {
-        scrollTrigger: {
-          trigger: ".process-section",
-          start: "top 80%",
-        },
-        opacity: 0,
-        y: 60,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: "power3.out",
-      });
-    }, sectionRef);
+    gsap.from(".process-card", {
+      scrollTrigger: {
+        trigger: ".process-section",
+        start: "top 80%",
+      },
+      opacity: 0,
+      y: 60,
+      duration: 1.2,
+      stagger: 0.2,
+      ease: "power3.out",
+    });
 
-    return () => ctx.revert();
+    // --- DRAG-TO-SCROLL LOGIC ---
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let isDown = false;
+    let startX: number;
+    let scrollLeft: number;
+
+    container.addEventListener("mousedown", (e) => {
+      isDown = true;
+      container.style.cursor = "grabbing";
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+
+    container.addEventListener("mouseleave", () => {
+      isDown = false;
+      container.style.cursor = "grab";
+    });
+
+    container.addEventListener("mouseup", () => {
+      isDown = false;
+      container.style.cursor = "grab";
+    });
+
+    container.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.5; // sensitivity
+      container.scrollLeft = scrollLeft - walk;
+    });
+
+    return () => ScrollTrigger.killAll();
   }, []);
 
   const styles = `
     .process-section {
-      padding: 8rem 0;
-      background: white;
+      padding: 1rem 0;
+      width: 100vw;
     }
 
-    .process-grid {
-      display: grid;
-      gap: 2rem;
-      width: 100%;
-    }
-
-    @media (min-width: 640px) {
-      .process-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .process-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    /* --- UNIFORM CARD --- */
-    .process-card {
-      background: #f9fafb;
-      border-radius: 1.75rem;
-      padding: 2.5rem;
-      min-height: 600px;  /* 🔥 Fixed Size */
-      min-width: 600px;
-      height: 100%;
-      width: 100%;
+    /* HORIZONTAL SCROLL CONTAINER */
+    .scroll-wrapper {
       display: flex;
-      flex-direction: column;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 2rem;
+      gap: 1.5rem;
+      scroll-behavior: smooth;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .process-card {
+      flex: 0 0 600px; /* 🔥 Width stays fixed without breaking layout */
+      height: 500px;
+      background: #f4f4f5;
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      display: flex;
       justify-content: space-between;
-      overflow: hidden;
-      position: relative;
+      flex-direction: column;
       transition: background .45s ease, box-shadow .45s ease;
-      cursor: pointer;
     }
 
     .process-card:hover {
       background: var(--hover);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
     }
 
     .process-title {
       font-size: 2rem;
       font-weight: 600;
-      margin-bottom: 1rem;
-      transition: color .4s ease;
+      transition: color .3s ease;
     }
 
     .process-card:hover .process-title {
-      color: #ffffff;
+      color: #fff;
     }
 
     .process-desc {
-      font-size: 1.125rem;
-      line-height: 1.7;
-      color: #676767;
-      max-width: 90%;
-      transition: color .4s ease;
+      font-size: 1rem;
+      color: #555;
+      transition: color .3s ease;
     }
 
     .process-card:hover .process-desc {
-      color: rgba(255,255,255,0.85);
+      color: #eee;
     }
 
     .process-image-wrapper {
-      width: 100%;
-      height: 260px;
+      height: 240px;
       display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: flex-end;
     }
 
     .process-img {
       height: 100%;
       object-fit: contain;
       mix-blend-mode: multiply;
-      transition: filter .4s ease;
-    }
-
-    .process-card:hover .process-img {
-      mix-blend-mode: normal;
-      filter: brightness(1.2) contrast(1.15);
     }
   `;
 
@@ -150,20 +165,15 @@ export default function ProcessSection() {
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <section className="process-section" ref={sectionRef}>
         <div className="container">
-          <div className="process-grid">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className="process-card"
-                style={{ '--hover': step.hoverColor } as React.CSSProperties}
-              >
+          <div className="scroll-wrapper" ref={scrollRef}>
+            {steps.map((step, i) => (
+              <div key={i} className="process-card" style={{ "--hover": step.hoverColor } as React.CSSProperties}>
                 <div>
                   <h3 className="process-title">{step.title}</h3>
                   <p className="process-desc">{step.desc}</p>
                 </div>
-
                 <div className="process-image-wrapper">
-                  <img src={step.image} className="process-img" alt={step.title} />
+                  {/* <img src={step.image} alt={step.title} className="process-img" /> */}
                 </div>
               </div>
             ))}
