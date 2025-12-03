@@ -99,8 +99,12 @@ export default function ProcessSection() {
       flex-direction: column;
       justify-content: space-between;
       /* Ensures equal height in grid */
-      height: 100%;
       min-height: 500px;
+      width: 100%;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      max-width: 400px;
+      margin: 0 auto;
+            
       overflow: hidden;
       opacity: 1;
       cursor: default;
@@ -121,7 +125,6 @@ export default function ProcessSection() {
     }
 
     .process-content {
-      margin-bottom: 3rem;
     }
 
     .process-title {
