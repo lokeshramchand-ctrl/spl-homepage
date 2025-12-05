@@ -110,7 +110,7 @@ export default function ProcessSection() {
     }
 
     .process-card {
-      flex: 0 0 600px; /* 🔥 Width stays fixed without breaking layout */
+      flex: 0 0 600px; 
       height: 500px;
       background: #f4f4f5;
       border-radius: 1.5rem;
