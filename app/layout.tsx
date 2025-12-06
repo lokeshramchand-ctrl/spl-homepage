@@ -24,7 +24,6 @@ export default function RootLayout({
         <Navigation />
         <NavbarScript />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );
