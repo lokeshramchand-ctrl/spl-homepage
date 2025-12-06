@@ -2,21 +2,22 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import Preloader from "./components/Preloader/Preloader";
+import Navigation from "./components/Navbar/Navigation";
 import Hero from "./components/home/Hero";
 import StatsSection from "./components/home/StatSections";
 import ProcessSection from "./components/home/Features";
 import FAQ from "./components/home/FAQ";
 import Footer from "./components/Footer";
-import Preloader from "./components/Preloader/Preloader";
+
 
 
 export default function Home() {
 
   useEffect(() => {
-    // Initialize Lenis for that "flowy" feel
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
 
@@ -24,68 +25,55 @@ export default function Home() {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
-
     requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, []);
 
   return (
     <main className="main-wrapper">
-      {/* Global Styles for the RGB Theme 
-         We put this here so it applies to ALL components 
-      */}
       <style jsx global>{`
         :root {
-          /* DEEP VOID BLACK BACKGROUND */
           --bg-dark: #020202;
-
-          /* TEXT COLORS */
           --text-white: #ffffff;
-          --text-muted: #94a3b8; /* Cool slate */
-          --text-dim: #475569;
-
-          /* YOUR LOGO ACCENTS (RGB) */
-          --accent-teal: #22c55e;   /* The 'L' Green */
-          --accent-blue: #2563eb;   /* The 'P' Blue */
-          --border-hover: #ef4444;  /* The 'S' Red */
-          
-          /* SHARED VARS */
+          --text-muted: #94a3b8;
+          --accent-teal: #22c55e;
+          --accent-blue: #2563eb;
+          --border-hover: #ef4444;
           --border-light: rgba(123, 146, 214, 0.12);
         }
-
         body {
           background-color: var(--bg-dark);
           margin: 0;
-          padding: 0;
-          overflow-x: hidden; /* Prevent horizontal scrollbars */
+          overflow-x: hidden;
         }
-        
-        /* Smooth selection color */
         ::selection {
-          background: rgba(37, 99, 235, 0.3); /* Blue selection */
+          background: rgba(37, 99, 235, 0.3);
           color: white;
         }
       `}</style>
 
+      {/* Preloader appears first */}
       <Preloader />
 
-      {/* 1. Hero Section */}
-      <section className="relative z-50">
+      {/* Navigation fixed on top */}
+      <Navigation />
+
+      {/* 1. HERO (Home) */}
+      <section id="hero" className="relative z-50">
         <Hero />
       </section>
 
-      {/* 2. Stats Section */}
-      <section className="relative z-40">
+      {/* 2. ABOUT (Stats Section) 
+          Mapped 'About' link here as requested 
+      */}
+      <section id="about" className="relative z-40">
         <StatsSection />
       </section>
 
-      {/* 3. Horizontal Scroll Process 
-          Z-index ensures it sits correctly if shadows overlap 
+      {/* 3. SERVICES (Process Section) 
+          Mapped 'Services' link here as requested
       */}
-      <section className="relative z-30">
+      <section id="services" className="relative z-30">
         <ProcessSection />
       </section>
 
@@ -94,8 +82,8 @@ export default function Home() {
         <FAQ />
       </section>
 
-      {/* 5. Footer */}
-      <section className="relative z-10">
+      {/* 5. CONTACT (Footer) */}
+      <section id="footer" className="relative z-10">
         <Footer />
       </section>
 

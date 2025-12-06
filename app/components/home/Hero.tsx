@@ -29,21 +29,12 @@ export default function Hero() {
     }
 
     /* --- Ambient Background --- */
-    .hero-noise {
-      position: absolute;
-      inset: 0;
-      opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-    }
 
     .aurora-glow {
       position: absolute;
       width: 60vw;
       height: 40vw;
       background: linear-gradient(120deg, #3b82f6, #14b8a6, #8b5cf6);
-      filter: blur(120px);
       opacity: 0.15;
       border-radius: 50%;
       animation: drift 20s infinite alternate;
