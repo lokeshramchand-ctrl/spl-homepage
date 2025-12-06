@@ -1,15 +1,13 @@
 version: "3.9"
 
 services:
-
-  frontend:
+  nextapp:
+    container_name: nextjs_app
     build:
-      context: .\
+      context: .
       dockerfile: Dockerfile
-    container_name: spl_homepage_frontend
     ports:
-      - "5173:80"
-    restart: always
-
-volumes:
-  postgres_data:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped

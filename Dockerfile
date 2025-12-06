@@ -3,23 +3,32 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
-# Install dependencies clean inside the container
+# Install clean dependencies
 RUN npm ci
 
+# Copy project files
 COPY . .
 
-# Ensure esbuild binary is correct for Alpine
-RUN npm rebuild esbuild
-
+# Build Next.js application
 RUN npm run build
 
-# ========= Serve With NGINX =========
-FROM nginx:stable-alpine
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+# ========= Run Stage =========
+FROM node:18-alpine AS runner
 
-EXPOSE 5173
+WORKDIR /app
 
-CMD ["nginx", "-g", "daemon off;"]
+ENV NODE_ENV=production
+
+# Copy only what Next.js needs to run
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/public ./public
+
+EXPOSE 3000
+
+# Run server
+CMD ["npm", "start"]
