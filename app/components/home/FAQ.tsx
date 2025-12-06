@@ -17,19 +17,6 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  /* ✨ GSAP entrance animation */
-  useEffect(() => {
-    const items = sectionRef.current?.querySelectorAll(".faq-card");
-    if (items) {
-      gsap.from(items, {
-        y: 40,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        stagger: 0.12,
-      });
-    }
-  }, []);
 
   const styles = `
   
