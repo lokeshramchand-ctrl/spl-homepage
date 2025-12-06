@@ -17,8 +17,21 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
+  /* ✨ GSAP entrance animation */
+  useEffect(() => {
+    const items = sectionRef.current?.querySelectorAll(".faq-card");
+    if (items) {
+      gsap.from(items, {
+        y: 40,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.out",
+        stagger: 0.12,
+      });
+    }
+  }, []);
 
-  const styles = `
+  const style = `
   
 .faq-wrapper {
   background: #0f0f10;
@@ -91,9 +104,11 @@ export default function FAQ() {
   `;
 
   return (
+    <>
+    <style dangerouslySetInnerHTML={{ __html: style      }} />
     <section className="faq-wrapper" ref={sectionRef}>
       <div className="container">
-        
+
         {/* Fancy Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -103,7 +118,7 @@ export default function FAQ() {
         >
           Frequently Asked <span>Questions</span>
         </motion.h2>
-        
+
         <div className="faq-list">
           {faqData.map((item, index) => (
             <motion.div
@@ -143,5 +158,6 @@ export default function FAQ() {
         </div>
       </div>
     </section>
+    </>
   );
 }
