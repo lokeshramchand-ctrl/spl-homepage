@@ -1,5 +1,70 @@
 import { ArrowRight } from 'lucide-react';
+const styles = `
+.stats-section {
+  background: white;
+  padding: 6rem 0;
+}
 
+.stats-intro-grid {
+  display: grid;
+  gap: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .stats-intro-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #18181b;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.text-muted {
+  color: #52525b;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid #e4e4e7;
+}
+
+@media (min-width: 768px) {
+  .stats-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stat-card {
+  padding: 1rem;
+}
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #18181b;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #71717a;
+  line-height: 1.5;
+  text-align: left;
+}
+
+`;
 export default function StatsSection() {
   return (
     <div className="stats-section">
