@@ -12,7 +12,7 @@ RUN npm ci
 COPY . .
 
 # Build Next.js application
-RUN npm run build
+RUN npm install
 
 
 # ========= Run Stage =========
@@ -31,4 +31,4 @@ COPY --from=builder /app/public ./public
 EXPOSE 3000
 
 # Run server
-CMD ["npm", "start"]
+CMD ["npm", "run" , "dev"]
