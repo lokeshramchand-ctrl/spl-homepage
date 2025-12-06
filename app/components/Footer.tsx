@@ -227,7 +227,7 @@ export default function Footer() {
               <span style={{color: '#a1a1aa', fontStyle: 'italic'}}>digital infrastructure?</span>
             </h2>
             <a href="#" className="cta-button">
-              Get Started <ArrowUpRight size={20} className="transition-transform duration-300" />
+              Coming Soon <ArrowUpRight size={20} className="transition-transform duration-300" />
             </a>
           </div>
 

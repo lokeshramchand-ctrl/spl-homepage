@@ -3,33 +3,32 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-import "./FAQ.css"; // Ensure you import the CSS file
 
 const faqData = [
   {
     id: 1,
-    q: "What is AutoBiz.ai?",
-    a: "AutoBiz.ai is an AI-driven automation engine designed to accelerate business workflows, improve operational efficiency, and increase digital scalability seamlessly.",
+    q: "What services does your company provide?",
+    a: "We build custom software solutions tailored to business needs — including web applications, enterprise systems, AI-powered platforms, mobile apps, automation tools, and workflow systems."
   },
   {
     id: 2,
-    q: "How does integration work?",
-    a: "We plug directly into your existing systems via APIs — no infrastructure rewriting needed. Our team handles the handshake, so setup takes minutes, not months.",
+    q: "What industries do you work with?",
+    a: "We work with startups, SMEs, and enterprise organizations across multiple sectors such as education, finance, manufacturing, healthcare, logistics, and e-commerce."
   },
   {
     id: 3,
-    q: "Can AI improve customer success?",
-    a: "Absolutely. Our AI automates onboarding, support responses, sentiment prediction, and provides real-time actionable insights that significantly boost retention rates.",
+    q: "Do you develop AI-powered solutions?",
+    a: "Yes. We design and deploy AI systems including document understanding, answer-sheet evaluation, chatbot assistants, predictive analytics, and automation models trained specifically for your operations."
   },
   {
     id: 4,
-    q: "Does it work with CRM tools?",
-    a: "We support native deep-integrations with HubSpot, Salesforce, Notion, Airtable, and offer a robust SDK for custom CRM architectures.",
+    q: "Can you build software based on our unique workflow or use case?",
+    a: "Absolutely. Every solution is built around your business process — not the other way around. We analyze requirements, map your workflow, and deliver a scalable product that fits your ecosystem."
   },
   {
     id: 5,
-    q: "Is my data secure?",
-    a: "Security is our bedrock. Your data is encrypted end-to-end (AES-256) and processed in private enclaves. We are fully SOC2 Type II and GDPR compliant.",
+    q: "Do you support mobile and cross-platform applications?",
+    a: "Yes — we build native Android/iOS apps, Flutter cross-platform products, and internal device-specific applications depending on the project requirements."
   },
 ];
 
@@ -58,6 +57,275 @@ const itemAnim = {
     },
   }),
 };
+const styles = `
+/* --- Imports & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
+
+/* --- Variables --- */
+:root {
+  --bg-dark: #050505;
+  --text-main: #ffffff;
+  --text-muted: #a1a1aa; /* Zinc 400 */
+  --text-dim: #52525b;   /* Zinc 600 */
+  
+  --accent-teal: #2dd4bf;
+  --accent-blue: #3b82f6;
+  
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(45, 212, 191, 0.3);
+  
+  --surface-hover: rgba(255, 255, 255, 0.03);
+  
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-editorial: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* --- Global Reset & Base --- */
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(45, 212, 191, 0.2); /* Teal selection */
+  color: var(--accent-teal);
+}
+
+.faq-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  padding: 6rem 1.5rem;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 1;
+  opacity: 0.15;
+}
+
+.orb-1 {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: var(--accent-teal);
+}
+
+.orb-2 {
+  bottom: -10%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: var(--accent-blue);
+}
+
+/* --- Container --- */
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* --- Header Section --- */
+.header-section {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+
+.pill-label {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.main-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.word-wrapper {
+  display: inline-flex;
+  overflow: hidden;
+  margin-right: 0.3em;
+}
+
+.char-span {
+  display: inline-block;
+}
+
+.highlight-italic {
+  font-style: italic;
+  background: linear-gradient(90deg, #4ade80, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.1em; /* Prevent italic clipping */
+}
+
+/* --- FAQ List --- */
+.faq-list {
+  border-top: 1px solid var(--border-light);
+}
+
+/* --- FAQ Item --- */
+.faq-item {
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.4s ease;
+}
+
+.faq-item:hover {
+  background-color: var(--surface-hover);
+}
+
+.faq-item.active {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Trigger Button --- */
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .faq-trigger {
+    padding: 2.5rem 2rem;
+  }
+}
+
+.faq-index {
+  font-family: 'Inter', monospace; /* Monospaced look */
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  margin-right: 2rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .faq-index {
+    display: block;
+  }
+}
+
+.faq-question {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .faq-question {
+    font-size: 1.5rem;
+  }
+}
+
+.faq-item:hover .faq-question {
+  color: #e4e4e7;
+}
+
+.faq-item.active .faq-question {
+  color: var(--text-main);
+}
+
+/* --- Icon Wrapper --- */
+.icon-wrapper {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+  margin-left: 1rem;
+}
+
+.faq-item:hover .icon-wrapper {
+  border-color: var(--border-hover);
+  background: rgba(45, 212, 191, 0.05);
+}
+
+.icon {
+  position: absolute;
+}
+
+.icon-plus {
+  color: var(--text-muted);
+}
+
+.icon-minus {
+  color: var(--accent-teal);
+}
+
+/* --- Answer Content --- */
+.faq-answer-wrapper {
+  overflow: hidden;
+}
+
+.faq-answer {
+  padding: 0 1rem 2.5rem 1rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 650px;
+}
+
+@media (min-width: 768px) {
+  .faq-answer {
+    padding: 0 2rem 2.5rem 6rem; /* Indented alignment */
+  }
+}
+
+/* --- Footer --- */
+.faq-footer {
+  margin-top: 5rem;
+  text-align: center;
+  color: var(--text-dim);
+}
+
+.contact-link {
+  color: var(--text-main);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--text-dim);
+  transition: all 0.2s;
+}
+
+.contact-link:hover {
+  color: var(--accent-teal);
+  text-decoration-color: var(--accent-teal);
+}`;
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -66,6 +334,9 @@ export default function FAQ() {
   const highlightText = "Questions";
 
   return (
+    <>
+          <style dangerouslySetInnerHTML={{ __html: styles }} />
+
     <main className="faq-page">
       {/* Visual Effects */}
       <div className="noise-overlay" />
@@ -203,5 +474,6 @@ export default function FAQ() {
         </motion.div>
       </div>
     </main>
+    </>
   );
 }
