@@ -7,6 +7,7 @@ import StatsSection from "./components/home/StatSections";
 import ProcessSection from "./components/home/Features";
 import FAQ from "./components/home/FAQ";
 import Footer from "./components/Footer";
+import Preloader from "./components/Preloader/Preloader";
 
 
 export default function Home() {
@@ -68,6 +69,8 @@ export default function Home() {
           color: white;
         }
       `}</style>
+
+      <Preloader />
 
       {/* 1. Hero Section */}
       <section className="relative z-50">
