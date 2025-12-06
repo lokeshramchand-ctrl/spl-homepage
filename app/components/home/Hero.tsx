@@ -101,6 +101,7 @@ export default function Hero() {
 
     /* --- Typography --- */
     .hero-title {
+    padding-top: 5rem;
       font-family: 'Instrument Serif', serif;
       font-size: clamp(3rem, 7vw, 6rem);
       line-height: 1.05;
@@ -227,15 +228,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
           >
-            {/* Trust Badge */}
-            <motion.div variants={itemVars} className="hero-badge">
-              <div className="stars-wrapper">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={12} fill="currentColor" strokeWidth={0} />
-                ))}
-              </div>
-              <span className="badge-text">Rated 4.9/5 by industry leaders</span>
-            </motion.div>
+           
 
             {/* Main Title - Split for emphasis */}
             <h1 className="hero-title">
