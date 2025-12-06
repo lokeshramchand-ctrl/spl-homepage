@@ -12,22 +12,22 @@ export default function StatsSection() {
           </div>
           <div>
             <p className="text-muted">
-              At AutoBiz, we warmly invite you to arrange an in-depth consultation designed to thoroughly examine the intricacies of your business.
+             SPL Systems has been at the forefront of digital transformation for over 10 years, delivering innovative software solutions that drive business growth and operational efficiency.
             </p>
             <p className="text-muted">
-              Our team of highly experienced professionals is committed to delivering tailored advice that addresses your distinct needs and ambitions.
+             Our expertise spans from comprehensive examination management systems to complex digitization projects, ensuring quality and confidentiality in every engagement.
             </p>
-            <button className="btn btn-link">
+            {/* <button className="btn btn-link">
               Learn More <ArrowRight size={16} style={{marginLeft:'0.5rem'}} />
-            </button>
+            </button> */}
           </div>
         </div>
 
         <div className="stats-cards">
           {[
-            { value: '100%', label: 'Strategies for Business Growth and Market Expansion' },
-            { value: '90%', label: 'Global Corporations and Multinational Enterprises' },
-            { value: '10k', label: 'Companies collaborate to achieve goals and innovate' }
+            { value: '10+', label: 'Years of Experience' },
+            { value: '200+', label: 'Projects Delivered' },
+            { value: '99%', label: 'Client Satisfaction' }
           ].map((stat, idx) => (
             <div key={idx} className="stat-card">
               <div className="stat-value">{stat.value}</div>
