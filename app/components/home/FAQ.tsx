@@ -1,163 +1,207 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import gsap from "gsap";
-import { ChevronDown } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
+import "./FAQ.css"; // Ensure you import the CSS file
 
 const faqData = [
-  { q: "What is AutoBiz.ai?", a: "AutoBiz.ai is an AI-driven automation engine designed to accelerate business workflows, improve operational efficiency, and increase digital scalability." },
-  { q: "How does integration work?", a: "We plug directly into your existing systems via APIs — no infrastructure rewriting needed. Setup takes minutes, not months." },
-  { q: "Can AI improve customer success?", a: "Yes — our AI automates onboarding, support responses, sentiment prediction, and insights that boost retention." },
-  { q: "Does it work with CRM tools?", a: "We support integrations with HubSpot, Salesforce, Notion, Airtable and custom CRMs with authentication support." },
-  { q: "Is my data secure?", a: "Your data is encrypted end-to-end and processed privately. We comply with SOC2, GDPR, and enterprise-grade compliance." },
+  {
+    id: 1,
+    q: "What is AutoBiz.ai?",
+    a: "AutoBiz.ai is an AI-driven automation engine designed to accelerate business workflows, improve operational efficiency, and increase digital scalability seamlessly.",
+  },
+  {
+    id: 2,
+    q: "How does integration work?",
+    a: "We plug directly into your existing systems via APIs — no infrastructure rewriting needed. Our team handles the handshake, so setup takes minutes, not months.",
+  },
+  {
+    id: 3,
+    q: "Can AI improve customer success?",
+    a: "Absolutely. Our AI automates onboarding, support responses, sentiment prediction, and provides real-time actionable insights that significantly boost retention rates.",
+  },
+  {
+    id: 4,
+    q: "Does it work with CRM tools?",
+    a: "We support native deep-integrations with HubSpot, Salesforce, Notion, Airtable, and offer a robust SDK for custom CRM architectures.",
+  },
+  {
+    id: 5,
+    q: "Is my data secure?",
+    a: "Security is our bedrock. Your data is encrypted end-to-end (AES-256) and processed in private enclaves. We are fully SOC2 Type II and GDPR compliant.",
+  },
 ];
 
+// Animation Variants
+const letterAnim = {
+  hidden: { y: "100%" },
+  visible: (i: number) => ({
+    y: 0,
+    transition: {
+      delay: i * 0.03,
+      duration: 0.8,
+      ease: [0.2, 0.65, 0.3, 0.9],
+    },
+  }),
+};
+
+const itemAnim = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  }),
+};
+
 export default function FAQ() {
-  const [open, setOpen] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  /* ✨ GSAP entrance animation */
-  useEffect(() => {
-    const items = sectionRef.current?.querySelectorAll(".faq-card");
-    if (items) {
-      gsap.from(items, {
-        y: 40,
-        opacity: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        stagger: 0.12,
-      });
-    }
-  }, []);
-
-  const style = `
-  
-.faq-wrapper {
-  background: #0f0f10;
-  padding: 8rem 0;
-  color: white;
-}
-
-.faq-title {
-  text-align: center;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  font-family: "Instrument Serif", serif;
-  font-weight: 700;
-  margin-bottom: 4rem;
-  letter-spacing: -1px;
-}
-
-.faq-title span {
-  background: linear-gradient(90deg, #14b8a6, #3b82f6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.faq-list {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.faq-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 1.5rem 1.75rem;
-  transition: border 0.3s, box-shadow 0.3s;
-}
-
-.faq-card:hover {
-  border-color: rgba(20,184,166,0.4);
-  box-shadow: 0 0 15px rgba(20,184,166,0.15);
-}
-
-.faq-header {
-  width: 100%;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.faq-body {
-  overflow: hidden;
-  margin-top: 0.75rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 1rem;
-}
-
-.faq-body p {
-  font-size: 0.95rem;
-  color: #d1d5db;
-  line-height: 1.7;
-}
-  `;
+  const titleText = "Frequently Asked";
+  const highlightText = "Questions";
 
   return (
-    <>
-    <style dangerouslySetInnerHTML={{ __html: style      }} />
-    <section className="faq-wrapper" ref={sectionRef}>
+    <main className="faq-page">
+      {/* Visual Effects */}
+      <div className="noise-overlay" />
+      <div className="gradient-orb orb-1" />
+      <div className="gradient-orb orb-2" />
+
       <div className="container">
+        {/* Header */}
+        <div className="header-section">
+          <motion.div 
+            className="pill-label"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Support & Info
+          </motion.div>
 
-        {/* Fancy Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="faq-title"
-        >
-          Frequently Asked <span>Questions</span>
-        </motion.h2>
-
-        <div className="faq-list">
-          {faqData.map((item, index) => (
-            <motion.div
-              className="faq-card"
-              key={index}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 120 }}
-            >
-              <button
-                className="faq-header"
-                onClick={() => setOpen(open === index ? null : index)}
-              >
-                <span>{item.q}</span>
-                <motion.div
-                  animate={{ rotate: open === index ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
+          <h2 className="main-title">
+            <span className="word-wrapper">
+              {titleText.split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={letterAnim}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="char-span"
                 >
-                  <ChevronDown size={22} />
-                </motion.div>
-              </button>
-
-              <AnimatePresence>
-                {open === index && (
-                  <motion.div
-                    className="faq-body"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.35 }}
-                  >
-                    <p>{item.a}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </span>
+            <span className="word-wrapper highlight-italic">
+              {highlightText.split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  custom={i + titleText.length}
+                  variants={letterAnim}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="char-span"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          </h2>
         </div>
+
+        {/* FAQ List */}
+        <motion.div className="faq-list" layout>
+          {faqData.map((item, index) => {
+            const isOpen = openIndex === index;
+            
+            return (
+              <motion.div
+                key={item.id}
+                className={`faq-item ${isOpen ? "active" : ""}`}
+                custom={index}
+                variants={itemAnim}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  className="faq-trigger"
+                >
+                  <span className="faq-index">0{index + 1}</span>
+                  <span className="faq-question">{item.q}</span>
+                  
+                  <div className="icon-wrapper">
+                    <AnimatePresence mode="wait">
+                      {isOpen ? (
+                        <motion.div
+                          key="minus"
+                          initial={{ rotate: -90, opacity: 0 }}
+                          animate={{ rotate: 0, opacity: 1 }}
+                          exit={{ rotate: 90, opacity: 0 }}
+                          className="icon"
+                        >
+                          <Minus size={16} className="icon-minus" />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="plus"
+                          initial={{ rotate: 90, opacity: 0 }}
+                          animate={{ rotate: 0, opacity: 1 }}
+                          exit={{ rotate: -90, opacity: 0 }}
+                          className="icon"
+                        >
+                          <Plus size={16} className="icon-plus" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </button>
+
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      className="faq-answer-wrapper"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ 
+                        height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }, 
+                        opacity: { duration: 0.25 } 
+                      }}
+                    >
+                      <div className="faq-answer">
+                        <p>{item.a}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Footer */}
+        <motion.div 
+          className="faq-footer"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
+          <p>
+            Still have questions? <a href="#" className="contact-link">Contact Support</a>
+          </p>
+        </motion.div>
       </div>
-    </section>
-    </>
+    </main>
   );
 }
