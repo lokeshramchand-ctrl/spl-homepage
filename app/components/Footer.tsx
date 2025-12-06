@@ -234,7 +234,7 @@ export default function Footer() {
           {/* Links Grid */}
           <div className="footer-grid">
             {/* Column 1 */}
-            <div className="footer-col">
+            {/* <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                 <h3>Product</h3>
                 <ul>
@@ -245,9 +245,9 @@ export default function Footer() {
                   <li><a href="#" className="footer-link">Pricing</a></li>
                 </ul>
               </motion.div>
-            </div>
+            </div> */}
 
-            {/* Column 2 */}
+            {/* Column 2
             <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                 <h3>Resources</h3>
@@ -258,7 +258,7 @@ export default function Footer() {
                   <li><a href="#" className="footer-link">Status</a></li>
                 </ul>
               </motion.div>
-            </div>
+            </div> */}
 
             {/* Column 3 */}
             <div className="footer-col">
@@ -273,7 +273,7 @@ export default function Footer() {
               </motion.div>
             </div>
 
-            {/* Column 4 - Badge */}
+            {/* Column 4 - Badge
             <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
                 <h3>Security</h3>
@@ -286,7 +286,7 @@ export default function Footer() {
                   AICPA<br />SOC 2
                 </div>
               </motion.div>
-            </div>
+            </div> */}
           </div>
 
           {/* Huge Brand Section */}
@@ -301,10 +301,10 @@ export default function Footer() {
             </div>
             
             <div className="social-links">
-              <a href="#" className="social-icon"><Twitter size={20} /></a>
+              {/* <a href="#" className="social-icon"><Twitter size={20} /></a> */}
               <a href="#" className="social-icon"><Linkedin size={20} /></a>
-              <a href="#" className="social-icon"><Github size={20} /></a>
-              <a href="#" className="social-icon"><Instagram size={20} /></a>
+              {/* <a href="#" className="social-icon"><Github size={20} /></a>
+              <a href="#" className="social-icon"><Instagram size={20} /></a> */}
             </div>
           </div>
 
