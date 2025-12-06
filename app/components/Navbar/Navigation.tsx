@@ -212,8 +212,7 @@ export default function Navigation() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-      
+      <style dangerouslySetInnerHTML={{ __html: styles }} />      
       <nav className={`navbar-fixed nav-glass ${isVisible || isOpen ? 'nav-visible' : 'nav-hidden'}`}>
         <div className="nav-container">
           
