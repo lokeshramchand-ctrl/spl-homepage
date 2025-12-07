@@ -188,6 +188,7 @@ export default function Navigation() {
   `;
 
 // ...existing code...
+// ...existing code...
 
 const menuVariants = {
   closed: {
@@ -195,7 +196,7 @@ const menuVariants = {
     y: "-100%",
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
+      ease: "easeInOut" as any,
     },
   },
   open: {
@@ -203,10 +204,12 @@ const menuVariants = {
     y: 0,
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
+      ease: "easeInOut" as any,
     },
   },
 };
+
+// ...existing code...
 
   const linkVariants = {
     closed: { y: 20, opacity: 0 },
@@ -270,7 +273,6 @@ const menuVariants = {
                 <motion.div
                   key={link.name}
                   custom={i}
-                  variants={linkVariants}
                 >
                   <Link
                     href={link.href}
