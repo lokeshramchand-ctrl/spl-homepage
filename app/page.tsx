@@ -53,7 +53,7 @@ export default function Home() {
       `}</style>
 
       {/* Preloader appears first */}
-      <Preloader />
+      {/* <Preloader /> */}
 
       {/* Navigation fixed on top */}
       <Navigation />
