@@ -262,19 +262,6 @@ export default function Hero() {
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Scroll Hint */}
-        <motion.div 
-          className="scroll-indicator"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ delay: 1.5, duration: 1 }}
-        >
-          <div className="mouse-icon">
-            <MousePointer2 size={20} strokeWidth={1} />
-          </div>
-          <span>Scroll</span>
-        </motion.div>
       </div>
     </>
   );
