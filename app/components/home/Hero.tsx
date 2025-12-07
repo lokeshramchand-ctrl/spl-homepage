@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Star, MousePointer2 } from "lucide-react";
+import { ArrowRight, MousePointer2 } from "lucide-react";
 
 export default function Hero() {
   const styles = `
@@ -201,7 +201,11 @@ export default function Hero() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+      transition: { 
+        duration: 0.8, 
+        // FIXED: Added 'as const' here
+        ease: [0.22, 1, 0.36, 1] as const 
+      },
     },
   };
 
@@ -221,7 +225,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
           >
-           
+            
 
             {/* Main Title - Split for emphasis */}
             <h1 className="hero-title">
