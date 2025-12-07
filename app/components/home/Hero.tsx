@@ -92,12 +92,14 @@ export default function Hero() {
 
     /* --- Typography --- */
     .hero-title {
-    padding-top: 5rem;
+    padding-top: 7rem;
       font-family: 'Instrument Serif', serif;
       font-size: clamp(3rem, 7vw, 6rem);
-      line-height: 1.05;
+      line-height: 1.15;
       font-weight: 400;
       letter-spacing: -0.02em;
+          
+
     }
 
     .hero-title span {

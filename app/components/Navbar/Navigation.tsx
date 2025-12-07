@@ -187,19 +187,26 @@ export default function Navigation() {
     }
   `;
 
-  // --- Animation Variants ---
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      y: "-100%",
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] }
+// ...existing code...
+
+const menuVariants = {
+  closed: {
+    opacity: 0,
+    y: "-100%",
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
     },
-    open: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] }
-    }
-  };
+  },
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+};
 
   const linkVariants = {
     closed: { y: 20, opacity: 0 },

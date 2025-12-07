@@ -159,6 +159,7 @@ export default function Footer() {
       display: flex;
       justify-content: center;
       border-bottom: 1px solid var(--border-light);
+      padding-bottom: 4rem;
     }
 
     .footer-huge-text {
@@ -247,19 +248,6 @@ export default function Footer() {
               </motion.div>
             </div> */}
 
-            {/* Column 2
-            <div className="footer-col">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <h3>Resources</h3>
-                <ul>
-                  <li><a href="#" className="footer-link">Documentation</a></li>
-                  <li><a href="#" className="footer-link">API Reference</a></li>
-                  <li><a href="#" className="footer-link">Community</a></li>
-                  <li><a href="#" className="footer-link">Status</a></li>
-                </ul>
-              </motion.div>
-            </div> */}
-
             {/* Column 3 */}
             <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
@@ -272,6 +260,18 @@ export default function Footer() {
                 </ul>
               </motion.div>
             </div>
+            <div className="footer-col">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <h3>Contact</h3>
+                <ul>
+                  <li><a href="#" className="footer-link">Documentation</a></li>
+                  <li><a href="#" className="footer-link">API Reference</a></li>
+                  <li><a href="#" className="footer-link">Community</a></li>
+                  <li><a href="#" className="footer-link">Status</a></li>
+                </ul>
+              </motion.div>
+            </div>
+
 
             {/* Column 4 - Badge
             <div className="footer-col">

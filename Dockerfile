@@ -1,22 +1,21 @@
 # ========= Build Stage =========
-FROM node:18-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
 COPY package*.json ./
 
-# Install clean dependencies
+# Install dependencies
 RUN npm ci
 
 # Copy project files
 COPY . .
 
 # Build Next.js application
-RUN npm install
-
+RUN npm run build
 
 # ========= Run Stage =========
-FROM node:18-alpine AS runner
+FROM node:24-alpine AS runner
 
 WORKDIR /app
 
@@ -31,4 +30,4 @@ COPY --from=builder /app/public ./public
 EXPOSE 3000
 
 # Run server
-CMD ["npm", "run" , "dev"]
+CMD ["npm", "start"]
