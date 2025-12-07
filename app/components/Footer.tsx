@@ -264,10 +264,9 @@ export default function Footer() {
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                 <h3>Contact</h3>
                 <ul>
-                  <li><a href="#" className="footer-link">Documentation</a></li>
-                  <li><a href="#" className="footer-link">API Reference</a></li>
-                  <li><a href="#" className="footer-link">Community</a></li>
-                  <li><a href="#" className="footer-link">Status</a></li>
+                  <li><a href="#" className="footer-link">Email</a></li>
+                  <li><a href="#" className="footer-link">Phone</a></li>
+                  <li><a href="#" className="footer-link">1281 9th Ave , Unit 1506 San Diego CA 92101</a></li>
                 </ul>
               </motion.div>
             </div>
