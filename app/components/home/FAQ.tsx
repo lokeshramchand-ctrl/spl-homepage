@@ -40,7 +40,8 @@ const letterAnim = {
     transition: {
       delay: i * 0.03,
       duration: 0.8,
-      ease: [0.2, 0.65, 0.3, 0.9],
+      // FIXED: Added 'as const' here
+      ease: [0.2, 0.65, 0.3, 0.9] as const,
     },
   }),
 };
@@ -53,10 +54,11 @@ const itemAnim = {
     transition: {
       delay: i * 0.1,
       duration: 0.5,
-      ease: "easeOut",
+      ease: [0.4, 0, 0.2, 1] as const,
     },
   }),
 };
+
 const styles = `
 /* --- Imports & Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
@@ -335,145 +337,146 @@ export default function FAQ() {
 
   return (
     <>
-          <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <style dangerouslySetInnerHTML={{ __html: styles }} />
 
-    <main className="faq-page">
-      {/* Visual Effects */}
-      <div className="noise-overlay" />
-      <div className="gradient-orb orb-1" />
-      <div className="gradient-orb orb-2" />
+      <main className="faq-page">
+        {/* Visual Effects */}
+        <div className="noise-overlay" />
+        <div className="gradient-orb orb-1" />
+        <div className="gradient-orb orb-2" />
 
-      <div className="container">
-        {/* Header */}
-        <div className="header-section">
-          <motion.div 
-            className="pill-label"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Support & Info
+        <div className="container">
+          {/* Header */}
+          <div className="header-section">
+            <motion.div 
+              className="pill-label"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              Support & Info
+            </motion.div>
+
+            <h2 className="main-title">
+              <span className="word-wrapper">
+                {titleText.split("").map((char, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i}
+                    variants={letterAnim}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="char-span"
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </span>
+              <span className="word-wrapper highlight-italic">
+                {highlightText.split("").map((char, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i + titleText.length}
+                    variants={letterAnim}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="char-span"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            </h2>
+          </div>
+
+          {/* FAQ List */}
+          <motion.div className="faq-list" layout>
+            {faqData.map((item, index) => {
+              const isOpen = openIndex === index;
+              
+              return (
+                <motion.div
+                  key={item.id}
+                  className={`faq-item ${isOpen ? "active" : ""}`}
+                  custom={index}
+                  variants={itemAnim}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="faq-trigger"
+                  >
+                    <span className="faq-index">0{index + 1}</span>
+                    <span className="faq-question">{item.q}</span>
+                    
+                    <div className="icon-wrapper">
+                      <AnimatePresence mode="wait">
+                        {isOpen ? (
+                          <motion.div
+                            key="minus"
+                            initial={{ rotate: -90, opacity: 0 }}
+                            animate={{ rotate: 0, opacity: 1 }}
+                            exit={{ rotate: 90, opacity: 0 }}
+                            className="icon"
+                          >
+                            <Minus size={16} className="icon-minus" />
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="plus"
+                            initial={{ rotate: 90, opacity: 0 }}
+                            animate={{ rotate: 0, opacity: 1 }}
+                            exit={{ rotate: -90, opacity: 0 }}
+                            className="icon"
+                          >
+                            <Plus size={16} className="icon-plus" />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </button>
+
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        className="faq-answer-wrapper"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ 
+                          // FIXED: Added 'as const' here as well
+                          height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] as const }, 
+                          opacity: { duration: 0.25 } 
+                        }}
+                      >
+                        <div className="faq-answer">
+                          <p>{item.a}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </motion.div>
 
-          <h2 className="main-title">
-            <span className="word-wrapper">
-              {titleText.split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  custom={i}
-                  variants={letterAnim}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="char-span"
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
-            </span>
-            <span className="word-wrapper highlight-italic">
-              {highlightText.split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  custom={i + titleText.length}
-                  variants={letterAnim}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="char-span"
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          </h2>
+          {/* Footer */}
+          <motion.div 
+            className="faq-footer"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+            <p>
+              Still have questions? <a href="#" className="contact-link">Contact Support</a>
+            </p>
+          </motion.div>
         </div>
-
-        {/* FAQ List */}
-        <motion.div className="faq-list" layout>
-          {faqData.map((item, index) => {
-            const isOpen = openIndex === index;
-            
-            return (
-              <motion.div
-                key={item.id}
-                className={`faq-item ${isOpen ? "active" : ""}`}
-                custom={index}
-                variants={itemAnim}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="faq-trigger"
-                >
-                  <span className="faq-index">0{index + 1}</span>
-                  <span className="faq-question">{item.q}</span>
-                  
-                  <div className="icon-wrapper">
-                    <AnimatePresence mode="wait">
-                      {isOpen ? (
-                        <motion.div
-                          key="minus"
-                          initial={{ rotate: -90, opacity: 0 }}
-                          animate={{ rotate: 0, opacity: 1 }}
-                          exit={{ rotate: 90, opacity: 0 }}
-                          className="icon"
-                        >
-                          <Minus size={16} className="icon-minus" />
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="plus"
-                          initial={{ rotate: 90, opacity: 0 }}
-                          animate={{ rotate: 0, opacity: 1 }}
-                          exit={{ rotate: -90, opacity: 0 }}
-                          className="icon"
-                        >
-                          <Plus size={16} className="icon-plus" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </button>
-
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      className="faq-answer-wrapper"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ 
-                        height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }, 
-                        opacity: { duration: 0.25 } 
-                      }}
-                    >
-                      <div className="faq-answer">
-                        <p>{item.a}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* Footer */}
-        <motion.div 
-          className="faq-footer"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          <p>
-            Still have questions? <a href="#" className="contact-link">Contact Support</a>
-          </p>
-        </motion.div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }
