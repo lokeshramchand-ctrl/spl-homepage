@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
+import logo from '../../assets/g2.png';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +17,7 @@ export default function Navigation() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
-      const footerThreshold = 600; 
+      const footerThreshold = 600;
 
       if (docHeight - scrollPosition < footerThreshold) {
         setIsVisible(false);
@@ -191,13 +193,19 @@ export default function Navigation() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />      
+      <style dangerouslySetInnerHTML={{ __html: styles }} />
       <nav className={`navbar-fixed nav-glass ${isVisible || isOpen ? 'nav-visible' : 'nav-hidden'}`}>
         <div className="nav-container">
-          
           {/* Logo */}
           <Link href="/" className="logo-text" onClick={() => setIsOpen(false)}>
-            SPL Systems
+            <Image
+              src={logo}
+              alt="SPL Systems"
+              height={40}
+              width={120}
+              style={{ width: 'auto', height: '40px' }}
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -215,8 +223,8 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
-            className="menu-btn" 
+          <button
+            className="menu-btn"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -229,7 +237,7 @@ export default function Navigation() {
       {isOpen && (
         <div className="mobile-overlay">
           <div className="mobile-bg-noise" />
-          
+
           <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column' }}>
             {navLinks.map((link) => (
               <div key={link.name}>
@@ -245,11 +253,11 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Footer Details */}
-          <div 
-            style={{ 
-              marginTop: 'auto', 
-              borderTop: '1px solid rgba(255,255,255,0.1)', 
-              paddingTop: '2rem' 
+          <div
+            style={{
+              marginTop: 'auto',
+              borderTop: '1px solid rgba(255,255,255,0.1)',
+              paddingTop: '2rem'
             }}
           >
             <p style={{ color: '#52525b', fontSize: '0.875rem' }}>
