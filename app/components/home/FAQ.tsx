@@ -163,12 +163,11 @@ const styles = `
 }
 
 .main-title {
-  /* Updated to Montserrat ExtraBold (800) to match Logo */
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Instrument  Sans', sans-serif;
   font-size: clamp(3rem, 8vw, 5.5rem);
   line-height: 1.1;
-  letter-spacing: -0.02em;
-  font-weight: 800; 
+  letter-spacing: -0.05em;
+  font-weight: 500; 
 }
 
 .word-wrapper {
