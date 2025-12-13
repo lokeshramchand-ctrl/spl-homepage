@@ -173,15 +173,7 @@ export default function Navigation() {
       background: var(--brand-blue); /* Solid blue for active state stability */
     }
 
-    /* --- Theme Toggle Wrapper --- */
-    /* This makes the toggle look integrated, not just placed there */
-    .toggle-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-left: 1.5rem;
-        height: 60px;
-    }
+  
 
     /* --- Mobile Menu Button --- */
     .menu-btn {
