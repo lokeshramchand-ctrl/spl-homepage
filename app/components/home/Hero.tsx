@@ -1,247 +1,266 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, MousePointer2 } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const styles = `
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400&display=swap');
 
     :root {
---bg-dark: #050505;
+      --bg-dark: #050505;
       --text-white: #ffffff;
       --text-muted: #a1a1aa;
-
+      
+      /* SPL Brand Gradients */
       --grad-red: linear-gradient(135deg, #FF512F, #DD2476);
       --grad-blue: linear-gradient(135deg, #00C6FB, #005BEA);
-      --grad-green: linear-gradient(135deg, #11998e, #38ef7d);
-      --grad-main: linear-gradient(135deg, #00C6FB, #DD2476);
+      --grad-text: linear-gradient(90deg, #ffffff, #a1a1aa);
     }
 
     .hero-wrapper {
       position: relative;
-      height: 100vh;
+      min-height: 100vh;
       width: 100%;
       background-color: var(--bg-dark);
-      color: var(--text-white);
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    /* --- Ambient Background --- */
-
-    .aurora-glow {
-      position: absolute;
-      width: 60vw;
-      height: 40vw;
-      background: var(--grad-main);
-      opacity: 0.15;
-      border-radius: 50%;
-      animation: drift 20s infinite alternate;
-      z-index: 0;
-    }
-
-    .glow-1 { top: -10%; left: -10%; animation-delay: 0s; }
-    .glow-2 { bottom: -10%; right: -10%; animation-delay: -10s; background: var(--grad-green); }
-
-    @keyframes drift {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(5%, 10%) scale(1.1); }
-    }
-
-    /* --- Content --- */
-    .container {
-      position: relative;
-      z-index: 10;
-      max-width: 1200px;
-      padding: 0 2rem;
-      width: 100%;
-    }
-
-    .hero-content {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 2.5rem;
-      max-width: 900px;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 0 1.5rem;
     }
 
+    /* --- Ambient Background (Subtle & Clean) --- */
+    .ambient-glow {
+      position: absolute;
+      width: 60vw;
+      height: 60vw;
+      filter: blur(120px);
+      opacity: 0.15;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+      animation: pulseGlow 10s ease-in-out infinite alternate;
+    }
+
+    .glow-red {
+      top: -20%;
+      left: -10%;
+      background: var(--grad-red);
+    }
+
+    .glow-blue {
+      bottom: -20%;
+      right: -10%;
+      background: var(--grad-blue);
+      animation-delay: -5s;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.12; }
+      100% { transform: scale(1.1); opacity: 0.18; }
+    }
 
     /* --- Typography --- */
-    .hero-title {
-    padding-top: 7rem;
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(3rem, 7vw, 6rem);
-      line-height: 1.15;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-          
-
+    .hero-container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 1000px;
     }
 
-    .hero-title span {
+    .eyebrow {
       display: inline-block;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
     }
 
-    .italic-accent {
+    .hero-title {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      line-height: 1.1; /* Tighter line height for modern look */
+      font-weight: 500;
+      color: var(--text-white);
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    /* The "Serif" part for contrast */
+    .serif-italic {
+      font-family: 'Instrument Serif', serif;
       font-style: italic;
-      color: var(--text-muted); /* zinc-400 */
-      font-weight: 300;
+      font-weight: 400;
+      color: #00C6FB; /* Brand Blue Accent */
     }
 
     .hero-desc {
-      font-size: 1.125rem;
-      line-height: 1.7;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      line-height: 1.6;
       color: var(--text-muted);
-      max-width: 500px;
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
       font-weight: 300;
     }
 
-    /* --- Actions --- */
+    /* --- Buttons --- */
+    .btn-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
     .btn-primary {
       position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
       padding: 1rem 2.5rem;
       background: var(--text-white);
-      color: #000000;
+      color: #000;
       border-radius: 100px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
       font-size: 1rem;
-      font-weight: 500;
-      overflow: hidden;
-      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       cursor: pointer;
-      border: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
     }
 
     .btn-primary:hover {
-      padding-right: 3rem; /* Make room for arrow movement */
-      background: #e4e4e7;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px -10px rgba(255, 255, 255, 0.3);
     }
 
-    .btn-icon-wrapper {
+    .btn-secondary {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--text-white);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: opacity 0.2s;
+    }
+    
+    .btn-secondary:hover { opacity: 0.7; }
+
+    /* --- Scroll Hint --- */
+    .scroll-hint {
       position: absolute;
-      right: 1.5rem;
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: all 0.4s ease;
-    }
-
-    .btn-primary:hover .btn-icon-wrapper {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* --- Scroll Indicator --- */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 3rem;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
-      opacity: 0.5;
+      gap: 0.5rem;
+      color: var(--text-muted);
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      z-index: 10;
+      letter-spacing: 0.15em;
+      opacity: 0.5;
     }
-
-    .mouse-icon {
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-      40% {transform: translateY(-6px);}
-      60% {transform: translateY(-3px);}
+    
+    /* Mobile Adjustments */
+    @media (max-width: 768px) {
+        .hero-title {
+            line-height: 1.15;
+        }
+        .btn-group {
+            flex-direction: column;
+            width: 100%;
+        }
+        .btn-primary, .btn-secondary {
+            width: 100%;
+            justify-content: center;
+        }
     }
   `;
 
-  // Animation Variants
-  const containerVars = {
+  // --- Animation Variants (Smooth & Staggered) ---
+  const wrapperVars = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    }
   };
 
   const itemVars = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 50, opacity: 0, rotateX: 10 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { 
-        duration: 0.8, 
-        // FIXED: Added 'as const' here
-        ease: [0.22, 1, 0.36, 1] as const 
-      },
-    },
+      rotateX: 0,
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const } // "Apple" easing
+    }
   };
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
-      
+
       <div className="hero-wrapper">
-        <div className="hero-noise" />
-        <div className="aurora-glow glow-1" />
-        <div className="aurora-glow glow-2" />
+        {/* Background Atmosphere */}
+        <div className="ambient-glow glow-red" />
+        <div className="ambient-glow glow-blue" />
 
-        <div className="container">
-          <motion.div 
-            className="hero-content"
-            variants={containerVars}
-            initial="hidden"
-            animate="visible"
-          >
-            
-
-            {/* Main Title - Split for emphasis */}
-            <h1 className="hero-title">
-              <div style={{ overflow: 'hidden' }}>
-                <motion.span variants={itemVars} style={{ display: 'block' }}>
-                  SPL Systems is a custom
-                </motion.span>
-              </div>
-              <div style={{ overflow: 'hidden' }}>
-                <motion.span variants={itemVars} style={{ display: 'block' }}>
-                  <span className="italic-accent">software studio</span> engineering
-                </motion.span>
-              </div>
-              <div style={{ overflow: 'hidden' }}>
-                <motion.span variants={itemVars} style={{ display: 'block' }}>
-                  tomorrow’s enterprises.
-                </motion.span>
-              </div>
-            </h1>
-
-            {/* Description */}
-            <motion.p variants={itemVars} className="hero-desc">
-              Discover cutting-edge AI solutions designed to elevate your business to new heights and drive sustainable growth in today's competitive landscape.
-            </motion.p>
-
-            {/* CTA Button */}
-            <motion.div variants={itemVars} className="hero-actions">
-              <button className="btn btn-primary group">
-                <span>View Our Work</span>
-                <div className="btn-icon-wrapper">
-                  <ArrowRight size={18} />
-                </div>
-              </button>
-            </motion.div>
+        <motion.div
+          className="hero-container"
+          variants={wrapperVars}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* 1. Eyebrow Label */}
+          <motion.div variants={itemVars}>
           </motion.div>
-        </div>
+
+          {/* 2. Main Title (Clean & Kinetic) */}
+          <h1 className="hero-title">
+            <div style={{ overflow: 'hidden' }}>
+              <motion.div variants={itemVars}>
+                Engineering the
+              </motion.div>
+            </div>
+            <div style={{ overflow: 'hidden' }}>
+              <motion.div variants={itemVars}>
+                <span className="serif-italic">Intelligent</span> Future.
+              </motion.div>
+            </div>
+          </h1>
+
+          {/* 3. Description */}
+          <motion.p variants={itemVars} className="hero-desc">
+            We build high-performance digital infrastructure for ambitious enterprises.
+            Scalable, secure, and designed for tomorrow.
+          </motion.p>
+
+          {/* 4. Actions */}
+          <motion.div variants={itemVars} className="btn-group">
+            <button className="btn-primary">
+              Start a Project <ArrowRight size={18} />
+            </button>
+            <button className="btn-secondary">
+              View Our Work
+            </button>
+          </motion.div>
+
+        </motion.div>
+
+
+
       </div>
     </>
   );
