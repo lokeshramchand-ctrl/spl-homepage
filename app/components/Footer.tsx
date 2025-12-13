@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Linkedin, Twitter, Github, Instagram } from "lucide-react";
+import { ArrowUpRight, Linkedin, Twitter, Instagram } from "lucide-react";
 
 export default function Footer() {
   const styles = `
@@ -12,7 +12,12 @@ export default function Footer() {
       --text-white: #ffffff;
       --text-muted: #a1a1aa;
       --text-dim: #52525b;
-      --accent-teal: #2dd4bf;
+      
+      /* Brand Colors */
+      --brand-red: #FF512F;
+      --brand-blue: #00C6FB;
+      --brand-green: #38ef7d;
+      
       --border-light: rgba(255, 255, 255, 0.08);
     }
 
@@ -25,6 +30,7 @@ export default function Footer() {
       padding-top: 6rem;
     }
 
+    /* Subtle background glow */
     .footer-glow {
       position: absolute;
       bottom: -30%;
@@ -32,8 +38,8 @@ export default function Footer() {
       transform: translateX(-50%);
       width: 80%;
       height: 400px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-      filter: blur(80px);
+      background: radial-gradient(circle, rgba(0, 198, 251, 0.1) 0%, transparent 60%);
+      filter: blur(100px);
       pointer-events: none;
       z-index: 1;
     }
@@ -77,14 +83,9 @@ export default function Footer() {
       transition: all 0.3s ease;
       cursor: pointer;
     }
-
     .cta-button:hover {
-      background: #e4e4e7;
       transform: scale(1.02);
-    }
-
-    .cta-button:hover svg {
-      transform: rotate(45deg);
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
 
     /* --- Grid Section --- */
@@ -96,9 +97,7 @@ export default function Footer() {
     }
 
     @media (min-width: 768px) {
-      .footer-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      .footer-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
     .footer-col h3 {
@@ -126,33 +125,12 @@ export default function Footer() {
       transition: all 0.3s ease;
       display: inline-block;
     }
-
     .footer-link:hover {
       color: var(--text-white);
       transform: translateX(4px);
     }
 
-    /* --- Badge --- */
-    .soc-badge {
-      margin-top: 2rem;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: 80px;
-      border: 1px solid var(--border-light);
-      background: rgba(255,255,255,0.02);
-      border-radius: 12px;
-      text-align: center;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      line-height: 1.2;
-      backdrop-filter: blur(5px);
-    }
-
-    /* --- Huge Brand --- */
+    /* --- HUGE BRAND TEXT (Letter-by-Letter Interaction) --- */
     .footer-brand-section {
       width: 100%;
       overflow: hidden;
@@ -160,24 +138,58 @@ export default function Footer() {
       justify-content: center;
       border-bottom: 1px solid var(--border-light);
       padding-bottom: 4rem;
-    }
-
-    .footer-huge-text {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(4rem, 16vw, 16rem);
-      line-height: 0.8;
-      color: transparent;
-      -webkit-text-stroke: 5px rgba(255, 255, 255, 0.2);
-      white-space: nowrap;
-      padding-bottom: 2rem;
-      transition: all 0.5s ease;
       cursor: default;
     }
 
-    .footer-brand-section:hover .footer-huge-text {
-      color: rgba(255, 255, 255, 0.1);
-      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+    .huge-text-wrapper {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(4rem, 16vw, 16rem);
+      line-height: 0.8;
+      white-space: nowrap;
+      display: flex;
     }
+
+    /* Base Letter Style: Outline */
+    .char {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    /* HOVER STATES */
+    
+    /* When hovering the container... */
+    .footer-brand-section:hover .char-s {
+      color: var(--brand-red);
+      -webkit-text-stroke: 0px transparent;
+      text-shadow: 0 0 40px rgba(255, 81, 47, 0.4);
+    }
+
+    .footer-brand-section:hover .char-p {
+      color: var(--brand-blue);
+      -webkit-text-stroke: 0px transparent;
+      text-shadow: 0 0 40px rgba(0, 198, 251, 0.4);
+    }
+
+    .footer-brand-section:hover .char-l {
+      color: var(--brand-green);
+      -webkit-text-stroke: 0px transparent;
+      text-shadow: 0 0 40px rgba(56, 239, 125, 0.4);
+    }
+    
+    .footer-brand-section:hover .char-systems {
+      color: #ffffff;
+      -webkit-text-stroke: 0px transparent;
+      text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Staggered transition delays for a wave effect on hover */
+    .footer-brand-section:hover .char-s { transition-delay: 0s; }
+    .footer-brand-section:hover .char-p { transition-delay: 0.05s; }
+    .footer-brand-section:hover .char-l { transition-delay: 0.1s; }
+    .footer-brand-section:hover .char-systems { transition-delay: 0.15s; }
+
 
     /* --- Bottom Bar --- */
     .footer-bottom {
@@ -190,26 +202,13 @@ export default function Footer() {
       color: var(--text-dim);
       font-size: 0.875rem;
     }
-
     @media (min-width: 768px) {
-      .footer-bottom {
-        flex-direction: row;
-      }
+      .footer-bottom { flex-direction: row; }
     }
 
-    .social-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .social-icon {
-      color: var(--text-dim);
-      transition: color 0.3s;
-    }
-
-    .social-icon:hover {
-      color: var(--text-white);
-    }
+    .social-links { display: flex; gap: 1.5rem; }
+    .social-icon { color: var(--text-dim); transition: all 0.3s; }
+    .social-icon:hover { color: var(--text-white); transform: translateY(-2px); }
   `;
 
   return (
@@ -228,27 +227,12 @@ export default function Footer() {
               <span style={{color: '#a1a1aa', fontStyle: 'italic'}}>digital infrastructure?</span>
             </h2>
             <a href="#" className="cta-button">
-              Coming Soon <ArrowUpRight size={20} className="transition-transform duration-300" />
+              Coming Soon <ArrowUpRight size={20} />
             </a>
           </div>
 
           {/* Links Grid */}
           <div className="footer-grid">
-            {/* Column 1 */}
-            {/* <div className="footer-col">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                <h3>Product</h3>
-                <ul>
-                  <li><a href="#" className="footer-link">Overview</a></li>
-                  <li><a href="#" className="footer-link">Models</a></li>
-                  <li><a href="#" className="footer-link">Search</a></li>
-                  <li><a href="#" className="footer-link">Embed</a></li>
-                  <li><a href="#" className="footer-link">Pricing</a></li>
-                </ul>
-              </motion.div>
-            </div> */}
-
-            {/* Column 3 */}
             <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                 <h3>Company</h3>
@@ -260,37 +244,28 @@ export default function Footer() {
                 </ul>
               </motion.div>
             </div>
+            
             <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                 <h3>Contact</h3>
                 <ul>
                   <li><a href="#" className="footer-link">Email</a></li>
                   <li><a href="#" className="footer-link">Phone</a></li>
-                  <li><a href="#" className="footer-link">1281 9th Ave , Unit 1506 San Diego CA 92101</a></li>
+                  <li><a href="#" className="footer-link">1281 9th Ave, Unit 1506 San Diego CA 92101</a></li>
                 </ul>
               </motion.div>
             </div>
-
-
-            {/* Column 4 - Badge
-            <div className="footer-col">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-                <h3>Security</h3>
-                <ul>
-                  <li><a href="#" className="footer-link">Privacy Policy</a></li>
-                  <li><a href="#" className="footer-link">Terms of Use</a></li>
-                  <li><a href="#" className="footer-link">Trust Center</a></li>
-                </ul>
-                <div className="soc-badge">
-                  AICPA<br />SOC 2
-                </div>
-              </motion.div>
-            </div> */}
           </div>
 
-          {/* Huge Brand Section */}
+          {/* Huge Brand Section - Letter Separation */}
           <div className="footer-brand-section">
-            <h1 className="footer-huge-text">SPL Systems</h1>
+            <div className="huge-text-wrapper">
+                <span className="char char-s">S</span>
+                <span className="char char-p">P</span>
+                <span className="char char-l">L</span>
+                <span style={{ width: '0.2em' }} /> {/* Spacer */}
+                <span className="char char-systems">SYSTEMS</span>
+            </div>
           </div>
 
           {/* Copyright & Socials */}
@@ -300,10 +275,9 @@ export default function Footer() {
             </div>
             
             <div className="social-links">
-              {/* <a href="#" className="social-icon"><Twitter size={20} /></a> */}
               <a href="#" className="social-icon"><Linkedin size={20} /></a>
-              {/* <a href="#" className="social-icon"><Github size={20} /></a>
-              <a href="#" className="social-icon"><Instagram size={20} /></a> */}
+              <a href="#" className="social-icon"><Twitter size={20} /></a>
+              <a href="#" className="social-icon"><Instagram size={20} /></a>
             </div>
           </div>
 

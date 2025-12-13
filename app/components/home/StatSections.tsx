@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -43,8 +43,16 @@ export default function StatsSection() {
       --bg-dark: #050505;
       --text-white: #ffffff;
       --text-muted: #a1a1aa;
-      --accent-teal: #2dd4bf;
-      --accent-blue: #3b82f6;
+      
+      /* --- UPDATED BRAND COLORS --- */
+      --brand-red: #FF512F;
+      --brand-pink: #DD2476;
+      --brand-blue-light: #00C6FB;
+      --brand-blue-dark: #005BEA;
+      --brand-green: #38ef7d;
+      
+      --grad-main: linear-gradient(135deg, #FF512F, #DD2476); /* Red Gradient */
+      --grad-secondary: linear-gradient(135deg, #00C6FB, #005BEA); /* Blue Gradient */
     }
 
     /* --- Base --- */
@@ -92,7 +100,8 @@ export default function StatsSection() {
     .italic-highlight {
       font-style: italic;
       padding-right: 0.1em;
-      background: linear-gradient(90deg, #2dd4bf, #3b82f6);
+      /* Updated to Brand Red Gradient */
+      background: var(--grad-main);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -172,7 +181,8 @@ export default function StatsSection() {
 
     .stat-suffix {
       font-size: 0.6em;
-      color: var(--accent-teal);
+      /* Updated to Brand Blue */
+      color: var(--brand-blue-light);
       margin-left: 2px;
     }
 
@@ -190,8 +200,9 @@ export default function StatsSection() {
       bottom: 0;
       left: 0;
       width: 0%;
-      height: 1px;
-      background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+      height: 2px; /* Slightly thicker for visibility */
+      /* Updated to Red-to-Blue Gradient */
+      background: linear-gradient(90deg, var(--brand-red), var(--brand-blue-light));
       transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -214,8 +225,9 @@ export default function StatsSection() {
     }
 
     .btn-link:hover {
-      border-color: var(--accent-teal);
-      color: var(--accent-teal);
+      /* Updated to Brand Red */
+      border-color: var(--brand-red);
+      color: var(--brand-red);
       gap: 1rem;
     }
   `;
@@ -233,9 +245,9 @@ export default function StatsSection() {
       <section className="stats-section">
         <div className="stats-noise" />
         
-        {/* Optional Ambient Glows */}
-        <div style={{ position: 'absolute', top: '10%', right: '0', width: '300px', height: '300px', background: '#3b82f6', filter: 'blur(120px)', opacity: '0.08', borderRadius: '50%' }} />
-        <div style={{ position: 'absolute', bottom: '10%', left: '0', width: '300px', height: '300px', background: '#2dd4bf', filter: 'blur(120px)', opacity: '0.08', borderRadius: '50%' }} />
+        {/* Updated Ambient Glows to Brand Colors (Blue & Red) */}
+        <div style={{ position: 'absolute', top: '10%', right: '0', width: '300px', height: '300px', background: '#005BEA', filter: 'blur(120px)', opacity: '0.08', borderRadius: '50%' }} />
+        <div style={{ position: 'absolute', bottom: '10%', left: '0', width: '300px', height: '300px', background: '#FF512F', filter: 'blur(120px)', opacity: '0.06', borderRadius: '50%' }} />
 
         <div className="container">
           <div className="stats-intro-grid">

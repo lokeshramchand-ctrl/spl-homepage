@@ -3,82 +3,68 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight } from "lucide-react"; // Import arrows for the cursor
+import { MoveRight } from "lucide-react";
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  
-  // Refs for the custom cursor
-  const cursorRef = useRef<HTMLDivElement | null>(null);
-  const cursorLabelRef = useRef<HTMLDivElement | null>(null);
-
   const [isDragging, setIsDragging] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
 
   const steps = [
     {
       id: "01",
       title: "Think",
       desc: "We read the soil to find where ideas take root, uncovering opportunities, directions, and missions.",
-      color: "#FF512F",
-      gradient: "linear-gradient(135deg, #FF512F, #DD2476)"
+      border: "rgba(244, 63, 94, 0.5)" // Rose
     },
     {
       id: "02",
       title: "Create",
       desc: "We coax the invisible into the inevitable, crafting identities and systems to support your growth.",
-      color: "#00C6FB",
-      gradient: "linear-gradient(135deg, #00C6FB, #005BEA)"
+      border: "rgba(245, 158, 11, 0.5)" // Amber
     },
     {
       id: "03",
       title: "Build",
       desc: "We engineer scalable digital products and experiences ready for real-world impact.",
-      color: "#38ef7d",
-      gradient: "linear-gradient(135deg, #11998e, #38ef7d)"
+      border: "rgba(16, 185, 129, 0.5)" // Emerald
     },
     {
       id: "04",
       title: "Grow",
       desc: "We nurture the ecosystem, ensuring continuous evolution and adaptation to the changing landscape.",
-      color: "#DD2476",
-      gradient: "linear-gradient(135deg, #DD2476, #FF512F)"
+      border: "rgba(59, 130, 246, 0.5)" // Blue
     },
   ];
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    // Scoped selector to ensure we only target cards inside this specific section
     const ctx = gsap.context(() => {
-      // 1. Card Entry Animation
       const cards = gsap.utils.toArray(".process-card");
+      
+      // FIXED: Used fromTo instead of from to prevent React strict mode "stuck at 0 opacity" bug
       gsap.fromTo(cards, 
-        { y: 100, opacity: 0 },
+        { 
+          y: 100, 
+          opacity: 0 
+        },
         {
-          y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power4.out",
-          scrollTrigger: { trigger: ".process-section", start: "top 70%" }
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: ".process-section",
+            start: "top 60%", // Trigger slightly earlier for better UX
+          }
         }
       );
-
-      // 2. Custom Cursor Logic (GSAP QuickTo for performance)
-      const xTo = gsap.quickTo(cursorRef.current, "x", { duration: 0.1, ease: "power3" });
-      const yTo = gsap.quickTo(cursorRef.current, "y", { duration: 0.1, ease: "power3" });
-
-      const moveCursor = (e: MouseEvent) => {
-        // Only move if we are hovering the scroll area
-        if (isHovering) {
-            xTo(e.clientX);
-            yTo(e.clientY);
-        }
-      };
-
-      window.addEventListener("mousemove", moveCursor);
-      return () => window.removeEventListener("mousemove", moveCursor);
-
     }, sectionRef);
 
-    // --- DRAG LOGIC (Standard) ---
+    // --- DRAG LOGIC ---
     const container = scrollRef.current;
     if (!container) return;
 
@@ -89,25 +75,25 @@ export default function ProcessSection() {
     const onMouseDown = (e: MouseEvent) => {
       isDown = true;
       setIsDragging(true);
-      container.classList.add("active");
       startX = e.pageX - container.offsetLeft;
       scrollLeft = container.scrollLeft;
     };
+
     const onMouseLeave = () => {
       isDown = false;
       setIsDragging(false);
-      container.classList.remove("active");
     };
+
     const onMouseUp = () => {
       isDown = false;
       setIsDragging(false);
-      container.classList.remove("active");
     };
+
     const onMouseMove = (e: MouseEvent) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 1.5;
+      const walk = (x - startX) * 1.5; // Friction
       container.scrollLeft = scrollLeft - walk;
     };
 
@@ -117,25 +103,23 @@ export default function ProcessSection() {
     container.addEventListener("mousemove", onMouseMove);
 
     return () => {
-      ctx.revert();
+      ctx.revert(); // Clean up GSAP
       container.removeEventListener("mousedown", onMouseDown);
       container.removeEventListener("mouseleave", onMouseLeave);
       container.removeEventListener("mouseup", onMouseUp);
       container.removeEventListener("mousemove", onMouseMove);
     };
-  }, [isHovering]); // Re-bind if hover state changes to ensure listeners are active
+  }, []);
 
   const styles = `
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Inter:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
 
     :root {
       --bg-dark: #050505;
-      --card-bg: rgba(255, 255, 255, 0.02);
-      --card-border: rgba(255, 255, 255, 0.06);
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #ffffff;
       --text-muted: #a1a1aa;
-      --brand-red: #FF512F;
-      --brand-blue: #00C6FB;
     }
 
     .process-section {
@@ -144,8 +128,10 @@ export default function ProcessSection() {
       padding: 8rem 0;
       width: 100%;
       overflow: hidden;
-      font-family: 'Instrument Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
     }
+
+  
 
     .container {
       max-width: 1400px;
@@ -158,231 +144,197 @@ export default function ProcessSection() {
     /* Header */
     .section-header {
       margin-bottom: 4rem;
-      max-width: 700px;
+      max-width: 600px;
     }
+
     .header-label {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--brand-blue);
-      margin-bottom: 1.5rem;
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border: 1px solid rgba(0, 198, 251, 0.2);
-      border-radius: 50px;
-      background: rgba(0, 198, 251, 0.05);
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: block;
     }
+
     .header-title {
-      font-family: 'Instrument Sans', sans-serif; 
-      font-weight: 600;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
       color: var(--text-main);
       line-height: 1.1;
-      letter-spacing: -0.02em;
     }
 
     /* Scroll Wrapper */
     .scroll-wrapper {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap; /* Forces horizontal layout */
       overflow-x: auto;
       gap: 2rem;
       padding: 1rem 1rem 4rem 1rem;
-      cursor: none; /* Hides Default Cursor */
+      cursor: grab;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       margin: 0 -1rem;
     }
-    .scroll-wrapper::-webkit-scrollbar { display: none; }
-
-    /* Custom Cursor */
-    .custom-cursor {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        pointer-events: none; /* Lets clicks pass through to the cards */
-        z-index: 9999;
-        transform: translate(-50%, -50%); /* Centers the cursor div on the mouse */
-        transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
-        opacity: 0; /* Hidden by default */
-    }
-
-    .custom-cursor.visible {
-        opacity: 1;
-    }
-
-    .custom-cursor.dragging {
-        width: 60px;
-        height: 60px;
-        background: rgba(255, 255, 255, 0.9);
-    }
     
-    .cursor-content {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: white;
-        transition: color 0.3s ease;
+    .scroll-wrapper:active {
+      cursor: grabbing;
     }
-    
-    .custom-cursor.dragging .cursor-content {
-        color: black;
+
+    .scroll-wrapper::-webkit-scrollbar {
+      display: none;
     }
 
     /* Process Card */
     .process-card {
       position: relative;
-      flex: 0 0 320px;
+      flex: 0 0 320px; /* Fixed width, no shrinking/growing */
       height: 480px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 12px;
       padding: 2.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
       overflow: hidden;
+      
+      /* Ensure opacity starts at 1 via CSS, GSAP will handle the rest */
       opacity: 1; 
-      user-select: none; /* Prevents text highlighting while dragging */
     }
 
     @media (min-width: 768px) {
-      .process-card { flex: 0 0 450px; height: 520px; }
+      .process-card {
+        flex: 0 0 450px;
+        height: 520px;
+      }
     }
 
     .process-card:hover {
-      transform: translateY(-12px);
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     /* Inner Content */
     .card-number {
-      font-family: 'Instrument Sans', sans-serif;
-      font-weight: 700;
-      font-size: 7rem;
+      font-family: 'Instrument Serif', serif;
+      font-size: 6rem;
       line-height: 1;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
-      opacity: 0.3;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+      opacity: 0.5;
       transition: all 0.5s ease;
       margin-bottom: auto;
     }
-    .process-card:hover .card-number { opacity: 0.1; transform: scale(1.1) translateX(10px); }
+
+    .process-card:hover .card-number {
+      opacity: 1;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+      transform: scale(1.05);
+      transform-origin: left top;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 10;
+    }
 
     .card-title {
-      font-family: 'Instrument Sans', sans-serif;
-      font-weight: 600;
-      font-size: 2.75rem;
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.5rem;
       color: var(--text-main);
       margin-bottom: 1rem;
-      letter-spacing: -0.01em;
     }
 
     .card-desc {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.125rem;
-      line-height: 1.7;
+      font-size: 1rem;
+      line-height: 1.6;
       color: var(--text-muted);
       font-weight: 300;
     }
 
-    /* Gradient Effects */
+    /* Gradient Background Effect */
     .card-glow {
       position: absolute;
-      top: -50%; right: -50%; width: 100%; height: 100%;
-      background: radial-gradient(circle, var(--glow-color) 0%, transparent 60%);
-      filter: blur(80px); opacity: 0;
-      transition: opacity 0.6s ease; pointer-events: none; z-index: 0;
+      inset: 0;
+      background: radial-gradient(circle at top right, var(--glow-color), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
     }
-    .process-card:hover .card-glow { opacity: 0.15; }
-    
-    .indicator-line {
-      position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
-      background: var(--glow-gradient);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+    .process-card:hover .card-glow {
+      opacity: 1;
     }
-    .process-card:hover .indicator-line { transform: scaleX(1); }
+
+    /* Drag Indicator */
+    .drag-hint {
+      position: absolute;
+      bottom: 3rem;
+      right: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      pointer-events: none;
+      opacity: 0.6;
+    }
   `;
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <section className="process-section" ref={sectionRef}>
-
-        {/* --- CUSTOM CURSOR --- */}
-        <div 
-            ref={cursorRef} 
-            className={`custom-cursor ${isHovering ? 'visible' : ''} ${isDragging ? 'dragging' : ''}`}
-        >
-            <div ref={cursorLabelRef} className="cursor-content">
-                {/* Changes based on drag state */}
-                {isDragging ? (
-                    <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '1px' }}>DRAGGING</span>
-                ) : (
-                    <>
-                        <ArrowLeft size={16} />
-                        <span style={{ fontSize: '12px', fontWeight: 600 }}>DRAG</span>
-                        <ArrowRight size={16} />
-                    </>
-                )}
-            </div>
-        </div>
-
-        {/* Ambient Blobs */}
-        <div style={{ position: 'absolute', top: '-10%', right: '10%', width: '800px', height: '800px', background: 'radial-gradient(circle, #005BEA 0%, transparent 70%)', filter: 'blur(120px)', opacity: '0.08', borderRadius: '50%', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, #DD2476 0%, transparent 70%)', filter: 'blur(100px)', opacity: '0.06', borderRadius: '50%', pointerEvents: 'none' }} />
+        <div className="process-noise" />
+        
+        {/* Ambient background blob */}
+        <div style={{ position: 'absolute', top: '-20%', left: '20%', width: '600px', height: '600px', background: '#3b82f6', filter: 'blur(150px)', opacity: '0.04', borderRadius: '50%', pointerEvents: 'none' }} />
 
         <div className="container">
           <div className="section-header">
             <span className="header-label">Our Process</span>
             <h2 className="header-title">
               From abstract ideas <br />
-              <span style={{ background: 'linear-gradient(90deg, #a1a1aa, #ffffff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                to concrete reality.
-              </span>
+              <span style={{ color: '#a1a1aa' }}>to concrete reality.</span>
             </h2>
           </div>
 
-          <div 
-            className="scroll-wrapper" 
-            ref={scrollRef}
-            // Mouse Enter/Leave to toggle the Custom Cursor
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-          >
+          <div className="scroll-wrapper" ref={scrollRef}>
             {steps.map((step, i) => (
               <div 
                 key={i} 
                 className="process-card group"
                 style={{ 
                   // @ts-ignore
-                  '--glow-color': step.color,
-                  '--glow-gradient': step.gradient
+                  '--glow-color': step.border 
                 }}
               >
+                {/* Ambient Glow */}
                 <div className="card-glow" />
+                
+                {/* Number */}
                 <div className="card-number">{step.id}</div>
+
+                {/* Content */}
                 <div className="card-content">
                   <h3 className="card-title">{step.title}</h3>
                   <p className="card-desc">{step.desc}</p>
                 </div>
-                <div className="indicator-line" />
+
+                {/* Decorative border line on hover */}
+                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
               </div>
             ))}
+            
+            {/* Spacer ensures the last card has room to breathe on the right */}
             <div style={{ minWidth: '1px', flex: '0 0 1px' }} />
+          </div>
+
+          <div className={`drag-hint transition-opacity duration-300 ${isDragging ? 'opacity-0' : 'opacity-100'}`}>
+            <span className="hidden md:inline">Drag to explore</span>
+            <MoveRight size={16} />
           </div>
         </div>
       </section>
