@@ -62,24 +62,9 @@ export default function Hero() {
       display: flex;
       flex-direction: column;
       align-items: center;
+      
     }
 
-    /* --- Eyebrow (Top Label) --- */
-    .eyebrow {
-      display: inline-block;
-      font-family: 'Instrument Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--brand-blue); /* Accent color */
-      margin-bottom: 2rem;
-      padding: 0.5rem 1.2rem;
-      border: 1px solid var(--border-color);
-      background: var(--bg-card);
-      border-radius: 100px;
-      backdrop-filter: blur(10px);
-    }
 
     /* --- Typography --- */
     .hero-title {
@@ -90,7 +75,10 @@ export default function Hero() {
       font-weight: 600;
       color: var(--text-primary);
       letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
+      margin-top: 1.9rem;
+      padding-top: 0.2em;
+      margin-bottom: 1.9rem;
+      
     }
 
     .hero-title span {
@@ -107,7 +95,9 @@ export default function Hero() {
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+       padding-top: 0.1em;
       padding-right: 0.1em;
+      padding-bottom: 0.1em;
     }
 
     .hero-desc {
@@ -225,65 +215,65 @@ export default function Hero() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
-      
+
       <div className="hero-wrapper">
         {/* Background Atmosphere */}
         <div className="ambient-glow glow-red" />
         <div className="ambient-glow glow-blue" />
 
-        <motion.div 
-            className="hero-container"
-            variants={wrapperVars}
-            initial="hidden"
-            animate="visible"
+        <motion.div
+          className="hero-container"
+          variants={wrapperVars}
+          initial="hidden"
+          animate="visible"
         >
-            {/* 1. Eyebrow Label */}
-            <motion.div variants={itemVars}>
-                {/* <span className="eyebrow">SPL SYSTEMS v2.0</span> */}
-            </motion.div>
+          {/* 1. Eyebrow Label */}
+          <motion.div variants={itemVars}>
+            {/* <span className="eyebrow">SPL SYSTEMS v2.0</span> */}
+          </motion.div>
 
-            {/* 2. Main Title */}
-            <h1 className="hero-title">
-                {/* Lines split for staggering effect */}
-                <div style={{ overflow: 'hidden' }}>
-                    <motion.div variants={itemVars}>
-                        Engineering the
-                    </motion.div>
-                </div>
-                <div style={{ overflow: 'hidden' }}>
-                    <motion.div variants={itemVars}>
-                        <span className="serif-italic">Intelligent</span> Future.
-                    </motion.div>
-                </div>
-            </h1>
+          {/* 2. Main Title */}
+          <h1 className="hero-title">
+            {/* Lines split for staggering effect */}
+            <div style={{ overflow: 'hidden' }}>
+              <motion.div variants={itemVars}>
+                Engineering the
+              </motion.div>
+            </div>
+            <div style={{ overflow: 'hidden' }}>
+              <motion.div variants={itemVars}>
+                <span className="serif-italic">Intelligent</span> Future.
+              </motion.div>
+            </div>
+          </h1>
 
-            {/* 3. Description */}
-            <motion.p variants={itemVars} className="hero-desc">
-                We build high-performance digital infrastructure for ambitious enterprises. 
-                Scalable, secure, and designed for tomorrow.
-            </motion.p>
+          {/* 3. Description */}
+          <motion.p variants={itemVars} className="hero-desc">
+            We build high-performance digital infrastructure for ambitious enterprises.
+            Scalable, secure, and designed for tomorrow.
+          </motion.p>
 
-            {/* 4. Actions */}
-            <motion.div variants={itemVars} className="btn-group">
-                <button className="btn-primary">
-                    Start a Project <ArrowRight size={20} />
-                </button>
-                <button className="btn-secondary">
-                    View Our Work
-                </button>
-            </motion.div>
+          {/* 4. Actions */}
+          <motion.div variants={itemVars} className="btn-group">
+            <button className="btn-primary">
+              Start a Project <ArrowRight size={20} />
+            </button>
+            <button className="btn-secondary">
+              View Our Work
+            </button>
+          </motion.div>
 
         </motion.div>
 
         {/* 5. Bottom Scroll Hint */}
-        <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ delay: 1.8, duration: 1 }}
-            className="scroll-hint"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8, duration: 1 }}
+          className="scroll-hint"
         >
-            <span>Scroll</span>
-            <ChevronDown size={18} className="animate-bounce" />
+          <span>Scroll</span>
+          <ChevronDown size={18} className="animate-bounce" />
         </motion.div>
 
       </div>
