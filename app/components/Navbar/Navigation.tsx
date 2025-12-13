@@ -277,9 +277,10 @@ export default function Navigation() {
                 src={currentLogo}
                 alt="SPL Systems"
                 height={40}
-
                 width={100}
-                style={{ objectFit: 'contain', objectPosition: 'left' }}
+                style={{ width: 'auto', height: '40px' }}
+
+
                 priority
               />
             )}
