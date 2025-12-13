@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
-import logo from '../../assets/g2.png';
+import logo from '../../assets/SPL.svg';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -201,9 +201,9 @@ export default function Navigation() {
             <Image
               src={logo}
               alt="SPL Systems"
-              height={40}
+              height={60}
               width={120}
-              style={{ width: 'auto', height: '40px' }}
+              style={{ width: 'auto', height: '60px' }}
               priority
             />
           </Link>
