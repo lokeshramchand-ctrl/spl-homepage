@@ -10,30 +10,35 @@ export default function ProcessSection() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
+  // Updated Colors to SPL Brand Identity
   const steps = [
     {
       id: "01",
       title: "Think",
       desc: "We read the soil to find where ideas take root, uncovering opportunities, directions, and missions.",
-      border: "rgba(244, 63, 94, 0.5)" // Rose
+      border: "#FF512F", // Brand Red
+      gradient: "linear-gradient(135deg, #FF512F, #DD2476)"
     },
     {
       id: "02",
       title: "Create",
       desc: "We coax the invisible into the inevitable, crafting identities and systems to support your growth.",
-      border: "rgba(245, 158, 11, 0.5)" // Amber
+      border: "#00C6FB", // Brand Blue
+      gradient: "linear-gradient(135deg, #00C6FB, #005BEA)"
     },
     {
       id: "03",
       title: "Build",
       desc: "We engineer scalable digital products and experiences ready for real-world impact.",
-      border: "rgba(16, 185, 129, 0.5)" // Emerald
+      border: "#38ef7d", // Brand Green
+      gradient: "linear-gradient(135deg, #11998e, #38ef7d)"
     },
     {
       id: "04",
       title: "Grow",
       desc: "We nurture the ecosystem, ensuring continuous evolution and adaptation to the changing landscape.",
-      border: "rgba(59, 130, 246, 0.5)" // Blue
+      border: "#DD2476", // Brand Pink
+      gradient: "linear-gradient(135deg, #DD2476, #FF512F)"
     },
   ];
 
@@ -44,7 +49,6 @@ export default function ProcessSection() {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray(".process-card");
       
-      // FIXED: Used fromTo instead of from to prevent React strict mode "stuck at 0 opacity" bug
       gsap.fromTo(cards, 
         { 
           y: 100, 
@@ -58,7 +62,7 @@ export default function ProcessSection() {
           ease: "power4.out",
           scrollTrigger: {
             trigger: ".process-section",
-            start: "top 60%", // Trigger slightly earlier for better UX
+            start: "top 60%", 
           }
         }
       );
@@ -116,10 +120,13 @@ export default function ProcessSection() {
 
     :root {
       --bg-dark: #050505;
-      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-bg: rgba(255, 255, 255, 0.02); /* Slightly transparent */
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #ffffff;
       --text-muted: #a1a1aa;
+      
+      /* Brand Accents */
+      --brand-blue: #00C6FB;
     }
 
     .process-section {
@@ -130,8 +137,6 @@ export default function ProcessSection() {
       overflow: hidden;
       font-family: 'Inter', sans-serif;
     }
-
-  
 
     .container {
       max-width: 1400px;
@@ -151,7 +156,7 @@ export default function ProcessSection() {
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--text-muted);
+      color: var(--brand-blue); /* Updated to Brand Blue */
       margin-bottom: 1rem;
       display: block;
     }
@@ -166,7 +171,7 @@ export default function ProcessSection() {
     /* Scroll Wrapper */
     .scroll-wrapper {
       display: flex;
-      flex-wrap: nowrap; /* Forces horizontal layout */
+      flex-wrap: nowrap;
       overflow-x: auto;
       gap: 2rem;
       padding: 1rem 1rem 4rem 1rem;
@@ -187,7 +192,7 @@ export default function ProcessSection() {
     /* Process Card */
     .process-card {
       position: relative;
-      flex: 0 0 320px; /* Fixed width, no shrinking/growing */
+      flex: 0 0 320px;
       height: 480px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -198,8 +203,6 @@ export default function ProcessSection() {
       justify-content: space-between;
       transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
       overflow: hidden;
-      
-      /* Ensure opacity starts at 1 via CSS, GSAP will handle the rest */
       opacity: 1; 
     }
 
@@ -265,7 +268,24 @@ export default function ProcessSection() {
     }
 
     .process-card:hover .card-glow {
-      opacity: 1;
+      opacity: 0.15; /* Subtle colored tint */
+    }
+    
+    /* Decorative Gradient Line */
+    .card-line {
+        position: absolute; 
+        bottom: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 2px; 
+        background: var(--glow-gradient);
+        transform: scaleX(0); 
+        transform-origin: left;
+        transition: transform 0.7s ease-out;
+    }
+    
+    .process-card:hover .card-line {
+        transform: scaleX(1);
     }
 
     /* Drag Indicator */
@@ -289,15 +309,21 @@ export default function ProcessSection() {
       <section className="process-section" ref={sectionRef}>
         <div className="process-noise" />
         
-        {/* Ambient background blob */}
-        <div style={{ position: 'absolute', top: '-20%', left: '20%', width: '600px', height: '600px', background: '#3b82f6', filter: 'blur(150px)', opacity: '0.04', borderRadius: '50%', pointerEvents: 'none' }} />
+        {/* Ambient background blob - Updated to Brand Blue */}
+        <div style={{ position: 'absolute', top: '-20%', left: '20%', width: '600px', height: '600px', background: '#005BEA', filter: 'blur(150px)', opacity: '0.08', borderRadius: '50%', pointerEvents: 'none' }} />
 
         <div className="container">
           <div className="section-header">
             <span className="header-label">Our Process</span>
             <h2 className="header-title">
               From abstract ideas <br />
-              <span style={{ color: '#a1a1aa' }}>to concrete reality.</span>
+              <span style={{ 
+                background: 'linear-gradient(90deg, #a1a1aa, #ffffff)', 
+                WebkitBackgroundClip: 'text', 
+                WebkitTextFillColor: 'transparent' 
+              }}>
+                to concrete reality.
+              </span>
             </h2>
           </div>
 
@@ -308,7 +334,8 @@ export default function ProcessSection() {
                 className="process-card group"
                 style={{ 
                   // @ts-ignore
-                  '--glow-color': step.border 
+                  '--glow-color': step.border,
+                  '--glow-gradient': step.gradient
                 }}
               >
                 {/* Ambient Glow */}
@@ -324,7 +351,7 @@ export default function ProcessSection() {
                 </div>
 
                 {/* Decorative border line on hover */}
-                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
+                <div className="card-line" />
               </div>
             ))}
             
