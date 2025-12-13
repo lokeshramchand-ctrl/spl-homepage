@@ -3,11 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "./components/Navbar/Navigation";
 import Footer from "./components/Footer";
+import { ThemeProvider } from "./components/themeprovider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SPL",
-  description: "Consulting and Solutions for the Digital Age",
+  title: "SPL Systems",
+  description: "Engineering the Intelligent Future.",
 };
 
 export default function RootLayout({
@@ -16,10 +18,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    /* suppressHydrationWarning is required for next-themes */
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Navigation />
-        <main>{children}</main>
+        {/* attribute="data-theme" tells next-themes to toggle the 
+            data-theme='light' or 'dark' attribute on the <html> tag,
+            which matches our globals.css setup.
+        */}
+        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem>
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
