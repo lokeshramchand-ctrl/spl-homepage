@@ -77,7 +77,7 @@ export default function Hero() {
       letter-spacing: -0.03em;
       margin-top: 1.9rem;
       padding-top: 0.2em;
-      margin-bottom: 1.9rem;
+      padding-bottom: 0.1em;
       
     }
 
@@ -95,7 +95,7 @@ export default function Hero() {
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-       padding-top: 0.1em;
+      padding-top: 0.1em;
       padding-right: 0.1em;
       padding-bottom: 0.1em;
     }
