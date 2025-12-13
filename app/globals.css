@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-  --bg-dark: #09090b;
+  --bg-dark: #ffffff;
   --bg-card: #18181b;
   --bg-card-hover: #27272a;
   --text-primary: #ffffff;
@@ -26,7 +26,7 @@
 
 body {
   background-color: #fafafa;
-  color: #18181b;
+  color: #000000;
   line-height: 1.5;
 }
 

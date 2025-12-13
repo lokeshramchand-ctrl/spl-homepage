@@ -32,7 +32,7 @@ const faqData = [
   },
 ];
 
-// Animation Variants
+// Animation Variants (Unchanged)
 const letterAnim = {
   hidden: { y: "100%" },
   visible: (i: number) => ({
@@ -40,7 +40,6 @@ const letterAnim = {
     transition: {
       delay: i * 0.03,
       duration: 0.8,
-      // FIXED: Added 'as const' here
       ease: [0.2, 0.65, 0.3, 0.9] as const,
     },
   }),
@@ -61,25 +60,30 @@ const itemAnim = {
 
 const styles = `
 /* --- Imports & Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
+/* Switched to Montserrat to match the 'SPL' Logo Text */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Inter:wght@300;400;500&display=swap');
 
 /* --- Variables --- */
 :root {
   --bg-dark: #050505;
   --text-main: #ffffff;
-  --text-muted: #a1a1aa; /* Zinc 400 */
-  --text-dim: #52525b;   /* Zinc 600 */
+  --text-muted: #a1a1aa;
+  --text-dim: #52525b;
   
-  --accent-teal: #2dd4bf;
-  --accent-blue: #3b82f6;
+  /* --- NEW BRAND GRADIENTS (From SVG) --- */
+  --grad-red: linear-gradient(135deg, #FF512F, #DD2476);
+  --grad-blue: linear-gradient(135deg, #00C6FB, #005BEA);
+  --grad-green: linear-gradient(135deg, #11998e, #38ef7d);
+
+  /* --- Solid Colors extracted from gradients for borders/accents --- */
+  --brand-red: #DD2476;
+  --brand-blue: #005BEA;
+  --brand-green: #38ef7d;
   
   --border-light: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(45, 212, 191, 0.3);
+  --border-hover: rgba(0, 198, 251, 0.3); /* Blue hint */
   
   --surface-hover: rgba(255, 255, 255, 0.03);
-  
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-editorial: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* --- Global Reset & Base --- */
@@ -88,8 +92,8 @@ const styles = `
 }
 
 ::selection {
-  background: rgba(45, 212, 191, 0.2); /* Teal selection */
-  color: var(--accent-teal);
+  background: rgba(0, 198, 251, 0.2); /* Brand Blue selection */
+  color: #00C6FB;
 }
 
 .faq-page {
@@ -106,17 +110,18 @@ const styles = `
 .gradient-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   z-index: 1;
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
+/* Updated Orbs to match Logo Gradients */
 .orb-1 {
   top: -10%;
   left: -10%;
   width: 50vw;
   height: 50vw;
-  background: var(--accent-teal);
+  background: var(--grad-red); /* Brand Red */
 }
 
 .orb-2 {
@@ -124,7 +129,7 @@ const styles = `
   right: -10%;
   width: 40vw;
   height: 40vw;
-  background: var(--accent-blue);
+  background: var(--grad-blue); /* Brand Blue */
 }
 
 /* --- Container --- */
@@ -154,14 +159,16 @@ const styles = `
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
+  box-shadow: 0 0 20px rgba(0, 198, 251, 0.1); /* Subtle Blue Glow */
 }
 
 .main-title {
-  font-family: 'Instrument Serif', serif;
+  /* Updated to Montserrat ExtraBold (800) to match Logo */
+  font-family: 'Montserrat', sans-serif;
   font-size: clamp(3rem, 8vw, 5.5rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
-  font-weight: 400;
+  font-weight: 800; 
 }
 
 .word-wrapper {
@@ -176,11 +183,12 @@ const styles = `
 
 .highlight-italic {
   font-style: italic;
-  background: linear-gradient(90deg, #4ade80, #3b82f6);
+  /* Updated to Brand Red Gradient */
+  background: var(--grad-red);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  padding-right: 0.1em; /* Prevent italic clipping */
+  padding-right: 0.1em;
 }
 
 /* --- FAQ List --- */
@@ -223,7 +231,7 @@ const styles = `
 }
 
 .faq-index {
-  font-family: 'Inter', monospace; /* Monospaced look */
+  font-family: 'Inter', monospace;
   font-size: 0.875rem;
   color: var(--text-dim);
   margin-right: 2rem;
@@ -239,7 +247,7 @@ const styles = `
 .faq-question {
   flex: 1;
   font-size: 1.25rem;
-  font-weight: 400;
+  font-weight: 500; /* Slightly bolder for Montserrat pairing */
   color: var(--text-muted);
   transition: color 0.3s ease;
 }
@@ -274,8 +282,8 @@ const styles = `
 }
 
 .faq-item:hover .icon-wrapper {
-  border-color: var(--border-hover);
-  background: rgba(45, 212, 191, 0.05);
+  border-color: var(--brand-blue); /* Brand Blue border on hover */
+  background: rgba(0, 198, 251, 0.1);
 }
 
 .icon {
@@ -287,7 +295,7 @@ const styles = `
 }
 
 .icon-minus {
-  color: var(--accent-teal);
+  color: var(--brand-red); /* Brand Red for the active 'minus' state */
 }
 
 /* --- Answer Content --- */
@@ -305,7 +313,7 @@ const styles = `
 
 @media (min-width: 768px) {
   .faq-answer {
-    padding: 0 2rem 2.5rem 6rem; /* Indented alignment */
+    padding: 0 2rem 2.5rem 6rem;
   }
 }
 
@@ -325,8 +333,13 @@ const styles = `
 }
 
 .contact-link:hover {
-  color: var(--accent-teal);
-  text-decoration-color: var(--accent-teal);
+  /* Brand Green Gradient Text for Link Hover */
+  background: var(--grad-green);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  
+  text-decoration-color: var(--brand-green);
 }`;
 
 export default function FAQ() {
@@ -448,7 +461,6 @@ export default function FAQ() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ 
-                          // FIXED: Added 'as const' here as well
                           height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] as const }, 
                           opacity: { duration: 0.25 } 
                         }}
