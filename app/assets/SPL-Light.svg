@@ -1,0 +1,59 @@
+<svg viewBox="0 -80 920 160" preserveAspectRatio="xMinYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="modernRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF512F; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DD2476; stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="modernBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00C6FB; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#005BEA; stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="modernGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#11998e; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38ef7d; stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+
+    <style>
+      .icon-text {
+        font-family: 'Montserrat', 'Inter', sans-serif;
+        font-weight: 800;
+        font-size: 60px;
+        fill: #ffffff;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      .brand-text {
+        font-family: 'Montserrat', 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 72px;
+        fill: #00000000 ;
+        letter-spacing: 0.15em;
+        dominant-baseline: central;
+      }
+    </style>
+  </defs>
+
+  <g filter="url(#softShadow)">
+      <circle cx="60" cy="0" r="60" fill="url(#modernRed)" />
+      <text x="60" y="2" class="icon-text">S</text>
+    </g>
+
+    <g filter="url(#softShadow)">
+      <circle cx="210" cy="0" r="60" fill="url(#modernBlue)" />
+      <text x="210" y="2" class="icon-text">P</text>
+    </g>
+
+    <g filter="url(#softShadow)">
+      <circle cx="360" cy="0" r="60" fill="url(#modernGreen)" />
+      <text x="360" y="2" class="icon-text">L</text>
+    </g>
+
+    <text x="460" y="0" class="brand-text">SYSTEMS</text>
+
+</svg>
