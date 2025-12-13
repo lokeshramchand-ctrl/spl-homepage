@@ -5,43 +5,34 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const styles = `
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400&display=swap');
-
-    :root {
-      --bg-dark: #050505;
-      --text-white: #ffffff;
-      --text-muted: #a1a1aa;
-      
-      /* SPL Brand Gradients */
-      --grad-red: linear-gradient(135deg, #FF512F, #DD2476);
-      --grad-blue: linear-gradient(135deg, #00C6FB, #005BEA);
-      --grad-text: linear-gradient(90deg, #ffffff, #a1a1aa);
-    }
-
+    /* Using Global Variables for Theme Support */
     .hero-wrapper {
       position: relative;
       min-height: 100vh;
       width: 100%;
-      background-color: var(--bg-dark);
+      background-color: var(--bg-main);
+      color: var(--text-primary);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       overflow: hidden;
       padding: 0 1.5rem;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
-    /* --- Ambient Background (Subtle & Clean) --- */
+    /* --- Ambient Background --- */
+    /* This creates the "breathing" gradient effect */
     .ambient-glow {
       position: absolute;
       width: 60vw;
       height: 60vw;
-      filter: blur(120px);
-      opacity: 0.15;
+      filter: blur(100px); /* Soft blur */
+      opacity: 0.15; /* Subtle by default */
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
-      animation: pulseGlow 10s ease-in-out infinite alternate;
+      animation: pulseGlow 12s ease-in-out infinite alternate;
     }
 
     .glow-red {
@@ -54,63 +45,79 @@ export default function Hero() {
       bottom: -20%;
       right: -10%;
       background: var(--grad-blue);
-      animation-delay: -5s;
+      animation-delay: -6s; /* Offset animation */
     }
 
     @keyframes pulseGlow {
-      0% { transform: scale(1); opacity: 0.12; }
-      100% { transform: scale(1.1); opacity: 0.18; }
+      0% { transform: scale(1) translate(0, 0); opacity: 0.12; }
+      100% { transform: scale(1.2) translate(20px, 20px); opacity: 0.2; }
     }
 
-    /* --- Typography --- */
+    /* --- Content Container --- */
     .hero-container {
       position: relative;
       z-index: 10;
       text-align: center;
-      max-width: 1000px;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
+    /* --- Eyebrow (Top Label) --- */
     .eyebrow {
       display: inline-block;
       font-family: 'Instrument Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--brand-blue); /* Accent color */
       margin-bottom: 2rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      backdrop-filter: blur(5px);
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      border-radius: 100px;
+      backdrop-filter: blur(10px);
     }
 
+    /* --- Typography --- */
     .hero-title {
       font-family: 'Instrument Sans', sans-serif;
-      font-size: clamp(3.5rem, 8vw, 7.5rem);
-      line-height: 1.1; /* Tighter line height for modern look */
-      font-weight: 500;
-      color: var(--text-white);
+      /* Responsive sizing: massive on desktop, readable on mobile */
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      line-height: 1.05;
+      font-weight: 600;
+      color: var(--text-primary);
       letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
     }
 
-    /* The "Serif" part for contrast */
+    .hero-title span {
+      display: inline-block;
+    }
+
+    /* The "Serif" part for elegance */
     .serif-italic {
       font-family: 'Instrument Serif', serif;
       font-style: italic;
       font-weight: 400;
-      color: #00C6FB; /* Brand Blue Accent */
+      /* Gradient text effect */
+      background: var(--grad-red);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding-right: 0.1em;
     }
 
     .hero-desc {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
       line-height: 1.6;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 3rem auto;
-      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin-bottom: 3.5rem;
+      font-weight: 400;
     }
 
     /* --- Buttons --- */
@@ -124,53 +131,59 @@ export default function Hero() {
 
     .btn-primary {
       position: relative;
-      padding: 1rem 2.5rem;
-      background: var(--text-white);
-      color: #000;
+      padding: 1.1rem 3rem;
+      background: var(--text-primary); /* Adapts to theme */
+      color: var(--bg-main);          /* Adapts to theme */
       border-radius: 100px;
       font-family: 'Instrument Sans', sans-serif;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: none;
       overflow: hidden;
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 40px -10px rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+      box-shadow: 0 10px 40px -10px rgba(0, 198, 251, 0.4);
     }
 
     .btn-secondary {
       font-family: 'Instrument Sans', sans-serif;
-      font-size: 1rem;
-      color: var(--text-white);
+      font-size: 1.1rem;
+      color: var(--text-primary);
       background: transparent;
-      border: none;
+      border: 1px solid var(--border-color);
+      border-radius: 100px;
       cursor: pointer;
       font-weight: 500;
-      padding: 0.5rem 1rem;
-      transition: opacity 0.2s;
+      padding: 1.1rem 2.5rem;
+      transition: all 0.3s ease;
     }
     
-    .btn-secondary:hover { opacity: 0.7; }
+    .btn-secondary:hover {
+      border-color: var(--text-primary);
+      background: var(--bg-card-hover);
+    }
 
     /* --- Scroll Hint --- */
     .scroll-hint {
       position: absolute;
-      bottom: 2rem;
+      bottom: 2.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      color: var(--text-muted);
+      gap: 0.75rem;
+      color: var(--text-dim);
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      opacity: 0.5;
+      letter-spacing: 0.2em;
+      opacity: 0.6;
+      font-weight: 500;
     }
     
     /* Mobile Adjustments */
@@ -181,6 +194,7 @@ export default function Hero() {
         .btn-group {
             flex-direction: column;
             width: 100%;
+            gap: 1rem;
         }
         .btn-primary, .btn-secondary {
             width: 100%;
@@ -189,7 +203,7 @@ export default function Hero() {
     }
   `;
 
-  // --- Animation Variants (Smooth & Staggered) ---
+  // --- Animation Variants (Silky Smooth) ---
   const wrapperVars = {
     hidden: { opacity: 0 },
     visible: {
@@ -199,67 +213,78 @@ export default function Hero() {
   };
 
   const itemVars = {
-    hidden: { y: 50, opacity: 0, rotateX: 10 },
+    hidden: { y: 40, opacity: 0, rotateX: 5 },
     visible: {
       y: 0,
       opacity: 1,
       rotateX: 0,
-      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const } // "Apple" easing
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } // Custom Easing
     }
   };
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
-
+      
       <div className="hero-wrapper">
         {/* Background Atmosphere */}
         <div className="ambient-glow glow-red" />
         <div className="ambient-glow glow-blue" />
 
-        <motion.div
-          className="hero-container"
-          variants={wrapperVars}
-          initial="hidden"
-          animate="visible"
+        <motion.div 
+            className="hero-container"
+            variants={wrapperVars}
+            initial="hidden"
+            animate="visible"
         >
-          {/* 1. Eyebrow Label */}
-          <motion.div variants={itemVars}>
-          </motion.div>
+            {/* 1. Eyebrow Label */}
+            <motion.div variants={itemVars}>
+                {/* <span className="eyebrow">SPL SYSTEMS v2.0</span> */}
+            </motion.div>
 
-          {/* 2. Main Title (Clean & Kinetic) */}
-          <h1 className="hero-title">
-            <div style={{ overflow: 'hidden' }}>
-              <motion.div variants={itemVars}>
-                Engineering the
-              </motion.div>
-            </div>
-            <div style={{ overflow: 'hidden' }}>
-              <motion.div variants={itemVars}>
-                <span className="serif-italic">Intelligent</span> Future.
-              </motion.div>
-            </div>
-          </h1>
+            {/* 2. Main Title */}
+            <h1 className="hero-title">
+                {/* Lines split for staggering effect */}
+                <div style={{ overflow: 'hidden' }}>
+                    <motion.div variants={itemVars}>
+                        Engineering the
+                    </motion.div>
+                </div>
+                <div style={{ overflow: 'hidden' }}>
+                    <motion.div variants={itemVars}>
+                        <span className="serif-italic">Intelligent</span> Future.
+                    </motion.div>
+                </div>
+            </h1>
 
-          {/* 3. Description */}
-          <motion.p variants={itemVars} className="hero-desc">
-            We build high-performance digital infrastructure for ambitious enterprises.
-            Scalable, secure, and designed for tomorrow.
-          </motion.p>
+            {/* 3. Description */}
+            <motion.p variants={itemVars} className="hero-desc">
+                We build high-performance digital infrastructure for ambitious enterprises. 
+                Scalable, secure, and designed for tomorrow.
+            </motion.p>
 
-          {/* 4. Actions */}
-          <motion.div variants={itemVars} className="btn-group">
-            <button className="btn-primary">
-              Start a Project <ArrowRight size={18} />
-            </button>
-            <button className="btn-secondary">
-              View Our Work
-            </button>
-          </motion.div>
+            {/* 4. Actions */}
+            <motion.div variants={itemVars} className="btn-group">
+                <button className="btn-primary">
+                    Start a Project <ArrowRight size={20} />
+                </button>
+                <button className="btn-secondary">
+                    View Our Work
+                </button>
+            </motion.div>
 
         </motion.div>
 
-
+        {/* 5. Bottom Scroll Hint */}
+        <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ delay: 1.8, duration: 1 }}
+            className="scroll-hint"
+        >
+            <span>Scroll</span>
+            <ChevronDown size={18} className="animate-bounce" />
+        </motion.div>
 
       </div>
     </>
