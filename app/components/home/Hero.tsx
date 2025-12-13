@@ -8,11 +8,14 @@ export default function Hero() {
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
 
     :root {
-      --bg-dark: #050505;
+--bg-dark: #050505;
       --text-white: #ffffff;
       --text-muted: #a1a1aa;
-      --accent-primary: #ffffff;
-      --accent-secondary: #71717a;
+
+      --grad-red: linear-gradient(135deg, #FF512F, #DD2476);
+      --grad-blue: linear-gradient(135deg, #00C6FB, #005BEA);
+      --grad-green: linear-gradient(135deg, #11998e, #38ef7d);
+      --grad-main: linear-gradient(135deg, #00C6FB, #DD2476);
     }
 
     .hero-wrapper {
@@ -34,7 +37,7 @@ export default function Hero() {
       position: absolute;
       width: 60vw;
       height: 40vw;
-      background: linear-gradient(120deg, #3b82f6, #14b8a6, #8b5cf6);
+      background: var(--grad-main);
       opacity: 0.15;
       border-radius: 50%;
       animation: drift 20s infinite alternate;
@@ -42,7 +45,7 @@ export default function Hero() {
     }
 
     .glow-1 { top: -10%; left: -10%; animation-delay: 0s; }
-    .glow-2 { bottom: -10%; right: -10%; animation-delay: -10s; background: linear-gradient(120deg, #ec4899, #f43f5e); }
+    .glow-2 { bottom: -10%; right: -10%; animation-delay: -10s; background: var(--grad-green); }
 
     @keyframes drift {
       0% { transform: translate(0, 0) scale(1); }
@@ -66,29 +69,6 @@ export default function Hero() {
       max-width: 900px;
     }
 
-    /* --- Badge --- */
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 100px;
-      margin-bottom: 1rem;
-      backdrop-filter: blur(10px);
-    }
-
-    .badge-text {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.02em;
-    }
-
-    .stars-wrapper {
-      display: flex;
-      color: #fbbf24; /* Amber 400 */
-    }
 
     /* --- Typography --- */
     .hero-title {
@@ -108,7 +88,7 @@ export default function Hero() {
 
     .italic-accent {
       font-style: italic;
-      color: #9ca3af; /* zinc-400 */
+      color: var(--text-muted); /* zinc-400 */
       font-weight: 300;
     }
 
@@ -127,7 +107,7 @@ export default function Hero() {
       align-items: center;
       gap: 0.75rem;
       padding: 1rem 2.5rem;
-      background: #ffffff;
+      background: var(--text-white);
       color: #000000;
       border-radius: 100px;
       font-size: 1rem;

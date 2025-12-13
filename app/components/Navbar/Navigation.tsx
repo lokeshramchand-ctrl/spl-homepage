@@ -12,18 +12,23 @@ export default function Navigation() {
   const [isVisible, setIsVisible] = useState(true);
   const pathname = usePathname();
 
-  // --- Scroll Logic to Hide Navbar near Footer ---
+  // --- Scroll Logic ---
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight;
+      const currentScrollY = window.scrollY;
+      const scrollPosition = currentScrollY + window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
       const footerThreshold = 600;
 
+      // Hide if near footer OR scrolling down (optional UX improvement)
       if (docHeight - scrollPosition < footerThreshold) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
+      lastScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -36,8 +41,19 @@ export default function Navigation() {
     { name: 'Approach', href: '#services' },
   ];
 
-  // --- CSS Styles ---
   const styles = `
+    /* --- Imports --- */
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600&family=Inter:wght@400;500&display=swap');
+
+    :root {
+      --bg-glass: rgba(5, 5, 5, 0.7); /* Deep dark glass */
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --text-white: #ffffff;
+      --text-muted: #a1a1aa;
+      --brand-green: #38ef7d;
+      --brand-blue: #00C6FB;
+    }
+
     /* Navigation Styles */
     .navbar-fixed {
       position: fixed;
@@ -48,41 +64,37 @@ export default function Navigation() {
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s;
     }
 
-    .nav-visible {
-      transform: translateY(0);
-    }
+    .nav-visible { transform: translateY(0); }
+    .nav-hidden { transform: translateY(-100%); }
 
-    .nav-hidden {
-      transform: translateY(-100%);
-    }
-
-    /* Glass Effect Container */
+    /* --- PREMIUM GLASSMORPHISM --- */
     .nav-glass {
-      background: rgba(2, 2, 2, 0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px); /* Heavy blur */
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-glass);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
 
     .nav-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 1.25rem 2rem;
+      padding: 1rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      height: 80px;
     }
 
-    /* Logo */
-    .logo-text {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.5rem;
-      color: var(--text-white, #fff);
-      font-weight: 500;
-      letter-spacing: -0.02em;
+    /* Logo Wrapper */
+    .logo-wrapper {
       position: relative;
       z-index: 110;
+      display: flex;
+      align-items: center;
+      transition: opacity 0.3s;
     }
+    .logo-wrapper:hover { opacity: 0.9; }
 
     /* Desktop Links */
     .desktop-nav {
@@ -92,102 +104,114 @@ export default function Navigation() {
     @media (min-width: 768px) {
       .desktop-nav {
         display: flex;
-        gap: 2.5rem;
+        gap: 3rem;
         align-items: center;
       }
     }
 
     .nav-link {
       position: relative;
-      font-size: 0.9rem;
-      color: var(--text-muted, #94a3b8);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-muted);
       text-decoration: none;
       transition: color 0.3s ease;
-      font-weight: 400;
-      letter-spacing: 0.02em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      padding: 0.5rem 0;
     }
 
-    .nav-link:hover, .nav-link.active {
-      color: var(--text-white, #fff);
-    }
+    .nav-link:hover { color: var(--text-white); }
+    .nav-link.active { color: var(--text-white); }
 
-    /* Animated Underline */
+    /* Animated Dot Indicator */
     .link-dot {
       position: absolute;
-      bottom: -4px;
+      bottom: 0;
       left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 4px;
+      transform: translateX(-50%) scale(0);
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      background-color: var(--accent-teal, #22c55e);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      background-color: var(--brand-green); /* SPL Green */
+      box-shadow: 0 0 8px var(--brand-green);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .nav-link:hover .link-dot, .nav-link.active .link-dot {
-      opacity: 1;
+    .nav-link:hover .link-dot, 
+    .nav-link.active .link-dot {
+      transform: translateX(-50%) scale(1);
     }
 
     /* Mobile Menu Button */
     .menu-btn {
       position: relative;
       z-index: 110;
-      color: var(--text-white, #fff);
-      background: none;
-      border: none;
+      color: var(--text-white);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      display: block;
+      transition: all 0.2s;
     }
+    
+    .menu-btn:hover { background: rgba(255,255,255,0.1); }
 
     @media (min-width: 768px) {
-      .menu-btn {
-        display: none;
-      }
+      .menu-btn { display: none; }
     }
 
-    /* Mobile Overlay */
+    /* Mobile Overlay (Glass + Noise) */
     .mobile-overlay {
       position: fixed;
       inset: 0;
-      background: var(--bg-dark, #020202);
+      background: rgba(5, 5, 5, 0.95);
+      backdrop-filter: blur(20px);
       z-index: 100;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 2rem;
       overflow: hidden;
-      /* Simple CSS Fade In */
-      animation: fadeIn 0.3s ease-out;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    .mobile-bg-noise {
-      position: absolute;
-      inset: 0;
-      opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      pointer-events: none;
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .mobile-link {
-      font-family: 'Instrument Serif', serif;
-      font-size: 3.5rem;
-      color: var(--text-muted, #94a3b8);
+      font-family: 'Instrument Sans', sans-serif; /* Clean Sans Serif */
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--text-muted);
       text-decoration: none;
-      margin-bottom: 1.5rem;
-      transition: color 0.3s;
-      line-height: 1;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      line-height: 1.1;
       display: block;
+      letter-spacing: -0.03em;
     }
 
     .mobile-link:hover {
-      color: var(--accent-blue, #2563eb);
-      padding-left: 10px;
+      color: var(--text-white);
+      transform: translateX(10px);
+    }
+    
+    .mobile-active-dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: var(--brand-green);
+        border-radius: 50%;
+        margin-right: 15px;
+        box-shadow: 0 0 15px var(--brand-green);
     }
   `;
 
@@ -197,13 +221,13 @@ export default function Navigation() {
       <nav className={`navbar-fixed nav-glass ${isVisible || isOpen ? 'nav-visible' : 'nav-hidden'}`}>
         <div className="nav-container">
           {/* Logo */}
-          <Link href="/" className="logo-text" onClick={() => setIsOpen(false)}>
+          <Link href="/" className="logo-wrapper" onClick={() => setIsOpen(false)}>
             <Image
               src={logo}
               alt="SPL Systems"
-              height={60}
-              width={120}
-              style={{ width: 'auto', height: '60px' }}
+              height={40} /* Adjusted size for better proportion */
+              width={100}
+              style={{ width: 'auto', height: '40px' }}
               priority
             />
           </Link>
@@ -228,16 +252,14 @@ export default function Navigation() {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>
 
-      {/* Full Screen Mobile Menu Overlay - Standard React Rendering */}
+      {/* Full Screen Mobile Menu Overlay */}
       {isOpen && (
         <div className="mobile-overlay">
-          <div className="mobile-bg-noise" />
-
           <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column' }}>
             {navLinks.map((link) => (
               <div key={link.name}>
@@ -246,13 +268,15 @@ export default function Navigation() {
                   className="mobile-link"
                   onClick={() => setIsOpen(false)}
                 >
+                   {/* Show dot only for active link */}
+                  {pathname === link.href && <span className="mobile-active-dot" />}
                   {link.name}
                 </Link>
               </div>
             ))}
           </div>
 
-          {/* Mobile Menu Footer Details */}
+          {/* Mobile Menu Footer */}
           <div
             style={{
               marginTop: 'auto',
@@ -260,7 +284,7 @@ export default function Navigation() {
               paddingTop: '2rem'
             }}
           >
-            <p style={{ color: '#52525b', fontSize: '0.875rem' }}>
+            <p style={{ color: '#52525b', fontFamily: 'Inter, sans-serif', fontSize: '0.875rem' }}>
               Engineering tomorrow's enterprises.
             </p>
           </div>
