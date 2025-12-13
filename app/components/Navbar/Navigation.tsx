@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/SPL.svg';
+import ThemeToggle from '../Themetoggle';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function Navigation() {
       const docHeight = document.documentElement.scrollHeight;
       const footerThreshold = 600;
 
-      // Hide if near footer OR scrolling down (optional UX improvement)
+      // Hide if near footer OR scrolling down
       if (docHeight - scrollPosition < footerThreshold) {
         setIsVisible(false);
       } else {
@@ -42,18 +43,6 @@ export default function Navigation() {
   ];
 
   const styles = `
-    /* --- Imports --- */
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600&family=Inter:wght@400;500&display=swap');
-
-    :root {
-      --bg-glass: rgba(5, 5, 5, 0.7); /* Deep dark glass */
-      --border-glass: rgba(255, 255, 255, 0.08);
-      --text-white: #ffffff;
-      --text-muted: #a1a1aa;
-      --brand-green: #38ef7d;
-      --brand-blue: #00C6FB;
-    }
-
     /* Navigation Styles */
     .navbar-fixed {
       position: fixed;
@@ -67,13 +56,13 @@ export default function Navigation() {
     .nav-visible { transform: translateY(0); }
     .nav-hidden { transform: translateY(-100%); }
 
-    /* --- PREMIUM GLASSMORPHISM --- */
+    /* --- GLASSMORPHISM (Using Global Vars) --- */
     .nav-glass {
       background: var(--bg-glass);
-      backdrop-filter: blur(20px); /* Heavy blur */
+      backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-glass);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
     }
 
     .nav-container {
@@ -94,7 +83,14 @@ export default function Navigation() {
       align-items: center;
       transition: opacity 0.3s;
     }
-    .logo-wrapper:hover { opacity: 0.9; }
+    .logo-wrapper:hover { opacity: 0.8; }
+
+    /* Right Side Container (Nav + Toggle) */
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
 
     /* Desktop Links */
     .desktop-nav {
@@ -113,7 +109,7 @@ export default function Navigation() {
       position: relative;
       font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
-      color: var(--text-muted);
+      color: var(--text-secondary); /* Global Variable */
       text-decoration: none;
       transition: color 0.3s ease;
       font-weight: 500;
@@ -121,8 +117,8 @@ export default function Navigation() {
       padding: 0.5rem 0;
     }
 
-    .nav-link:hover { color: var(--text-white); }
-    .nav-link.active { color: var(--text-white); }
+    .nav-link:hover { color: var(--text-primary); }
+    .nav-link.active { color: var(--text-primary); }
 
     /* Animated Dot Indicator */
     .link-dot {
@@ -133,7 +129,7 @@ export default function Navigation() {
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background-color: var(--brand-green); /* SPL Green */
+      background-color: var(--brand-green);
       box-shadow: 0 0 8px var(--brand-green);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -147,9 +143,9 @@ export default function Navigation() {
     .menu-btn {
       position: relative;
       z-index: 110;
-      color: var(--text-white);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-primary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       width: 44px;
       height: 44px;
@@ -160,17 +156,17 @@ export default function Navigation() {
       transition: all 0.2s;
     }
     
-    .menu-btn:hover { background: rgba(255,255,255,0.1); }
+    .menu-btn:hover { background: var(--bg-card-hover); }
 
     @media (min-width: 768px) {
       .menu-btn { display: none; }
     }
 
-    /* Mobile Overlay (Glass + Noise) */
+    /* Mobile Overlay */
     .mobile-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(5, 5, 5, 0.95);
+      background: var(--bg-glass-heavy); /* Use heavy glass var */
       backdrop-filter: blur(20px);
       z-index: 100;
       display: flex;
@@ -187,10 +183,10 @@ export default function Navigation() {
     }
 
     .mobile-link {
-      font-family: 'Instrument Sans', sans-serif; /* Clean Sans Serif */
+      font-family: 'Instrument Sans', sans-serif;
       font-size: 3rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       text-decoration: none;
       margin-bottom: 2rem;
       transition: all 0.3s ease;
@@ -200,7 +196,7 @@ export default function Navigation() {
     }
 
     .mobile-link:hover {
-      color: var(--text-white);
+      color: var(--text-primary);
       transform: translateX(10px);
     }
     
@@ -225,35 +221,40 @@ export default function Navigation() {
             <Image
               src={logo}
               alt="SPL Systems"
-              height={40} /* Adjusted size for better proportion */
+              height={40}
               width={100}
               style={{ width: 'auto', height: '40px' }}
               priority
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="desktop-nav">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`nav-link ${pathname === link.href ? 'active' : ''}`}
-              >
-                {link.name}
-                <span className="link-dot" />
-              </Link>
-            ))}
-          </div>
+          <div className="nav-right">
+            {/* Desktop Navigation */}
+            <div className="desktop-nav">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`nav-link ${pathname === link.href ? 'active' : ''}`}
+                >
+                  {link.name}
+                  <span className="link-dot" />
+                </Link>
+              ))}
+            </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="menu-btn"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* THEME TOGGLE (Visible on both Mobile & Desktop) */}
+            <ThemeToggle />
+
+            {/* Mobile Menu Button */}
+            <button
+              className="menu-btn"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -280,11 +281,11 @@ export default function Navigation() {
           <div
             style={{
               marginTop: 'auto',
-              borderTop: '1px solid rgba(255,255,255,0.1)',
+              borderTop: '1px solid var(--border-color)',
               paddingTop: '2rem'
             }}
           >
-            <p style={{ color: '#52525b', fontFamily: 'Inter, sans-serif', fontSize: '0.875rem' }}>
+            <p style={{ color: 'var(--text-dim)', fontFamily: 'Inter, sans-serif', fontSize: '0.875rem' }}>
               Engineering tomorrow's enterprises.
             </p>
           </div>
