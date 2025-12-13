@@ -39,30 +39,15 @@ export default function StatsSection() {
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
 
-    :root {
-      --bg-dark: #050505;
-      --text-white: #ffffff;
-      --text-muted: #a1a1aa;
-      
-      /* --- UPDATED BRAND COLORS --- */
-      --brand-red: #FF512F;
-      --brand-pink: #DD2476;
-      --brand-blue-light: #00C6FB;
-      --brand-blue-dark: #005BEA;
-      --brand-green: #38ef7d;
-      
-      --grad-main: linear-gradient(135deg, #FF512F, #DD2476); /* Red Gradient */
-      --grad-secondary: linear-gradient(135deg, #00C6FB, #005BEA); /* Blue Gradient */
-    }
-
     /* --- Base --- */
     .stats-section {
       position: relative;
-      background-color: var(--bg-dark);
-      color: var(--text-white);
+      background-color: var(--bg-main); /* Theme Aware */
+      color: var(--text-primary);       /* Theme Aware */
       padding: 8rem 0;
       font-family: 'Inter', sans-serif;
       overflow: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     .container {
@@ -79,14 +64,14 @@ export default function StatsSection() {
       padding: 0.35rem 1rem;
       margin-bottom: 2rem;
       border-radius: 9999px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
       backdrop-filter: blur(8px);
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     .section-title {
@@ -95,24 +80,25 @@ export default function StatsSection() {
       font-weight: 400;
       line-height: 1.1;
       margin-bottom: 2rem;
+      color: var(--text-primary);
     }
 
     .italic-highlight {
       font-style: italic;
       padding-right: 0.1em;
-      /* Updated to Brand Red Gradient */
-      background: var(--grad-main);
+      /* Brand Gradient - Consistent across themes */
+      background: var(--grad-red);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
     .text-body {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-size: 1.125rem;
       line-height: 1.75;
       margin-bottom: 2rem;
-      font-weight: 300;
+      font-weight: 400;
     }
 
     /* --- Grid Layouts --- */
@@ -135,7 +121,7 @@ export default function StatsSection() {
       grid-template-columns: 1fr;
       gap: 0;
       margin-top: 6rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid var(--border-color);
     }
 
     @media (min-width: 768px) {
@@ -152,7 +138,7 @@ export default function StatsSection() {
     }
 
     .stat-card:hover {
-      background: rgba(255,255,255,0.02);
+      background: var(--bg-card-hover);
     }
 
     /* Vertical Dividers for Desktop */
@@ -164,7 +150,7 @@ export default function StatsSection() {
         top: 20%;
         height: 60%;
         width: 1px;
-        background: rgba(255,255,255,0.1);
+        background: var(--border-color);
       }
     }
 
@@ -173,7 +159,7 @@ export default function StatsSection() {
       font-size: clamp(3rem, 5vw, 4.5rem);
       line-height: 1;
       font-weight: 400;
-      color: var(--text-white);
+      color: var(--text-primary);
       margin-bottom: 0.5rem;
       display: flex;
       align-items: baseline;
@@ -181,17 +167,16 @@ export default function StatsSection() {
 
     .stat-suffix {
       font-size: 0.6em;
-      /* Updated to Brand Blue */
-      color: var(--brand-blue-light);
+      color: var(--brand-blue);
       margin-left: 2px;
     }
 
     .stat-label {
       font-size: 0.875rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     /* Decorative line that grows on hover */
@@ -200,9 +185,8 @@ export default function StatsSection() {
       bottom: 0;
       left: 0;
       width: 0%;
-      height: 2px; /* Slightly thicker for visibility */
-      /* Updated to Red-to-Blue Gradient */
-      background: linear-gradient(90deg, var(--brand-red), var(--brand-blue-light));
+      height: 2px; 
+      background: var(--grad-blue);
       transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -215,17 +199,16 @@ export default function StatsSection() {
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      color: var(--text-white);
+      color: var(--text-primary);
       font-size: 0.95rem;
       text-decoration: none;
       cursor: pointer;
       padding-bottom: 2px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      border-bottom: 1px solid var(--border-color);
       transition: all 0.3s ease;
     }
 
     .btn-link:hover {
-      /* Updated to Brand Red */
       border-color: var(--brand-red);
       color: var(--brand-red);
       gap: 1rem;
@@ -243,11 +226,10 @@ export default function StatsSection() {
       <style dangerouslySetInnerHTML={{ __html: styles }} />
 
       <section className="stats-section">
-        <div className="stats-noise" />
         
-        {/* Updated Ambient Glows to Brand Colors (Blue & Red) */}
-        <div style={{ position: 'absolute', top: '10%', right: '0', width: '300px', height: '300px', background: '#005BEA', filter: 'blur(120px)', opacity: '0.08', borderRadius: '50%' }} />
-        <div style={{ position: 'absolute', bottom: '10%', left: '0', width: '300px', height: '300px', background: '#FF512F', filter: 'blur(120px)', opacity: '0.06', borderRadius: '50%' }} />
+        {/* Ambient Glows - Using Brand Colors (Visible in both themes) */}
+        <div style={{ position: 'absolute', top: '10%', right: '0', width: '300px', height: '300px', background: 'var(--brand-blue)', filter: 'blur(120px)', opacity: '0.1', borderRadius: '50%' }} />
+        <div style={{ position: 'absolute', bottom: '10%', left: '0', width: '300px', height: '300px', background: 'var(--brand-red)', filter: 'blur(120px)', opacity: '0.08', borderRadius: '50%' }} />
 
         <div className="container">
           <div className="stats-intro-grid">

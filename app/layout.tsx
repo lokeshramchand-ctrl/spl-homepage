@@ -28,7 +28,6 @@ export default function RootLayout({
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem>
           <Navigation />
           <main>{children}</main>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

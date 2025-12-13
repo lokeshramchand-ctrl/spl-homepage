@@ -60,31 +60,9 @@ const itemAnim = {
 
 const styles = `
 /* --- Imports & Fonts --- */
-/* Switched to Montserrat to match the 'SPL' Logo Text */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Inter:wght@300;400;500&display=swap');
 
-/* --- Variables --- */
-:root {
-  --bg-dark: #050505;
-  --text-main: #ffffff;
-  --text-muted: #a1a1aa;
-  --text-dim: #52525b;
-  
-  /* --- NEW BRAND GRADIENTS (From SVG) --- */
-  --grad-red: linear-gradient(135deg, #FF512F, #DD2476);
-  --grad-blue: linear-gradient(135deg, #00C6FB, #005BEA);
-  --grad-green: linear-gradient(135deg, #11998e, #38ef7d);
-
-  /* --- Solid Colors extracted from gradients for borders/accents --- */
-  --brand-red: #DD2476;
-  --brand-blue: #005BEA;
-  --brand-green: #38ef7d;
-  
-  --border-light: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(0, 198, 251, 0.3); /* Blue hint */
-  
-  --surface-hover: rgba(255, 255, 255, 0.03);
-}
+/* No local :root - using globals.css variables */
 
 /* --- Global Reset & Base --- */
 * {
@@ -92,19 +70,20 @@ const styles = `
 }
 
 ::selection {
-  background: rgba(0, 198, 251, 0.2); /* Brand Blue selection */
-  color: #00C6FB;
+  background: rgba(0, 198, 251, 0.2);
+  color: var(--brand-blue);
 }
 
 .faq-page {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  background-color: var(--bg-dark);
-  color: var(--text-main);
+  background-color: var(--bg-main); /* Theme Aware */
+  color: var(--text-primary);       /* Theme Aware */
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   padding: 6rem 1.5rem;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .gradient-orb {
@@ -115,13 +94,13 @@ const styles = `
   opacity: 0.12;
 }
 
-/* Updated Orbs to match Logo Gradients */
+/* Orbs use Brand Gradients (Work in both modes) */
 .orb-1 {
   top: -10%;
   left: -10%;
   width: 50vw;
   height: 50vw;
-  background: var(--grad-red); /* Brand Red */
+  background: var(--grad-red);
 }
 
 .orb-2 {
@@ -129,7 +108,7 @@ const styles = `
   right: -10%;
   width: 40vw;
   height: 40vw;
-  background: var(--grad-blue); /* Brand Blue */
+  background: var(--grad-blue);
 }
 
 /* --- Container --- */
@@ -151,23 +130,24 @@ const styles = `
   padding: 0.35rem 1rem;
   margin-bottom: 1.5rem;
   border-radius: 9999px;
-  border: 1px solid var(--border-light);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   backdrop-filter: blur(8px);
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  box-shadow: 0 0 20px rgba(0, 198, 251, 0.1); /* Subtle Blue Glow */
+  color: var(--text-secondary);
+  box-shadow: 0 0 20px rgba(0, 198, 251, 0.05);
 }
 
 .main-title {
-  font-family: 'Instrument  Sans', sans-serif;
+  font-family: 'Instrument Sans', sans-serif;
   font-size: clamp(3rem, 8vw, 5.5rem);
   line-height: 1.1;
   letter-spacing: -0.05em;
   font-weight: 500; 
+  color: var(--text-primary);
 }
 
 .word-wrapper {
@@ -182,7 +162,6 @@ const styles = `
 
 .highlight-italic {
   font-style: italic;
-  /* Updated to Brand Red Gradient */
   background: var(--grad-red);
   -webkit-background-clip: text;
   background-clip: text;
@@ -192,21 +171,21 @@ const styles = `
 
 /* --- FAQ List --- */
 .faq-list {
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-color);
 }
 
 /* --- FAQ Item --- */
 .faq-item {
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-color);
   transition: background-color 0.4s ease;
 }
 
 .faq-item:hover {
-  background-color: var(--surface-hover);
+  background-color: var(--bg-card-hover);
 }
 
 .faq-item.active {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--bg-card);
 }
 
 /* --- Trigger Button --- */
@@ -246,8 +225,8 @@ const styles = `
 .faq-question {
   flex: 1;
   font-size: 1.25rem;
-  font-weight: 500; /* Slightly bolder for Montserrat pairing */
-  color: var(--text-muted);
+  font-weight: 500;
+  color: var(--text-secondary);
   transition: color 0.3s ease;
 }
 
@@ -258,11 +237,11 @@ const styles = `
 }
 
 .faq-item:hover .faq-question {
-  color: #e4e4e7;
+  color: var(--text-primary);
 }
 
 .faq-item.active .faq-question {
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
 /* --- Icon Wrapper --- */
@@ -271,17 +250,17 @@ const styles = `
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-card);
   transition: all 0.3s ease;
   margin-left: 1rem;
 }
 
 .faq-item:hover .icon-wrapper {
-  border-color: var(--brand-blue); /* Brand Blue border on hover */
+  border-color: var(--brand-blue);
   background: rgba(0, 198, 251, 0.1);
 }
 
@@ -290,11 +269,11 @@ const styles = `
 }
 
 .icon-plus {
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .icon-minus {
-  color: var(--brand-red); /* Brand Red for the active 'minus' state */
+  color: var(--brand-red);
 }
 
 /* --- Answer Content --- */
@@ -306,7 +285,7 @@ const styles = `
   padding: 0 1rem 2.5rem 1rem;
   font-size: 1.125rem;
   line-height: 1.7;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   max-width: 650px;
 }
 
@@ -324,7 +303,7 @@ const styles = `
 }
 
 .contact-link {
-  color: var(--text-main);
+  color: var(--text-primary);
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-color: var(--text-dim);
@@ -332,12 +311,10 @@ const styles = `
 }
 
 .contact-link:hover {
-  /* Brand Green Gradient Text for Link Hover */
   background: var(--grad-green);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  
   text-decoration-color: var(--brand-green);
 }`;
 
@@ -353,7 +330,6 @@ export default function FAQ() {
 
       <main className="faq-page">
         {/* Visual Effects */}
-        <div className="noise-overlay" />
         <div className="gradient-orb orb-1" />
         <div className="gradient-orb orb-2" />
 

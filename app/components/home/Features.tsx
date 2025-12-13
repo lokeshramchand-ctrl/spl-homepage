@@ -118,24 +118,16 @@ export default function ProcessSection() {
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
 
-    :root {
-      --bg-dark: #050505;
-      --card-bg: rgba(255, 255, 255, 0.02); /* Slightly transparent */
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #ffffff;
-      --text-muted: #a1a1aa;
-      
-      /* Brand Accents */
-      --brand-blue: #00C6FB;
-    }
+    /* No local :root anymore - using globals.css variables */
 
     .process-section {
       position: relative;
-      background-color: var(--bg-dark);
+      background-color: var(--bg-main); /* Theme Aware */
       padding: 8rem 0;
       width: 100%;
       overflow: hidden;
       font-family: 'Inter', sans-serif;
+      transition: background-color 0.4s ease;
     }
 
     .container {
@@ -156,7 +148,7 @@ export default function ProcessSection() {
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--brand-blue); /* Updated to Brand Blue */
+      color: var(--brand-blue); 
       margin-bottom: 1rem;
       display: block;
     }
@@ -164,7 +156,7 @@ export default function ProcessSection() {
     .header-title {
       font-family: 'Instrument Serif', serif;
       font-size: clamp(2.5rem, 5vw, 4rem);
-      color: var(--text-main);
+      color: var(--text-primary); /* Theme Aware */
       line-height: 1.1;
     }
 
@@ -194,8 +186,8 @@ export default function ProcessSection() {
       position: relative;
       flex: 0 0 320px;
       height: 480px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: var(--bg-card); /* Theme Aware */
+      border: 1px solid var(--border-color); /* Theme Aware */
       border-radius: 12px;
       padding: 2.5rem;
       display: flex;
@@ -215,8 +207,8 @@ export default function ProcessSection() {
 
     .process-card:hover {
       transform: translateY(-10px);
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      background: var(--bg-card-hover); /* Theme Aware */
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); /* Softer shadow */
     }
 
     /* Inner Content */
@@ -225,15 +217,16 @@ export default function ProcessSection() {
       font-size: 6rem;
       line-height: 1;
       color: transparent;
-      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-      opacity: 0.5;
+      /* Using border color allows stroke to be visible in both modes */
+      -webkit-text-stroke: 1px var(--text-dim); 
+      opacity: 0.3;
       transition: all 0.5s ease;
       margin-bottom: auto;
     }
 
     .process-card:hover .card-number {
       opacity: 1;
-      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+      -webkit-text-stroke: 1px var(--text-secondary);
       transform: scale(1.05);
       transform-origin: left top;
     }
@@ -246,15 +239,15 @@ export default function ProcessSection() {
     .card-title {
       font-family: 'Instrument Serif', serif;
       font-size: 2.5rem;
-      color: var(--text-main);
+      color: var(--text-primary); /* Theme Aware */
       margin-bottom: 1rem;
     }
 
     .card-desc {
       font-size: 1rem;
       line-height: 1.6;
-      color: var(--text-muted);
-      font-weight: 300;
+      color: var(--text-secondary); /* Theme Aware */
+      font-weight: 400;
     }
 
     /* Gradient Background Effect */
@@ -268,7 +261,7 @@ export default function ProcessSection() {
     }
 
     .process-card:hover .card-glow {
-      opacity: 0.15; /* Subtle colored tint */
+      opacity: 0.1; /* Subtle colored tint */
     }
     
     /* Decorative Gradient Line */
@@ -277,7 +270,7 @@ export default function ProcessSection() {
         bottom: 0; 
         left: 0; 
         width: 100%; 
-        height: 2px; 
+        height: 4px; 
         background: var(--glow-gradient);
         transform: scaleX(0); 
         transform-origin: left;
@@ -307,10 +300,9 @@ export default function ProcessSection() {
     <>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <section className="process-section" ref={sectionRef}>
-        <div className="process-noise" />
         
-        {/* Ambient background blob - Updated to Brand Blue */}
-        <div style={{ position: 'absolute', top: '-20%', left: '20%', width: '600px', height: '600px', background: '#005BEA', filter: 'blur(150px)', opacity: '0.08', borderRadius: '50%', pointerEvents: 'none' }} />
+        {/* Ambient background blob - Theme Aware */}
+        <div style={{ position: 'absolute', top: '-20%', left: '20%', width: '600px', height: '600px', background: 'var(--brand-blue)', filter: 'blur(150px)', opacity: '0.08', borderRadius: '50%', pointerEvents: 'none' }} />
 
         <div className="container">
           <div className="section-header">
@@ -318,7 +310,7 @@ export default function ProcessSection() {
             <h2 className="header-title">
               From abstract ideas <br />
               <span style={{ 
-                background: 'linear-gradient(90deg, #a1a1aa, #ffffff)', 
+                background: 'linear-gradient(90deg, var(--text-secondary), var(--text-primary))', 
                 WebkitBackgroundClip: 'text', 
                 WebkitTextFillColor: 'transparent' 
               }}>
