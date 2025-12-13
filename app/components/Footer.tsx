@@ -229,9 +229,9 @@ export default function Footer() {
                 <h3>Company</h3>
                 <ul>
                   <li><a href="#" className="footer-link">About</a></li>
-                  <li><a href="#" className="footer-link">Careers</a></li>
-                  <li><a href="#" className="footer-link">Blog</a></li>
-                  <li><a href="#" className="footer-link">Legal</a></li>
+                  <li><a href="./404_nf" className="footer-link">Careers</a></li>
+                  <li><a href="./404_nf" className="footer-link">Blog</a></li>
+                  <li><a href="./404_nf" className="footer-link">Legal</a></li>
                 </ul>
               </motion.div>
             </div>
@@ -266,9 +266,9 @@ export default function Footer() {
             </div>
             
             <div className="social-links">
-              <a href="#" className="social-icon"><Linkedin size={20} /></a>
-              <a href="#" className="social-icon"><Twitter size={20} /></a>
-              <a href="#" className="social-icon"><Instagram size={20} /></a>
+              <a href="./404_nf" className="social-icon"><Linkedin size={20} /></a>
+              <a href="./404_nf" className="social-icon"><Twitter size={20} /></a>
+              <a href="./404_nf" className="social-icon"><Instagram size={20} /></a>
             </div>
           </div>
 
