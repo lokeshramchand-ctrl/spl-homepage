@@ -144,7 +144,7 @@ const styles = `
 }
 
 .main-title {
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: clamp(3rem, 8vw, 5.5rem);
   line-height: 1.1;
   letter-spacing: -0.05em;
