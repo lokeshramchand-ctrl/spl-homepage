@@ -60,7 +60,6 @@ const itemAnim = {
 
 const styles = `
 /* --- Imports & Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Inter:wght@300;400;500&display=swap');
 
 /* No local :root - using globals.css variables */
 
@@ -134,6 +133,7 @@ const styles = `
   background: var(--bg-card);
   backdrop-filter: blur(8px);
   font-size: 0.75rem;
+  font-family: 'Instrument Sans', sans-serif;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -162,6 +162,7 @@ const styles = `
 
 .highlight-italic {
   font-style: italic;
+  font-family: 'Instrument Sans', sans-serif;
   background: var(--grad-red);
   -webkit-background-clip: text;
   background-clip: text;
