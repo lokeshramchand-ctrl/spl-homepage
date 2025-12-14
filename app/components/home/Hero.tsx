@@ -265,16 +265,7 @@ export default function Hero() {
 
         </motion.div>
 
-        {/* 5. Bottom Scroll Hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 1 }}
-          className="scroll-hint"
-        >
-          <span>Scroll</span>
-          <ChevronDown size={18} className="animate-bounce" />
-        </motion.div>
+
 
       </div>
     </>
