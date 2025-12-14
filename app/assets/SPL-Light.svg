@@ -1,5 +1,9 @@
 <svg viewBox="0 -80 920 160" preserveAspectRatio="xMinYMid meet" xmlns="http://www.w3.org/2000/svg">
   <defs>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 16d5aa1f6f506c274aa4fca4627d98cfa5920b64
     <style>
       .icon-text {
         font-family: 'Montserrat', 'Inter', sans-serif;
@@ -20,20 +24,29 @@
     </style>
   </defs>
 
+<<<<<<< HEAD
   <g>
       <circle cx="60" cy="0" r="60" fill="#e72128" />
+=======
+      <circle cx="60" cy="0" r="60" fill="url(#e72128)" />
+>>>>>>> 16d5aa1f6f506c274aa4fca4627d98cfa5920b64
       <text x="60" y="2" class="icon-text">S</text>
-    </g>
 
+<<<<<<< HEAD
     <g>
       <circle cx="210" cy="0" r="60" fill="#016bb3" />
+=======
+      <circle cx="210" cy="0" r="60" fill="url(#016bb3)" />
+>>>>>>> 16d5aa1f6f506c274aa4fca4627d98cfa5920b64
       <text x="210" y="2" class="icon-text">P</text>
-    </g>
 
+<<<<<<< HEAD
     <g>
       <circle cx="360" cy="0" r="60" fill="#37b14a" />
+=======
+      <circle cx="360" cy="0" r="60" fill="url(#37b14a)" />
+>>>>>>> 16d5aa1f6f506c274aa4fca4627d98cfa5920b64
       <text x="360" y="2" class="icon-text">L</text>
-    </g>
 
     <text x="460" y="0" class="brand-text">SYSTEMS</text>
 

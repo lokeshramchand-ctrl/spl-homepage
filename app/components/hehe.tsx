@@ -32,7 +32,7 @@ const faqData = [
   },
 ];
 
-// Animation Variants
+// Animation Variants (Unchanged)
 const letterAnim = {
   hidden: { y: "100%" },
   visible: (i: number) => ({
@@ -60,7 +60,8 @@ const itemAnim = {
 
 const styles = `
 /* --- Imports & Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Inter:wght@300;400;500&display=swap');
+
+/* No local :root - using globals.css variables */
 
 /* --- Global Reset & Base --- */
 * {
@@ -79,10 +80,7 @@ const styles = `
   background-color: var(--bg-main); /* Theme Aware */
   color: var(--text-primary);       /* Theme Aware */
   font-family: 'Inter', sans-serif;
-  
-  /* FIX: 'hidden' clips the orbs so they don't cause scrollbars */
-  overflow: hidden; 
-  
+  overflow-x: hidden;
   padding: 6rem 1.5rem;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
@@ -93,10 +91,9 @@ const styles = `
   filter: blur(120px);
   z-index: 1;
   opacity: 0.12;
-  pointer-events: none; /* Ensure clicks pass through */
 }
 
-/* Orbs use Brand Gradients */
+/* Orbs use Brand Gradients (Work in both modes) */
 .orb-1 {
   top: -10%;
   left: -10%;
@@ -136,6 +133,7 @@ const styles = `
   background: var(--bg-card);
   backdrop-filter: blur(8px);
   font-size: 0.75rem;
+  font-family: 'Instrument Sans', sans-serif;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -164,6 +162,7 @@ const styles = `
 
 .highlight-italic {
   font-style: italic;
+  font-family: 'Instrument Sans', sans-serif;
   background: var(--grad-red);
   -webkit-background-clip: text;
   background-clip: text;
