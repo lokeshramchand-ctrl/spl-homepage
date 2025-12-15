@@ -8,8 +8,9 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes'; // Import for logo switching
 
 // Asset Imports
-import logoLight from '../../assets/SPL-Dark.svg';      // White logo for Dark Mode
-import logoDark from '../../assets/SPL-Light.svg';  // Dark logo for Light Mode
+import logoLight from '../../assets/spl-inkscape-side.svg';      // White logo for Dark Mode
+//import logoDark from '../../assets/SPL-Light.svg';  // Dark logo for Light Mode
+import logoDark from '../../assets/spl-inkscape-side.svg';  // Dark logo for Light Mode
 import ThemeToggle from '../Themetoggle';
 
 export default function Navigation() {
