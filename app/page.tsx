@@ -6,6 +6,7 @@ import Preloader from "./components/Preloader/Preloader";
 import Navigation from "./components/Navbar/Navigation";
 import Hero from "./components/home/Hero";
 import StatsSection from "./components/home/StatSections";
+import CarouselVertical  from "./components/home/CarouselVertical";
 import ProcessSection from "./components/home/Features";
 import FAQ from "./components/home/FAQ";
 import Footer from "./components/Footer";
@@ -59,17 +60,20 @@ export default function Home() {
       <Navigation />
 
       {/* 1. HERO (Home) */}
-      <section id="hero" className="relative z-50">
+      <section id="hero" className="relative z-60">
         <Hero />
       </section>
 
       {/* 2. ABOUT (Stats Section) 
           Mapped 'About' link here as requested 
       */}
-      <section id="about" className="relative z-40">
+      <section id="about" className="relative z-50">
         <StatsSection />
       </section>
 
+      <section id="about" className="relative z-40">
+        <CarouselVertical />
+      </section>
       {/* 3. SERVICES (Process Section) 
           Mapped 'Services' link here as requested
       */}

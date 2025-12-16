@@ -28,7 +28,7 @@ export default function Hero() {
       width: 60vw;
       height: 60vw;
       filter: blur(100px); /* Soft blur */
-      opacity: 0.15; /* Subtle by default */
+      opacity: 0.95; /* Subtle by default */
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;

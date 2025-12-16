@@ -272,8 +272,6 @@ export default function Navigation() {
                 height={40}
                 width={100}
                 style={{ width: 'auto', height: '40px' }}
-
-
                 priority
               />
             )}

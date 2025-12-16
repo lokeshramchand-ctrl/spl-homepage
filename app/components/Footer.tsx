@@ -1,9 +1,20 @@
 "use client";
 
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from "framer-motion";
 import { ArrowUpRight, Linkedin, Twitter, Instagram } from "lucide-react";
 
+// Asset Imports
+import logoLight from '../assets/spl-inkscape-side.svg';      // White logo for Dark Mode
+//import logoDark from '../../assets/SPL-Light.svg';  // Dark logo for Light Mode
+import logoDark from '../assets/spl-inkscape-side.svg';  // Dark logo for Light Mode
+import ThemeToggle from '../Themetoggle';
+
 export default function Footer() {
+  const [mounted, setMounted] = useState(false); // For hydration safety
+  const currentLogo = mounted && (theme === 'light' || resolvedTheme === 'light') ? logoDark : logoLight;
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -229,9 +240,6 @@ export default function Footer() {
                 <h3>Company</h3>
                 <ul>
                   <li><a href="#" className="footer-link">About</a></li>
-                  <li><a href="./404_nf" className="footer-link">Careers</a></li>
-                  <li><a href="./404_nf" className="footer-link">Blog</a></li>
-                  <li><a href="./404_nf" className="footer-link">Legal</a></li>
                 </ul>
               </motion.div>
             </div>
@@ -248,16 +256,29 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Huge Brand Section - Letter Separation */}
+          {/* Huge Brand Section - Letter Separation 
           <div className="footer-brand-section">
             <div className="huge-text-wrapper">
                 <span className="char char-s">S</span>
                 <span className="char char-p">P</span>
                 <span className="char char-l">L</span>
-                <span style={{ width: '0.2em' }} /> {/* Spacer */}
-                <span className="char char-systems">SYSTEMS</span>
+                <span style={{ width: '0.2em' }} />                 <span className="char char-systems">SYSTEMS</span>
             </div>
-          </div>
+          </div> */}
+
+            <div className="huge-text-wrapper">
+          <Link href="/" className="logo-wrapper">
+              <Image
+                src={currentLogo}
+		className="char-systems"
+                alt="SPL Systems"
+                height={40}
+                width={100}
+                style={{ width: 'auto', height: '40px'}}
+                priority
+              />
+          </Link>
+	  </div>
 
           {/* Copyright & Socials */}
           <div className="footer-bottom">
