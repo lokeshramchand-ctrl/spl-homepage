@@ -10,22 +10,34 @@ type Slide = {
   rightImg: StaticImageData;
 };
 
-import whaleLeft from '../../assets/g1.png';
-import whaleRight from '../../assets/g1.png';
+import financeLeft from '../../assets/invoice.svg';
+import financeRight from '../../assets/finance--strategy.svg';
+import govtLeft from '../../assets/govern--users.svg';
+import govtRight from '../../assets/government--01.svg';
+import realEstateLeft from '../../assets/real-estate.svg';
+import realEstateRight from '../../assets/home--front.svg';
+import educationLeft from '../../assets/badge.svg';
+import educationRight from '../../assets/education.svg';
 const slides: Slide[] = [
   {
     title: "Finance",
-    leftImg: whaleLeft,
-    rightImg: whaleRight },
+    leftImg: financeLeft,
+    rightImg: financeRight 
+  },
   {
     title: "Real Estate",
-    leftImg: "../../assets/SPL-Dark.svg",
-    rightImg: "../../assets/SPL-Dark.svg",
+    leftImg: realEstateLeft,
+    rightImg: realEstateRight,
   },
   {
     title: "Government",
-    leftImg: "../assets/SPL-Dark.svg",
-    rightImg: "../assets/SPL-Dark.svg",
+    leftImg: govtLeft,
+    rightImg: govtRight,
+  },
+  {
+    title: "Education",
+    leftImg: educationLeft,
+    rightImg: educationRight,
   },
 ];
 
@@ -191,7 +203,7 @@ export default function CarouselVertical() {
 
   .bg-img {
     object-fit: cover;
-    filter: blur(18px);
+    filter: blur(18px) invert(1);
     opacity: 0.7;
     transform: scale(1.15);
   }
@@ -212,7 +224,7 @@ export default function CarouselVertical() {
   }
 
   .bg-left {
-    left: 0;
+    left: 10%;
     height: 10vh;
     width: 10vh;
     mask-image: linear-gradient(
@@ -224,7 +236,7 @@ export default function CarouselVertical() {
   }
 
   .bg-right {
-    right: 0;
+    right: 10%;
     height: 10vh;
     width: 10vh;
     mask-image: linear-gradient(
@@ -285,6 +297,7 @@ export default function CarouselVertical() {
     backdrop-filter: blur(6px);
     border-radius: 14px;
     transition: transform 1s ease, opacity 1s ease;
+    font-size: 2em;
   }
 
 `}</style>
