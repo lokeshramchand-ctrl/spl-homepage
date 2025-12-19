@@ -202,8 +202,9 @@ export default function CarouselVertical() {
   }
 
   .bg-img {
+	  color: blue;
     object-fit: cover;
-    filter: blur(18px) invert(1);
+    filter: blur(18px);
     opacity: 0.7;
     transform: scale(1.15);
   }
