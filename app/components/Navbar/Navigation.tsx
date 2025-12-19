@@ -271,7 +271,7 @@ export default function Navigation() {
                 alt="SPL Systems"
                 height={40}
                 width={100}
-                style={{ width: 'auto', height: '40px' }}
+                style={{ width: 'auto', height: '40px', width: '290px' }}
                 priority
               />
             )}

@@ -1,322 +1,293 @@
+
 "use client";
 
-import { useRef, useEffect } from "react";
-import { motion, useInView, useSpring, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import Image, { StaticImageData} from "next/image"
 
-// --- Sub-component: Counting Number ---
-function CountingNumber({ value, label }: { value: string; label: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  
-  // Extract number and suffix (e.g., "10+" -> 10 and "+")
-  const numericValue = parseInt(value.replace(/\D/g, ""));
-  const suffix = value.replace(/[0-9]/g, "");
+type Slide = {
+  title: string;
+  leftImg: StaticImageData;
+  rightImg: StaticImageData;
+};
 
-  const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 20 });
-  const display = useTransform(spring, (current) => Math.round(current));
+import whaleLeft from '../../assets/g1.png';
+import whaleRight from '../../assets/g1.png';
+const slides: Slide[] = [
+  {
+    title: "Finance",
+    leftImg: whaleLeft,
+    rightImg: whaleRight },
+  {
+    title: "Real Estate",
+    leftImg: "../../assets/SPL-Dark.svg",
+    rightImg: "../../assets/SPL-Dark.svg",
+  },
+  {
+    title: "Government",
+    leftImg: "../assets/SPL-Dark.svg",
+    rightImg: "../assets/SPL-Dark.svg",
+  },
+];
 
-  useEffect(() => {
-    if (isInView) {
-      spring.set(numericValue);
-    }
-  }, [isInView, numericValue, spring]);
+const INTERVAL_MS = 3500;
 
-  return (
-    <div ref={ref} className="stat-card group">
-      <div className="stat-value-wrapper">
-        <motion.span className="stat-number">{display}</motion.span>
-        <span className="stat-suffix">{suffix}</span>
-      </div>
-      <div className="stat-label">{label}</div>
-      <div className="stat-line" />
-    </div>
-  );
-}
 
-// --- Main Component ---
 export default function CarouselVertical() {
-  const styles = `
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+  const [index, setIndex] = useState(0);
 
-body {
-  font-family: "Work Sans", sans-serif;
-  font-weight: 400;
-  height: 100vh;
-}
+  /* Auto spin */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length);
+    }, INTERVAL_MS);
 
-.wrapper {
-  background: linear-gradient(60deg, #420285, #08bdbd);
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
+    return () => clearInterval(id);
+  }, []);
 
-.carousel {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
 
-.carousel__item {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  padding: 0 12px;
-  opacity: 0;
-  filter: drop-shadow(0 2px 2px #555);
-  will-change: transform, opacity;
-  -webkit-animation: carousel-animate-vertical 27s linear infinite;
-          animation: carousel-animate-vertical 27s linear infinite;
-}
-
-.carousel__item:nth-child(1) {
-  -webkit-animation-delay: calc(3s * -1);
-          animation-delay: calc(3s * -1);
-}
-
-.carousel__item:nth-child(2) {
-  -webkit-animation-delay: calc(3s * 0);
-          animation-delay: calc(3s * 0);
-}
-
-.carousel__item:nth-child(3) {
-  -webkit-animation-delay: calc(3s * 1);
-          animation-delay: calc(3s * 1);
-}
-
-.carousel__item:nth-child(4) {
-  -webkit-animation-delay: calc(3s * 2);
-          animation-delay: calc(3s * 2);
-}
-
-.carousel__item:nth-child(5) {
-  -webkit-animation-delay: calc(3s * 3);
-          animation-delay: calc(3s * 3);
-}
-
-.carousel__item:nth-child(6) {
-  -webkit-animation-delay: calc(3s * 4);
-          animation-delay: calc(3s * 4);
-}
-
-.carousel__item:nth-child(7) {
-  -webkit-animation-delay: calc(3s * 5);
-          animation-delay: calc(3s * 5);
-}
-
-.carousel__item:nth-child(8) {
-  -webkit-animation-delay: calc(3s * 6);
-          animation-delay: calc(3s * 6);
-}
-
-.carousel__item:last-child {
-  -webkit-animation-delay: calc(-3s * 2);
-          animation-delay: calc(-3s * 2);
-}
-
-.carousel__item-head {
-  border-radius: 50%;
-  background-color: #d7f7fc;
-  width: 90px;
-  height: 90px;
-  padding: 14px;
-  position: relative;
-  margin-right: -45px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 50px;
-}
-
-.carousel__item-body {
-  width: 100%;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 16px 20px 16px 70px;
-}
-
-.title {
-  text-transform: uppercase;
-  font-size: 20px;
-  margin-top: 10px;
-}
-
-@-webkit-keyframes carousel-animate-vertical {
-  0% {
-    transform: translateY(100%) scale(0.5);
-    opacity: 0;
-    visibility: hidden;
-  }
-  3%, 11.1111111111% {
-    transform: translateY(100%) scale(0.7);
-    opacity: 0.4;
-    visibility: visible;
-  }
-  14.1111111111%, 22.2222222222% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    visibility: visible;
-  }
-  25.2222222222%, 33.3333333333% {
-    transform: translateY(-100%) scale(0.7);
-    opacity: 0.4;
-    visibility: visible;
-  }
-  36.3333333333% {
-    transform: translateY(-100%) scale(0.5);
-    opacity: 0;
-    visibility: visible;
-  }
-  100% {
-    transform: translateY(-100%) scale(0.5);
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-@keyframes carousel-animate-vertical {
-  0% {
-    transform: translateY(100%) scale(0.5);
-    opacity: 0;
-    visibility: hidden;
-  }
-  3%, 11.1111111111% {
-    transform: translateY(100%) scale(0.7);
-    opacity: 0.4;
-    visibility: visible;
-  }
-  14.1111111111%, 22.2222222222% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    visibility: visible;
-  }
-  25.2222222222%, 33.3333333333% {
-    transform: translateY(-100%) scale(0.7);
-    opacity: 0.4;
-    visibility: visible;
-  }
-  36.3333333333% {
-    transform: translateY(-100%) scale(0.5);
-    opacity: 0;
-    visibility: visible;
-  }
-  100% {
-    transform: translateY(-100%) scale(0.5);
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-  `;
-
-  const stats = [
-    { value: '10+', label: 'Years of Experience' },
-    { value: '200+', label: 'Projects Delivered' },
-    { value: '99%', label: 'Client Satisfaction' }
-  ];
+  const slide = slides[index];
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
+    <main className="carousel-page">
+        {/* Visual Effects */}
+        <div className="gradient-orb orb-1" />
+        <div className="gradient-orb orb-2" />
+{/* 🔹 TOP HEADING */}
+      <h2 className="main-title">Industries we served</h2>
+      {/* LEFT GRADIENT */}
 
-      <section className="stats-section">
-<div className='wrapper'>
-  <div className='carousel'>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐳
+      {/* FOREGROUND */}
+      <div className="content">
+      {/*
+        <h2 className="title">{slides[index].title}</h2>
+	*/}
+
+      <div
+        className="bg bg-left"
+      >
+              <Image
+                src={slide.leftImg}
+		fill
+          priority
+          className="bg-img"
+              />
       </div>
-      <div className='carousel__item-body'>
-        <p className='title'>spouting whale</p>
-        <p>Unicode: U+1F433</p>
+
+      {/* RIGHT GRADIENT */}
+      <div
+        className="bg bg-right"
+      >
+              <Image
+                src={slide.rightImg}
+		fill
+          priority
+          className="bg-img"
+              />
+	      </div>
+        <div className="carousel">
+          {slides.map((s, i) => {
+            const offset = i - index;
+
+            return (
+              <div
+                key={i}
+                className="carousel-item"
+                style={{
+                  transform: `translateY(${offset * 110}%) scale(${
+                    i === index ? 1 : 0.7
+                  })`,
+                  opacity: i === index ? 1 : 0.4,
+                }}
+              >
+                {s.title}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐋
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>whale</p>
-        <p>Unicode: U+1F40B</p>
-      </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐬
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>dolphin</p>
-        <p>Unicode: U+1F42C</p>
-      </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐟
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>fish</p>
-        <p>Unicode: U+1F41F</p>
-      </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐠
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>tropical fish</p>
-        <p>Unicode: U+1F420</p>
-      </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐡
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>blowfish</p>
-        <p>Unicode: U+1F421</p>
-      </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🦈
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>shark</p>
-        <p>Unicode: U+1F988</p>
-      </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐙
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>octopus</p>
-        <p>Unicode: U+1F419</p>
-      </div>
-    </div>
-    <div className='carousel__item'>
-      <div className='carousel__item-head'>
-        🐚
-      </div>
-      <div className='carousel__item-body'>
-        <p className='title'>spiral shell</p>
-        <p>Unicode: U+1F41A</p>
-      </div>
-    </div>
-  </div>
-</div>
-        
-      </section>
-    </>
+
+
+<style jsx>{`
+.carousel-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-main); /* Theme Aware */
+  color: var(--text-primary);       /* Theme Aware */
+  font-family: 'Inter', sans-serif;
+  
+  /* FIX: 'hidden' clips the orbs so they don't cause scrollbars */
+  overflow: hidden; 
+  
+  padding: 6rem 1.5rem;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 1;
+  opacity: 0.12;
+  pointer-events: none; /* Ensure clicks pass through */
+}
+
+/* Orbs use Brand Gradients */
+.orb-1 {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: var(--grad-red);
+}
+
+.orb-2 {
+  bottom: -10%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: var(--grad-blue);
+}
+
+/* --- Container --- */
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+}
+  .scene {
+    position: relative;
+    min-height: 100svh;
+    background: #000;
+    overflow: hidden;
+  }
+
+  /* ================= TOP HEADING ================= */
+  .top-heading {
+    position: absolute;
+    top: clamp(12px, 3vw, 24px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    color: white;
+    font-size: clamp(1.25rem, 4vw, 2.5rem);
+    letter-spacing: 1.5px;
+    text-align: center;
+    padding: 0 16px;
+    width: 100%;
+    max-width: 90%;
+  }
+
+  /* ================= BACKGROUND ================= */
+  .bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    overflow: hidden;
+    display: none;
+  }
+
+  .bg-img {
+    object-fit: cover;
+    filter: blur(18px);
+    opacity: 0.7;
+    transform: scale(1.15);
+  }
+
+  /* Tablet+ */
+  @media (min-width: 640px) {
+    .bg {
+      display: block;
+      width: 30%;
+    }
+  }
+
+  /* Desktop+ */
+  @media (min-width: 1024px) {
+    .bg {
+      width: 45%;
+    }
+  }
+
+  .bg-left {
+    left: 0;
+    height: 10vh;
+    width: 10vh;
+    mask-image: linear-gradient(
+      to right,
+      black 0%,
+      black 45%,
+      transparent 100%
+    );
+  }
+
+  .bg-right {
+    right: 0;
+    height: 10vh;
+    width: 10vh;
+    mask-image: linear-gradient(
+      to left,
+      black 0%,
+      black 45%,
+      transparent 100%
+    );
+  }
+
+  /* ================= CENTER CONTENT ================= */
+  .content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 6vw, 3.5rem);
+    margin-bottom: clamp(16px, 4vw, 32px);
+  }
+
+  /* ================= CAROUSEL ================= */
+  .carousel {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    height: 200px;
+  }
+
+  @media (min-width: 640px) {
+    .carousel {
+      max-width: 380px;
+      height: 220px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel {
+      max-width: 420px;
+      height: 240px;
+    }
+  }
+
+  .carousel-item {
+    position: absolute;
+    width: 100%;
+    padding: clamp(12px, 3vw, 18px);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+    transition: transform 1s ease, opacity 1s ease;
+  }
+
+`}</style>
+    </main>
   );
 }
