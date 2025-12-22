@@ -58,6 +58,7 @@ export default function Navigation() {
     { name: 'Home', href: '/' },
     { name: 'About', href: '#about' },
     { name: 'Approach', href: '#services' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   // Determine which logo to show
@@ -270,8 +271,8 @@ export default function Navigation() {
                 src={currentLogo}
                 alt="SPL Systems"
                 height={40}
-                width={100}
-                style={{ width: 'auto', height: '40px', width: '290px' }}
+                width={10}
+                style={{ height: '4vh', width: '15vw' }}
                 priority
               />
             )}

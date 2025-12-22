@@ -1,13 +1,18 @@
-
 "use client";
-
+import type React from "react";
 import { useEffect, useState } from "react";
 import Image, { StaticImageData} from "next/image"
+import InvoiceSvg from "../svg/Invoice";
+import BadgeSvg from "../svg/Badge";
+export type SvgComponent = (
+  props: React.SVGProps<SVGSVGElement>
+) => React.ReactNode;
 
 type Slide = {
   title: string;
-  leftImg: StaticImageData;
-  rightImg: StaticImageData;
+  //leftImg: StaticImageData;
+    leftSvg: SvgComponent;
+    rightSvg: SvgComponent;
 };
 
 import financeLeft from '../../assets/invoice.svg';
@@ -21,23 +26,23 @@ import educationRight from '../../assets/education.svg';
 const slides: Slide[] = [
   {
     title: "Finance",
-    leftImg: financeLeft,
-    rightImg: financeRight 
+    leftSvg: InvoiceSvg,
+    rightSvg: BadgeSvg 
   },
   {
     title: "Real Estate",
-    leftImg: realEstateLeft,
-    rightImg: realEstateRight,
+    leftSvg: InvoiceSvg,
+    rightSvg: BadgeSvg 
   },
   {
     title: "Government",
-    leftImg: govtLeft,
-    rightImg: govtRight,
+    leftSvg: InvoiceSvg,
+    rightSvg: BadgeSvg 
   },
   {
     title: "Education",
-    leftImg: educationLeft,
-    rightImg: educationRight,
+    leftSvg: InvoiceSvg,
+    rightSvg: BadgeSvg 
   },
 ];
 
@@ -77,24 +82,15 @@ export default function CarouselVertical() {
       <div
         className="bg bg-left"
       >
-              <Image
-                src={slide.leftImg}
-		fill
-          priority
-          className="bg-img"
-              />
+      <slide.leftSvg className="bg-img" />
       </div>
 
       {/* RIGHT GRADIENT */}
       <div
         className="bg bg-right"
       >
-              <Image
-                src={slide.rightImg}
-		fill
-          priority
-          className="bg-img"
-              />
+
+      <slide.rightSvg className="bg-img" />
 	      </div>
         <div className="carousel">
           {slides.map((s, i) => {
