@@ -232,7 +232,7 @@ export default function Hero() {
             {/* <span className="eyebrow">SPL SYSTEMS v2.0</span> */}
           </motion.div>
 
-                   {/* 2. Main Title */}
+          {/* 2. Main Title */}
           <h1 className="hero-title">
             {/* Lines split for staggering effect */}
             <div style={{ overflow: 'visible' }}>
@@ -255,11 +255,11 @@ export default function Hero() {
 
           {/* 4. Actions */}
           <motion.div variants={itemVars} className="btn-group">
-            <button className="btn-primary">
-              Start a Project <ArrowRight size={20} />
-            </button>
+            {/* <button className="btn-primary">
+                Reach O <ArrowRight size={20} />
+              </button>*/}
             <button className="btn-secondary">
-              View Our Work
+              Reach Out to Us
             </button>
           </motion.div>
 
