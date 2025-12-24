@@ -233,13 +233,16 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* Links Grid */}
+          {/* Footer Grid */}
           <div className="footer-grid">
             <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                 <h3>Company</h3>
                 <ul>
                   <li><a href="#" className="footer-link">About</a></li>
+                  <li><a href="./404_nf" className="footer-link">Careers</a></li>
+                  <li><a href="./404_nf" className="footer-link">Blog</a></li>
+                  <li><a href="./404_nf" className="footer-link">Legal</a></li>
                 </ul>
               </motion.div>
             </div>
@@ -287,9 +290,8 @@ export default function Footer() {
             </div>
             
             <div className="social-links">
-              <a href="./404_nf" className="social-icon"><Linkedin size={20} /></a>
-              <a href="./404_nf" className="social-icon"><Twitter size={20} /></a>
-              <a href="./404_nf" className="social-icon"><Instagram size={20} /></a>
+              <a href="https://www.linkedin.com/company/splsystems/" className="social-icon"><Linkedin size={20} /></a>
+
             </div>
           </div>
 
