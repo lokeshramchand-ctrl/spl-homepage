@@ -258,9 +258,19 @@ export default function Hero() {
             {/* <button className="btn-primary">
                 Reach O <ArrowRight size={20} />
               </button>*/}
-            <button className="btn-secondary">
+            <button
+              className="btn-secondary"
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }}
+            >
               Reach Out to Us
             </button>
+
           </motion.div>
 
         </motion.div>
