@@ -5,14 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from "framer-motion";
 import { ArrowUpRight, Linkedin, Twitter, Instagram } from "lucide-react";
-
+import { useTheme } from 'next-themes';
 // Asset Imports
 import logoLight from '../assets/spl-inkscape-side.svg';      // White logo for Dark Mode
-//import logoDark from '../../assets/SPL-Light.svg';  // Dark logo for Light Mode
 import logoDark from '../assets/spl-inkscape-side.svg';  // Dark logo for Light Mode
-import ThemeToggle from '../Themetoggle';
 
 export default function Footer() {
+  const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false); // For hydration safety
   const currentLogo = mounted && (theme === 'light' || resolvedTheme === 'light') ? logoDark : logoLight;
   const styles = `
