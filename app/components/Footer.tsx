@@ -227,12 +227,12 @@ export default function Footer() {
               <span style={{color: 'var(--text-secondary)', fontStyle: 'italic'}}>digital infrastructure?</span>
             </h2>
             <a href="#" className="cta-button">
-              Coming Soon <ArrowUpRight size={20} />
+              Contact Us <ArrowUpRight size={20} />
             </a>
           </div>
 
           {/* Footer Grid */}
-          <div className="footer-grid">
+          {/* <div className="footer-grid">
             <div className="footer-col">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                 <h3>Company</h3>
@@ -255,7 +255,7 @@ export default function Footer() {
                 </ul>
               </motion.div>
             </div>
-          </div>
+          </div> */}
 
           {/* Huge Brand Section - Letter Separation 
           <div className="footer-brand-section">
@@ -271,7 +271,7 @@ export default function Footer() {
           <Link href="/" className="logo-wrapper">
               <Image
                 src={currentLogo}
-		className="char-systems"
+		            className="char-systems"
                 alt="SPL Systems"
                 height={40}
                 width={100}
