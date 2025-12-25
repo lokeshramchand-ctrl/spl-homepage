@@ -9,7 +9,6 @@ import { useTheme } from 'next-themes';
 // Asset Imports
 import logoLight from '../assets/spl-inkscape-side.svg';      // White logo for Dark Mode
 import logoDark from '../assets/spl-inkscape-side.svg';  // Dark logo for Light Mode
-
 export default function Footer() {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false); // For hydration safety
