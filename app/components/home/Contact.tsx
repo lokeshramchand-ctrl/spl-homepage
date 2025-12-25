@@ -255,12 +255,12 @@ export default function ContactSection() {
                 Email us for free consultation, or call us on the phone 24/7, we will get back to you with answers if we don't pick up the phone.
               </p>
               
-              <div className="mt-8">
+              {/* <div className="mt-8">
                 <a href="#" className="btn-link group">
                   Learn More 
                   <ArrowRight size={16} className="transition-transform group-hover:rotate-[-45deg]" />
                 </a>
-              </div>
+              </div> */}
             </motion.div>
           </div>
 

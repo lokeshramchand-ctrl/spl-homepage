@@ -261,12 +261,12 @@ export default function StatsSection() {
                 Our expertise spans from comprehensive examination management systems to complex digitization projects, ensuring quality and confidentiality in every engagement.
               </p>
               
-              <div className="mt-8">
+              {/* <div className="mt-8">
                 <a href="#" className="btn-link group">
                   Learn More 
                   <ArrowRight size={16} className="transition-transform group-hover:rotate-[-45deg]" />
                 </a>
-              </div>
+              </div> */}
             </motion.div>
           </div>
 
