@@ -102,24 +102,32 @@ export default function Navigation() {
     }
 
     /* --- Logo Wrapper --- */
-    .logo-wrapper {
-      position: relative;
-      z-index: 110;
-      display: flex;
-      align-items: center;
-      transition: opacity 0.3s;
-      /* Ensure logo doesn't jump */
-      width: 100px; 
-      height: 60px;
-    }
-    .logo-wrapper:hover { opacity: 0.7; }
+.logo-wrapper {
+  position: relative;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  /* Control size here instead of inline on the image */
+  height: 40px; 
+  width: 180px; /* Set a comfortable max-width for a horizontal logo */
+  transition: opacity 0.3s;
+}
 
-    /* --- Right Actions (Nav + Toggle) --- */
-    .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 2.5rem;
-    }
+.logo-wrapper:hover { opacity: 0.7; }
+
+/* Ensure the image inside stays contained */
+.logo-img {
+  object-fit: contain;
+  object-position: left; /* Keeps logo anchored to the left while scaling */
+}
+
+/* Tablet/Mobile adjustment */
+@media (max-width: 768px) {
+  .logo-wrapper {
+    width: 140px;
+    height: 32px;
+  }
+}
 
     /* --- Desktop Links (The "Super Modern" Part) --- */
     .desktop-nav {
