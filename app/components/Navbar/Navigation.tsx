@@ -5,28 +5,25 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
-import { useTheme } from 'next-themes'; // Import for logo switching
+import { useTheme } from 'next-themes'; 
 
 // Asset Imports
-import logoLight from '../../assets/spl-inkscape-side.svg';      // White logo for Dark Mode
-//import logoDark from '../../assets/SPL-Light.svg';  // Dark logo for Light Mode
-import logoDark from '../../assets/spl-inkscape-side.svg';  // Dark logo for Light Mode
+import logoLight from '../../assets/spl-inkscape-side.svg';      
+import logoDark from '../../assets/spl-inkscape-side.svg';  
 import ThemeToggle from '../Themetoggle';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [mounted, setMounted] = useState(false); // For hydration safety
+  const [mounted, setMounted] = useState(false); 
 
   const pathname = usePathname();
-  const { theme, resolvedTheme } = useTheme(); // Get current theme
+  const { theme, resolvedTheme } = useTheme(); 
 
-  // Ensure theme is loaded before rendering logo to avoid mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // --- Scroll Logic (Hide on scroll down, show on scroll up) ---
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
@@ -36,8 +33,6 @@ export default function Navigation() {
       const docHeight = document.documentElement.scrollHeight;
       const footerThreshold = 600;
 
-      // Logic: Show if scrolling UP or at the very top. Hide if scrolling DOWN.
-      // Also hide if near footer to prevent clash.
       if (docHeight - scrollPosition < footerThreshold) {
         setIsVisible(false);
       } else if (currentScrollY < 10) {
@@ -61,16 +56,11 @@ export default function Navigation() {
     { name: 'Contact', href: '#contact' },
   ];
 
-  // Determine which logo to show
-  // If not mounted yet, default to logoLight (or a placeholder) to prevent flicker
   const currentLogo = mounted && (theme === 'light' || resolvedTheme === 'light') ? logoDark : logoLight;
 
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600&family=Inter:wght@400;500&display=swap');
 
-    /* No local :root - using globals.css variables */
-
-    /* --- Navigation Shell --- */
     .navbar-fixed {
       position: fixed;
       top: 0;
@@ -83,7 +73,6 @@ export default function Navigation() {
     .nav-visible { transform: translateY(0); }
     .nav-hidden { transform: translateY(-100%); }
 
-    /* --- GLASSMORPHISM --- */
     .nav-glass {
       background: var(--bg-glass);
       backdrop-filter: blur(16px);
@@ -98,32 +87,31 @@ export default function Navigation() {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 72px; /* Slightly tighter height for modern look */
+      height: 72px; 
     }
 
-/* --- Logo Wrapper --- */
-.logo-wrapper {
-  position: relative;
-  z-index: 110;
-  display: flex;
-  align-items: center;
-  /* Control size here instead of inline on the image */
-  height: 40px;
-  width: 180px; /* Set a comfortable max-width for a horizontal logo */
-  transition: opacity 0.3s;
-}
+    /* --- Logo Wrapper --- */
+    .logo-wrapper {
+      position: relative;
+      z-index: 110;
+      display: flex;
+      align-items: center;
+      transition: opacity 0.3s;
+      
+      /* UPDATED: Removed fixed width: 100px */
+      width: auto; 
+      min-width: 120px; /* Ensures it doesn't shrink too small on mobile */
+      max-width: 250px; /* Stops it from getting too big on desktop */
+      height: 100%;     /* Takes height of container */
+    }
+    .logo-wrapper:hover { opacity: 0.7; }
 
-.logo-wrapper:hover {
-  opacity: 0.7;
-}
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+    }
 
-/* Ensure the image inside stays contained */
-.logo-img {
-  object-fit: contain;
-}
-
-
-    /* --- Desktop Links (The "Super Modern" Part) --- */
     .desktop-nav {
       display: none;
     }
@@ -140,7 +128,7 @@ export default function Navigation() {
       position: relative;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
-      color: var(--text-secondary); /* Muted by default */
+      color: var(--text-secondary); 
       text-decoration: none;
       transition: color 0.3s ease;
       font-weight: 500;
@@ -151,7 +139,6 @@ export default function Navigation() {
     .nav-link:hover { color: var(--text-primary); }
     .nav-link.active { color: var(--text-primary); }
 
-    /* Modern Gradient Underline (Replaces the Dot) */
     .nav-link::after {
       content: '';
       position: absolute;
@@ -159,7 +146,7 @@ export default function Navigation() {
       left: 0;
       width: 100%;
       height: 2px;
-      background: var(--grad-main); /* Your Brand Gradient */
+      background: var(--grad-main); 
       transform: scaleX(0);
       transform-origin: right;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -174,12 +161,9 @@ export default function Navigation() {
     .nav-link.active::after {
       transform: scaleX(1);
       transform-origin: center;
-      background: var(--brand-blue); /* Solid blue for active state stability */
+      background: var(--brand-blue); 
     }
 
-  
-
-    /* --- Mobile Menu Button --- */
     .menu-btn {
       position: relative;
       z-index: 110;
@@ -201,7 +185,6 @@ export default function Navigation() {
       .menu-btn { display: none; }
     }
 
-    /* --- Mobile Overlay --- */
     .mobile-overlay {
       position: fixed;
       inset: 0;
@@ -215,7 +198,6 @@ export default function Navigation() {
       animation: fadeIn 0.3s ease-out;
     }
 
-    /* Add noise texture to mobile menu for depth */
     .mobile-overlay::before {
         content: "";
         position: absolute;
@@ -232,7 +214,7 @@ export default function Navigation() {
 
     .mobile-link {
       font-family: 'Instrument Sans', sans-serif;
-      font-size: 3.5rem; /* Massive mobile text */
+      font-size: 3.5rem; 
       font-weight: 500;
       color: var(--text-secondary);
       text-decoration: none;
@@ -245,10 +227,9 @@ export default function Navigation() {
 
     .mobile-link:hover, .mobile-link.active {
       color: var(--text-primary);
-      padding-left: 20px; /* Slight indentation on hover */
+      padding-left: 20px; 
     }
     
-    /* Mobile Active Line */
     .mobile-active-line {
         display: inline-block;
         width: 40px;
@@ -272,9 +253,16 @@ export default function Navigation() {
               <Image
                 src={currentLogo}
                 alt="SPL Systems"
-                height={40}
-                width={10}
-                style={{ height: '4vh', width: '15vw' }}
+                // Using 0 width/height + sizes="100vw" allows the CSS style to control dimensions
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ 
+                    width: 'auto', // Allow width to scale based on height
+                    height: '100%', // Fill the height of the wrapper (which is capped by navbar)
+                    maxHeight: '40px', // Ensure it doesn't get taller than 40px
+                    objectFit: 'contain' // Ensures the logo is never cropped
+                }}
                 priority
               />
             )}
@@ -322,7 +310,6 @@ export default function Navigation() {
                   className={`mobile-link ${pathname === link.href ? 'active' : ''}`}
                   onClick={() => setIsOpen(false)}
                 >
-                  {/* Modern Active Indicator: Line instead of Dot */}
                   {pathname === link.href && <span className="mobile-active-line" />}
                   {link.name}
                 </Link>
@@ -330,7 +317,6 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Mobile Menu Footer */}
           <div
             style={{
               marginTop: 'auto',
