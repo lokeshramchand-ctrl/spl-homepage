@@ -90,21 +90,36 @@ export default function Navigation() {
       height: 72px; 
     }
 
-    /* --- Logo Wrapper --- */
+/* --- Logo Wrapper --- */
     .logo-wrapper {
-      position: relative;
+      position: relative; /* Required for Image fill */
       z-index: 110;
-      display: flex;
-      align-items: center;
+      /* We define the rendering box for the logo here */
+      height: 44px;  /* A good height for a 72px navbar */
+      width: 180px;  /* Give it plenty of horizontal room */
+      max-width: 40vw; /* Ensure it doesn't get too wide on small mobile screens */
       transition: opacity 0.3s;
-      
-      /* UPDATED: Removed fixed width: 100px */
-      width: auto; 
-      min-width: 120px; /* Ensures it doesn't shrink too small on mobile */
-      max-width: 250px; /* Stops it from getting too big on desktop */
-      height: 100%;     /* Takes height of container */
+      /* Removed display:flex/align-items because 'fill' handles positioning */
     }
+    
     .logo-wrapper:hover { opacity: 0.7; }
+
+    /* New class for the image itself so it fits perfectly */
+    .logo-image {
+        object-fit: contain; /* Crucial: Ensures the whole image is visible */
+        object-position: left center; /* Keeps the logo anchored to the left */
+    }
+
+    /* Responsive Adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .logo-wrapper {
+        height: 36px; /* Slightly smaller on mobile */
+        width: 150px;
+      }
+      .nav-container {
+          height: 64px; /* Optional: slightly shorter navbar on mobile */
+      }
+    }
 
     .nav-right {
         display: flex;
@@ -247,23 +262,17 @@ export default function Navigation() {
       <nav className={`navbar-fixed nav-glass ${isVisible || isOpen ? 'nav-visible' : 'nav-hidden'}`}>
         <div className="nav-container">
 
-          {/* Logo */}
+{/* Logo */}
           <Link href="/" className="logo-wrapper" onClick={() => setIsOpen(false)}>
             {mounted && (
               <Image
                 src={currentLogo}
                 alt="SPL Systems"
-                // Using 0 width/height + sizes="100vw" allows the CSS style to control dimensions
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ 
-                    width: 'auto', // Allow width to scale based on height
-                    height: '100%', // Fill the height of the wrapper (which is capped by navbar)
-                    maxHeight: '40px', // Ensure it doesn't get taller than 40px
-                    objectFit: 'contain' // Ensures the logo is never cropped
-                }}
+                fill // Tells image to fill parent .logo-wrapper
+                className="logo-image" // Applies object-fit: contain
                 priority
+                // Optional: Good for performance, tells browser rough size
+                sizes="(max-width: 768px) 150px, 180px" 
               />
             )}
           </Link>
