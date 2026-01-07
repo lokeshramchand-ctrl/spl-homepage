@@ -11,6 +11,7 @@ import ProcessSection from "./components/home/Features";
 import FAQ from "./components/home/FAQ";
 import Footer from "./components/Footer";
 import ContactSection from "./components/home/Contact";
+import ProjectSection from "./components/home/Projects";
 
 
 
@@ -70,6 +71,9 @@ export default function Home() {
       */}
       <section id="about" className="relative z-50">
         <StatsSection />
+      </section>
+      <section id="projects" className="relative z-50">
+        <ProjectSection />
       </section>
       <section id="contact" className="relative z-50">
         <ContactSection />

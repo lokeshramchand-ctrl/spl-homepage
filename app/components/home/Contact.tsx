@@ -212,7 +212,7 @@ export default function ContactSection() {
 
   const stats = [
     { value: '+1 (650) 993-9799', label: 'Call us', link: 'tel:+16509939799' },
-    { value: 'naveen@splsystems.in', label: 'Email', link: 'mailto:naveen@splsystems.in' },
+    { value: 'pri@splsystems.in', label: 'Email', link: 'mailto:pri@splsystems.in' },
   ];
 
   return (
