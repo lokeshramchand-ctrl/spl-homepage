@@ -235,12 +235,12 @@ export default function Hero() {
           {/* 2. Main Title */}
           <h1 className="hero-title">
             {/* Lines split for staggering effect */}
-            <div style={{ overflow: 'visible' }}>
+            <div style={{ overflow: 'visible', fontSize: '.8em' }}>
               <motion.div variants={itemVars}>
                 Engineering the
               </motion.div>
             </div>
-            <div style={{ overflow: 'visible' }}>
+            <div style={{ overflow: 'visible' , fontSize: '.8em' }}>
               <motion.div variants={itemVars}>
                 <span className="serif-italic">Intelligent</span> Future.
               </motion.div>

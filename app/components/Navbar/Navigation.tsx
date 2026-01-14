@@ -95,8 +95,8 @@ export default function Navigation() {
       position: relative; /* Required for Image fill */
       z-index: 110;
       /* We define the rendering box for the logo here */
-      height: 44px;  /* A good height for a 72px navbar */
-      width: 180px;  /* Give it plenty of horizontal room */
+      height: 45vh;  /* A good height for a 72px navbar */
+      width: 24vw;  /* Give it plenty of horizontal room */
       max-width: 40vw; /* Ensure it doesn't get too wide on small mobile screens */
       transition: opacity 0.3s;
       /* Removed display:flex/align-items because 'fill' handles positioning */
