@@ -89,37 +89,38 @@ export default function Navigation() {
       justify-content: space-between;
       height: 72px; 
     }
+.logo-wrapper {
+  position: relative;
+  z-index: 110;
+  height: clamp(36px, 8vh, 72px);
+  width: clamp(140px, 22vw, 360px);
+  max-width: 40vw;
+  transition: opacity 0.3s ease;
+}
 
-/* --- Logo Wrapper --- */
-    .logo-wrapper {
-      position: relative; /* Required for Image fill */
-      z-index: 110;
-      /* We define the rendering box for the logo here */
-      height: 45vh;  /* A good height for a 72px navbar */
-      width: 24vw;  /* Give it plenty of horizontal room */
-      max-width: 40vw; /* Ensure it doesn't get too wide on small mobile screens */
-      transition: opacity 0.3s;
-      /* Removed display:flex/align-items because 'fill' handles positioning */
-    }
-    
-    .logo-wrapper:hover { opacity: 0.7; }
+.logo-wrapper:hover {
+  opacity: 0.7;
+}
 
-    /* New class for the image itself so it fits perfectly */
-    .logo-image {
-        object-fit: contain; /* Crucial: Ensures the whole image is visible */
-        object-position: left center; /* Keeps the logo anchored to the left */
-    }
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+}
 
-    /* Responsive Adjustments for smaller screens */
-    @media (max-width: 768px) {
-      .logo-wrapper {
-        height: 36px; /* Slightly smaller on mobile */
-        width: 150px;
-      }
-      .nav-container {
-          height: 64px; /* Optional: slightly shorter navbar on mobile */
-      }
-    }
+@media (max-width: 768px) {
+  .logo-wrapper {
+    height: clamp(32px, 6vh, 40px);
+    width: clamp(120px, 45vw, 200px);
+    max-width: 60vw;
+  }
+
+  .nav-container {
+    height: clamp(56px, 8vh, 64px);
+  }
+}
 
     .nav-right {
         display: flex;
@@ -127,9 +128,7 @@ export default function Navigation() {
         gap: 2.5rem;
     }
 
-    .desktop-nav {
-      display: none;
-    }
+    .desktop-nav 
 
     @media (min-width: 768px) {
       .desktop-nav {
