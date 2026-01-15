@@ -9,7 +9,7 @@ import StatsSection from "./components/home/StatSections";
 import CarouselVertical  from "./components/home/CarouselVertical";
 import ProcessSection from "./components/home/Features";
 import FAQ from "./components/home/FAQ";
-import Footer from "./components/Footer";
+
 import ContactSection from "./components/home/Contact";
 import ProjectSection from "./components/home/Projects";
 
@@ -94,10 +94,6 @@ export default function Home() {
         <FAQ />
       </section>
 
-      {/* 5. CONTACT (Footer) */}
-      <section id="footer" className="relative z-10">
-        <Footer />
-      </section>
 
     </main>
   );
