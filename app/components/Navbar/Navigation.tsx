@@ -5,20 +5,20 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
-import { useTheme } from 'next-themes'; 
+import { useTheme } from 'next-themes';
 
 // Asset Imports
-import logoLight from '../../assets/spl-inkscape-side.svg';      
-import logoDark from '../../assets/spl-inkscape-side.svg';  
+import logoLight from '../../assets/spl-inkscape-side.svg';
+import logoDark from '../../assets/spl-inkscape-side.svg';
 import ThemeToggle from '../Themetoggle';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [mounted, setMounted] = useState(false); 
+  const [mounted, setMounted] = useState(false);
 
   const pathname = usePathname();
-  const { theme, resolvedTheme } = useTheme(); 
+  const { theme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -81,7 +81,7 @@ export default function Navigation() {
     }
 
     .nav-container {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -89,12 +89,13 @@ export default function Navigation() {
       justify-content: space-between;
       height: 72px; 
     }
+
 .logo-wrapper {
   position: relative;
   z-index: 110;
-  height: clamp(36px, 8vh, 72px);
-  width: clamp(140px, 22vw, 360px);
-  max-width: 40vw;
+  height: clamp(2.2rem, 6vh, 3.8rem);
+  aspect-ratio: 5.6 / 1;
+  max-width: min(85vw, 32rem);
   transition: opacity 0.3s ease;
 }
 
@@ -107,13 +108,13 @@ export default function Navigation() {
   height: 100%;
   object-fit: contain;
   object-position: left center;
-  display: block;
 }
+
 
 @media (max-width: 768px) {
   .logo-wrapper {
     height: clamp(32px, 6vh, 40px);
-    width: clamp(120px, 45vw, 200px);
+    width: clamp(120px, 65vw, 400px);
     max-width: 60vw;
   }
 
@@ -128,7 +129,10 @@ export default function Navigation() {
         gap: 2.5rem;
     }
 
-    .desktop-nav 
+.desktop-nav {
+  display: none;
+}
+
 
     @media (min-width: 768px) {
       .desktop-nav {
@@ -261,7 +265,7 @@ export default function Navigation() {
       <nav className={`navbar-fixed nav-glass ${isVisible || isOpen ? 'nav-visible' : 'nav-hidden'}`}>
         <div className="nav-container">
 
-{/* Logo */}
+          {/* Logo */}
           <Link href="/" className="logo-wrapper" onClick={() => setIsOpen(false)}>
             {mounted && (
               <Image
@@ -271,7 +275,7 @@ export default function Navigation() {
                 className="logo-image" // Applies object-fit: contain
                 priority
                 // Optional: Good for performance, tells browser rough size
-                sizes="(max-width: 768px) 150px, 180px" 
+                sizes="(max-width: 768px) 150px, 180px"
               />
             )}
           </Link>
