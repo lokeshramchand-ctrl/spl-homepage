@@ -8,8 +8,4 @@ import RealEstateIcon from "../../assets/real-estate.svg";
 import GovernmentIcon from "../../assets/govern--users.svg";
 import HomeFrontIcon from "../../assets/home--front.svg";
 
-export type IconProps = SVGProps<SVGSVGElement> & {
-  size?: number;
-};
-
 export { FinanceIcon, FinanceStrategyIcon, EducationIcon, GovernmentIcon, HomeFrontIcon, BadgeIcon, InvoiceIcon, RealEstateIcon };
