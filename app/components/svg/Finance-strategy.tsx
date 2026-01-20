@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Icon, IconProps } from "../../assets/Icon";
 
-export function EducationIcon(props: IconProps) {
+export function FinanceStrategyIcon(props: IconProps) {
   return (
     <Icon viewBox="0 0 32 32" {...props}>
       <path d="M28.623,26.662l1.676-2.484c0.04-0.06,0.062-0.13,0.062-0.201v-5.995
