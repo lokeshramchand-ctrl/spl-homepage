@@ -3,16 +3,13 @@ import type React from "react";
 import { useEffect, useState } from "react";
 
 // ✅ Import icon components (not SVG files)
-import { 
-  FinanceIcon,
-  FinanceStrategyIcon,
-  EducationIcon,
-  BadgeIcon,
-  RealEstateIcon,
-  GovernmentIcon,
-  HomeFrontIcon
-} from "../../assets";
-import { main } from "framer-motion/client";
+import { Finance } from "../svg/Finance";
+import { FinanceStrategyIcon } from "../svg/Finance-strategy";
+import { EducationIcon } from "../svg/Education";
+import { BadgeIcon } from "../svg/Badge";
+import { RealEstateIcon } from "../svg/Real_Estate";
+import { GovernmentIcon } from "../svg/Government";
+import { HomeFrontIcon } from "../svg/Home_Front";
 
 export type SvgComponent = (
   props: React.SVGProps<SVGSVGElement>
@@ -28,7 +25,7 @@ type Slide = {
 const slides: Slide[] = [
   {
     title: "Finance",
-    leftIcon: FinanceIcon,
+    leftIcon: Finance,
     rightIcon: FinanceStrategyIcon
   },
   {
@@ -69,7 +66,7 @@ export default function CarouselVertical() {
     <main className="carousel-page">
       <div className="gradient-orb orb-1" />
       <div className="gradient-orb orb-2" />
-      
+
       <h2 className="main-title">Industries we served</h2>
 
       {/* Left Background Icon */}
@@ -92,9 +89,8 @@ export default function CarouselVertical() {
                 key={i}
                 className="carousel-item"
                 style={{
-                  transform: `translateY(${offset * 110}%) scale(${
-                    i === index ? 1 : 0.7
-                  })`,
+                  transform: `translateY(${offset * 110}%) scale(${i === index ? 1 : 0.7
+                    })`,
                   opacity: i === index ? 1 : 0.4,
                 }}
               >
@@ -104,9 +100,7 @@ export default function CarouselVertical() {
           })}
         </div>
       </div>
-
-
-<style jsx>{`
+      <style jsx>{`
 .carousel-page {
   position: relative;
   min-height: 100vh;
@@ -287,7 +281,6 @@ export default function CarouselVertical() {
     transition: transform 1s ease, opacity 1s ease;
     font-size: 2em;
   }
-
 `}</style>
     </main>
   );
