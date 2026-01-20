@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Icon, IconProps } from "../../assets/Icon";
+import { Icon, IconProps } from "./Icon";
 
 export function GovernmentUsersIcon(props: IconProps) {
     return (

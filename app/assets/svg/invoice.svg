@@ -1,23 +1,8 @@
-import * as React from "react";
-
-
-export default function InvoiceIcon(
-  props: React.SVGProps<SVGSVGElement>
-) {
-  return (
- <svg
-      viewBox="0 0 32 32"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
-      {...props}
-    >
-	 <svg
-      viewBox="0 0 32 32"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
-      {...props}
-    >
-	<g id="invoice">
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 24.3.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<g id="invoice">
 	<path id="invoice_1_" d="M24,31.36c-4.059,0-7.36-3.302-7.36-7.36c0-0.214,0.009-0.428,0.028-0.64H5V22.64h11.768
 		c0.132-0.697,0.364-1.375,0.69-2.002c0.231-0.455,0.51-0.884,0.829-1.277H5V18.64h13.955c0.297-0.278,0.617-0.532,0.958-0.758
 		C21.122,17.07,22.536,16.64,24,16.64c4.059,0,7.36,3.301,7.36,7.36S28.059,31.36,24,31.36z M24,17.36
@@ -31,8 +16,4 @@ export default function InvoiceIcon(
 </g>
 <g id="Layer_1">
 </g>
-
-    </svg>
-    </svg>
-  );
-}
+</svg>

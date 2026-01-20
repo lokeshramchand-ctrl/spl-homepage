@@ -1,9 +1,18 @@
 "use client";
 import type React from "react";
 import { useEffect, useState } from "react";
-import Image, { StaticImageData} from "next/image"
-import InvoiceSvg from "../svg/Invoice";
-import BadgeSvg from "../svg/Badge";
+
+// ✅ Import icon components (not SVG files)
+import { 
+  FinanceIcon,
+  FinanceStrategyIcon,
+  EducationIcon,
+  BadgeIcon,
+  RealEstateIcon,
+  GovernmentIcon,
+  HomeFrontIcon
+} from "../../assets";
+import { main } from "framer-motion/client";
 
 export type SvgComponent = (
   props: React.SVGProps<SVGSVGElement>
@@ -11,49 +20,39 @@ export type SvgComponent = (
 
 type Slide = {
   title: string;
-  //leftImg: StaticImageData;
-    leftSvg: SvgComponent;
-    rightSvg: SvgComponent;
+  leftIcon: SvgComponent;
+  rightIcon: SvgComponent;
 };
 
-import financeLeft from '../../assets/invoice.svg';
-import financeRight from '../../assets/finance--strategy.svg';
-import govtLeft from '../../assets/govern--users.svg';
-import govtRight from '../../assets/government--01.svg';
-import realEstateLeft from '../../assets/real-estate.svg';
-import realEstateRight from '../../assets/home--front.svg';
-import educationLeft from '../../assets/badge.svg';
-import educationRight from '../../assets/education.svg';
+// ✅ Define slide-to-icon mapping
 const slides: Slide[] = [
   {
     title: "Finance",
-    leftSvg: InvoiceSvg,
-    rightSvg: BadgeSvg 
+    leftIcon: FinanceIcon,
+    rightIcon: FinanceStrategyIcon
   },
   {
     title: "Real Estate",
-    leftSvg: InvoiceSvg,
-    rightSvg: BadgeSvg 
+    leftIcon: RealEstateIcon,
+    rightIcon: HomeFrontIcon
   },
   {
     title: "Government",
-    leftSvg: InvoiceSvg,
-    rightSvg: BadgeSvg 
+    leftIcon: GovernmentIcon,
+    rightIcon: GovernmentIcon
   },
   {
     title: "Education",
-    leftSvg: InvoiceSvg,
-    rightSvg: BadgeSvg 
+    leftIcon: EducationIcon,
+    rightIcon: BadgeIcon
   },
 ];
 
 const INTERVAL_MS = 3500;
 
-
 export default function CarouselVertical() {
   const [index, setIndex] = useState(0);
 
-  /* Auto spin */
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
@@ -62,41 +61,32 @@ export default function CarouselVertical() {
     return () => clearInterval(id);
   }, []);
 
-
   const slide = slides[index];
+  const LeftIcon = slide.leftIcon;
+  const RightIcon = slide.rightIcon;
 
   return (
     <main className="carousel-page">
-        {/* Visual Effects */}
-        <div className="gradient-orb orb-1" />
-        <div className="gradient-orb orb-2" />
-{/* 🔹 TOP HEADING */}
+      <div className="gradient-orb orb-1" />
+      <div className="gradient-orb orb-2" />
+      
       <h2 className="main-title">Industries we served</h2>
-      {/* LEFT GRADIENT */}
 
-      {/* FOREGROUND */}
-      <div className="content">
-      {/*
-        <h2 className="title">{slides[index].title}</h2>
-	*/}
-
-      <div
-        className="bg bg-left"
-      >
-      <slide.leftSvg className="bg-img" />
+      {/* Left Background Icon */}
+      <div className="bg bg-left">
+        <LeftIcon className="bg-img" />
       </div>
 
-      {/* RIGHT GRADIENT */}
-      <div
-        className="bg bg-right"
-      >
+      {/* Right Background Icon */}
+      <div className="bg bg-right">
+        <RightIcon className="bg-img" />
+      </div>
 
-      <slide.rightSvg className="bg-img" />
-	      </div>
+      {/* Carousel Content */}
+      <div className="content">
         <div className="carousel">
           {slides.map((s, i) => {
             const offset = i - index;
-
             return (
               <div
                 key={i}
