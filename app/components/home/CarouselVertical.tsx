@@ -2,8 +2,8 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import Image, { StaticImageData} from "next/image"
-import InvoiceSvg from "../svg/Finance";
-import BadgeSvg from "../svg/Education";
+import InvoiceSvg from "../svg/Invoice";
+import BadgeSvg from "../svg/Badge";
 
 export type SvgComponent = (
   props: React.SVGProps<SVGSVGElement>
