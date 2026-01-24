@@ -38,9 +38,9 @@ export default function ContactSection() {
     /* --- Base --- */
     .stats-section {
       position: relative;
-      background-color: var(--bg-main); /* Theme Aware */
-      color: var(--text-primary);       /* Theme Aware */
-      padding: 8rem 0;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      padding: clamp(3rem, 8vw, 8rem) 0;
       font-family: 'Inter', sans-serif;
       overflow: hidden;
       transition: background-color 0.4s ease, color 0.4s ease;
@@ -59,8 +59,8 @@ export default function ContactSection() {
     /* --- Typography --- */
     .pill-label {
       display: inline-block;
-      padding: 0.35rem 1rem;
-      margin-bottom: 2rem;
+      padding: clamp(0.25rem, 2vw, 0.35rem) clamp(0.75rem, 3vw, 1rem);
+      margin-bottom: clamp(1rem, 4vw, 2rem);
       border-radius: 9999px;
       border: 1px solid var(--border-color);
       background: var(--bg-card);
@@ -75,10 +75,10 @@ export default function ContactSection() {
 
     .section-title {
       font-family: 'Instrument Serif', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: clamp(1.75rem, 5vw, 4rem);
       font-weight: 400;
       line-height: 1.1;
-      margin-bottom: 2rem;
+      margin-bottom: clamp(1rem, 4vw, 2rem);
       color: var(--text-primary);
       word-wrap: break-word;
     }
@@ -86,7 +86,6 @@ export default function ContactSection() {
     .italic-highlight {
       font-style: italic;
       padding-right: 0.1em;
-      /* Brand Gradient - Consistent across themes */
       background: var(--grad-red);
       -webkit-background-clip: text;
       background-clip: text;
@@ -95,24 +94,24 @@ export default function ContactSection() {
 
     .text-body {
       color: var(--text-secondary);
-      font-size: 1.125rem;
-      line-height: 1.75;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-      margin-bottom: 2rem;
+      font-size: clamp(0.95rem, 3vw, 1.125rem);
+      line-height: 1.6;
+      margin-bottom: clamp(1rem, 3vw, 2rem);
       font-weight: 400;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     /* --- Grid Layouts --- */
     .stats-intro-grid {
       display: grid;
-      gap: 3rem;
+      gap: clamp(2rem, 6vw, 3rem);
     }
 
     @media (min-width: 1024px) {
       .stats-intro-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 6rem;
+        gap: clamp(3rem, 8vw, 6rem);
         align-items: start;
       }
     }
@@ -122,11 +121,11 @@ export default function ContactSection() {
       display: grid;
       grid-template-columns: 1fr;
       gap: 0;
-      margin-top: 6rem;
+      margin-top: clamp(3rem, 8vw, 6rem);
       border-top: 1px solid var(--border-color);
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
       .stats-cards {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -135,17 +134,17 @@ export default function ContactSection() {
     /* --- Stat Card --- */
     .stat-card {
       position: relative;
-      padding: 3rem 1rem;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem);
       transition: background 0.3s ease;
       min-height: auto;
       overflow: hidden;
     }
-    .stat-card-link{
-        text-decoration: none;
+
+    .stat-card-link {
+      text-decoration: none;
       display: block;
       width: 100%;
       height: 100%;
-    
     }
 
     .stat-card:hover {
@@ -153,7 +152,7 @@ export default function ContactSection() {
     }
 
     /* Vertical Dividers for Desktop */
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
       .stat-card:not(:last-child)::after {
         content: '';
         position: absolute;
@@ -167,11 +166,11 @@ export default function ContactSection() {
 
     .stat-value-wrapper {
       font-family: 'Instrument Serif', serif;
-      font-size: clamp(3rem, 5vw, 4.0rem);
-      line-height: 1;
+      font-size: clamp(1.25rem, 6vw, 3.5rem);
+      line-height: 1.2;
       font-weight: 400;
       color: var(--text-primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: clamp(0.5rem, 2vw, 1rem);
       display: flex;
       align-items: baseline;
       flex-wrap: wrap;
@@ -180,6 +179,10 @@ export default function ContactSection() {
       word-break: break-word;
     }
 
+    .stat-number {
+      display: block;
+      width: 100%;
+    }
 
     .stat-label {
       font-size: clamp(0.7rem, 2vw, 0.875rem);
@@ -195,7 +198,7 @@ export default function ContactSection() {
       bottom: 0;
       left: 0;
       width: 0%;
-      height: 2px; 
+      height: 2px;
       background: var(--grad-blue);
       transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
@@ -208,9 +211,9 @@ export default function ContactSection() {
     .btn-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: clamp(0.5rem, 2vw, 0.75rem);
       color: var(--text-primary);
-      font-size: 0.95rem;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
       text-decoration: none;
       cursor: pointer;
       padding-bottom: 2px;
@@ -222,7 +225,18 @@ export default function ContactSection() {
     .btn-link:hover {
       border-color: var(--brand-red);
       color: var(--brand-red);
-      gap: 1rem;
+      gap: clamp(0.75rem, 2vw, 1rem);
+    }
+
+    /* Mobile optimization */
+    @media (max-width: 639px) {
+      .stat-card {
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .stat-card:last-child {
+        border-bottom: none;
+      }
     }
   `;
 
