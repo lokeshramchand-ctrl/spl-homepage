@@ -9,6 +9,7 @@ import { EducationIcon } from "../svg/Education";
 import { BadgeIcon } from "../svg/Badge";
 import { RealEstateIcon } from "../svg/Real_Estate";
 import { GovernmentIcon } from "../svg/Government";
+import { GovernmentUsersIcon } from "../svg/Govern_users";
 import { HomeFrontIcon } from "../svg/Home_Front";
 
 export type SvgComponent = (
@@ -36,7 +37,7 @@ const slides: Slide[] = [
   {
     title: "Government",
     leftIcon: GovernmentIcon,
-    rightIcon: GovernmentIcon
+    rightIcon: GovernmentUsersIcon
   },
   {
     title: "Education",

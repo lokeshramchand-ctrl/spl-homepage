@@ -6,11 +6,11 @@ module.exports = {
     cwd: './',
     instances: 1,
     exec_mode: 'cluster',
-    watch: false,
+    watch: true,
     max_memory_restart: '1G',
     env: {
       NODE_ENV: 'production',
-      PORT: 3002,
+      PORT: 3003,
     },
   }],
 };
