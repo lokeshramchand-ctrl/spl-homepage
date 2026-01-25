@@ -49,11 +49,9 @@ export default function ContactSection() {
     .container {
       position: relative;
       z-index: 10;
-      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 clamp(1rem, 5vw, 3rem);
-      box-sizing: border-box;
+      padding: 0 2rem;
     }
 
     /* --- Typography --- */
@@ -65,12 +63,11 @@ export default function ContactSection() {
       border: 1px solid var(--border-color);
       background: var(--bg-card);
       backdrop-filter: blur(8px);
-      font-size: clamp(0.625rem, 2vw, 0.75rem);
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-secondary);
-      white-space: nowrap;
     }
 
     .section-title {
@@ -80,7 +77,6 @@ export default function ContactSection() {
       line-height: 1.1;
       margin-bottom: 2rem;
       color: var(--text-primary);
-      word-wrap: break-word;
     }
 
     .italic-highlight {
@@ -97,8 +93,6 @@ export default function ContactSection() {
       color: var(--text-secondary);
       font-size: 1.125rem;
       line-height: 1.75;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
       margin-bottom: 2rem;
       font-weight: 400;
     }
@@ -137,14 +131,9 @@ export default function ContactSection() {
       position: relative;
       padding: 3rem 1rem;
       transition: background 0.3s ease;
-      min-height: auto;
-      overflow: hidden;
     }
     .stat-card-link{
         text-decoration: none;
-      display: block;
-      width: 100%;
-      height: 100%;
     
     }
 
@@ -164,7 +153,6 @@ export default function ContactSection() {
         background: var(--border-color);
       }
     }
-      
 
     .stat-value-wrapper {
       font-family: 'Instrument Serif', serif;
@@ -175,15 +163,11 @@ export default function ContactSection() {
       margin-bottom: 0.5rem;
       display: flex;
       align-items: baseline;
-      flex-wrap: wrap;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      word-break: break-word;
     }
 
 
     .stat-label {
-      font-size: clamp(0.7rem, 2vw, 0.875rem);
+      font-size: 0.875rem;
       color: var(--text-secondary);
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -217,7 +201,6 @@ export default function ContactSection() {
       padding-bottom: 2px;
       border-bottom: 1px solid var(--border-color);
       transition: all 0.3s ease;
-      flex-wrap: wrap;
     }
 
     .btn-link:hover {
@@ -229,7 +212,7 @@ export default function ContactSection() {
 
   const stats = [
     { value: '+1 (650) 993-9799', label: 'Call us', link: 'tel:+16509939799' },
-    { value: 'naveen@splsystems.in', label: 'Email', link: 'mailto:naveen@splsystems.in' },
+    { value: 'pri@splsystems.in', label: 'Email', link: 'mailto:pri@splsystems.in' },
   ];
 
   return (

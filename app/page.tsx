@@ -2,15 +2,14 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import Preloader from "./components/Preloader/Preloader";
-import Navigation from "./components/Navbar/Navigation";
 import Hero from "./components/home/Hero";
+import { Navigation } from "lucide-react";
 import StatsSection from "./components/home/StatSections";
-import CarouselVertical  from "./components/home/CarouselVertical";
+import ProjectSection from "./components/home/Projects";
 import ProcessSection from "./components/home/Features";
-import FAQ from "./components/home/FAQ";
-import Footer from "./components/Footer";
 import ContactSection from "./components/home/Contact";
+import CarouselVertical from "./components/home/CarouselVertical";
+import FAQ from "./components/home/FAQ";
 
 
 
@@ -71,6 +70,9 @@ export default function Home() {
       <section id="about" className="relative z-50">
         <StatsSection />
       </section>
+      <section id="projects" className="relative z-50">
+        <ProjectSection />
+      </section>
       <section id="contact" className="relative z-50">
         <ContactSection />
       </section>
@@ -90,10 +92,6 @@ export default function Home() {
         <FAQ />
       </section>
 
-      {/* 5. CONTACT (Footer) */}
-      <section id="footer" className="relative z-10">
-        <Footer />
-      </section>
 
     </main>
   );

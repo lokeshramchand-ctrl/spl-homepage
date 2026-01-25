@@ -5,20 +5,19 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
-import { useTheme } from 'next-themes'; 
+import { useTheme } from 'next-themes';
 
-// Asset Imports
-import logoLight from '../../assets/spl-inkscape-side.svg';      
-import logoDark from '../../assets/spl-inkscape-side.svg';  
-import ThemeToggle from '../Themetoggle';
+import logoLight from '../../assets/Icons/spl-inkscape-side.svg';
+import logoDark from '../../assets/Icons/spl-inkscape-side.svg';
+import ThemeToggle from '../Themes/Themetoggle';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [mounted, setMounted] = useState(false); 
+  const [mounted, setMounted] = useState(false);
 
   const pathname = usePathname();
-  const { theme, resolvedTheme } = useTheme(); 
+  const { theme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -262,7 +261,7 @@ export default function Navigation() {
       <nav className={`navbar-fixed nav-glass ${isVisible || isOpen ? 'nav-visible' : 'nav-hidden'}`}>
         <div className="nav-container">
 
-{/* Logo */}
+          {/* Logo */}
           <Link href="/" className="logo-wrapper" onClick={() => setIsOpen(false)}>
             {mounted && (
               <Image
@@ -272,7 +271,7 @@ export default function Navigation() {
                 className="logo-image" // Applies object-fit: contain
                 priority
                 // Optional: Good for performance, tells browser rough size
-                sizes="(max-width: 768px) 150px, 180px" 
+                sizes="(max-width: 768px) 150px, 180px"
               />
             )}
           </Link>

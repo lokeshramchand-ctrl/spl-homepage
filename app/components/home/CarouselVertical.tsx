@@ -2,14 +2,14 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
-import { Finance } from "../svg/Finance";
-import { FinanceStrategyIcon } from "../svg/Finance-strategy";
-import { EducationIcon } from "../svg/Education";
-import { BadgeIcon } from "../svg/Badge";
-import { RealEstateIcon } from "../svg/Real_Estate";
-import { GovernmentIcon } from "../svg/Government";
-import { HomeFrontIcon } from "../svg/Home_Front";
-import { GovernmentUsersIcon } from "../svg/Govern_users";
+import { Finance } from "../../assets/SVGs/Finance";
+import { FinanceStrategyIcon } from "../../assets/SVGs/Finance-strategy";
+import { EducationIcon } from "../../assets/SVGs/Education";
+import { BadgeIcon } from "../../assets/SVGs/Badge";
+import { RealEstateIcon } from "../../assets/SVGs/Real_Estate";
+import { GovernmentIcon } from "../../assets/SVGs/Government";
+import { HomeFrontIcon } from "../../assets/SVGs/Home_Front";
+import { GovernmentUsersIcon } from "../../assets/SVGs/Govern_users";
 
 export type SvgComponent = (
   props: React.SVGProps<SVGSVGElement>

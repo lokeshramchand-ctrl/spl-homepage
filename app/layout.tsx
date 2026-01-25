@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
-import Navigation from "./components/Navbar/Navigation";
-import Footer from "./components/Footer";
-import { ThemeProvider } from "./components/themeprovider";
+
+import Footer from "./components/common/Footer";
+import { ThemeProvider } from "./components/common/Themes/themeprovider";
+import Navigation from "./components/common/Navbar/Navigation";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,21 +18,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    /* suppressHydrationWarning is required for next-themes */
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        {/* attribute="data-theme" tells next-themes to toggle the 
-            data-theme='light' or 'dark' attribute on the <html> tag,
-            which matches our globals.css setup.
-        */}
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem>
           <Navigation />
           <main>{children}</main>
+          <Footer />
         </ThemeProvider>
+
+        {/* Analytics */}
+        <Script
+          src="https://analytics.priyatham.in/state-min.js"
+          strategy="afterInteractive"
+          data-website-id="cmkdp4wam0wuirxiqhm16lfsn"
+        />
       </body>
     </html>
   );
