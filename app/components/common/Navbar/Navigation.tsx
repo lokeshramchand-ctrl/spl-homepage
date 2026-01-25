@@ -7,9 +7,10 @@ import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-import logoLight from '../../assets/Icons/spl-inkscape-side.svg';
-import logoDark from '../../assets/Icons/spl-inkscape-side.svg';
 import ThemeToggle from '../Themes/Themetoggle';
+import logoLight from '../../../assets/Icons/spl-inkscape-side.svg';
+import logoDark from '../../../assets/Icons/spl-inkscape-side.svg';
+
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
