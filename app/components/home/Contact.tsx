@@ -164,6 +164,7 @@ export default function ContactSection() {
         background: var(--border-color);
       }
     }
+      
 
     .stat-value-wrapper {
       font-family: 'Instrument Serif', serif;
