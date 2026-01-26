@@ -7,10 +7,11 @@ import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-// Asset Imports
-import logoLight from '../../assets/spl-inkscape-side.svg';
-import logoDark from '../../assets/spl-inkscape-side.svg';
-import ThemeToggle from '../Themetoggle';
+
+import ThemeToggle from '../Themes/Themetoggle';
+import logoLight from '../../../assets/Icons/spl-inkscape-side.svg';
+import logoDark from '../../../assets/Icons/spl-inkscape-side.svg';
+
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +82,7 @@ export default function Navigation() {
     }
 
     .nav-container {
-      max-width: 1600px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -90,38 +91,36 @@ export default function Navigation() {
       height: 72px; 
     }
 
-.logo-wrapper {
-  position: relative;
-  z-index: 110;
-  height: clamp(2.2rem, 6vh, 3.8rem);
-  aspect-ratio: 5.6 / 1;
-  max-width: min(85vw, 32rem);
-  transition: opacity 0.3s ease;
-}
+/* --- Logo Wrapper --- */
+    .logo-wrapper {
+      position: relative; /* Required for Image fill */
+      z-index: 110;
+      /* We define the rendering box for the logo here */
+      height: 44px;  /* A good height for a 72px navbar */
+      width: 180px;  /* Give it plenty of horizontal room */
+      max-width: 40vw; /* Ensure it doesn't get too wide on small mobile screens */
+      transition: opacity 0.3s;
+      /* Removed display:flex/align-items because 'fill' handles positioning */
+    }
+    
+    .logo-wrapper:hover { opacity: 0.7; }
 
-.logo-wrapper:hover {
-  opacity: 0.7;
-}
+    /* New class for the image itself so it fits perfectly */
+    .logo-image {
+        object-fit: contain; /* Crucial: Ensures the whole image is visible */
+        object-position: left center; /* Keeps the logo anchored to the left */
+    }
 
-.logo-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: left center;
-}
-
-
-@media (max-width: 768px) {
-  .logo-wrapper {
-    height: clamp(32px, 6vh, 40px);
-    width: clamp(120px, 65vw, 400px);
-    max-width: 60vw;
-  }
-
-  .nav-container {
-    height: clamp(56px, 8vh, 64px);
-  }
-}
+    /* Responsive Adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .logo-wrapper {
+        height: 36px; /* Slightly smaller on mobile */
+        width: 150px;
+      }
+      .nav-container {
+          height: 64px; /* Optional: slightly shorter navbar on mobile */
+      }
+    }
 
     .nav-right {
         display: flex;

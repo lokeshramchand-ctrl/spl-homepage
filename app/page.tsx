@@ -2,18 +2,14 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import Preloader from "./components/Preloader/Preloader";
-import Navigation from "./components/Navbar/Navigation";
 import Hero from "./components/home/Hero";
+import { Navigation } from "lucide-react";
 import StatsSection from "./components/home/StatSections";
-import CarouselVertical  from "./components/home/CarouselVertical";
-import ProcessSection from "./components/home/Features";
-import FAQ from "./components/home/FAQ";
-
-import ContactSection from "./components/home/Contact";
 import ProjectSection from "./components/home/Projects";
-
-
+import ProcessSection from "./components/home/Features";
+import ContactSection from "./components/home/Contact";
+import FAQ from "./components/home/FAQ";
+import CarouselVertical from "./components/home/Carousel1";
 
 export default function Home() {
 

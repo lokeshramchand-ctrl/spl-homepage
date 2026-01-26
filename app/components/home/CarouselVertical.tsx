@@ -2,15 +2,14 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
-// ✅ Import icon components (not SVG files)
-import { Finance } from "../svg/Finance";
-import { FinanceStrategyIcon } from "../svg/Finance-strategy";
-import { EducationIcon } from "../svg/Education";
-import { BadgeIcon } from "../svg/Badge";
-import { RealEstateIcon } from "../svg/Real_Estate";
-import { GovernmentIcon } from "../svg/Government";
-import { GovernmentUsersIcon } from "../svg/Govern_users";
-import { HomeFrontIcon } from "../svg/Home_Front";
+import { Finance } from "../../assets/SVGs/Finance";
+import { FinanceStrategyIcon } from "../../assets/SVGs/Finance-strategy";
+import { EducationIcon } from "../../assets/SVGs/Education";
+import { BadgeIcon } from "../../assets/SVGs/Badge";
+import { RealEstateIcon } from "../../assets/SVGs/Real_Estate";
+import { GovernmentIcon } from "../../assets/SVGs/Government";
+import { HomeFrontIcon } from "../../assets/SVGs/Home_Front";
+import { GovernmentUsersIcon } from "../../assets/SVGs/Govern_users";
 
 export type SvgComponent = (
   props: React.SVGProps<SVGSVGElement>
@@ -22,7 +21,6 @@ type Slide = {
   rightIcon: SvgComponent;
 };
 
-// ✅ Define slide-to-icon mapping
 const slides: Slide[] = [
   {
     title: "Finance",
@@ -110,6 +108,7 @@ export default function CarouselVertical() {
   color: var(--text-primary);
   overflow: hidden;
   padding: clamp(3rem, 8vw, 8rem) clamp(1rem, 4vw, 3rem);
+  font-family: 'Instrument Sans', system-ui, sans-serif;
 }
 
 /* ---------- Orbs ---------- */
@@ -164,14 +163,14 @@ export default function CarouselVertical() {
 
 .bg-left {
   left: 0;
-  width: clamp(8rem, 20vw, 22rem);
-  height: clamp(8rem, 20vw, 22rem);
+  width: clamp(4rem, 12vw, 14rem);
+  height: clamp(4rem, 12vw, 14rem);
 }
 
 .bg-right {
   right: 0;
-  width: clamp(8rem, 20vw, 22rem);
-  height: clamp(8rem, 20vw, 22rem);
+  width: clamp(4rem, 12vw, 14rem);
+  height: clamp(4rem, 12vw, 14rem);
 }
 
 .bg-img {
