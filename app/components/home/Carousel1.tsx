@@ -84,7 +84,6 @@ export default function CarouselVertical() {
                   }}
                 >
                   <div className="glass-card">
-                    <span className="index-number">0{i + 1}</span>
                     <span className="title-text">{s.title}</span>
                   </div>
                 </div>
