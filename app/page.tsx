@@ -8,8 +8,8 @@ import StatsSection from "./components/home/StatSections";
 import ProjectSection from "./components/home/Projects";
 import ProcessSection from "./components/home/Features";
 import ContactSection from "./components/home/Contact";
-import CarouselVertical from "./components/home/CarouselVertical";
 import FAQ from "./components/home/FAQ";
+import CarouselVertical from "./components/home/Carousel1";
 
 
 
