@@ -127,12 +127,18 @@ export default function CarouselVertical() {
           text-align: center;
         }
         .eyebrow {
-          text-transform: uppercase;
-          letter-spacing: 0.2em;
-          font-size: 0.75rem;
-          opacity: 0.6;
-          display: block;
-          margin-bottom: 0.5rem;
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
         }
         .main-title {
           font-size: clamp(2rem, 5vw, 3.5rem);

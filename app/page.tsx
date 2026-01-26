@@ -11,8 +11,6 @@ import ContactSection from "./components/home/Contact";
 import FAQ from "./components/home/FAQ";
 import CarouselVertical from "./components/home/Carousel1";
 
-
-
 export default function Home() {
 
   useEffect(() => {
