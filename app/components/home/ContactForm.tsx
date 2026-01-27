@@ -1,115 +1,119 @@
 "use client";
 import React, { useState } from "react";
+import { Instrument_Sans } from "next/font/google";
+
+const instrumentSans = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const instrumentSansFamily = instrumentSans.style.fontFamily;
 
 export default function ContactForm() {
-    const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-    const [formData, setFormData] = useState({
-        field_ypUi: "", // Name
-        field_pMMK: "", // Email
-        field_C0O4: "", // Comment
-    });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [formData, setFormData] = useState({
+    field_ypUi: "", // Name
+    field_pMMK: "", // Email
+    field_C0O4: "", // Comment
+  });
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setStatus("submitting");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("submitting");
 
-        try {
-            const response = await fetch(
-                "https://analytics.priyatham.in/open/workspace/clnzoxcy10001vy2ohi4obbi0/survey/cmc5z1pca03jx95kud4x3c2a1/submit",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ payload: formData }),
-                }
-            );
-
-            if (response.ok) {
-                setStatus("success");
-                setFormData({ field_ypUi: "", field_pMMK: "", field_C0O4: "" });
-                // Reset status after 3 seconds
-                setTimeout(() => setStatus("idle"), 3000);
-            } else {
-                setStatus("error");
-            }
-        } catch (error) {
-            setStatus("error");
+    try {
+      const response = await fetch(
+        "https://analytics.priyatham.in/open/workspace/clnzoxcy10001vy2ohi4obbi0/survey/cmc5z1pca03jx95kud4x3c2a1/submit",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ payload: formData }),
         }
-    };
+      );
 
-    return (
-        <section className="contact-page">
-            {/* Background Decor matching Carousel */}
-            <div className="gradient-orb orb-1" />
-            <div className="gradient-orb orb-2" />
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ field_ypUi: "", field_pMMK: "", field_C0O4: "" });
+        // Reset status after 3 seconds
+        setTimeout(() => setStatus("idle"), 3000);
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
 
-            <div className="form-container">
-                <header className="form-header">
-                    <span className="eyebrow">Contact Us</span>
-                    <h2 className="form-title">Get in Touch</h2>
-                </header>
+  return (
+    <section className={`contact-page ${instrumentSans.className}`}>
+      {/* Background Decor matching Carousel */}
+      <div className="gradient-orb orb-1" />
+      <div className="gradient-orb orb-2" />
 
-                <form onSubmit={handleSubmit} className="glass-card">
-                    <div className="input-group">
-                        <label htmlFor="name">Name</label>
-                        <input
-                            id="name"
-                            type="text"
-                            required
-                            placeholder="Name"
-                            autoComplete="name"
-                            value={formData.field_ypUi}
-                            onChange={(e) => setFormData({ ...formData, field_ypUi: e.target.value })}
-                        />
-                    </div>
+      <div className="form-container">
+        <header className="form-header">
+          <span className="eyebrow">Contact Us</span>
+          <h2 className="form-title">Get in Touch</h2>
+        </header>
 
-                    <div className="input-group">
-                        <label htmlFor="email">Contact Email</label>
-                        <input
-                            id="email"
-                            type="email"
-                            required
-                            placeholder="Email"
-                            autoComplete="email"
-                            value={formData.field_pMMK}
-                            onChange={(e) => setFormData({ ...formData, field_pMMK: e.target.value })}
-                        />
-                    </div>
+        <form onSubmit={handleSubmit} className="glass-card">
+          <div className="input-group">
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              required
+              placeholder="Name"
+              autoComplete="name"
+              value={formData.field_ypUi}
+              onChange={(e) => setFormData({ ...formData, field_ypUi: e.target.value })}
+            />
+          </div>
 
-                    <div className="input-group">
-                        <label htmlFor="comment">Message</label>
-                        <textarea
-                            id="comment"
-                            required
-                            rows={4}
-                            placeholder="Leave us a message"
-                            value={formData.field_C0O4}
-                            onChange={(e) => setFormData({ ...formData, field_C0O4: e.target.value })}
-                        />
-                    </div>
+          <div className="input-group">
+            <label htmlFor="email">Contact Email</label>
+            <input
+              id="email"
+              type="email"
+              required
+              placeholder="Email"
+              autoComplete="email"
+              value={formData.field_pMMK}
+              onChange={(e) => setFormData({ ...formData, field_pMMK: e.target.value })}
+            />
+          </div>
 
-                    <button
-                        type="submit"
-                        className={`submit-btn ${status}`}
-                        disabled={status === "submitting" || status === "success"}
-                    >
-                        {status === "submitting" ? (
-                            <span className="loader">Sending...</span>
-                        ) : status === "success" ? (
-                            "Message Sent!"
-                        ) : (
-                            "Send Message"
-                        )}
-                    </button>
+          <div className="input-group">
+            <label htmlFor="comment">Message</label>
+            <textarea
+              id="comment"
+              required
+              rows={4}
+              placeholder="Leave us a message"
+              value={formData.field_C0O4}
+              onChange={(e) => setFormData({ ...formData, field_C0O4: e.target.value })}
+            />
+          </div>
 
-                    {status === "error" && (
-                        <p className="error-msg">Something went wrong. Please try again.</p>
-                    )}
-                </form>
-            </div>
+          <button
+            type="submit"
+            className={`submit-btn ${status}`}
+            disabled={status === "submitting" || status === "success"}
+          >
+            {status === "submitting" ? (
+              <span className="loader">Sending...</span>
+            ) : status === "success" ? (
+              "Message Sent!"
+            ) : (
+              "Send Message"
+            )}
+          </button>
 
-            <style jsx>{`
+          {status === "error" && (
+            <p className="error-msg">Something went wrong. Please try again.</p>
+          )}
+        </form>
+      </div>
+
+      <style jsx>{`
         .contact-page {
-          --font-main: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: ${instrumentSansFamily}, -apple-system, BlinkMacSystemFont, sans-serif;
           position: relative;
           min-height: 100svh;
           width: 100%;
@@ -120,7 +124,6 @@ export default function ContactForm() {
           align-items: center;
           justify-content: center;
           padding: 2rem;
-          font-family: var(--font-main);
         }
 
         .gradient-orb {
@@ -147,34 +150,33 @@ export default function ContactForm() {
         }
 
         .form-header {
-          text-align: center;
-          margin-bottom: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
         .eyebrow {
-      display: inline-block;
-      padding: 0.35rem 1rem;
-      margin-bottom: 2rem;
-      border-radius: 9999px;
-      border: 1px solid var(--border-color);
-      background: var(--bg-card);
-      backdrop-filter: blur(8px);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 9999px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
         }
 
         .form-title {
-          font-size: clamp(2.2rem, 6vw, 3.5rem);
+          font-family: ${instrumentSansFamily}, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: clamp(2rem, 5vw, 3.5rem);
           font-weight: 700;
           margin: 0;
-          letter-spacing: -0.03em;
-          line-height: 1.1;
+          letter-spacing: -0.02em;
         }
 
-        /* --- Glass Card --- */
         .glass-card {
           background: rgba(255, 255, 255, 0.02);
           backdrop-filter: blur(16px);
@@ -273,6 +275,6 @@ export default function ContactForm() {
           .form-title { font-size: 2.2rem; }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 }
