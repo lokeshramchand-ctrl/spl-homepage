@@ -7,28 +7,28 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Linkedin, Twitter, Instagram } from "lucide-react";
 import { useTheme } from 'next-themes';
 // Asset Imports
-import logoLight from '../../assets/Icons/spl-inkscape-side.svg';      // White logo for Dark Mode
-import logoDark from '../../assets/Icons/spl-inkscape-side.svg';  // Dark logo for Light Mode
+import logoLight from '../../assets/Icons/spl-inkscape-side.svg';      
+import logoDark from '../../assets/Icons/spl-inkscape-side.svg';  
 export default function Footer() {
   const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false); // For hydration safety
+  const [mounted, setMounted] = useState(false); 
   const currentLogo = mounted && (theme === 'light' || resolvedTheme === 'light') ? logoDark : logoLight;
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
 
-    /* No local :root - using globals.css variables */
+    
 
     .footer-section {
       position: relative;
-      background-color: var(--bg-main); /* Theme Aware */
-      color: var(--text-primary);       /* Theme Aware */
+      background-color: var(--bg-main); 
+      color: var(--text-primary);       
       font-family: 'Inter', sans-serif;
       overflow: hidden;
       padding-top: 6rem;
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
-    /* Subtle background glow - Uses Brand Colors */
+
     .footer-glow {
       position: absolute;
       bottom: -30%;
@@ -50,13 +50,13 @@ export default function Footer() {
       padding: 0 2rem;
     }
 
-    /* --- CTA Section --- */
+
     .footer-cta {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       margin-bottom: 6rem;
-      border-bottom: 1px solid var(--border-color); /* Theme Aware */
+      border-bottom: 1px solid var(--border-color); 
       padding-bottom: 4rem;
       flex-wrap: wrap;
       gap: 2rem;
@@ -87,7 +87,7 @@ export default function Footer() {
       box-shadow: 0 0 20px rgba(0, 198, 251, 0.2); /* Brand Glow */
     }
 
-    /* --- Grid Section --- */
+    
     .footer-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -129,7 +129,6 @@ export default function Footer() {
       transform: translateX(4px);
     }
 
-    /* --- HUGE BRAND TEXT (Letter-by-Letter Interaction) --- */
     .footer-brand-section {
       width: 100%;
       overflow: hidden;

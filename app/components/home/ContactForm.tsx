@@ -109,8 +109,10 @@ export default function ContactForm() {
       </div>
 
       <style jsx>{`
+@import styles from 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap';
+
         .contact-page {
-          font-family: , -apple-system, BlinkMacSystemFont, sans-serif;
+          font-family:Inter, -apple-system, BlinkMacSystemFont, sans-serif;
           position: relative;
           min-height: 100svh;
           width: 100%;
@@ -167,7 +169,7 @@ export default function ContactForm() {
         }
 
         .form-title {
-          font-family: , -apple-system, BlinkMacSystemFont, sans-serif;
+          font-family:  Instrument Serif, serif;
           font-size: clamp(2rem, 5vw, 3.5rem);
           font-weight: 700;
           margin: 0;
@@ -232,7 +234,7 @@ export default function ContactForm() {
           border: none;
           background: #ffffff;
           color: #000000;
-          font-family: var(--font-main);
+          font-family: Inter, serif;
           font-weight: 700;
           font-size: 1rem;
           cursor: pointer;
