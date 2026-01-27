@@ -1,9 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Instrument_Sans } from "next/font/google";
 
-const instrumentSans = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-const instrumentSansFamily = instrumentSans.style.fontFamily;
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -41,7 +38,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className={`contact-page ${instrumentSans.className}`}>
+    <section className="contact-page">
       {/* Background Decor matching Carousel */}
       <div className="gradient-orb orb-1" />
       <div className="gradient-orb orb-2" />
@@ -113,7 +110,7 @@ export default function ContactForm() {
 
       <style jsx>{`
         .contact-page {
-          font-family: ${instrumentSansFamily}, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-family: , -apple-system, BlinkMacSystemFont, sans-serif;
           position: relative;
           min-height: 100svh;
           width: 100%;
@@ -170,7 +167,7 @@ export default function ContactForm() {
         }
 
         .form-title {
-          font-family: ${instrumentSansFamily}, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-family: , -apple-system, BlinkMacSystemFont, sans-serif;
           font-size: clamp(2rem, 5vw, 3.5rem);
           font-weight: 700;
           margin: 0;

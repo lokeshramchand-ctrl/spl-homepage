@@ -229,7 +229,7 @@ export default function ProjectSection() {
     .card-desc {
       font-size: 1rem;
       line-height: 1.6;
-      color: var(--text-secondary); /* Theme Aware */
+      color: var(--text-secondary); 
       font-weight: 400;
     }
 
