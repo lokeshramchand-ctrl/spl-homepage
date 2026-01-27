@@ -10,7 +10,6 @@ export default function ProjectSection() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
-  // Updated Colors to SPL Brand Identity
   const steps = [
     {
       id: "01",
@@ -97,7 +96,6 @@ export default function ProjectSection() {
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
 
-    /* No local :root anymore - using globals.css variables */
 
     .process-section {
       position: relative;
@@ -124,12 +122,18 @@ export default function ProjectSection() {
     }
 
     .header-label {
-      font-size: 0.875rem;
-      text-transform: uppercase;
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      font-size: 0.75rem;
+      font-weight: 600;
       letter-spacing: 0.1em;
-      color: var(--brand-blue); 
-      margin-bottom: 1rem;
-      display: block;
+      text-transform: uppercase;
+      color: var(--text-secondary);
     }
 
     .header-title {
