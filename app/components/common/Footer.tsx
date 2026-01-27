@@ -4,296 +4,273 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from "framer-motion";
-import { ArrowUpRight, Linkedin, Twitter, Instagram } from "lucide-react";
+import { ArrowUpRight, Linkedin, Github, Mail, MapPin } from "lucide-react";
 import { useTheme } from 'next-themes';
-// Asset Imports
+
+// Assuming your logo paths
 import logoLight from '../../assets/Icons/spl-inkscape-side.svg';      
 import logoDark from '../../assets/Icons/spl-inkscape-side.svg';  
+
+const MARQUEE_TEXT = ["STRATEGY", "DESIGN", "ENGINEERING", "INNOVATION", "SYSTEMS"];
+
 export default function Footer() {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false); 
+
+  useEffect(() => setMounted(true), []);
+
   const currentLogo = mounted && (theme === 'light' || resolvedTheme === 'light') ? logoDark : logoLight;
-  const styles = `
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
-
-    
-
-    .footer-section {
-      position: relative;
-      background-color: var(--bg-main); 
-      color: var(--text-primary);       
-      font-family: 'Inter', sans-serif;
-      overflow: hidden;
-      padding-top: 6rem;
-      transition: background-color 0.4s ease, color 0.4s ease;
-    }
-
-
-    .footer-glow {
-      position: absolute;
-      bottom: -30%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0, 198, 251, 0.1) 0%, transparent 60%);
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .container {
-      position: relative;
-      z-index: 10;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-
-    .footer-cta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 6rem;
-      border-bottom: 1px solid var(--border-color); 
-      padding-bottom: 4rem;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .cta-heading {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1;
-      max-width: 600px;
-      color: var(--text-primary); /* Theme Aware */
-    }
-
-    .cta-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--text-primary); /* Inverts based on theme */
-      color: var(--bg-main);          /* Inverts based on theme */
-      padding: 1rem 2rem;
-      border-radius: 100px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    .cta-button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0, 198, 251, 0.2); /* Brand Glow */
-    }
-
-    
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 4rem;
-      margin-bottom: 6rem;
-    }
-
-    @media (min-width: 768px) {
-      .footer-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-
-    .footer-col h3 {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-secondary); /* Theme Aware */
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-
-    .footer-col ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.875rem;
-    }
-
-    .footer-link {
-      color: var(--text-dim); /* Theme Aware */
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-    .footer-link:hover {
-      color: var(--text-primary); /* Theme Aware */
-      transform: translateX(4px);
-    }
-
-    .footer-brand-section {
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      border-bottom: 1px solid var(--border-color); /* Theme Aware */
-      padding-bottom: 4rem;
-      cursor: default;
-    }
-
-    .huge-text-wrapper {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(4rem, 16vw, 16rem);
-      line-height: 0.8;
-      white-space: nowrap;
-      display: flex;
-    }
-
-    /* Base Letter Style: Outline */
-    .char {
-      color: transparent;
-      /* Theme Aware Stroke: Visible in Light/Dark */
-      -webkit-text-stroke: 1px var(--text-secondary); 
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-    }
-
-    /* HOVER STATES */
-    
-    /* When hovering the container... */
-    .footer-brand-section:hover .char-s {
-      color: var(--brand-red);
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px rgba(255, 81, 47, 0.4);
-    }
-
-    .footer-brand-section:hover .char-p {
-      color: var(--brand-blue);
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px rgba(0, 198, 251, 0.4);
-    }
-
-    .footer-brand-section:hover .char-l {
-      color: var(--brand-green);
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px rgba(56, 239, 125, 0.4);
-    }
-    
-    .footer-brand-section:hover .char-systems {
-      color: var(--text-primary); /* Becomes solid main text color */
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px var(--bg-card-hover);
-    }
-
-    /* Staggered transition delays for a wave effect on hover */
-    .footer-brand-section:hover .char-s { transition-delay: 0s; }
-    .footer-brand-section:hover .char-p { transition-delay: 0.05s; }
-    .footer-brand-section:hover .char-l { transition-delay: 0.1s; }
-    .footer-brand-section:hover .char-systems { transition-delay: 0.15s; }
-
-
-    /* --- Bottom Bar --- */
-    .footer-bottom {
-      padding: 2rem 0;
-      display: flex;
-      flex-direction: column-reverse;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--text-dim);
-      font-size: 0.875rem;
-    }
-    @media (min-width: 768px) {
-      .footer-bottom { flex-direction: row; }
-    }
-
-    .social-links { display: flex; gap: 1.5rem; }
-    .social-icon { color: var(--text-dim); transition: all 0.3s; }
-    .social-icon:hover { color: var(--text-primary); transform: translateY(-2px); }
-  `;
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-      
-      <footer className="footer-section">
-        <div className="footer-glow" />
+    <footer className="footer-visual-root">
+      {/* Background Orbs to match your Carousel aesthetic */}
+      <div className="bg-orb orb-top-right" />
+      <div className="bg-orb orb-bottom-left" />
 
-        <div className="container">
-          
-          {/* CTA Section */}
-          <div className="footer-cta">
-            <h2 className="cta-heading">
-              Ready to transform your <br />
-              <span style={{color: 'var(--text-secondary)', fontStyle: 'italic'}}>digital infrastructure?</span>
-            </h2>
-            <a href="#" className="cta-button">
-              Contact Us <ArrowUpRight size={20} />
-            </a>
-          </div>
-
-          <div className="footer-grid">
-            <div className="footer-col">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                <h3>Company</h3>
-                <ul>
-                  <li><a href="#about" className="footer-link">About</a></li>
-		  {/*
-                  <li><a href="./404_nf" className="footer-link">Careers</a></li>
-                  <li><a href="./404_nf" className="footer-link">Blog</a></li>
-                  <li><a href="./404_nf" className="footer-link">Legal</a></li>
-		  */}
-                </ul>
-              </motion.div>
-            </div>
-            
-            <div className="footer-col">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <h3>Contact</h3>
-                <ul>
-                  <li><a href="#" className="footer-link">Email</a></li>
-                  <li><a href="#" className="footer-link">Phone</a></li>
-                  <li><a href="#" className="footer-link">1281 9th Ave, San Diego CA 92101</a></li>
-                </ul>
-              </motion.div>
-            </div>
-          </div> 
-          {/* Huge Brand Section - Letter Separation 
-          <div className="footer-brand-section">
-            <div className="huge-text-wrapper">
-                <span className="char char-s">S</span>
-                <span className="char char-p">P</span>
-                <span className="char char-l">L</span>
-                <span style={{ width: '0.2em' }} />                 <span className="char char-systems">SYSTEMS</span>
-            </div>
-          </div> */}
-
-            <div className="huge-text-wrapper">
-          <Link href="/" className="footer-logo-wrapper">
-              <Image
-                src={currentLogo}
-		            className="char-systems"
-                alt="SPL Systems"
-                height={40}
-                width={100}
-                style={{ width: 'auto', height: '40px'}}
-                priority
-              />
-          </Link>
-	  </div>
-
-          {/* Copyright & Socials */}
-          <div className="footer-bottom">
-            <div className="copyright">
-              © 2014 — 2025 SPL Systems, Inc.
-            </div>
-            
-            <div className="social-links">
-              <a href="https://www.linkedin.com/company/splsystems/" className="social-icon"><Linkedin size={20} /></a>
-
-            </div>
-          </div>
-
+      {/* 1. KINETIC MARQUEE SECTION */}
+      <div className="marquee-container">
+        <div className="marquee-content">
+          {[...MARQUEE_TEXT, ...MARQUEE_TEXT].map((text, i) => (
+            <span key={i} className="marquee-item">
+              {text} <span className="dot">•</span>
+            </span>
+          ))}
         </div>
-      </footer>
-    </>
+      </div>
+
+      <div className="footer-content-grid">
+        {/* 2. MAIN CONTEXT BLOCK */}
+        <section className="context-block">
+          <div className="brand-header">
+            {mounted && (
+              <Image src={currentLogo} alt="Logo" width={110} height={32} className="logo-main" />
+            )}
+            <span className="est">EST. 2014</span>
+          </div>
+          <h2 className="headline">
+            Engineering the <br /> 
+            <em>Invisible</em> details.
+          </h2>
+          <div className="contact-pills">
+            <a href="mailto:hello@spl.com" className="pill-link"><Mail size={16}/> Get in touch</a>
+            <span className="pill-link"><MapPin size={16}/> San Diego, CA</span>
+          </div>
+        </section>
+
+        {/* 3. NAV LINKS GRID */}
+        <nav className="nav-spread">
+          <div className="nav-set">
+            <h6>Navigation</h6>
+            <Link href="/services">Expertise</Link>
+            <Link href="/industries">Industries</Link>
+            <Link href="/work">Selected Work</Link>
+            <Link href="/about">Our Story</Link>
+          </div>
+          <div className="nav-set">
+            <h6>Resources</h6>
+            <Link href="/docs">Documentation</Link>
+            <Link href="/insights">Insights</Link>
+            <Link href="/careers">Join the Lab</Link>
+          </div>
+          <div className="nav-set">
+            <h6>Social</h6>
+            <a href="#" className="social-row"><Linkedin size={14}/> LinkedIn</a>
+            <a href="#" className="social-row"><Github size={14}/> GitHub</a>
+          </div>
+        </nav>
+      </div>
+
+      {/* 4. REFINED BOTTOM BAR */}
+      <div className="bottom-bar">
+        <div className="legal">
+          <span>© {new Date().getFullYear()}</span>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
+        </div>
+        <div className="tagline">Next-Gen Systems Engineering</div>
+        <motion.button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="back-to-top"
+          whileHover={{ y: -5 }}
+        >
+          BACK TO TOP ↑
+        </motion.button>
+      </div>
+
+      <style jsx>{`
+        .footer-visual-root {
+          --f-bg: #050505;
+          --f-text: #ffffff;
+          --f-accent: #3b82f6;
+          --f-border: rgba(255, 255, 255, 0.08);
+          
+          position: relative;
+          background: var(--f-bg);
+          color: var(--f-text);
+          padding: 0 0 2rem 0;
+          font-family: 'Instrument Sans', sans-serif;
+          overflow: hidden;
+        }
+
+        /* Ambient Orbs */
+        .bg-orb {
+          position: absolute;
+          width: 40vw;
+          height: 40vw;
+          border-radius: 50%;
+          filter: blur(120px);
+          opacity: 0.1;
+          pointer-events: none;
+        }
+        .orb-top-right { top: -10%; right: -5%; background: #ff3b3b; }
+        .orb-bottom-left { bottom: -10%; left: -5%; background: #3b82f6; }
+
+        /* Marquee Styles */
+        .marquee-container {
+          padding: 4rem 0;
+          border-bottom: 1px solid var(--f-border);
+          overflow: hidden;
+          background: rgba(255,255,255, 0.01);
+          user-select: none;
+        }
+        .marquee-content {
+          display: flex;
+          white-space: nowrap;
+          animation: scroll 30s linear infinite;
+        }
+        .marquee-item {
+          font-family: 'Instrument Serif', serif;
+          font-size: clamp(2rem, 8vw, 6rem);
+          font-weight: 400;
+          padding: 0 2rem;
+          opacity: 0.15;
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+        }
+        .dot { font-size: 2rem; color: var(--f-accent); }
+
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        /* Layout Grid */
+        .footer-content-grid {
+          max-width: 1400px;
+          margin: 6rem auto;
+          padding: 0 2.5rem;
+          display: grid;
+          grid-template-columns: 1.2fr 1fr;
+          gap: 4rem;
+          position: relative;
+          z-index: 10;
+        }
+
+        /* Context Block */
+        .brand-header {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+        }
+        .est {
+          font-size: 0.7rem;
+          font-weight: 700;
+          padding: 0.2rem 0.6rem;
+          border: 1px solid var(--f-border);
+          border-radius: 4px;
+          color: rgba(255,255,255,0.4);
+        }
+        .headline {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          line-height: 1;
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          margin-bottom: 2.5rem;
+        }
+        .headline em {
+          font-family: 'Instrument Serif', serif;
+          font-style: italic;
+          font-weight: 400;
+          opacity: 0.6;
+        }
+        .contact-pills {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+        .pill-link {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.6rem 1.2rem;
+          background: rgba(255,255,255,0.05);
+          border-radius: 100px;
+          font-size: 0.9rem;
+          color: rgba(255,255,255,0.8);
+          text-decoration: none;
+          transition: 0.3s;
+        }
+        .pill-link:hover { background: rgba(255,255,255,0.1); }
+
+        /* Nav Spread */
+        .nav-spread {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 2rem;
+        }
+        .nav-set h6 {
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
+          color: rgba(255,255,255,0.3);
+          margin-bottom: 1.5rem;
+        }
+        .nav-set :global(a) {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: var(--f-text);
+          text-decoration: none;
+          font-size: 1rem;
+          margin-bottom: 0.8rem;
+          opacity: 0.6;
+          transition: 0.3s;
+        }
+        .nav-set :global(a:hover) { opacity: 1; transform: translateX(4px); }
+
+        /* Bottom Bar */
+        .bottom-bar {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 2rem 2.5rem;
+          border-top: 1px solid var(--f-border);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.8rem;
+          color: rgba(255,255,255,0.3);
+        }
+        .legal { display: flex; gap: 1.5rem; }
+        .legal :global(a) { color: inherit; text-decoration: none; }
+        .legal :global(a:hover) { color: #fff; }
+        .back-to-top {
+          background: none;
+          border: none;
+          color: #fff;
+          font-weight: 700;
+          cursor: pointer;
+          letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 1024px) {
+          .footer-content-grid { grid-template-columns: 1fr; text-align: center; }
+          .brand-header, .contact-pills { justify-content: center; }
+          .nav-spread { grid-template-columns: 1fr; gap: 3rem; }
+          .bottom-bar { flex-direction: column; gap: 2rem; }
+        }
+      `}</style>
+    </footer>
   );
 }
