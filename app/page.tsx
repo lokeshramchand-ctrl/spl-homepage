@@ -10,7 +10,7 @@ import ProcessSection from "./components/home/Features";
 import ContactSection from "./components/home/Contact";
 import FAQ from "./components/home/FAQ";
 import CarouselVertical from "./components/home/Carousel1";
-
+import ContactForm from "./components/home/ContactForm";
 export default function Home() {
 
   useEffect(() => {
@@ -88,6 +88,10 @@ export default function Home() {
       {/* 4. FAQ Section */}
       <section className="relative z-20">
         <FAQ />
+      </section>
+
+      <section className="relative z-10">
+        <ContactForm />
       </section>
 
 

@@ -39,7 +39,6 @@ export default function StatsSection() {
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
 
-    /* --- Base --- */
     .stats-section {
       position: relative;
       background-color: var(--bg-main); /* Theme Aware */
@@ -58,7 +57,6 @@ export default function StatsSection() {
       padding: 0 2rem;
     }
 
-    /* --- Typography --- */
     .pill-label {
       display: inline-block;
       padding: 0.35rem 1rem;

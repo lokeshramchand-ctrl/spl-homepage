@@ -118,7 +118,6 @@ export default function CarouselVertical() {
         .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--grad-red, #ff4d4d); }
         .orb-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: var(--grad-blue, #4d79ff); }
 
-        /* --- Header --- */
         .header {
           position: relative;
           z-index: 10;
@@ -126,18 +125,18 @@ export default function CarouselVertical() {
           text-align: center;
         }
         .eyebrow {
-      display: inline-block;
-      padding: 0.35rem 1rem;
-      margin-bottom: 2rem;
-      border-radius: 9999px;
-      border: 1px solid var(--border-color);
-      background: var(--bg-card);
-      backdrop-filter: blur(8px);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
+              display: inline-block;
+              padding: 0.35rem 1rem;
+              margin-bottom: 2rem;
+              border-radius: 9999px;
+              border: 1px solid var(--border-color);
+              background: var(--bg-card);
+              backdrop-filter: blur(8px);
+              font-size: 0.75rem;
+              font-weight: 600;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--text-secondary);
         }
         .main-title {
           font-size: clamp(2rem, 5vw, 3.5rem);
@@ -146,7 +145,6 @@ export default function CarouselVertical() {
           letter-spacing: -0.02em;
         }
 
-        /* --- Visual Core --- */
         .visual-container {
           flex: 1;
           position: relative;
@@ -155,7 +153,6 @@ export default function CarouselVertical() {
           justify-content: center;
         }
 
-        /* Animated Icons Layer */
         .slide-layer {
           position: absolute;
           inset: 0;
@@ -181,7 +178,6 @@ export default function CarouselVertical() {
         .bg-icon-wrapper.right { right: 5%; }
         .bg-img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* --- Carousel Card --- */
         .content-overlay {
           position: relative;
           z-index: 5;
@@ -203,6 +199,7 @@ export default function CarouselVertical() {
           transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease;
         }
+
         .glass-card {
           background: rgba(255, 255, 255, 0.03);
           backdrop-filter: blur(12px);
@@ -217,11 +214,13 @@ export default function CarouselVertical() {
           gap: 0.5rem;
           box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
+
         .index-number {
           font-family: monospace;
           font-size: 0.9rem;
           opacity: 0.4;
         }
+
         .title-text {
           font-size: clamp(1.5rem, 4vw, 2.5rem);
           font-weight: 600;

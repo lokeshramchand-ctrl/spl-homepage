@@ -144,14 +144,6 @@ export default function ProcessSection() {
       max-width: 600px;
     }
 
-    .header-label {
-      font-size: 0.875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--brand-blue); 
-      margin-bottom: 1rem;
-      display: block;
-    }
 
     .header-title {
       font-family: 'Instrument Serif', serif;

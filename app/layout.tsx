@@ -30,7 +30,6 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
 
-        {/* Analytics */}
         <Script
           src="https://analytics.priyatham.in/state-min.js"
           strategy="afterInteractive"
