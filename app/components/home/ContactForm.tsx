@@ -1,32 +1,57 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useTheme } from "next-themes";
 
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
   const [formData, setFormData] = useState({
     field_ypUi: "", // Name
     field_pMMK: "", // Email
     field_C0O4: "", // Comment
   });
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+  const recaptchaTheme = mounted && resolvedTheme === "light" ? "light" : "dark";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setCaptchaError(null);
+
+    if (!siteKey) {
+      setCaptchaError("ReCAPTCHA is not configured yet.");
+      return;
+    }
+
+    if (!captchaToken) {
+      setCaptchaError("Please complete the reCAPTCHA check.");
+      return;
+    }
+
     setStatus("submitting");
 
     try {
       const response = await fetch(
-        "https://analytics.priyatham.in/open/workspace/clnzoxcy10001vy2ohi4obbi0/survey/cmc5z1pca03jx95kud4x3c2a1/submit",
+        "/api/contact",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ payload: formData }),
+          body: JSON.stringify({ payload: { ...formData, recaptchaToken: captchaToken } }),
         }
       );
 
       if (response.ok) {
         setStatus("success");
         setFormData({ field_ypUi: "", field_pMMK: "", field_C0O4: "" });
+        setCaptchaToken(null);
         // Reset status after 3 seconds
         setTimeout(() => setStatus("idle"), 3000);
       } else {
@@ -88,10 +113,23 @@ export default function ContactForm() {
             />
           </div>
 
+          {siteKey ? (
+            <div className="recaptcha-wrap">
+              <ReCAPTCHA
+                sitekey={siteKey}
+                theme={recaptchaTheme}
+                onChange={(token) => setCaptchaToken(token)}
+                onExpired={() => setCaptchaToken(null)}
+              />
+            </div>
+          ) : (
+            <p className="error-msg">ReCAPTCHA is not configured yet.</p>
+          )}
+
           <button
             type="submit"
             className={`submit-btn ${status}`}
-            disabled={status === "submitting" || status === "success"}
+            disabled={status === "submitting" || status === "success" || !captchaToken}
           >
             {status === "submitting" ? (
               <span className="loader">Sending...</span>
@@ -105,6 +143,8 @@ export default function ContactForm() {
           {status === "error" && (
             <p className="error-msg">Something went wrong. Please try again.</p>
           )}
+
+          {captchaError && <p className="error-msg">{captchaError}</p>}
         </form>
       </div>
 
@@ -267,6 +307,22 @@ export default function ContactForm() {
           font-weight: 500;
           text-align: center;
           margin-top: -0.5rem;
+        }
+
+        .recaptcha-wrap {
+          display: flex;
+          justify-content: center;
+          padding: 0.25rem 0;
+          border-radius: 1rem;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        @media (max-width: 480px) {
+          .recaptcha-wrap {
+            transform: scale(0.9);
+            transform-origin: center;
+          }
         }
 
         @media (max-width: 640px) {
