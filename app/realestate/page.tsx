@@ -1,34 +1,65 @@
 'use client';
 
-import Navigation from '../components/common/Navbar/Navigation';
+import type { StaticImageData } from 'next/image';
+import { useTheme } from 'next-themes';
+
+// Import GIFs and images
+import firstAnimation from '../assets/Gifs/AI-RealEstate/first animation.gif';
+import mainpage from '../assets/Gifs/AI-RealEstate/mainpage.gif';
+import leftsidebar from '../assets/Gifs/AI-RealEstate/leftsidebar.gif';
+import rightsidebar from '../assets/Gifs/AI-RealEstate/rightsidebar.gif';
+import darkmode from '../assets/Gifs/AI-RealEstate/darkmode.png';
+import lightmode from '../assets/Gifs/AI-RealEstate/lightmode.png';
 
 interface ImageBlockProps {
   caption: string;
   imageAlt: string;
+  imageSrc: StaticImageData;
 }
 
 const portfolioBlocks: ImageBlockProps[] = [
-  { caption: "MULTIMODAL SEARCH WITH THE ABILITY TO GIVE FOLLOW-UP QUERIES", imageAlt: "Multimodal search mockup" },
-  { caption: "CLOSER LOOK AT QUERY ARCHITECTURE", imageAlt: "Query architecture mockup" },
-  { caption: "IMPROVE NAVIGATION AND USABILITY WITH A PERSISTENT SEARCH BAR.", imageAlt: "Persistent search bar mockup" },
-  { caption: "REDESIGNED NOTIFICATIONS TO BE MORE COMMUNICATIVE AND SYSTEMATIC ACROSS DOMAINS.", imageAlt: "Redesigned notifications mockups" },
-  { caption: "DESIGNED A BETTER WAY FOR PEOPLE TO VIEW THEIR PREFERENCES AND PURCHASE DETAILS.", imageAlt: "Preferences and purchase mockups" },
-  { caption: "EXPANDABLE CARDS THAT CAN BE COLLAPSED FOR A MORE COMPACT VIEW.", imageAlt: "Expandable cards mockup" },
-  { caption: "LED DESIGNS FOR AN EXPERIMENTAL FEATURE, MEET UP, WHERE USERS CAN FIND RESTAURANTS...", imageAlt: "Meet up feature mockups" },
-  { caption: "PROTOTYPED INTELLIGENT RESTAURANT SUGGESTIONS BASED ON USER PREFERENCE AND ORDER HISTORY.", imageAlt: "Restaurant suggestions mockup" },
+  { 
+    caption: "MULTIMODAL SEARCH WITH THE ABILITY TO GIVE FOLLOW-UP QUERIES", 
+    imageAlt: "Multimodal search animation",
+    imageSrc: firstAnimation
+  },
+  { 
+    caption: "MAIN PAGE WITH REAL ESTATE LISTINGS AND SEARCH INTERFACE", 
+    imageAlt: "Main page interface",
+    imageSrc: mainpage
+  },
+  { 
+    caption: "LEFT SIDEBAR NAVIGATION AND FILTER OPTIONS", 
+    imageAlt: "Left sidebar navigation",
+    imageSrc: leftsidebar
+  },
+  { 
+    caption: "RIGHT SIDEBAR WITH PROPERTY DETAILS AND PREFERENCES", 
+    imageAlt: "Right sidebar details",
+    imageSrc: rightsidebar
+  },
 ];
 
 export default function ProjectPage() {
+  const { resolvedTheme } = useTheme();
+  const heroPreview = resolvedTheme === 'light' ? lightmode : darkmode;
+
   return (
     <>
-      <Navigation />
       <div className="container">
 
         {/* Hero Section */}
         <section className="hero">
           <div className="heroLogo">
-            {/* SVG or Image placeholder for the Brain Technologies logo */}
-            <div className="logoCircle"></div>
+            <div className="heroPreviewWrap">
+              <img
+                src={heroPreview.src}
+                alt={resolvedTheme === 'light' ? 'Real estate light mode preview' : 'Real estate dark mode preview'}
+                className="heroPreview"
+                loading="eager"
+                decoding="sync"
+              />
+            </div>
           </div>
         </section>
 
@@ -84,8 +115,13 @@ export default function ProjectPage() {
                 {portfolioBlocks.map((block, index) => (
                   <div key={index} className="imageBlock">
                     <div className="imagePlaceholder">
-                       {/* In a real scenario, use next/image here */}
-                       <span className="placeholderText">Image: {block.imageAlt}</span>
+                      <img
+                        src={block.imageSrc.src}
+                        alt={block.imageAlt}
+                        className="projectImage"
+                        loading="eager"
+                        decoding="sync"
+                      />
                     </div>
                     <p className="caption">{block.caption}</p>
                   </div>
@@ -146,26 +182,20 @@ export default function ProjectPage() {
           margin: 0;
         }
 
-        .logoCircle {
-          width: 150px;
-          height: 150px;
-          border: 15px solid var(--text-primary);
-          border-radius: 50%;
-          position: relative;
-          transition: border-color 0.4s ease;
+        .heroPreviewWrap {
+          display: none;
+          width: min(100%, 1080px);
+          border: 1px solid var(--border-color);
+          border-radius: 12px;
+          overflow: hidden;
+          background: var(--bg-card);
         }
 
-        .logoCircle::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: -40px;
-          width: 25px;
-          height: 25px;
-          background-color: var(--text-primary);
-          border-radius: 50%;
-          transform: translateY(-50%);
-          transition: background-color 0.4s ease;
+        .heroPreview {
+          width: 100%;
+          height: auto;
+          display: block;
+          object-fit: cover;
         }
 
         /* Layout Grid */
@@ -281,20 +311,25 @@ export default function ProjectPage() {
         }
 
         .imagePlaceholder {
-          background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-main) 100%);
+          background: var(--bg-card);
           border: 1px solid var(--border-color);
           border-radius: 8px;
           width: 100%;
-          aspect-ratio: 16 / 9;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: var(--text-muted);
-          transition: border-color 0.3s ease;
+          overflow: hidden;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          position: relative;
         }
 
         .imagePlaceholder:hover {
           border-color: var(--text-secondary);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .projectImage {
+          width: 100%;
+          height: auto;
+          display: block;
+          object-fit: cover;
         }
 
         .caption {
@@ -319,6 +354,12 @@ export default function ProjectPage() {
           
           .metaGrid {
             grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (min-width: 1025px) {
+          .heroPreviewWrap {
+            display: block;
           }
         }
 
