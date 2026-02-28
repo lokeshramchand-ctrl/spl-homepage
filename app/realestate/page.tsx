@@ -1,6 +1,7 @@
 'use client';
 
 import type { StaticImageData } from 'next/image';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 
 // Import GIFs and images
@@ -19,30 +20,39 @@ interface ImageBlockProps {
 
 const portfolioBlocks: ImageBlockProps[] = [
   { 
-    caption: "MULTIMODAL SEARCH WITH THE ABILITY TO GIVE FOLLOW-UP QUERIES", 
-    imageAlt: "Multimodal search animation",
+    caption: "LOAD AND VISUALIZE GEOJSON DATASETS DIRECTLY IN THE BROWSER USING OPENLAYERS.", 
+    imageAlt: "GeoJSON rendering and map visualization",
     imageSrc: firstAnimation
   },
   { 
-    caption: "MAIN PAGE WITH REAL ESTATE LISTINGS AND SEARCH INTERFACE", 
-    imageAlt: "Main page interface",
+    caption: "SWITCH BETWEEN BASE TILES, VECTOR LAYERS, AND CUSTOM OVERLAYS WITH CLEAN CONTROLS.", 
+    imageAlt: "Layer controls and base map switching",
     imageSrc: mainpage
   },
   { 
-    caption: "LEFT SIDEBAR NAVIGATION AND FILTER OPTIONS", 
-    imageAlt: "Left sidebar navigation",
+    caption: "SEARCH, MARKER INTERACTION, AND MODULAR UI COMPONENTS FOR EXPLORATION WORKFLOWS.", 
+    imageAlt: "Search and marker interaction flow",
     imageSrc: leftsidebar
   },
   { 
-    caption: "RIGHT SIDEBAR WITH PROPERTY DETAILS AND PREFERENCES", 
-    imageAlt: "Right sidebar details",
+    caption: "API-READY ARCHITECTURE WITH EXTERNAL INTEGRATIONS LIKE LEGISCAN AND STATS SERVICES.", 
+    imageAlt: "External API integration architecture",
     imageSrc: rightsidebar
   },
 ];
 
 export default function ProjectPage() {
   const { resolvedTheme } = useTheme();
+  const [gifRefreshKey, setGifRefreshKey] = useState(0);
   const heroPreview = resolvedTheme === 'light' ? lightmode : darkmode;
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setGifRefreshKey((prev) => prev + 1);
+    }, 7000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -54,7 +64,7 @@ export default function ProjectPage() {
             <div className="heroPreviewWrap">
               <img
                 src={heroPreview.src}
-                alt={resolvedTheme === 'light' ? 'Real estate light mode preview' : 'Real estate dark mode preview'}
+                alt={resolvedTheme === 'light' ? 'MapLayer light mode preview' : 'MapLayer dark mode preview'}
                 className="heroPreview"
                 loading="eager"
                 decoding="sync"
@@ -69,8 +79,8 @@ export default function ProjectPage() {
             
             {/* Left Sidebar */}
             <aside className="sidebar">
-              <h1 className="projectTitle">Brain Technologies</h1>
-              <p className="projectSubtitle">MULTIMODAL INTERACTION</p>
+              <h1 className="projectTitle">MapLayer</h1>
+              <p className="projectSubtitle">LIGHTWEIGHT REACT + GEOJSON MAPPING INTERFACE</p>
             </aside>
 
             {/* Right Content */}
@@ -78,35 +88,36 @@ export default function ProjectPage() {
               {/* Project Description */}
               <div className="descriptionBlock">
                 <p className="descriptionText">
-                  For 2 years, I prototyped new ways to engage with computer interfaces, 
-                  mostly working with voice and AI. Brain was one of the first companies 
-                  to explore the idea of multimodal, generative interfaces. My time working 
-                  with the team has shaped many of the principles I design with now. 
-                  Most of my work stayed in R&D but pieces of it have shipped and are now in the app store.
+                  MapLayer is a lightweight React + GeoJSON based mapping interface built to make
+                  geospatial exploration accessible without specialized GIS tooling. The platform
+                  renders GeoJSON layers in-browser with OpenLayers, supports dynamic layer toggling,
+                  marker overlays, search workflows, and API-ready integrations for external data such
+                  as legislation or statistics. The architecture is modular and production-friendly,
+                  with Vite + TypeScript on the frontend and containerized deployment workflows using
+                  Docker, Docker Compose, and Jenkins for reliable CI/CD.
                 </p>
                 
                 <div className="metaGrid">
                   <div className="metaItem">
                     <h4>ROLE</h4>
-                    <p>Design Consultant</p>
+                    <p>Frontend & Mapping Interface Engineering</p>
                   </div>
                   <div className="metaItem">
-                    <h4>COLLABORATORS</h4>
-                    <p>Jerry Yue (CEO)<br/>Gleb Kuznetsov</p>
+                    <h4>FRONTEND STACK</h4>
+                    <p>React (TypeScript)<br/>Vite + OpenLayers</p>
                   </div>
                   <div className="metaItem">
-                    <h4>DURATION</h4>
-                    <p>2020-2021</p>
+                    <h4>DATA & APIs</h4>
+                    <p>GeoJSON Layers<br/>LegiScan-ready API integration</p>
                   </div>
                   <div className="metaItem">
-                    <h4>TOOLS</h4>
-                    <p>Figma<br/>Origami Studio</p>
+                    <h4>DEPLOYMENT</h4>
+                    <p>Docker + Compose<br/>Jenkins CI/CD</p>
                   </div>
                 </div>
 
                 <div className="actionLinks">
-                  <a href="#" className="linkButton">MAIN WEBSITE <span className="arrow">›</span></a>
-                  <a href="#" className="linkButton">NATURAL AI APP <span className="arrow">›</span></a>
+                  <a href="#" className="linkButton">MAPLAYER OVERVIEW <span className="arrow">›</span></a>
                 </div>
               </div>
 
@@ -116,7 +127,7 @@ export default function ProjectPage() {
                   <div key={index} className="imageBlock">
                     <div className="imagePlaceholder">
                       <img
-                        src={block.imageSrc.src}
+                        src={`${block.imageSrc.src}${block.imageSrc.src.includes('?') ? '&' : '?'}loop=${gifRefreshKey}`}
                         alt={block.imageAlt}
                         className="projectImage"
                         loading="eager"
