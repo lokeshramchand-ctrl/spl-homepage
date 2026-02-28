@@ -1,7 +1,6 @@
 'use client';
 
 import Navigation from '../components/common/Navbar/Navigation';
-import Footer from '../components/common/Footer';
 
 interface ImageBlockProps {
   caption: string;
@@ -98,7 +97,6 @@ export default function ProjectPage() {
         </main>
       </div>
 
-      <Footer />
 
       {/* Embedded Vanilla CSS */}
       <style>{`
