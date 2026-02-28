@@ -79,8 +79,8 @@ export default function ProjectPage() {
             
             {/* Left Sidebar */}
             <aside className="sidebar">
-              <h1 className="projectTitle">MapLayer</h1>
-              <p className="projectSubtitle">LIGHTWEIGHT REACT + GEOJSON MAPPING INTERFACE</p>
+              <h1 className="projectTitle">AI-Real-Estate-Tool</h1>
+              <p className="projectSubtitle">LIGHTWEIGHT REACT + GEOJSON MAPPING INTERFACE BASED ON SAN DIEGO</p>
             </aside>
 
             {/* Right Content */}
@@ -88,7 +88,7 @@ export default function ProjectPage() {
               {/* Project Description */}
               <div className="descriptionBlock">
                 <p className="descriptionText">
-                  MapLayer is a lightweight React + GeoJSON based mapping interface built to make
+                  AI-Real-Estate-Tool is a lightweight React + GeoJSON based mapping interface built to make
                   geospatial exploration accessible without specialized GIS tooling. The platform
                   renders GeoJSON layers in-browser with OpenLayers, supports dynamic layer toggling,
                   marker overlays, search workflows, and API-ready integrations for external data such
