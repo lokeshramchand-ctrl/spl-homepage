@@ -71,7 +71,7 @@ export default function Home() {
       <section id="projects" className="relative z-50">
         <ProjectSection />
       </section>
-      <section id="contact" className="relative z-50">
+      <section id="contactus" className="relative z-50">
         <ContactSection />
       </section>
 
@@ -86,11 +86,11 @@ export default function Home() {
       </section>
 
       {/* 4. FAQ Section */}
-      <section className="relative z-20">
+      <section id="faq" className="relative z-20">
         <FAQ />
       </section>
 
-      <section className="relative z-10">
+      <section id="contact" className="relative z-30">
         <ContactForm />
       </section>
 

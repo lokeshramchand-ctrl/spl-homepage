@@ -270,15 +270,15 @@ export default function Footer() {
       {/* Wrapper injects a class to help with CSS conditional theming on the iframe map */}
       <div className={`theme-${currentTheme}`}>
         <style dangerouslySetInnerHTML={{ __html: styles }} />
-        
+
         <footer className="footer-section">
           <div className="footer-glow" />
 
           <div className="container">
-            
+
             {/* CTA Section */}
             <div className="footer-cta">
-              <motion.h2 
+              <motion.h2
                 className="cta-heading"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -290,9 +290,9 @@ export default function Footer() {
                   digital infrastructure?
                 </span>
               </motion.h2>
-              
-              <motion.a 
-                href="#" 
+
+              <motion.a
+                href="#"
                 className="cta-button"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -309,7 +309,16 @@ export default function Footer() {
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} viewport={{ once: true }}>
                   <h3>Company</h3>
                   <ul>
+                    <li><a href="#hero" className="footer-link">Home</a></li>
                     <li><a href="#about" className="footer-link">About</a></li>
+
+                    <li><a href="#projects" className="footer-link">Projects</a></li>
+
+                    <li><a href="#expertise" className="footer-link">Expertise</a></li>
+                    <li><a href="#services" className="footer-link">Process</a></li>
+                    <li><a href="#faq" className="footer-link">Support & Info</a></li>
+                    <li><a href="#contact" className="footer-link">Contact us</a></li>
+
                     {/* Uncomment when pages are ready
                     <li><a href="/careers" className="footer-link">Careers</a></li>
                     <li><a href="/blog" className="footer-link">Blog</a></li>
@@ -318,7 +327,7 @@ export default function Footer() {
                   </ul>
                 </motion.div>
               </div>
-              
+
               {/* Column 2: Contact Info */}
               <div className="footer-col">
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} viewport={{ once: true }}>
@@ -336,7 +345,7 @@ export default function Footer() {
                     </li>
                     <li>
                       <div className="footer-link" style={{ pointerEvents: 'none' }}>
-                        <span className="icon-wrapper"><MapPin size={18} /></span> 
+                        <span className="icon-wrapper"><MapPin size={18} /></span>
                         1281 9th Ave, San Diego CA
                       </div>
                     </li>
@@ -346,21 +355,21 @@ export default function Footer() {
 
               {/* Column 3: Modern Map */}
               <div className="footer-col">
-                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} viewport={{ once: true }}>
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} viewport={{ once: true }}>
                   <h3>Location</h3>
                   <div className="map-container">
-                    <iframe 
+                    <iframe
                       className="map-iframe"
-                      src="https://maps.google.com/maps?q=1281+9th+Ave,+San+Diego,+CA+92101&t=&z=14&ie=UTF8&iwloc=&output=embed" 
-                      allowFullScreen 
-                      loading="lazy" 
+                      src="https://maps.google.com/maps?q=1281+9th+Ave,+San+Diego,+CA+92101&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                      allowFullScreen
+                      loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="SPL Systems Location"
                     />
                   </div>
                 </motion.div>
               </div>
-            </div> 
+            </div>
 
             {/* Bottom Bar: Logo, Copyright & Socials */}
             <div className="footer-bottom">
@@ -375,12 +384,12 @@ export default function Footer() {
                   />
                 )}
               </Link>
-              
+
               <div className="copyright-social">
                 <div className="copyright">
                   © {new Date().getFullYear()} SPL Systems, Inc. All rights reserved.
                 </div>
-                
+
                 <div className="social-links">
                   <a href="https://www.linkedin.com/company/splsystems/" className="social-icon" aria-label="LinkedIn">
                     <Linkedin size={18} />
