@@ -4,40 +4,47 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from "framer-motion";
-import { ArrowUpRight, Linkedin, Twitter, Instagram } from "lucide-react";
+import { ArrowUpRight, Linkedin, MapPin, Mail, Phone } from "lucide-react";
 import { useTheme } from 'next-themes';
-// Asset Imports
-import logoLight from '../../assets/Icons/spl-inkscape-side.svg';      // White logo for Dark Mode
-import logoDark from '../../assets/Icons/spl-inkscape-side.svg';  // Dark logo for Light Mode
+
+// Asset Imports (Update paths as needed)
+import logoLight from '../../assets/Icons/spl-inkscape-side.svg';
+import logoDark from '../../assets/Icons/spl-inkscape-side.svg';
+
 export default function Footer() {
   const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false); // For hydration safety
-  const currentLogo = mounted && (theme === 'light' || resolvedTheme === 'light') ? logoDark : logoLight;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = mounted && (theme === 'light' || resolvedTheme === 'light') ? 'light' : 'dark';
+  const currentLogo = currentTheme === 'light' ? logoDark : logoLight;
+
   const styles = `
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
 
-    /* No local :root - using globals.css variables */
-
     .footer-section {
       position: relative;
-      background-color: var(--bg-main); /* Theme Aware */
-      color: var(--text-primary);       /* Theme Aware */
+      background-color: var(--bg-main);
+      color: var(--text-primary);
       font-family: 'Inter', sans-serif;
       overflow: hidden;
       padding-top: 6rem;
       transition: background-color 0.4s ease, color 0.4s ease;
+      border-top: 1px solid var(--border-color);
     }
 
-    /* Subtle background glow - Uses Brand Colors */
     .footer-glow {
       position: absolute;
-      bottom: -30%;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 80%;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0, 198, 251, 0.1) 0%, transparent 60%);
-      filter: blur(100px);
+      width: 100%;
+      height: 500px;
+      background: radial-gradient(ellipse at top, rgba(0, 198, 251, 0.08) 0%, transparent 70%);
+      filter: blur(80px);
       pointer-events: none;
       z-index: 1;
     }
@@ -53,59 +60,79 @@ export default function Footer() {
     /* --- CTA Section --- */
     .footer-cta {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 6rem;
-      border-bottom: 1px solid var(--border-color); /* Theme Aware */
-      padding-bottom: 4rem;
-      flex-wrap: wrap;
+      align-items: flex-start;
+      margin-bottom: 5rem;
       gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .footer-cta {
+        flex-direction: row;
+        align-items: flex-end;
+      }
     }
 
     .cta-heading {
       font-family: 'Instrument Serif', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1;
-      max-width: 600px;
-      color: var(--text-primary); /* Theme Aware */
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      max-width: 700px;
+      color: var(--text-primary);
+      margin: 0;
     }
 
     .cta-button {
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
-      background: var(--text-primary); /* Inverts based on theme */
-      color: var(--bg-main);          /* Inverts based on theme */
-      padding: 1rem 2rem;
+      background: var(--text-primary);
+      color: var(--bg-main);
+      padding: 1.125rem 2.5rem;
       border-radius: 100px;
+      font-size: 1.1rem;
       font-weight: 500;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      white-space: nowrap;
     }
+
     .cta-button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0, 198, 251, 0.2); /* Brand Glow */
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 198, 251, 0.25);
     }
 
     /* --- Grid Section --- */
     .footer-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 4rem;
-      margin-bottom: 6rem;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-bottom: 5rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 5rem;
     }
 
     @media (min-width: 768px) {
-      .footer-grid { grid-template-columns: repeat(4, 1fr); }
+      .footer-grid { 
+        grid-template-columns: 1fr 1fr; 
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid { 
+        grid-template-columns: 1fr 1.5fr 1.5fr; 
+        gap: 4rem;
+      }
     }
 
     .footer-col h3 {
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-secondary); /* Theme Aware */
-      margin-bottom: 1.5rem;
-      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 600;
     }
 
     .footer-col ul {
@@ -114,187 +141,267 @@ export default function Footer() {
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.875rem;
+      gap: 1.25rem;
     }
 
     .footer-link {
-      color: var(--text-dim); /* Theme Aware */
+      color: var(--text-dim);
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       transition: all 0.3s ease;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
     }
+
     .footer-link:hover {
-      color: var(--text-primary); /* Theme Aware */
-      transform: translateX(4px);
+      color: var(--text-primary);
+      transform: translateX(6px);
     }
 
-    /* --- HUGE BRAND TEXT (Letter-by-Letter Interaction) --- */
-    .footer-brand-section {
-      width: 100%;
-      overflow: hidden;
+    .icon-wrapper {
+      color: var(--text-secondary);
       display: flex;
+      align-items: center;
       justify-content: center;
-      border-bottom: 1px solid var(--border-color); /* Theme Aware */
-      padding-bottom: 4rem;
-      cursor: default;
     }
 
-    .huge-text-wrapper {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(4rem, 16vw, 16rem);
-      line-height: 0.8;
-      white-space: nowrap;
-      display: flex;
-    }
-
-    /* Base Letter Style: Outline */
-    .char {
-      color: transparent;
-      /* Theme Aware Stroke: Visible in Light/Dark */
-      -webkit-text-stroke: 1px var(--text-secondary); 
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* --- Modern Map Section --- */
+    .map-container {
+      width: 100%;
+      height: 220px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
       position: relative;
+      background: var(--bg-main);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
 
-    /* HOVER STATES */
-    
-    /* When hovering the container... */
-    .footer-brand-section:hover .char-s {
-      color: var(--brand-red);
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px rgba(255, 81, 47, 0.4);
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      /* Sleek grayscale by default, lights up on hover */
+      filter: grayscale(100%) opacity(0.8) contrast(1.1);
+      transition: all 0.5s ease;
     }
 
-    .footer-brand-section:hover .char-p {
-      color: var(--brand-blue);
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px rgba(0, 198, 251, 0.4);
+    /* Invert colors slightly if in dark mode for a better blend */
+    .theme-dark .map-iframe {
+      filter: grayscale(100%) invert(90%) opacity(0.7) contrast(1.2);
     }
 
-    .footer-brand-section:hover .char-l {
-      color: var(--brand-green);
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px rgba(56, 239, 125, 0.4);
+    .map-container:hover .map-iframe {
+      filter: grayscale(20%) opacity(1) contrast(1);
     }
-    
-    .footer-brand-section:hover .char-systems {
-      color: var(--text-primary); /* Becomes solid main text color */
-      -webkit-text-stroke: 0px transparent;
-      text-shadow: 0 0 40px var(--bg-card-hover);
-    }
-
-    /* Staggered transition delays for a wave effect on hover */
-    .footer-brand-section:hover .char-s { transition-delay: 0s; }
-    .footer-brand-section:hover .char-p { transition-delay: 0.05s; }
-    .footer-brand-section:hover .char-l { transition-delay: 0.1s; }
-    .footer-brand-section:hover .char-systems { transition-delay: 0.15s; }
-
 
     /* --- Bottom Bar --- */
     .footer-bottom {
-      padding: 2rem 0;
+      padding: 2.5rem 0;
       display: flex;
-      flex-direction: column-reverse;
-      gap: 1.5rem;
+      flex-direction: column;
+      gap: 2rem;
       align-items: center;
-      justify-content: space-between;
-      color: var(--text-dim);
-      font-size: 0.875rem;
-    }
-    @media (min-width: 768px) {
-      .footer-bottom { flex-direction: row; }
+      border-top: 1px solid var(--border-color);
     }
 
-    .social-links { display: flex; gap: 1.5rem; }
-    .social-icon { color: var(--text-dim); transition: all 0.3s; }
-    .social-icon:hover { color: var(--text-primary); transform: translateY(-2px); }
+    @media (min-width: 768px) {
+      .footer-bottom { 
+        flex-direction: row; 
+        justify-content: space-between;
+      }
+    }
+
+    .brand-logo img {
+      height: 40px;
+      width: auto;
+      opacity: 0.9;
+      transition: opacity 0.3s;
+    }
+    
+    .brand-logo:hover img {
+      opacity: 1;
+    }
+
+    .copyright-social {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .copyright-social {
+        flex-direction: row;
+        gap: 3rem;
+      }
+    }
+
+    .copyright {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .social-links { display: flex; gap: 1rem; }
+    
+    .social-icon { 
+      color: var(--text-dim); 
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      padding: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s; 
+    }
+
+    .social-icon:hover { 
+      color: var(--bg-main); 
+      background: var(--text-primary);
+      border-color: var(--text-primary);
+      transform: translateY(-3px); 
+    }
   `;
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-      
-      <footer className="footer-section">
-        <div className="footer-glow" />
+      {/* Wrapper injects a class to help with CSS conditional theming on the iframe map */}
+      <div className={`theme-${currentTheme}`}>
+        <style dangerouslySetInnerHTML={{ __html: styles }} />
 
-        <div className="container">
-          
-          {/* CTA Section */}
-          <div className="footer-cta">
-            <h2 className="cta-heading">
-              Ready to transform your <br />
-              <span style={{color: 'var(--text-secondary)', fontStyle: 'italic'}}>digital infrastructure?</span>
-            </h2>
-            <a href="#" className="cta-button">
-              Contact Us <ArrowUpRight size={20} />
-            </a>
+        <footer className="footer-section">
+          <div className="footer-glow" />
+
+          <div className="container">
+
+            {/* CTA Section */}
+            <div className="footer-cta">
+              <motion.h2
+                className="cta-heading"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                Ready to transform your <br />
+                <span style={{ color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+                  digital infrastructure?
+                </span>
+              </motion.h2>
+
+              <motion.a
+                href="#"
+                className="cta-button"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                Contact Us <ArrowUpRight size={22} strokeWidth={2.5} />
+              </motion.a>
+            </div>
+
+            <div className="footer-grid">
+              {/* Column 1: Company Links */}
+              <div className="footer-col">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} viewport={{ once: true }}>
+                  <h3>Company</h3>
+                  <ul>
+                    <li><a href="#hero" className="footer-link">Home</a></li>
+                    <li><a href="#about" className="footer-link">About</a></li>
+
+                    <li><a href="#projects" className="footer-link">Projects</a></li>
+
+                    <li><a href="#expertise" className="footer-link">Expertise</a></li>
+                    <li><a href="#services" className="footer-link">Process</a></li>
+                    <li><a href="#faq" className="footer-link">Support & Info</a></li>
+                    <li><a href="#contact" className="footer-link">Contact us</a></li>
+
+                    {/* Uncomment when pages are ready
+                    <li><a href="/careers" className="footer-link">Careers</a></li>
+                    <li><a href="/blog" className="footer-link">Blog</a></li>
+                    <li><a href="/legal" className="footer-link">Legal</a></li>
+                    */}
+                  </ul>
+                </motion.div>
+              </div>
+
+              {/* Column 2: Contact Info */}
+              <div className="footer-col">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} viewport={{ once: true }}>
+                  <h3>Contact</h3>
+                  <ul>
+                    <li>
+                      <a href="mailto:hello@splsystems.com" className="footer-link">
+                        <span className="icon-wrapper"><Mail size={18} /></span> Email
+                      </a>
+                    </li>
+                    <li>
+                      <a href="tel:+1234567890" className="footer-link">
+                        <span className="icon-wrapper"><Phone size={18} /></span> Phone
+                      </a>
+                    </li>
+                    <li>
+                      <div className="footer-link" style={{ pointerEvents: 'none' }}>
+                        <span className="icon-wrapper"><MapPin size={18} /></span>
+                        1281 9th Ave, San Diego CA
+                      </div>
+                    </li>
+                  </ul>
+                </motion.div>
+              </div>
+
+              {/* Column 3: Modern Map */}
+              <div className="footer-col">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} viewport={{ once: true }}>
+                  <h3>Location</h3>
+                  <div className="map-container">
+                    <iframe
+                      className="map-iframe"
+                      src="https://maps.google.com/maps?q=1281+9th+Ave,+San+Diego,+CA+92101&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="SPL Systems Location"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Bottom Bar: Logo, Copyright & Socials */}
+            <div className="footer-bottom">
+              <Link href="/" className="brand-logo">
+                {mounted && (
+                  <Image
+                    src={currentLogo}
+                    alt="SPL Systems"
+                    height={40}
+                    width={100}
+                    priority
+                  />
+                )}
+              </Link>
+
+              <div className="copyright-social">
+                <div className="copyright">
+                  © {new Date().getFullYear()} SPL Systems, Inc. All rights reserved.
+                </div>
+
+                <div className="social-links">
+                  <a href="https://www.linkedin.com/company/splsystems/" className="social-icon" aria-label="LinkedIn">
+                    <Linkedin size={18} />
+                  </a>
+                  {/* Add more icons here seamlessly if needed */}
+                </div>
+              </div>
+            </div>
+
           </div>
-
-          <div className="footer-grid">
-            <div className="footer-col">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                <h3>Company</h3>
-                <ul>
-                  <li><a href="#about" className="footer-link">About</a></li>
-		  {/*
-                  <li><a href="./404_nf" className="footer-link">Careers</a></li>
-                  <li><a href="./404_nf" className="footer-link">Blog</a></li>
-                  <li><a href="./404_nf" className="footer-link">Legal</a></li>
-		  */}
-                </ul>
-              </motion.div>
-            </div>
-            
-            <div className="footer-col">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <h3>Contact</h3>
-                <ul>
-                  <li><a href="#" className="footer-link">Email</a></li>
-                  <li><a href="#" className="footer-link">Phone</a></li>
-                  <li><a href="#" className="footer-link">1281 9th Ave, San Diego CA 92101</a></li>
-                </ul>
-              </motion.div>
-            </div>
-          </div> 
-          {/* Huge Brand Section - Letter Separation 
-          <div className="footer-brand-section">
-            <div className="huge-text-wrapper">
-                <span className="char char-s">S</span>
-                <span className="char char-p">P</span>
-                <span className="char char-l">L</span>
-                <span style={{ width: '0.2em' }} />                 <span className="char char-systems">SYSTEMS</span>
-            </div>
-          </div> */}
-
-            <div className="huge-text-wrapper">
-          <Link href="/" className="footer-logo-wrapper">
-              <Image
-                src={currentLogo}
-		            className="char-systems"
-                alt="SPL Systems"
-                height={40}
-                width={100}
-                style={{ width: 'auto', height: '40px'}}
-                priority
-              />
-          </Link>
-	  </div>
-
-          {/* Copyright & Socials */}
-          <div className="footer-bottom">
-            <div className="copyright">
-              © 2014 — 2025 SPL Systems, Inc.
-            </div>
-            
-            <div className="social-links">
-              <a href="https://www.linkedin.com/company/splsystems/" className="social-icon"><Linkedin size={20} /></a>
-
-            </div>
-          </div>
-
-        </div>
-      </footer>
+        </footer>
+      </div>
     </>
   );
 }

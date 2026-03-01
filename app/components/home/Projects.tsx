@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MoveRight } from "lucide-react";
 
 export default function ProjectSection() {
+  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -16,7 +18,16 @@ export default function ProjectSection() {
       title: "AI OCR",
       desc: "Able to read, recognize numbers and characters on paper sheets and barcode IDs",
       border: "#FF512F", // Brand Red
-      gradient: "linear-gradient(135deg, #FF512F, #DD2476)"
+      gradient: "linear-gradient(135deg, #FF512F, #DD2476)",
+      link: "/ocr"
+    },
+        {
+      id: "02",
+      title: "AI Real Estate",
+      desc: "A multimodal search experience for real estate listings",
+      border: "#00C9FF", // Brand Blue
+      gradient: "linear-gradient(135deg, #00C9FF, #92FE9D)",
+      link: "/realestate"
     },
   ];
 
@@ -188,6 +199,10 @@ export default function ProjectSection() {
       }
     }
 
+    .process-card {
+      cursor: pointer;
+    }
+
     .process-card:hover {
       transform: translateY(-10px);
       background: var(--bg-card-hover); /* Theme Aware */
@@ -307,6 +322,11 @@ export default function ProjectSection() {
               <div 
                 key={i} 
                 className="process-card group"
+                onClick={(e) => {
+                  if (!isDragging) {
+                    router.push(step.link);
+                  }
+                }}
                 style={{ 
                   // @ts-ignore
                   '--glow-color': step.border,
