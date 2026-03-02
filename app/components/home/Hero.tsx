@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { div } from "framer-motion/client";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const styles = `
-    /* Using Global Variables for Theme Support */
     .hero-wrapper {
       position: relative;
-      min-height: 100vh;
+      min-height: 100svh;
       width: 100%;
       background-color: var(--bg-main);
       color: var(--text-primary);
@@ -17,18 +17,16 @@ export default function Hero() {
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      padding: 0 1.5rem;
+      padding-inline: clamp(1rem, 5vw, 3rem);
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
-    /* --- Ambient Background --- */
-    /* This creates the "breathing" gradient effect */
     .ambient-glow {
       position: absolute;
-      width: 60vw;
-      height: 60vw;
-      filter: blur(100px); /* Soft blur */
-      opacity: 0.95; /* Subtle by default */
+      width: clamp(40rem, 80vw, 90rem);
+      height: clamp(40rem, 80vw, 90rem);
+      filter: blur(clamp(4rem, 10vw, 8rem));
+      opacity: 0.95;
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
@@ -36,98 +34,99 @@ export default function Hero() {
     }
 
     .glow-red {
-      top: -20%;
-      left: -10%;
+      top: -25%;
+      left: -15%;
       background: var(--grad-red);
     }
 
     .glow-blue {
-      bottom: -20%;
-      right: -10%;
+      bottom: -25%;
+      right: -15%;
       background: var(--grad-blue);
-      animation-delay: -6s; /* Offset animation */
+      animation-delay: -6s;
     }
 
     @keyframes pulseGlow {
       0% { transform: scale(1) translate(0, 0); opacity: 0.12; }
-      100% { transform: scale(1.2) translate(20px, 20px); opacity: 0.2; }
+      100% { transform: scale(1.2) translate(2vw, 2vw); opacity: 0.2; }
     }
 
-    /* --- Content Container --- */
     .hero-container {
       position: relative;
       z-index: 10;
       text-align: center;
-      max-width: 1100px;
+      max-width: min(90vw, 70rem);
       display: flex;
       flex-direction: column;
       align-items: center;
-      
     }
+.hero-title {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: clamp(3rem, 8vw, 8rem);
+  line-height: 1.05;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin-top: clamp(1rem, 4vw, 2.5rem);
+  padding-block: 0.15em;
+  margin-bottom: clamp(2rem, 6vw, 3.5rem);
+}
+
+.hero-title > div {
+  display: flex;
+  justify-content: center;
+}
 
 
-    /* --- Typography --- */
-    .hero-title {
-      font-family: 'Instrument Sans', sans-serif;
-      /* Responsive sizing: massive on desktop, readable on mobile */
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      line-height: 1.05;
-      font-weight: 600;
-      color: var(--text-primary);
-      letter-spacing: -0.03em;
-      margin-top: 1.9rem;
-      padding-top: 0.2em;
-      padding-bottom: 0.1em;
-      
-    }
 
     .hero-title span {
       display: inline-block;
     }
 
-    /* The "Serif" part for elegance */
     .serif-italic {
       font-family: 'Instrument Serif', serif;
       font-style: italic;
       font-weight: 400;
-      /* Gradient text effect */
       background: var(--grad-red);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      padding-top: 0.1em;
-      padding-right: 0.1em;
-      padding-bottom: 0.1em;
+      padding: 0.15em 0.1em;
     }
+      .hero-line {
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
 
     .hero-desc {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-size: clamp(1rem, 2vw, 1.35rem);
       line-height: 1.6;
       color: var(--text-secondary);
-      max-width: 650px;
-      margin-bottom: 3.5rem;
+      max-width: 42rem;
+      margin-bottom: clamp(2rem, 6vw, 3.5rem);
       font-weight: 400;
     }
 
-    /* --- Buttons --- */
     .btn-group {
       display: flex;
-      gap: 1.5rem;
+      gap: clamp(0.75rem, 3vw, 1.5rem);
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .btn-primary {
-      position: relative;
-      padding: 1.1rem 3rem;
-      background: var(--text-primary); /* Adapts to theme */
-      color: var(--bg-main);          /* Adapts to theme */
-      border-radius: 100px;
+      padding: clamp(0.9rem, 2vw, 1.2rem) clamp(2rem, 6vw, 3.5rem);
+      background: var(--text-primary);
+      color: var(--bg-main);
+      border-radius: 100vmax;
       font-family: 'Instrument Sans', sans-serif;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2vw, 1.1rem);
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -144,26 +143,26 @@ export default function Hero() {
 
     .btn-secondary {
       font-family: 'Instrument Sans', sans-serif;
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2vw, 1.1rem);
       color: var(--text-primary);
       background: transparent;
       border: 1px solid var(--border-color);
-      border-radius: 100px;
+      border-radius: 100vmax;
       cursor: pointer;
       font-weight: 500;
-      padding: 1.1rem 2.5rem;
+      padding: clamp(0.9rem, 2vw, 1.2rem) clamp(1.75rem, 5vw, 2.75rem);
       transition: all 0.3s ease;
+      width: fit-content;
     }
-    
+
     .btn-secondary:hover {
       border-color: var(--text-primary);
       background: var(--bg-card-hover);
     }
 
-    /* --- Scroll Hint --- */
     .scroll-hint {
       position: absolute;
-      bottom: 2.5rem;
+      bottom: clamp(1.5rem, 5vw, 2.5rem);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -175,25 +174,24 @@ export default function Hero() {
       opacity: 0.6;
       font-weight: 500;
     }
-    
-    /* Mobile Adjustments */
-    @media (max-width: 768px) {
-        .hero-title {
-            line-height: 1.15;
-        }
-        .btn-group {
-            flex-direction: column;
-            width: 100%;
-            gap: 1rem;
-        }
-        .btn-primary, .btn-secondary {
-            width: 100%;
-            justify-content: center;
-        }
+
+    @media (max-width: 48rem) {
+      .hero-title {
+        line-height: 1.15;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
     }
   `;
 
-  // --- Animation Variants (Silky Smooth) ---
   const wrapperVars = {
     hidden: { opacity: 0 },
     visible: {
@@ -208,7 +206,7 @@ export default function Hero() {
       y: 0,
       opacity: 1,
       rotateX: 0,
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } // Custom Easing
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
     }
   };
 
@@ -217,66 +215,39 @@ export default function Hero() {
       <style dangerouslySetInnerHTML={{ __html: styles }} />
 
       <div className="hero-wrapper">
-        {/* Background Atmosphere */}
         <div className="ambient-glow glow-red" />
         <div className="ambient-glow glow-blue" />
 
-        <motion.div
-          className="hero-container"
-          variants={wrapperVars}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* 1. Eyebrow Label */}
-          <motion.div variants={itemVars}>
-            {/* <span className="eyebrow">SPL SYSTEMS v2.0</span> */}
-          </motion.div>
+<motion.div className="hero-container" variants={wrapperVars} initial="hidden" animate="visible">
+  <h1 className="hero-title">
+    <div className="hero-line">
+      <motion.div variants={itemVars}>Engineering the</motion.div>
+    </div>
+    <div className="hero-line">
+      <motion.div variants={itemVars}>
+        <span className="serif-italic">Intelligent</span> Future.
+      </motion.div>
+    </div>
+  </h1>
 
-          {/* 2. Main Title */}
-          <h1 className="hero-title">
-            {/* Lines split for staggering effect */}
-            <div style={{ overflow: 'visible' }}>
-              <motion.div variants={itemVars}>
-                Engineering the
-              </motion.div>
-            </div>
-            <div style={{ overflow: 'visible' }}>
-              <motion.div variants={itemVars}>
-                <span className="serif-italic">Intelligent</span> Future.
-              </motion.div>
-            </div>
-          </h1>
 
-          {/* 3. Description */}
           <motion.p variants={itemVars} className="hero-desc">
             We build high-performance digital infrastructure for ambitious enterprises.
             Scalable, secure, and designed for tomorrow.
           </motion.p>
 
-          {/* 4. Actions */}
           <motion.div variants={itemVars} className="btn-group">
-            {/* <button className="btn-primary">
-                Reach O <ArrowRight size={20} />
-              </button>*/}
             <button
               className="btn-secondary"
               onClick={() => {
                 const contactSection = document.getElementById('contact');
-                contactSection?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+                contactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
             >
               Reach Out to Us
             </button>
-
           </motion.div>
-
         </motion.div>
-
-
-
       </div>
     </>
   );
