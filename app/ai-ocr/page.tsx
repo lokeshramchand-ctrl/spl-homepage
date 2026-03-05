@@ -19,18 +19,18 @@ interface ImageBlockProps {
 
 const portfolioBlocks: ImageBlockProps[] = [
     {
-        caption: "LOAD AND VISUALIZE GEOJSON DATASETS DIRECTLY IN THE BROWSER USING OPENLAYERS.",
-        imageAlt: "GeoJSON rendering and map visualization",
+        caption: "DRAG-AND-DROP IMAGE UPLOAD WITH REAL-TIME PREVIEW AND VALIDATION CAPABILITIES.",
+        imageAlt: "Image upload interface and preview",
         imageSrc: firstpage
     },
     {
-        caption: "SWITCH BETWEEN BASE TILES, VECTOR LAYERS, AND CUSTOM OVERLAYS WITH CLEAN CONTROLS.",
-        imageAlt: "Layer controls and base map switching",
+        caption: "SEAMLESS API INTEGRATION WITH SELF-HOSTED OLLAMA FOR INTELLIGENT TEXT EXTRACTION.",
+        imageAlt: "API request processing and OCR pipeline",
         imageSrc: secondpage
     },
     {
-        caption: "SEARCH, MARKER INTERACTION, AND MODULAR UI COMPONENTS FOR EXPLORATION WORKFLOWS.",
-        imageAlt: "Search and marker interaction flow",
+        caption: "EXTRACTED TEXT DISPLAY, EDITING, AND EXPORT WORKFLOWS WITH BATCH PROCESSING SUPPORT.",
+        imageAlt: "Text extraction results and export options",
         imageSrc: thirdpage
     },
 ];
@@ -73,8 +73,8 @@ export default function ProjectPage() {
 
                         {/* Left Sidebar */}
                         <aside className="sidebar">
-                            <h1 className="projectTitle">AI Real Estate Tool</h1>
-                            <p className="projectSubtitle">LIGHTWEIGHT REACT + GEOJSON MAPPING INTERFACE BASED ON SAN DIEGO</p>
+                            <h1 className="projectTitle">AI OCR Platform</h1>
+                            <p className="projectSubtitle">SELF-HOSTED OLLAMA-POWERED DOCUMENT TEXT EXTRACTION WITH WEB UI</p>
                         </aside>
 
                         {/* Right Content */}
@@ -82,36 +82,35 @@ export default function ProjectPage() {
                             {/* Project Description */}
                             <div className="descriptionBlock">
                                 <p className="descriptionText">
-                                    AI Real Estate Tool is a lightweight React + GeoJSON based mapping interface built to make
-                                    geospatial exploration accessible without specialized GIS tooling. The platform
-                                    renders GeoJSON layers in-browser with OpenLayers, supports dynamic layer toggling,
-                                    marker overlays, search workflows, and API-ready integrations for external data such
-                                    as legislation or statistics. The architecture is modular and production-friendly,
-                                    with Vite + TypeScript on the frontend and containerized deployment workflows using
-                                    Docker, Docker Compose, and Jenkins for reliable CI/CD.
+                                    AI OCR Platform is a modern web-based document processing system powered by self-hosted Ollama.
+                                    Users upload images or document scans through an intuitive web UI, which then communicates with
+                                    Ollama's vision-enabled models via REST APIs to extract text intelligently. The platform supports
+                                    batch processing, editable extracted content, multiple export formats, and maintains complete
+                                    data privacy by keeping all processing on self-hosted infrastructure. Built with React + TypeScript
+                                    on the frontend and containerized Ollama deployment with Docker for reliable, scalable OCR workflows.
                                 </p>
 
                                 <div className="metaGrid">
                                     <div className="metaItem">
                                         <h4>ROLE</h4>
-                                        <p>Frontend & Mapping Interface Engineering</p>
+                                        <p>Full-Stack OCR Platform Engineering</p>
                                     </div>
                                     <div className="metaItem">
                                         <h4>FRONTEND STACK</h4>
-                                        <p>React (TypeScript)<br />Vite + OpenLayers</p>
+                                        <p>React (TypeScript)<br />Vite + TailwindCSS</p>
                                     </div>
                                     <div className="metaItem">
-                                        <h4>DATA & APIs</h4>
-                                        <p>GeoJSON Layers<br />LegiScan-ready API integration</p>
+                                        <h4>BACKEND & AI</h4>
+                                        <p>Self-Hosted Ollama<br />Vision Models via REST API</p>
                                     </div>
                                     <div className="metaItem">
                                         <h4>DEPLOYMENT</h4>
-                                        <p>Docker + Compose<br />Jenkins CI/CD</p>
+                                        <p>Docker + Docker Compose<br />Self-Hosted Infrastructure</p>
                                     </div>
                                 </div>
 
                                 <div className="actionLinks">
-                                    <a href="https://real-estate-tool.deploy.priyatham.in/" className="linkButton">MAIN SITE <span className="arrow">›</span></a>
+                                    <a href="https://ai.splsystems.in" className="linkButton">MAIN SITE <span className="arrow">›</span></a>
                                 </div>
                             </div>
 
