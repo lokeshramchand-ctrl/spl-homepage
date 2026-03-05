@@ -82,30 +82,31 @@ export default function ProjectPage() {
                             {/* Project Description */}
                             <div className="descriptionBlock">
                                 <p className="descriptionText">
-                                    AI OCR Platform is a modern web-based document processing system powered by self-hosted Ollama.
-                                    Users upload images or document scans through an intuitive web UI, which then communicates with
-                                    Ollama's vision-enabled models via REST APIs to extract text intelligently. The platform supports
-                                    batch processing, editable extracted content, multiple export formats, and maintains complete
-                                    data privacy by keeping all processing on self-hosted infrastructure. Built with React + TypeScript
-                                    on the frontend and containerized Ollama deployment with Docker for reliable, scalable OCR workflows.
+                                    AI Real Estate Tool is a lightweight React + GeoJSON based mapping interface built to make
+                                    geospatial exploration accessible without specialized GIS tooling. The platform
+                                    renders GeoJSON layers in-browser with OpenLayers, supports dynamic layer toggling,
+                                    marker overlays, search workflows, and API-ready integrations for external data such
+                                    as legislation or statistics. The architecture is modular and production-friendly,
+                                    with Vite + TypeScript on the frontend and containerized deployment workflows using
+                                    Docker, Docker Compose, and Jenkins for reliable CI/CD.
                                 </p>
 
                                 <div className="metaGrid">
                                     <div className="metaItem">
                                         <h4>ROLE</h4>
-                                        <p>Full-Stack OCR Platform Engineering</p>
+                                        <p>Frontend & Mapping Interface Engineering</p>
                                     </div>
                                     <div className="metaItem">
                                         <h4>FRONTEND STACK</h4>
-                                        <p>React (TypeScript)<br />Vite + TailwindCSS</p>
+                                        <p>React (TypeScript)<br />Vite + OpenLayers</p>
                                     </div>
                                     <div className="metaItem">
-                                        <h4>BACKEND & AI</h4>
-                                        <p>Self-Hosted Ollama<br />Vision Models via REST API</p>
+                                        <h4>DATA & APIs</h4>
+                                        <p>GeoJSON Layers<br />LegiScan-ready API integration</p>
                                     </div>
                                     <div className="metaItem">
                                         <h4>DEPLOYMENT</h4>
-                                        <p>Docker + Docker Compose<br />Self-Hosted Infrastructure</p>
+                                        <p>Docker + Compose<br />Jenkins CI/CD</p>
                                     </div>
                                 </div>
 
