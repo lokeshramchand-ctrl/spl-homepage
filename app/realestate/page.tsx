@@ -79,7 +79,7 @@ export default function ProjectPage() {
             
             {/* Left Sidebar */}
             <aside className="sidebar">
-              <h1 className="projectTitle">AI-Real-Estate-Tool</h1>
+              <h1 className="projectTitle">AI Real Estate Tool</h1>
               <p className="projectSubtitle">LIGHTWEIGHT REACT + GEOJSON MAPPING INTERFACE BASED ON SAN DIEGO</p>
             </aside>
 
@@ -88,7 +88,7 @@ export default function ProjectPage() {
               {/* Project Description */}
               <div className="descriptionBlock">
                 <p className="descriptionText">
-                  AI-Real-Estate-Tool is a lightweight React + GeoJSON based mapping interface built to make
+                  AI Real Estate Tool is a lightweight React + GeoJSON based mapping interface built to make
                   geospatial exploration accessible without specialized GIS tooling. The platform
                   renders GeoJSON layers in-browser with OpenLayers, supports dynamic layer toggling,
                   marker overlays, search workflows, and API-ready integrations for external data such
@@ -117,7 +117,7 @@ export default function ProjectPage() {
                 </div>
 
                 <div className="actionLinks">
-                  <a href="#" className="linkButton">MAPLAYER OVERVIEW <span className="arrow">›</span></a>
+                  <a href="https://real-estate-tool.deploy.priyatham.in/" className="linkButton">MAIN SITE <span className="arrow">›</span></a>
                 </div>
               </div>
 

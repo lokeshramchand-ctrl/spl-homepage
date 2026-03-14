@@ -267,7 +267,6 @@ export default function Footer() {
 
   return (
     <>
-      {/* Wrapper injects a class to help with CSS conditional theming on the iframe map */}
       <div className={`theme-${currentTheme}`}>
         <style dangerouslySetInnerHTML={{ __html: styles }} />
 
@@ -292,7 +291,7 @@ export default function Footer() {
               </motion.h2>
 
               <motion.a
-                href="#"
+                href="/#contact"
                 className="cta-button"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -304,54 +303,22 @@ export default function Footer() {
             </div>
 
             <div className="footer-grid">
-              {/* Column 1: Company Links */}
               <div className="footer-col">
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} viewport={{ once: true }}>
                   <h3>Company</h3>
                   <ul>
-                    <li><a href="#hero" className="footer-link">Home</a></li>
-                    <li><a href="#about" className="footer-link">About</a></li>
-
-                    <li><a href="#projects" className="footer-link">Projects</a></li>
-
-                    <li><a href="#expertise" className="footer-link">Expertise</a></li>
-                    <li><a href="#services" className="footer-link">Process</a></li>
-                    <li><a href="#faq" className="footer-link">Support & Info</a></li>
-                    <li><a href="#contact" className="footer-link">Contact us</a></li>
-
-                    {/* Uncomment when pages are ready
-                    <li><a href="/careers" className="footer-link">Careers</a></li>
-                    <li><a href="/blog" className="footer-link">Blog</a></li>
-                    <li><a href="/legal" className="footer-link">Legal</a></li>
-                    */}
+                    <li><a href="/#hero" className="footer-link">Home</a></li>
+                    <li><a href="/#about" className="footer-link">About</a></li>
+                    <li><a href="/#projects" className="footer-link">Projects</a></li>
+                    <li><a href="/#expertise" className="footer-link">Expertise</a></li>
+                    <li><a href="/#services" className="footer-link">Process</a></li>
+                    <li><a href="/#faq" className="footer-link">Support & Info</a></li>
+                    <li><a href="/#contact" className="footer-link">Contact us</a></li>
                   </ul>
                 </motion.div>
               </div>
 
-              {/* Column 2: Contact Info */}
-              <div className="footer-col">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} viewport={{ once: true }}>
-                  <h3>Contact</h3>
-                  <ul>
-                    <li>
-                      <a href="mailto:hello@splsystems.com" className="footer-link">
-                        <span className="icon-wrapper"><Mail size={18} /></span> Email
-                      </a>
-                    </li>
-                    <li>
-                      <a href="tel:+1234567890" className="footer-link">
-                        <span className="icon-wrapper"><Phone size={18} /></span> Phone
-                      </a>
-                    </li>
-                    <li>
-                      <div className="footer-link" style={{ pointerEvents: 'none' }}>
-                        <span className="icon-wrapper"><MapPin size={18} /></span>
-                        1281 9th Ave, San Diego CA
-                      </div>
-                    </li>
-                  </ul>
-                </motion.div>
-              </div>
+            
 
               {/* Column 3: Modern Map */}
               <div className="footer-col">
@@ -371,7 +338,6 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Bottom Bar: Logo, Copyright & Socials */}
             <div className="footer-bottom">
               <Link href="/" className="brand-logo">
                 {mounted && (
@@ -394,7 +360,6 @@ export default function Footer() {
                   <a href="https://www.linkedin.com/company/splsystems/" className="social-icon" aria-label="LinkedIn">
                     <Linkedin size={18} />
                   </a>
-                  {/* Add more icons here seamlessly if needed */}
                 </div>
               </div>
             </div>

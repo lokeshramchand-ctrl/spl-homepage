@@ -19,7 +19,7 @@ export default function ProjectSection() {
       desc: "Able to read, recognize numbers and characters on paper sheets and barcode IDs",
       border: "#FF512F", // Brand Red
       gradient: "linear-gradient(135deg, #FF512F, #DD2476)",
-      link: "/ocr"
+      link: "/ai-ocr"
     },
         {
       id: "02",

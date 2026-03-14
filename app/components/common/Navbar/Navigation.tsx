@@ -52,9 +52,9 @@ export default function Navigation() {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '#about' },
-    { name: 'Approach', href: '#services' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'About', href: '/#about' },
+    { name: 'Approach', href: '/#services' },
+    { name: 'Contact', href: '/#contact' },
   ];
 
   const currentLogo = mounted && (theme === 'light' || resolvedTheme === 'light') ? logoDark : logoLight;
