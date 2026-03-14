@@ -82,31 +82,25 @@ export default function ProjectPage() {
                             {/* Project Description */}
                             <div className="descriptionBlock">
                                 <p className="descriptionText">
-                                    AI Real Estate Tool is a lightweight React + GeoJSON based mapping interface built to make
-                                    geospatial exploration accessible without specialized GIS tooling. The platform
-                                    renders GeoJSON layers in-browser with OpenLayers, supports dynamic layer toggling,
-                                    marker overlays, search workflows, and API-ready integrations for external data such
-                                    as legislation or statistics. The architecture is modular and production-friendly,
-                                    with Vite + TypeScript on the frontend and containerized deployment workflows using
-                                    Docker, Docker Compose, and Jenkins for reliable CI/CD.
+This solution provides a self-hosted OCR service using Ollama's open-source models, deployed on a Proxmox LXC container with GPU acceleration for fast processing . A scalable reverse proxy setup allows multiple clients to access the API-based OCR functionality securely, enabling instant results via HTTP requests . The system includes an intuitive OpenWebUI frontend , which can be hosted on your company website to let users interact with the OCR service directly. The architecture supports multi-user access and leverages Proxmox's flexibility for easy scaling
                                 </p>
 
                                 <div className="metaGrid">
                                     <div className="metaItem">
                                         <h4>ROLE</h4>
-                                        <p>Frontend & Mapping Interface Engineering</p>
+                                        <p>Server Admin, Scale Engineer</p>
                                     </div>
                                     <div className="metaItem">
                                         <h4>FRONTEND STACK</h4>
-                                        <p>React (TypeScript)<br />Vite + OpenLayers</p>
+                                        <p>OpenWebui Open source self-hosted UI</p>
                                     </div>
                                     <div className="metaItem">
                                         <h4>DATA & APIs</h4>
-                                        <p>GeoJSON Layers<br />LegiScan-ready API integration</p>
+                                        <p>Ollama API<br />Encoded Image data</p>
                                     </div>
                                     <div className="metaItem">
                                         <h4>DEPLOYMENT</h4>
-                                        <p>Docker + Compose<br />Jenkins CI/CD</p>
+                                        <p>LXC Containers<br />Bash scripts</p>
                                     </div>
                                 </div>
 
