@@ -11,7 +11,7 @@ import leftsidebar from '../assets/Gifs/AI-RealEstate/leftsidebar.gif';
 import rightsidebar from '../assets/Gifs/AI-RealEstate/rightsidebar.gif';
 import darkmode from '../assets/Gifs/AI-RealEstate/darkmode.png';
 import lightmode from '../assets/Gifs/AI-RealEstate/lightmode.png';
-
+import chatmode from '../assets/Gifs/AI-RealEstate/Spatial Chat.gif';
 interface ImageBlockProps {
   caption: string;
   imageAlt: string;
@@ -38,6 +38,11 @@ const portfolioBlocks: ImageBlockProps[] = [
     caption: "API-READY ARCHITECTURE WITH EXTERNAL INTEGRATIONS LIKE LEGISCAN AND STATS SERVICES.", 
     imageAlt: "External API integration architecture",
     imageSrc: rightsidebar
+  },
+  { 
+    caption: "PROMPTING CHAT INTERFACE WITH THE ZONES PRETRAINED", 
+    imageAlt: "Chat Interface integration",
+    imageSrc: chatmode
   },
 ];
 
