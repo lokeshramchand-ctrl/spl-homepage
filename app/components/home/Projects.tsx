@@ -15,7 +15,7 @@ export default function ProjectSection() {
   const steps = [
     {
       id: "01",
-      title: "AI OCR",
+      title: "SheetSense",
       desc: "Able to read, recognize numbers and characters on paper sheets and barcode IDs",
       border: "#FF512F", // Brand Red
       gradient: "linear-gradient(135deg, #FF512F, #DD2476)",
@@ -23,7 +23,7 @@ export default function ProjectSection() {
     },
         {
       id: "02",
-      title: "AI Real Estate",
+      title: "ZoningLens",
       desc: "A multimodal search experience for real estate listings",
       border: "#00C9FF", // Brand Blue
       gradient: "linear-gradient(135deg, #00C9FF, #92FE9D)",
