@@ -73,7 +73,7 @@ export default function ProjectPage() {
 
                         {/* Left Sidebar */}
                         <aside className="sidebar">
-                            <h1 className="projectTitle">AI OCR Platform</h1>
+                            <h1 className="projectTitle">SheetSense</h1>
                             <p className="projectSubtitle">SELF-HOSTED OLLAMA-POWERED DOCUMENT TEXT EXTRACTION WITH WEB UI</p>
                         </aside>
 
