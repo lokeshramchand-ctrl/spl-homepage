@@ -51,7 +51,7 @@ const CASES = [
 
 export function CasesSection() {
   return (
-    <section className="bg-white py-24 sm:py-40">
+    <section id="cases" className="scroll-mt-24 bg-white py-24 sm:py-40">
       <div className="mx-auto max-w-[1440px] px-4">
         <ScrambleText text="Featured cases" as="p" className="font-body text-xs font-semibold uppercase tracking-wide text-[#080d10]/50" />
         <h2 className="mt-4 max-w-[1040px] text-3xl font-medium tracking-tight text-[#080d10] sm:text-5xl">

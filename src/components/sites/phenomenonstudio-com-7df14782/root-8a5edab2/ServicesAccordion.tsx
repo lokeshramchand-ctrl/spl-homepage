@@ -72,7 +72,7 @@ export function ServicesAccordion() {
   }, []);
 
   return (
-    <section className="rounded-[40px] bg-[#080d10] py-24 text-white sm:rounded-[64px] sm:py-40">
+    <section id="services" className="scroll-mt-24 rounded-[40px] bg-[#080d10] py-24 text-white sm:rounded-[64px] sm:py-40">
       <div className="mx-auto max-w-[1440px] px-4">
         <ScrambleText
           text="End-to-End Product Design and Development Agency Services"

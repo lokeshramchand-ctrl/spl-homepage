@@ -27,7 +27,7 @@ export function Footer() {
   const [open, setOpen] = useState(false);
 
   return (
-    <footer className="rounded-t-[40px] bg-[#080d10] text-white sm:rounded-t-[64px]">
+    <footer id="company" className="scroll-mt-24 rounded-t-[40px] bg-[#080d10] text-white sm:rounded-t-[64px]">
       <div className="border-b border-white/10 py-24 sm:py-40">
         <div className="mx-auto max-w-[1440px] px-4">
           <Link href="/#contact" className="flex items-center justify-between">
