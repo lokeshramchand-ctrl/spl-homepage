@@ -72,7 +72,8 @@ export function ServicesAccordion() {
   }, []);
 
   return (
-    <section id="services" className="scroll-mt-24 rounded-[40px] bg-[#080d10] py-24 text-white sm:rounded-[64px] sm:py-40">
+    <>
+    <section id="services" className="scroll-mt-24 rounded-t-[40px] bg-[#080d10] py-24 text-white sm:rounded-t-[64px] sm:py-40">
       <div className="mx-auto max-w-[1440px] px-4">
         <ScrambleText
           text="End-to-End Product Design and Development Agency Services"
@@ -152,5 +153,17 @@ export function ServicesAccordion() {
         </div>
       </div>
     </section>
+    <svg
+      viewBox="0 0 1440 200"
+      preserveAspectRatio="none"
+      className="-mt-px block h-16 w-full sm:h-28"
+      aria-hidden="true"
+    >
+      <path
+        fill="#080d10"
+        d="M0,0 L0,26 Q0,90 64,90 L380,90 Q470,90 560,0 L610,0 Q630,0 660,36 L660,136 Q660,170 694,170 L746,170 Q780,170 780,136 L780,36 Q810,0 830,0 L880,0 Q970,90 1060,90 L1376,90 Q1440,90 1440,26 L1440,0 Z"
+      />
+    </svg>
+    </>
   );
 }
