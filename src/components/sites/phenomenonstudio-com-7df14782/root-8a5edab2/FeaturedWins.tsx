@@ -1,5 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ScrambleText, RevealWords, FadeUp } from "../shared/reveal";
+import { cn } from "@/lib/utils";
 
 const ASSET = "/sites/phenomenonstudio-com-7df14782/root-8a5edab2";
 
@@ -15,6 +19,27 @@ const CLIENTS = [
 ];
 
 export function FeaturedWins() {
+  const [hovered, setHovered] = useState<number | null>(null);
+  // Touch devices don't fire mouseenter/mouseleave reliably, so cards need to be
+  // tappable there instead of hover-only.
+  const [canHover, setCanHover] = useState(
+    () => typeof window === "undefined" || window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (canHover || hovered === null) return;
+    const close = () => setHovered(null);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, [canHover, hovered]);
+
   return (
     <section className="pt-24 pb-8 sm:pt-40">
       <div className="mx-auto max-w-[1440px] px-4">
@@ -27,24 +52,73 @@ export function FeaturedWins() {
           <RevealWords text="Our featured client wins" />
         </h2>
 
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-[#080d10]/8 bg-[#080d10]/8 sm:grid-cols-2 lg:grid-cols-4">
-          {CLIENTS.map((c) => (
-            <FadeUp key={c.name} className="flex items-center justify-center bg-white p-6">
-              <div className="relative flex w-full flex-col overflow-hidden rounded-lg bg-[#080d10] p-8">
-                <Image src={`${ASSET}/icons/${c.logo}`} alt={c.name} width={100} height={28} className="h-6 w-auto object-contain object-left invert" />
-                <div className="mt-6 text-base font-medium text-white">{c.name}</div>
-                <p className="font-body mt-1.5 text-sm text-white/60">{c.desc}</p>
-                {c.stat && <div className="mt-6 text-2xl font-medium text-white">{c.stat}</div>}
-                <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <span className="font-body rounded-full bg-white/10 px-3 py-1 text-xs text-white">{c.tag}</span>
-                  <span className="font-body flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs text-white">
-                    <Image src={`${ASSET}/icons/${c.flag}`} alt={c.country} width={14} height={14} />
-                    {c.country}
-                  </span>
+        <div className="mt-16 grid grid-cols-1 gap-px rounded-xl border border-[#080d10]/8 bg-[#080d10]/8 sm:grid-cols-2 lg:grid-cols-4">
+          {CLIENTS.map((c, i) => {
+            const isHovered = hovered === i;
+            return (
+              <FadeUp
+                key={c.name}
+                className={cn(
+                  "relative flex h-40 cursor-pointer items-center justify-center bg-white p-6",
+                  isHovered && "z-30"
+                )}
+                onMouseEnter={canHover ? () => setHovered(i) : undefined}
+                onMouseLeave={canHover ? () => setHovered(null) : undefined}
+                onClick={
+                  canHover
+                    ? undefined
+                    : (e) => {
+                        e.stopPropagation();
+                        setHovered((prev) => (prev === i ? null : i));
+                      }
+                }
+              >
+                {/* Resting state: logo only */}
+                <Image
+                  src={`${ASSET}/icons/${c.logo}`}
+                  alt={c.name}
+                  width={110}
+                  height={28}
+                  className={cn(
+                    "h-6 w-auto object-contain transition-opacity duration-150",
+                    isHovered && "opacity-0"
+                  )}
+                />
+
+                {/* Expanded state: full card, pops out on hover */}
+                <div
+                  className={cn(
+                    "pointer-events-none absolute inset-x-0 top-0 z-20 flex origin-top scale-95 flex-col rounded-lg bg-[#080d10] p-8 opacity-0 shadow-2xl transition-all duration-300 ease-out",
+                    isHovered && "pointer-events-auto scale-100 opacity-100"
+                  )}
+                >
+                  <Image
+                    src={`${ASSET}/icons/${c.logo}`}
+                    alt={c.name}
+                    width={100}
+                    height={28}
+                    className="h-6 w-auto object-contain object-left invert"
+                  />
+                  <div className="mt-6 text-base font-medium text-white">{c.name}</div>
+                  <p className="font-body mt-1.5 text-sm text-white/60">{c.desc}</p>
+                  {c.stat && <div className="mt-6 text-2xl font-medium text-white">{c.stat}</div>}
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="font-body rounded-full bg-white/10 px-3 py-1 text-xs text-white">{c.tag}</span>
+                    <span className="font-body flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs text-white">
+                      <Image src={`${ASSET}/icons/${c.flag}`} alt={c.country} width={14} height={14} />
+                      {c.country}
+                    </span>
+                  </div>
+
+                  {/* Speech-bubble tail pointing out of the card's right edge (only makes
+                      sense once there's a neighboring column to point past, i.e. sm+) */}
+                  <div className="absolute top-1/2 right-0 hidden h-8 w-4 -translate-y-1/2 translate-x-full overflow-hidden sm:block">
+                    <div className="absolute top-1/2 -left-4 h-8 w-8 -translate-y-1/2 rotate-45 rounded-md bg-[#080d10]" />
+                  </div>
                 </div>
-              </div>
-            </FadeUp>
-          ))}
+              </FadeUp>
+            );
+          })}
         </div>
       </div>
     </section>

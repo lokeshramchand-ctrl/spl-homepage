@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ElementType, type MouseEvent, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
@@ -119,16 +119,25 @@ export function FadeUp({
   children,
   className,
   delayMs = 0,
+  onMouseEnter,
+  onMouseLeave,
+  onClick,
 }: {
   children: ReactNode;
   className?: string;
   delayMs?: number;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }) {
   const { ref, inView } = useInView<HTMLDivElement>();
   return (
     <div
       ref={ref}
       className={className}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
       style={{
         transform: inView ? "translateY(0)" : "translateY(24px)",
         opacity: inView ? 1 : 0,
