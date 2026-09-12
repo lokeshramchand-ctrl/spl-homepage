@@ -211,7 +211,8 @@ function SimpleMegaMenu({
   );
 }
 
-export function Header() {
+export function Header({ variant = "dark" }: { variant?: "dark" | "light" } = {}) {
+  const isLight = variant === "light";
   const [compact, setCompact] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -262,20 +263,24 @@ export function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className={`fixed inset-x-0 top-0 z-50 ${isLight ? "border-b border-[#080d10]/8 bg-white/95 backdrop-blur" : ""}`}>
       <div
         className="mx-auto max-w-[1440px] px-4 pt-3 transition-[opacity,transform] duration-300"
-        style={{
-          opacity: compact && !mobileOpen ? 0 : 1,
-          transform: compact && !mobileOpen ? "translateY(-12px)" : "translateY(0)",
-          pointerEvents: compact && !mobileOpen ? "none" : "auto",
-        }}
+        style={
+          isLight
+            ? undefined
+            : {
+                opacity: compact && !mobileOpen ? 0 : 1,
+                transform: compact && !mobileOpen ? "translateY(-12px)" : "translateY(0)",
+                pointerEvents: compact && !mobileOpen ? "none" : "auto",
+              }
+        }
       >
         <div className="flex items-center justify-between py-3">
           <Link
             href="/"
             aria-label="Phenomenon Studio"
-            className="flex items-center gap-2 text-white"
+            className={`flex items-center gap-2 ${isLight ? "text-[#080d10]" : "text-white"}`}
             onClick={closeMobile}
           >
             <LogoMark className="h-[22px] w-auto" />
@@ -295,7 +300,9 @@ export function Header() {
                     href={item.href}
                     aria-expanded={item.mega ? openMenu === item.key : undefined}
                     onClick={() => setOpenMenu(null)}
-                    className="flex items-center gap-1 text-xs font-bold uppercase tracking-wide text-white/90 hover:text-white"
+                    className={`flex items-center gap-1 text-xs font-bold uppercase tracking-wide ${
+                      isLight ? "text-[#080d10]/90 hover:text-[#080d10]" : "text-white/90 hover:text-white"
+                    }`}
                   >
                     <span>{item.label}</span>
                     {item.sparkle && <span className="text-[#ff7a00]">✦</span>}
@@ -334,7 +341,9 @@ export function Header() {
           <div className="flex items-center gap-3">
             <Link
               href="#contact"
-              className="hidden items-center gap-2 rounded-lg bg-white px-6 py-4 text-xs font-semibold uppercase tracking-wide text-[#080d10] transition-colors hover:bg-white/80 lg:inline-flex"
+              className={`hidden items-center gap-2 rounded-lg px-6 py-4 text-xs font-semibold uppercase tracking-wide transition-colors lg:inline-flex ${
+                isLight ? "bg-[#080d10] text-white hover:bg-[#1a1f22]" : "bg-white text-[#080d10] hover:bg-white/80"
+              }`}
             >
               Get in touch
               <ArrowRightIcon className="size-3.5" />
@@ -345,19 +354,21 @@ export function Header() {
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
-              className="relative flex size-11 shrink-0 items-center justify-center rounded-lg bg-white/10 text-white lg:hidden"
+              className={`relative flex size-11 shrink-0 items-center justify-center rounded-lg lg:hidden ${
+                isLight ? "bg-[#080d10]/5 text-[#080d10]" : "bg-white/10 text-white"
+              }`}
             >
               <span className="relative flex h-3 w-5 flex-col justify-between">
                 <span
-                  className="h-[1.5px] w-full origin-center bg-white transition-transform duration-300"
+                  className={`h-[1.5px] w-full origin-center transition-transform duration-300 ${isLight ? "bg-[#080d10]" : "bg-white"}`}
                   style={{ transform: mobileOpen ? "translateY(5.25px) rotate(45deg)" : "none" }}
                 />
                 <span
-                  className="h-[1.5px] w-full bg-white transition-opacity duration-200"
+                  className={`h-[1.5px] w-full transition-opacity duration-200 ${isLight ? "bg-[#080d10]" : "bg-white"}`}
                   style={{ opacity: mobileOpen ? 0 : 1 }}
                 />
                 <span
-                  className="h-[1.5px] w-full origin-center bg-white transition-transform duration-300"
+                  className={`h-[1.5px] w-full origin-center transition-transform duration-300 ${isLight ? "bg-[#080d10]" : "bg-white"}`}
                   style={{ transform: mobileOpen ? "translateY(-5.25px) rotate(-45deg)" : "none" }}
                 />
               </span>
@@ -366,21 +377,23 @@ export function Header() {
         </div>
       </div>
 
-      <div
-        className="absolute right-4 top-3 transition-opacity duration-300"
-        style={{
-          opacity: compact && !mobileOpen ? 1 : 0,
-          pointerEvents: compact && !mobileOpen ? "auto" : "none",
-        }}
-      >
-        <Link
-          href="#contact"
-          className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-4 text-xs font-semibold uppercase tracking-wide text-[#080d10] transition-colors hover:bg-white/80"
+      {!isLight && (
+        <div
+          className="absolute right-4 top-3 transition-opacity duration-300"
+          style={{
+            opacity: compact && !mobileOpen ? 1 : 0,
+            pointerEvents: compact && !mobileOpen ? "auto" : "none",
+          }}
         >
-          Get in touch
-          <ArrowRightIcon className="size-3.5" />
-        </Link>
-      </div>
+          <Link
+            href="#contact"
+            className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-4 text-xs font-semibold uppercase tracking-wide text-[#080d10] transition-colors hover:bg-white/80"
+          >
+            Get in touch
+            <ArrowRightIcon className="size-3.5" />
+          </Link>
+        </div>
+      )}
 
       {/* Mobile menu overlay */}
       <div
