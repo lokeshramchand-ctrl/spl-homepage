@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRightIcon, ChevronDownIcon } from "../shared/icons";
+import { ArrowRightIcon, ChevronDownIcon, CopyIcon } from "../shared/icons";
 
 const ASSET = "/sites/phenomenonstudio-com-7df14782/root-8a5edab2";
 
@@ -38,30 +38,48 @@ export function Footer() {
       </div>
 
       <div className="py-16">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-4 sm:grid-cols-2">
-          <div className="flex flex-col gap-10 sm:flex-row">
-            <ul className="grid grid-cols-1 gap-2 font-body text-sm">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 px-4 sm:grid-cols-2 sm:gap-x-16 lg:gap-x-24">
+          <div className="flex flex-col gap-10 sm:flex-row sm:gap-16">
+            <ul className="grid grid-cols-1 gap-3">
               {EXPLORE_LINKS.map((l) => (
                 <li key={l}>
-                  <Link href="/" className="text-white/70 hover:text-white">
+                  <Link
+                    href="/"
+                    className={`text-2xl font-medium text-white/90 hover:text-white sm:text-[28px] ${
+                      l === "FAQ" ? "underline underline-offset-4" : ""
+                    }`}
+                  >
                     {l}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-4 gap-2.5">
               {SOCIALS.map((s) => (
-                <a key={s} href="/" className="flex size-9 items-center justify-center rounded bg-white/10">
-                  <Image src={`${ASSET}/icons/${s}`} alt="" width={16} height={16} className="invert" />
+                <a
+                  key={s}
+                  href="/"
+                  className="flex size-16 items-center justify-center rounded-2xl bg-white/10 transition-colors hover:bg-white/15 sm:size-[70px]"
+                >
+                  <Image src={`${ASSET}/icons/${s}`} alt="" width={20} height={20} className="invert" />
                 </a>
               ))}
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {OFFICES.map((o) => (
-              <a key={o.label} href="/about-us" className="rounded-lg p-4 hover:bg-white/5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {OFFICES.map((o, i) => (
+              <a
+                key={o.label}
+                href="/about-us"
+                className={`group flex flex-col justify-between rounded-2xl border border-white/10 p-6 hover:bg-white/5 ${
+                  i === OFFICES.length - 1 ? "sm:col-span-2" : ""
+                }`}
+              >
                 <Image src={`${ASSET}/images/${o.flag}`} alt={o.label} width={32} height={22} />
-                <div className="font-body mt-6 text-sm">{o.label}</div>
+                <div className="font-body mt-8 flex items-center justify-between gap-4">
+                  <span className="text-xs font-semibold tracking-wide uppercase">{o.label}</span>
+                  <ArrowRightIcon className="size-4 shrink-0 text-white/60 group-hover:text-white" />
+                </div>
               </a>
             ))}
           </div>
@@ -76,7 +94,14 @@ export function Footer() {
             <Link href="/privacy-policy" className="text-white/60 hover:text-white">Privacy Policy</Link>
             <Link href="/cookies-policy" className="text-white/60 hover:text-white">Cookies policy</Link>
           </div>
-          <span className="font-body text-xs text-white/60">hello@phenomenon-studio.com</span>
+          <button
+            type="button"
+            onClick={() => navigator.clipboard?.writeText("hello@phenomenon-studio.com")}
+            className="font-body flex items-center gap-2 text-xs uppercase text-white/60 hover:text-white"
+          >
+            hello@phenomenon-studio.com
+            <CopyIcon className="size-4" />
+          </button>
         </div>
 
         <div className="mx-auto mt-10 grid max-w-[1440px] grid-cols-3 gap-4 px-4 sm:grid-cols-6">
