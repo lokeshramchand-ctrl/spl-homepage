@@ -92,3 +92,110 @@ export function StarIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function ChatGptIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" {...props}>
+      <path
+        d="M7.82992 9.9L4.60352 8V4.6664C4.60352 3.1936 5.82032 2 7.32112 2C8.25232 2 9.07392 2.46 9.56432 3.16"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.40039 12.7864C6.65091 13.161 6.99017 13.4678 7.38797 13.6795C7.78576 13.8913 8.22975 14.0013 8.68039 14C10.1804 14 11.398 12.8064 11.398 11.3336V7.99996L8.10679 6.06396"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.30273 9.00003V5.11363L9.24353 3.44643C10.5435 2.71043 12.2059 3.14642 12.9563 4.42243C13.1862 4.81111 13.3117 5.25261 13.3207 5.70409C13.3297 6.15558 13.2218 6.60172 13.0075 6.99922"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.9924 9.00001C2.77776 9.39748 2.66953 9.84369 2.67822 10.2953C2.68691 10.747 2.81222 11.1887 3.042 11.5776C3.7932 12.8528 5.4556 13.2896 6.7556 12.5536L9.6972 10.8864L9.7612 7.15601"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11.3964 11.7536C11.8508 11.7359 12.2935 11.6048 12.6843 11.3723C13.0751 11.1398 13.4016 10.8133 13.634 10.4224C14.3844 9.14725 13.9388 7.51605 12.6396 6.78005L9.6972 5.11365L6.3252 6.94965"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M4.60304 4.24634C4.14851 4.26389 3.70558 4.39488 3.31462 4.62739C2.92366 4.8599 2.59708 5.18653 2.36464 5.57754C1.61424 6.85274 2.05904 8.48394 3.35904 9.21994L6.30144 10.8863L9.66624 9.05354"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function PerplexityIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="none" {...props}>
+      <path
+        d="M2.7824 1.0136L1.6656 0V3.84H0V10.1736H1.6664V13.68L2.7816 12.6664L5.3336 10.3464V13.5064H6.6664V10.3464L9.2184 12.6664L10.3336 13.68V10.1736H12V3.84H10.3336V0L9.2184 1.0136L6.6664 3.3336V0.1736H5.3336V3.3336L2.7824 1.0136ZM9 3.84H8.0912L9 3.0136V3.84ZM3.9088 3.84H3V3.0136L3.9088 3.84ZM4.6424 5.1736L1.8848 7.68L1.6664 7.8784V8.84H1.3336V5.1736H4.6424ZM7.3576 5.1736H10.6664V8.84H10.3336V7.8784L10.1152 7.68L7.3576 5.1736ZM3 8.468L5.3336 6.348V8.5456L3 10.6664V8.468ZM6.6664 6.348L9 8.468V10.6664L6.6664 8.5456V6.3472V6.348Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
+      <path
+        d="M17.5 2.5H2.5C1.94772 2.5 1.5 2.94772 1.5 3.5V16.5C1.5 17.0523 1.94772 17.5 2.5 17.5H17.5C18.0523 17.5 18.5 17.0523 18.5 16.5V3.5C18.5 2.94772 18.0523 2.5 17.5 2.5Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      />
+      <path d="M6.5 8.5V14.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      <path
+        d="M9.5 14.5V11.25C9.5 9.87 10.5 8.75 11.75 8.75C13 8.75 13.5 9.62 13.5 11.25V14.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M6.5 6C6.91421 6 7.25 5.66421 7.25 5.25C7.25 4.83579 6.91421 4.5 6.5 4.5C6.08579 4.5 5.75 4.83579 5.75 5.25C5.75 5.66421 6.08579 6 6.5 6Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function FacebookIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
+      <path
+        d="M13 6.5H11.5C10.9477 6.5 10.5 6.94772 10.5 7.5V9H13L12.7 11.5H10.5V17.5H8V11.5H6.5V9H8V7.25C8 5.45507 9.45507 4 11.25 4H13V6.5Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function TwitterIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
+      <path
+        d="M15.5 4.5H17.5L12.5 10.2L18.5 15.5H14L10.4 12.4L6.3 15.5H4.3L9.6 9.4L3.8 4.5H8.5L11.8 7.3L15.5 4.5Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

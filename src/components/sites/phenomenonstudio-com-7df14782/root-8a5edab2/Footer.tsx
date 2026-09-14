@@ -23,15 +23,38 @@ const ALL_SERVICES = [
   "Dedicated Team", "Branding", "Product Discovery", "UX/UI Design", "Agriculture Design",
 ];
 
-export function Footer() {
+export function Footer({
+  ctaText = "Let's collaborate",
+  ctaHoverText,
+  ctaHref = "/#contact",
+  ctaExternal = false,
+}: {
+  ctaText?: string;
+  ctaHoverText?: string;
+  ctaHref?: string;
+  ctaExternal?: boolean;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <footer id="company" className="scroll-mt-24 rounded-t-[40px] bg-[#080d10] text-white sm:rounded-t-[64px]">
       <div className="border-b border-white/10 py-24 sm:py-40">
         <div className="mx-auto max-w-[1440px] px-4">
-          <Link href="/#contact" className="flex items-center justify-between">
-            <span className="text-4xl font-medium sm:text-6xl">Let&apos;s collaborate</span>
+          <Link
+            href={ctaHref}
+            target={ctaExternal ? "_blank" : undefined}
+            className="group flex items-center justify-between gap-6"
+          >
+            {ctaHoverText ? (
+              <span className="block h-[1.1em] overflow-hidden text-4xl leading-[1.1] font-medium sm:text-6xl lg:text-8xl">
+                <span className="block transition-transform duration-500 ease-out group-hover:-translate-y-full">
+                  <span className="block">{ctaText}</span>
+                  <span className="block">{ctaHoverText}</span>
+                </span>
+              </span>
+            ) : (
+              <span className="text-4xl font-medium sm:text-6xl">{ctaText}</span>
+            )}
             <ArrowRightIcon className="size-10 shrink-0" />
           </Link>
         </div>
