@@ -7,9 +7,9 @@ import { GrowthStories } from "@/components/sites/phenomenonstudio-com-7df14782/
 import { BenefitsGrid } from "@/components/sites/phenomenonstudio-com-7df14782/career-92d350b5/BenefitsGrid";
 
 export const metadata = {
-  title: "Careers at Phenomenon Studio | Join Our Design & Dev Team",
+  title: "Careers at SPL Systems | Join Our Design & Dev Team",
   description:
-    "Careers at Phenomenon — we're hiring product designers, developers, and researchers. Join a 70+ team building market-ready products for global clients.",
+    "Careers at SPL Systems — we're hiring product designers, developers, and researchers. Join a 70+ team building market-ready products for global clients.",
 };
 
 export default function CareerPage() {

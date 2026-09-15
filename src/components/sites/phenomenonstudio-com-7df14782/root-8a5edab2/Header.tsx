@@ -326,7 +326,7 @@ export function Header({ variant = "dark" }: { variant?: "dark" | "light" } = {}
         <div className="flex items-center justify-between py-[calc(12/1440*100vw)] max-[1180px]:py-3">
           <Link
             href="/"
-            aria-label="Phenomenon Studio"
+            aria-label="SPL Systems"
             className="flex items-center gap-0.5"
             onClick={closeMobile}
           >

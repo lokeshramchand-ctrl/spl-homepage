@@ -26,7 +26,7 @@ export function TeamGallery() {
           <RevealWords text="Meet the team driving your product's success" />
         </h2>
         <p className="font-body mt-6 max-w-[760px] text-lg text-[#080d10]/60">
-          Established in 2019, Phenomenon Studio was built with one goal—to become a long-term product design and
+          Established in 2019, SPL Systems was built with one goal—to become a long-term product design and
           development partner for companies looking to launch, scale, and innovate. Our team of strategists,
           designers, developers, and product experts spans Canada, the U.S., Ukraine, Poland, Estonia, and
           Switzerland, bringing global expertise to every project.
@@ -38,7 +38,7 @@ export function TeamGallery() {
               <FadeUp key={i} className={p.span === 2 ? "col-span-2" : ""} delayMs={i * 40}>
                 <Image
                   src={`${ASSET}/images/${p.src}`}
-                  alt="Phenomenon Studio team"
+                  alt="SPL Systems team"
                   width={p.span === 2 ? 800 : 380}
                   height={460}
                   className="h-full w-full rounded-xl object-cover"

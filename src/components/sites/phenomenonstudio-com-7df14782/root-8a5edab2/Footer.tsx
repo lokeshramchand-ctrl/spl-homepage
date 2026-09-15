@@ -112,17 +112,17 @@ export function Footer({
       <div className="border-t border-white/10 py-6">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="font-body flex flex-wrap items-center gap-3 text-xs uppercase">
-            <span className="font-semibold">Phenomenon © 2026</span>
+            <span className="font-semibold">SPL Systems © 2026</span>
             <Link href="/terms-of-use" className="text-white/60 hover:text-white">Terms of Use</Link>
             <Link href="/privacy-policy" className="text-white/60 hover:text-white">Privacy Policy</Link>
             <Link href="/cookies-policy" className="text-white/60 hover:text-white">Cookies policy</Link>
           </div>
           <button
             type="button"
-            onClick={() => navigator.clipboard?.writeText("hello@phenomenon-studio.com")}
+            onClick={() => navigator.clipboard?.writeText("pri@splsystems.in")}
             className="font-body flex items-center gap-2 text-xs uppercase text-white/60 hover:text-white"
           >
-            hello@phenomenon-studio.com
+            pri@splsystems.in
             <CopyIcon className="size-4" />
           </button>
         </div>

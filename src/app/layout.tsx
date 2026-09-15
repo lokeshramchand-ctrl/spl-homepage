@@ -13,9 +13,9 @@ const albertSans = Albert_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Product Design and Development Agency | Phenomenon Studio",
+  title: "Product Design and Development Agency | SPL Systems",
   description:
-    "Product Design and Development by Phenomenon — UI/UX, web, and mobile apps for startups and enterprises. Rated 5.0 on Clutch. Explore our case studies.",
+    "Product Design and Development by SPL Systems — UI/UX, web, and mobile apps for startups and enterprises. Rated 5.0 on Clutch. Explore our case studies.",
 };
 
 export default function RootLayout({

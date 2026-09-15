@@ -13,9 +13,9 @@ const TESTIMONIALS = [
   { name: "Craig Tortolani", role: "CPO at Dekryption Labs", avatar: "1516924597216.jpeg.webp", video: "review-craig.mp4", poster: "cover-craig.webp" },
   { name: "Ash Bryant", role: "Founder of Hormn", avatar: "1766946800665.jpeg.webp", text: "The design team is truly world-class, excelling in both user interface design and creating solutions optimized for conversion." },
   { name: "KlickEx Team", role: "", avatar: "KlickEx.jpeg.webp", video: "klickex-review.mp4", poster: "klickex-cover.webp" },
-  { name: "George Fry", role: "Founder at Neap", avatar: "Rectangle-34624326.png.webp", text: "The quality of the designs is fantastic. Phenomenon Studio works at speed and is extremely punctual with timelines. They deliver top-notch outcomes with exceptional designs." },
+  { name: "George Fry", role: "Founder at Neap", avatar: "Rectangle-34624326.png.webp", text: "The quality of the designs is fantastic. SPL Systems works at speed and is extremely punctual with timelines. They deliver top-notch outcomes with exceptional designs." },
   { name: "Andre Guerra", role: "Co-Owner at RADCAT Design", avatar: "image.png.webp", video: "radcat-review.mp4", poster: "cover-andre-scaled.webp" },
-  { name: "Kevin Alvarez", role: "Founder & General Partner, Predictive", avatar: "1683997337066.jpeg.webp", text: "Phenomenon Studio's ability to translate concepts and rough design mock-ups into high-fidelity assets, designs, and visuals was very impressive. The goal was to maintain simple elegance in the design aesthetic, and they did it very well." },
+  { name: "Kevin Alvarez", role: "Founder & General Partner, Predictive", avatar: "1683997337066.jpeg.webp", text: "SPL Systems' ability to translate concepts and rough design mock-ups into high-fidelity assets, designs, and visuals was very impressive. The goal was to maintain simple elegance in the design aesthetic, and they did it very well." },
 ];
 
 export function Testimonials() {

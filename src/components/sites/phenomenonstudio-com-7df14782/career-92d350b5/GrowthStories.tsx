@@ -10,7 +10,7 @@ const STORIES = [
     story:
       "Vadym joined as a front-end developer in 2021 and, in four years, became lead front-end developer, now the person teammates rely on for strong architecture decisions, clear thinking, and calm technical leadership.",
     quoteName: "Unknown Capybara",
-    quotePosition: "someone from Phenomenon",
+    quotePosition: "someone from SPL Systems",
     quoteAvatar: "av-3-1.png.webp",
     quoteText:
       "Vadym always brings something valuable to the table - a new idea, an example to remember, or a way to look at a task differently. He stays ahead of the tech curve and mentored me when I joined, which gave my skills and confidence a huge boost. It's simply great to work with him on the same project.",
@@ -21,7 +21,7 @@ const STORIES = [
     story:
       "Artem joined as a senior product designer in 2022 and, in two years, became a lead product designer, bringing structured thinking, strong visual judgment, and mentorship that shapes the team's design quality.",
     quoteName: "Unidentified Raccoon",
-    quotePosition: "someone from Phenomenon",
+    quotePosition: "someone from SPL Systems",
     quoteAvatar: "av-4-1.png.webp",
     quoteText:
       "Artem is my team lead - someone who always sets a high bar and makes you want to match it. After every conversation with him, I want to work even better and say 'that's the level!' a bit more often. He inspires me with how he thinks, how he sees design in a broader context, always supports and gives well-reasoned, actionable feedback.",
@@ -30,9 +30,9 @@ const STORIES = [
   {
     label: "Alyona Ostroverkh — from UX/UI designer to lead UX/UI designer",
     story:
-      "Alyona joined Phenomenon Studio in 2021 as a UX/UI Designer and, after several years shaping complex interfaces and mentoring teammates, grew into the Lead UX/UI Designer role in 2024.",
+      "Alyona joined SPL Systems in 2021 as a UX/UI Designer and, after several years shaping complex interfaces and mentoring teammates, grew into the Lead UX/UI Designer role in 2024.",
     quoteName: "Unidentified Cat",
-    quotePosition: "someone from Phenomenon",
+    quotePosition: "someone from SPL Systems",
     quoteAvatar: "av-3-1.png.webp",
     quoteText:
       "Alyona is my team lead and mentor — a brilliant professional and a truly inspiring woman. Her voice is always calm, she knows how to stay focused, think strategically, and support you at the same time.",

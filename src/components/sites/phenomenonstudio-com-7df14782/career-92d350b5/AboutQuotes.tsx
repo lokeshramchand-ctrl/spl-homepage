@@ -42,7 +42,7 @@ export function AboutQuotes() {
         <FadeUp>
           <div className="mt-8 max-w-[674px] space-y-4 text-lg leading-snug text-[#080d10]/70 sm:text-xl lg:mt-12 lg:text-[23px]">
             <p>
-              Phenomenon Studio was founded in 2019 as a small group of designers obsessed with grounding exquisite
+              SPL Systems was founded in 2019 as a small group of designers obsessed with grounding exquisite
               design in clear logic while infusing high-end aesthetics into every pixel.
             </p>
             <p>

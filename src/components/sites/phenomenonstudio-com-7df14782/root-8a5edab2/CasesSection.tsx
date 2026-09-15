@@ -44,7 +44,7 @@ const CASES = [
       name: "Izek Lal",
       role: "Country manager",
       avatar: "Case-preview-.webp",
-      text: "We have seen a significant improvement in terms of mobile friendliness and the general flow of the system. I believe this has contributed significantly to the growth of our business. Many thanks, Phenomenon.",
+      text: "We have seen a significant improvement in terms of mobile friendliness and the general flow of the system. I believe this has contributed significantly to the growth of our business. Many thanks, SPL Systems.",
     },
   },
 ];
