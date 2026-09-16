@@ -153,6 +153,20 @@ export function PerplexityIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function PaperclipIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" {...props}>
+      <path
+        d="M9.5 3.5L4.379 8.621a2 2 0 0 0 2.828 2.828L12.5 6.157a3.5 3.5 0 0 0-4.95-4.95L2.257 5.5a5 5 0 1 0 7.071 7.071"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>

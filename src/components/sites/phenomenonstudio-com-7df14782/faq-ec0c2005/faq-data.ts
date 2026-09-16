@@ -15,7 +15,6 @@ export const FAQ_ITEMS: FaqItem[] = [
   { num: "08", question: "What are the fundamental principles of good web design?", href: "https://phenomenonstudio.com/article-faq/what-are-the-fundamental-principles-of-good-web-design/" },
   { num: "09", question: "What are the key elements of a professional business website?", href: "https://phenomenonstudio.com/article-faq/what-are-the-key-elements-of-a-professional-business-website/" },
   { num: "10", question: "How much does professional web design cost in 2026?", href: "https://phenomenonstudio.com/article-faq/how-much-does-professional-web-design-cost-in-2026/" },
-  { num: "11", question: "What services do full-service web design agencies typically offer?", href: "https://phenomenonstudio.com/article-faq/what-services-do-full-service-web-design-agencies-typically-offer/" },
   { num: "12", question: "What is the typical process of working with a web design agency?", href: "https://phenomenonstudio.com/article-faq/what-is-the-typical-process-of-working-with-a-web-design-agency/" },
   { num: "13", question: "How to choose the best web design company for my business?", href: "https://phenomenonstudio.com/article-faq/how-to-choose-the-best-web-design-company-for-my-business/" },
   { num: "14", question: "Why is mobile-first web design important for modern businesses?", href: "https://phenomenonstudio.com/article-faq/why-is-mobile-first-web-design-important-for-modern-businesses/" },

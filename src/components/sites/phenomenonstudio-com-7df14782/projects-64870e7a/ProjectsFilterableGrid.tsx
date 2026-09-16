@@ -116,10 +116,93 @@ const PROJECTS: ProjectCase[] = [
     results: ["Faster time-to-market", "Established credible product presence", "Built with scalability in mind"],
     category: "web-app",
   },
+  {
+    href: "/projects/shaga-odyssey-awarded-website-development-for-web3-gamepad",
+    image: "Media-9-3-1.png.webp",
+    title: "Shaga Odyssey – an award-winning web3 gamepad platform",
+    tags: ["#Website design", "#Website development"],
+    client: "Shaga.xyz",
+    flag: "fi_4628635.svg",
+    country: "USA",
+    techStack: "Webflow",
+    timeline: "5 months",
+    results: [
+      "+40% increase in user engagement",
+      "3x faster platform navigation",
+      'Awwwards "Site of the Day" for Best Interactive Design',
+    ],
+    category: "website",
+  },
+  {
+    href: "/projects/pretty-patty-a-deliciously-interactive-fast-food-experience",
+    image: "Case-preview-17.png.webp",
+    title: "Pretty Patty: a deliciously interactive fast food experience",
+    tags: ["#Website design", "#Website development"],
+    client: "Pretty Patty",
+    flag: "image-2.svg",
+    country: "Switzerland",
+    results: ["Brand alignment & vibrant design", "Improved conversion opportunities", "Customer-centric approach"],
+    quote: {
+      name: "Adrian Smith",
+      role: "Co-Founder, PRETTY PATTY",
+      avatar: "image-15.png.webp",
+      text: "They always respected deadlines, were super reactive, and were super helpful.",
+    },
+    category: "website",
+  },
+  {
+    href: "/projects/hormn-australias-highest-rated-trt-clinic",
+    image: "Case-preview-51.png.webp",
+    title: "Hormn: Australia's highest rated TRT Clinic",
+    tags: ["#Website design", "#Website development"],
+    client: "Hormn",
+    flag: "sz.png",
+    country: "Australia",
+    techStack: "Webflow",
+    timeline: "2 months",
+    results: ["Clear service positioning", "Improved conversion opportunities", "Platform-ready foundation"],
+    quote: {
+      name: "Ash Bryant",
+      role: "CEO & Founder",
+      avatar: "Frame-1686558498-3.png.webp",
+      text: "The design team is truly world-class, excelling in both user interface design and creating solutions optimized for conversion.",
+    },
+    category: "website",
+  },
+  {
+    href: "/projects/milk-honey-turning-a-scattered-multi-page-site-into-one-story-a-visitor-can-follow-start-to-finish",
+    image: "case-milk-honey.png.webp",
+    title: "Milk & Honey — turning a scattered multi-page site into one story a visitor can follow start to finish",
+    tags: ["#Website design", "#Website development"],
+    client: "Lucas Keller",
+    flag: "fi_4628635.svg",
+    country: "USA",
+    results: [
+      "The site finally reads like the company it represents",
+      "Visitors keep scanning dense content instead of dropping off",
+      "Independent updates without a developer",
+    ],
+    category: "website",
+  },
+  {
+    href: "/projects/artisan-the-stop-hiring-humans-ai-agent-startup",
+    image: "Mobile-5-1.png.webp",
+    title: 'Artisan — the "stop hiring humans" AI agent startup',
+    tags: ["#UX audit", "#Website redesign"],
+    client: "Artisan",
+    flag: "fi_4628635.svg",
+    country: "USA",
+    results: [
+      "Repositioned as a premium AI platform",
+      "20+ marketing pages launched in less than 1 month",
+      "Scalable foundation for growth",
+    ],
+    category: "website",
+  },
 ];
 
-export function ProjectsFilterableGrid() {
-  const [active, setActive] = useState<Category>("all");
+export function ProjectsFilterableGrid({ initialCategory = "all" }: { initialCategory?: Category } = {}) {
+  const [active, setActive] = useState<Category>(initialCategory);
   const visible = active === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === active);
 
   return (
