@@ -14,14 +14,6 @@ const REPS = [
     email: "hello@phenomenon-studio.com",
     linkedin: "https://www.linkedin.com/in/kseniia-shalia-a21921240/",
   },
-  {
-    prompt: "Have a partnership in\nmind?",
-    name: "Polina Chebanova",
-    role: "Co-Founder & CPO",
-    avatar: "polina.jpg.webp",
-    email: "partnership@phenomenon-studio.com",
-    linkedin: "https://www.linkedin.com/in/polina-chebanova/",
-  },
 ];
 
 export function ContactSidebar() {

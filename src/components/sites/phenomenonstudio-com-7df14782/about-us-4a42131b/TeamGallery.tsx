@@ -8,7 +8,6 @@ const ASSET = "/sites/phenomenonstudio-com-7df14782/about-us-4a42131b/images";
 const VIDEO_ASSET = "/sites/phenomenonstudio-com-7df14782/about-us-4a42131b/videos";
 
 const TEAM = [
-  { name: "Polina C.", role: "co-founder", photo: "team-polina.png.webp", video: "team-polina.mp4" },
   { name: "Valerii F.", role: "co-founder", photo: "team-valerii.png.webp", video: "team-valerii.mp4" },
   { name: "Yuliia A.", role: "CEO", photo: "team-yuliia.png.webp", video: "team-yuliia.mp4" },
   { name: "Ruslan V.", role: "head of design", photo: "team-ruslan.png.webp" },
