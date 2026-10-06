@@ -3,7 +3,7 @@ import { HeroLiquid } from "./hero-liquid/HeroLiquid";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#fbfbfb] px-5 pb-24 pt-10 md:px-10 md:pb-32 md:pt-16">
+    <section className="relative overflow-hidden bg-[#fbfbfb] px-5 pb-24 pt-[117px] md:px-10 md:pb-32 md:pt-[117px]">
       <HeroLiquid />
       <InView className="relative mx-auto flex max-w-[1800px] flex-col gap-8 md:gap-10">
         <h1 className="max-w-[18ch] text-[2.5rem] font-medium leading-[1] tracking-[-0.016em] text-[#181818] md:max-w-[20ch] md:text-[4rem]">
