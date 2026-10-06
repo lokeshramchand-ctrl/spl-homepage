@@ -207,6 +207,24 @@
   }
 }
 
+/* Page-title metallic sheen: a crop of a shared sheen photo is clipped to each
+   word's glyph shapes and difference-blended against the page background,
+   matching the source site's title treatment (see global-presence hero). */
+.cc-sheen {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  background-image: url("/sites/cyphercapital/images/effects/title-sheen.jpg");
+  background-repeat: no-repeat;
+  background-size: auto 1200%;
+  background-position: 42% 24%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Wipe-link hover: a blended bar sweeps across the text, inverting it */
 .cc-wipe-link {
   position: relative;

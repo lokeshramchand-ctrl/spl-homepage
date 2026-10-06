@@ -67,6 +67,25 @@ export function RevealWords({ text }: { text: string }) {
   );
 }
 
+/** Centered kicker row with a full-width rule beneath it (e.g. "Places", "Contacts"). */
+export function SectionLabel({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`flex min-h-10 w-full items-center justify-center border-b border-[#181818]/30 px-4 py-3 ${className}`}
+    >
+      <span className="text-xs font-medium tracking-[-0.03em] text-[#181818]">
+        {children}
+      </span>
+    </div>
+  );
+}
+
 /** Fade-up block reveal; pass `stagger` to offset within a shared InView group. */
 export function Reveal({
   children,
@@ -75,7 +94,7 @@ export function Reveal({
   className = "",
 }: {
   children: ReactNode;
-  as?: "div" | "span" | "p";
+  as?: "div" | "span" | "p" | "h1" | "h2" | "h3";
   stagger?: number;
   className?: string;
 }) {

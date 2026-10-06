@@ -14,12 +14,12 @@ const PRIMARY_LINKS: { label: string; href: string; external?: boolean }[] = [
   { label: "Access Formats", href: `${SITE_ORIGIN}/access-formats`, external: true },
 ];
 
-const SECONDARY_LINKS: { label: string; href: string }[] = [
+const SECONDARY_LINKS: { label: string; href: string; external?: boolean }[] = [
   { label: "Digital Multi-Strategy Fund", href: `${SITE_ORIGIN}/digital-multi-strategy-fund` },
   { label: "Leadership", href: `${SITE_ORIGIN}/leadership` },
   { label: "Risk Management", href: `${SITE_ORIGIN}/risk-management` },
   { label: "Insights", href: `${SITE_ORIGIN}/insights` },
-  { label: "Global presence", href: `${SITE_ORIGIN}/global-presence` },
+  { label: "Global presence", href: "/global-presence", external: false },
 ];
 
 const CONTACT_LINKS: { email: string; note: string }[] = [
@@ -123,8 +123,8 @@ export function Header() {
                       <Link
                         href={item.href}
                         onClick={() => setOpen(false)}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target={item.external === false ? undefined : "_blank"}
+                        rel={item.external === false ? undefined : "noopener noreferrer"}
                         className="text-[16px] font-medium leading-[20.8px] tracking-[-0.03em] text-[#181818]"
                       >
                         {item.label}

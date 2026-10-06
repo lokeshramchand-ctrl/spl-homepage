@@ -10,7 +10,7 @@ const PRIMARY: { label: string; href: string }[] = [
   { label: "Access Formats", href: "https://www.cyphercapital.com/access-formats" },
 ];
 
-const SECONDARY: { label: string; href: string }[] = [
+const SECONDARY: { label: string; href: string; external?: boolean }[] = [
   {
     label: "Digital Multi-Strategy Fund",
     href: "https://www.cyphercapital.com/digital-multi-strategy-fund",
@@ -18,8 +18,8 @@ const SECONDARY: { label: string; href: string }[] = [
   { label: "Leadership", href: "https://www.cyphercapital.com/leadership" },
   { label: "Risk Management", href: "https://www.cyphercapital.com/risk-management" },
   { label: "Insights", href: "https://www.cyphercapital.com/insights" },
-  { label: "Global presence", href: "https://www.cyphercapital.com/global-presence" },
-  { label: "Contact", href: "https://www.cyphercapital.com/global-presence#contacts" },
+  { label: "Global presence", href: "/global-presence", external: false },
+  { label: "Contact", href: "/global-presence#contacts", external: false },
 ];
 
 export function Footer() {
@@ -44,7 +44,7 @@ export function Footer() {
             <ul className="flex flex-col gap-3 text-[1rem] tracking-[-0.03em] md:gap-2">
               {SECONDARY.map((item) => (
                 <li key={item.label}>
-                  <WipeLink href={item.href} external className="block">
+                  <WipeLink href={item.href} external={item.external !== false} className="block">
                     {item.label}
                   </WipeLink>
                 </li>

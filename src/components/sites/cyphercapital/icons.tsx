@@ -53,7 +53,7 @@ export function ArrowUpRightIcon(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 10.0051 20.6718"
       fill="none"
       aria-hidden="true"
-      style={{ transform: "rotate(45deg)", overflow: "visible" }}
+      style={{ overflow: "visible" }}
       {...props}
     >
       <path
