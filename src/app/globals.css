@@ -7,8 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-sans: var(--font-instrument-sans), "Instrument Sans", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -127,4 +128,134 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Cypher Capital — scroll-reveal and hover-wipe system (matches source site) */
+:root {
+  --cc-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --cc-duration-slow: 0.3s;
+  --cc-reveal-duration: 0.75s;
+  --cc-reveal-delay: 0.25s;
+  --cc-reveal-stagger: 0.1s;
+  --cc-reveal-stagger-fine: 50ms;
+}
+
+.cc-reveal-group {
+  --cc-reveal-play: paused;
+}
+.cc-reveal-group[data-in-view] {
+  --cc-reveal-play: running;
+}
+
+.cc-reveal {
+  --cc-stagger: 0;
+  --cc-reveal-step: var(--cc-reveal-stagger);
+  animation-duration: var(--cc-reveal-duration);
+  animation-timing-function: var(--cc-easing-emphasized);
+  animation-delay: calc(
+    var(--cc-reveal-delay) + var(--cc-stagger) * var(--cc-reveal-step)
+  );
+  animation-fill-mode: both;
+  animation-play-state: var(--cc-reveal-play, running);
+}
+.cc-reveal-fine {
+  --cc-reveal-step: var(--cc-reveal-stagger-fine);
+}
+.cc-reveal-rise {
+  animation-name: cc-reveal-rise;
+  display: inline-block;
+}
+.cc-reveal-fade {
+  animation-name: cc-reveal-fade;
+}
+.cc-reveal-fade-up {
+  animation-name: cc-reveal-fade-up;
+}
+
+@keyframes cc-reveal-rise {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    translate: 0 1em;
+  }
+  100% {
+    clip-path: inset(-0.5em);
+    translate: 0 0;
+  }
+}
+@keyframes cc-reveal-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes cc-reveal-fade-up {
+  0% {
+    opacity: 0;
+    translate: 0 1em;
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-reveal {
+    animation: none !important;
+  }
+}
+
+/* Wipe-link hover: a blended bar sweeps across the text, inverting it */
+.cc-wipe-link {
+  position: relative;
+  text-decoration: none;
+}
+.cc-wipe-link__sweep {
+  position: absolute;
+  inset: 0 -4px;
+  background: #fff;
+  mix-blend-mode: difference;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--cc-duration-slow) var(--cc-easing-emphasized);
+  pointer-events: none;
+  z-index: 1;
+}
+.cc-wipe-link:hover .cc-wipe-link__sweep,
+.cc-wipe-link:focus-visible .cc-wipe-link__sweep {
+  clip-path: inset(0);
+}
+
+/* Wipe-button hover: a solid fill sweeps in behind the label, which inverts via blend */
+.cc-wipe-button {
+  --cc-pad-x: 0px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  padding-inline: var(--cc-pad-x);
+  border-bottom: 1.5px solid #181818;
+  text-decoration: none;
+  transition: padding var(--cc-duration-slow) var(--cc-easing-emphasized);
+}
+.cc-wipe-button:hover {
+  --cc-pad-x: 1.5rem;
+}
+.cc-wipe-button__sweep {
+  position: absolute;
+  inset: 0 0 -1.5px 0;
+  background: #181818;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--cc-duration-slow) var(--cc-easing-emphasized);
+  z-index: 0;
+}
+.cc-wipe-button:hover .cc-wipe-button__sweep {
+  clip-path: inset(0);
+}
+.cc-wipe-button__content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  mix-blend-mode: difference;
 }
