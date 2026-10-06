@@ -1,4 +1,3 @@
-import { HeroLiquid } from "./hero-liquid/HeroLiquid";
 import { GlobeIcon, PawnIcon, ShieldIcon } from "./icons";
 import { InView, Reveal, RevealWords } from "./reveal";
 
@@ -25,25 +24,7 @@ const VALUES = [
 
 export function Values() {
   return (
-    <section className="relative overflow-hidden bg-[#181818] px-5 pb-24 pt-16 text-white md:px-10 md:pb-32 md:pt-20">
-      <HeroLiquid
-        intro={false}
-        shadeFloor={0.45}
-        fallbackTone="light"
-        className="opacity-40"
-        params={{
-          repetition: 0.85,
-          angle: -65,
-          shiftRed: 0.18,
-          shiftBlue: 0.22,
-          shadowBlue: 0.05,
-          contour: 0.55,
-          distortion: 0.03,
-          flow: 0.3,
-          speed: 0.14,
-          softness: 1.5,
-        }}
-      />
+    <section className="relative bg-[#181818] px-5 pb-24 pt-16 text-white md:px-10 md:pb-32 md:pt-20">
       <div className="relative mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-20">
         <div className="border-t border-[#ffffff33] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-white">
           Values

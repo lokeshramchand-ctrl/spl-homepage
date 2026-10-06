@@ -1,4 +1,3 @@
-import { HeroLiquid } from "./hero-liquid/HeroLiquid";
 import { InView, Reveal } from "./reveal";
 
 const CARDS = [
@@ -16,24 +15,8 @@ const CARDS = [
 
 export function ProprietaryInvestments() {
   return (
-    <section className="relative overflow-hidden bg-[#fbfbfb] px-5 py-16 md:px-10 md:py-24">
-      <HeroLiquid
-        intro={false}
-        className="opacity-70"
-        params={{
-          repetition: 1.05,
-          angle: -30,
-          shiftRed: 0.28,
-          shiftBlue: 0.62,
-          shadowBlue: 0.12,
-          contour: 1,
-          distortion: 0.035,
-          flow: 0.45,
-          speed: 0.2,
-          softness: 0.85,
-        }}
-      />
-      <div className="relative mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-24">
+    <section id="proprietary-investments" className="relative px-5 py-16 md:px-10 md:py-24">
+      <div className="relative z-20 mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-24">
         <div className="border-t border-[#18181833] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-[#18181899]">
           Proprietary Investments
         </div>

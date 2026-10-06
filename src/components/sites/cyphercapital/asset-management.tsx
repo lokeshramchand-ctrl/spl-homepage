@@ -1,4 +1,3 @@
-import { HeroLiquid } from "./hero-liquid/HeroLiquid";
 import { InView, Reveal } from "./reveal";
 
 const ITEMS = [
@@ -19,28 +18,8 @@ const ITEMS = [
 
 export function AssetManagement() {
   return (
-    <section
-      id="capabilities"
-      className="relative overflow-hidden bg-[#fbfbfb] px-5 py-16 md:px-10 md:py-24"
-    >
-      <HeroLiquid
-        intro={false}
-        mirror
-        className="opacity-60"
-        params={{
-          repetition: 2.6,
-          angle: 20,
-          shiftRed: 0.4,
-          shiftBlue: 0.55,
-          shadowBlue: 0.1,
-          contour: 0.85,
-          distortion: 0.1,
-          flow: 0.75,
-          speed: 0.34,
-          softness: 1.15,
-        }}
-      />
-      <div className="relative mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-24">
+    <section id="capabilities" className="relative px-5 py-16 md:px-10 md:py-24">
+      <div className="relative z-20 mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-24">
         <div className="border-t border-[#18181833] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-[#18181899]">
           Capabilities
         </div>

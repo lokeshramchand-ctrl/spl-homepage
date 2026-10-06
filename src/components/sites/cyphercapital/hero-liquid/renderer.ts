@@ -275,7 +275,11 @@ export function createLiquidRenderer(
       gl.deleteTexture(metaTex);
       gl.deleteTexture(edgeTex);
       gl.deleteProgram(program);
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      // Explicit loseContext() is skipped: React's dev-mode double effect
+      // invocation (mount -> cleanup -> remount, synchronously) reuses this
+      // same canvas element for the remount, and a lost WebGL context never
+      // un-loses itself. Deleting the GPU objects above is enough cleanup;
+      // the context itself is reclaimed once the canvas is actually discarded.
     },
   };
 }
