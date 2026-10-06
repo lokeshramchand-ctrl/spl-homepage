@@ -1,4 +1,4 @@
-import { AmbientGraphic } from "./ambient-graphic";
+import { HeroLiquid } from "./hero-liquid/HeroLiquid";
 import { ArrowUpRightIcon } from "./icons";
 import { InView, Reveal, RevealWords } from "./reveal";
 
@@ -8,7 +8,25 @@ export function Infrastructure() {
       id="infrastructure"
       className="relative overflow-hidden bg-[#181818] px-5 py-24 text-white md:px-10 md:py-32"
     >
-      <AmbientGraphic variant="bloom" />
+      <HeroLiquid
+        intro={false}
+        mirror
+        shadeFloor={0.5}
+        fallbackTone="light"
+        className="opacity-90"
+        params={{
+          repetition: 3.4,
+          angle: 50,
+          shiftRed: 0.95,
+          shiftBlue: 0.15,
+          shadowBlue: 0.02,
+          contour: 1,
+          distortion: 0.2,
+          flow: 1,
+          speed: 0.6,
+          softness: 0.55,
+        }}
+      />
       <div className="relative mx-auto flex max-w-[1800px] flex-col items-center gap-10 text-center md:gap-12">
         <div className="w-full border-t border-[#ffffff33] pt-4 text-[0.95rem] tracking-[-0.02em] text-white">
           Infrastructure
