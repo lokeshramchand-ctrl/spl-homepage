@@ -127,6 +127,13 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
@@ -207,6 +214,24 @@
   }
 }
 
+/* Row hover: list-style content blocks (capability/portfolio items, value
+   cards) nudge right and brighten their divider on hover, giving otherwise
+   static text rows a sense of life without implying they're links. */
+.cc-row {
+  transition:
+    border-color var(--cc-duration-slow) var(--cc-easing-emphasized),
+    translate var(--cc-duration-slow) var(--cc-easing-emphasized);
+}
+.cc-row:hover {
+  translate: 6px 0;
+}
+.cc-row-dark:hover {
+  border-color: #ffffff99 !important;
+}
+.cc-row-light:hover {
+  border-color: #18181880 !important;
+}
+
 /* Entry gate: set on <html> for the homepage only (see RootLayout's
    beforeInteractive script) while the intro splash owns the screen.
    Keeps the header logo hidden and every reveal paused at its 0% frame
@@ -272,10 +297,15 @@ html[data-entry] .cc-header-logo {
   padding-inline: var(--cc-pad-x);
   border-bottom: 1.5px solid #181818;
   text-decoration: none;
-  transition: padding var(--cc-duration-slow) var(--cc-easing-emphasized);
+  transition:
+    padding var(--cc-duration-slow) var(--cc-easing-emphasized),
+    transform 150ms var(--cc-easing-emphasized);
 }
 .cc-wipe-button:hover {
   --cc-pad-x: 1.5rem;
+}
+.cc-wipe-button:active {
+  transform: scale(0.98);
 }
 .cc-wipe-button__sweep {
   position: absolute;

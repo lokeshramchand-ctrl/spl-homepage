@@ -39,7 +39,7 @@ export function ProprietaryInvestments() {
               key={card.title}
               as="div"
               stagger={i}
-              className="border-t border-[#18181833] pt-8"
+              className="cc-row cc-row-light border-t border-[#18181833] pt-8"
             >
               <h3 className="text-[1.75rem] font-medium tracking-[-0.02em] text-[#181818] md:text-[2rem]">
                 {card.title}

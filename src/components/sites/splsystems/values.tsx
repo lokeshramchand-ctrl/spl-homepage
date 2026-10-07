@@ -24,7 +24,7 @@ const VALUES = [
 
 export function Values() {
   return (
-    <section className="relative bg-[#181818] px-5 pb-24 pt-16 text-white md:px-10 md:pb-32 md:pt-20">
+    <section className="relative bg-[#181818] px-5 pb-20 pt-10 text-white md:px-10 md:pb-24 md:pt-12">
       <div className="relative mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-20">
         <div className="border-t border-[#ffffff33] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-white">
           Values
@@ -38,9 +38,14 @@ export function Values() {
 
         <InView className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
           {VALUES.map(({ icon: Icon, title, description }, i) => (
-            <Reveal key={title} as="div" stagger={i} className="flex flex-col gap-6">
-              <Icon className="h-14 w-auto text-white" />
-              <div className="border-t border-[#ffffff4d] pt-4">
+            <Reveal
+              key={title}
+              as="div"
+              stagger={i}
+              className="group flex flex-col gap-6"
+            >
+              <Icon className="h-14 w-auto text-white transition-transform duration-300 ease-[cubic-bezier(0.3,0,0,1)] group-hover:-translate-y-1" />
+              <div className="cc-row cc-row-dark border-t border-[#ffffff4d] pt-4">
                 <h3 className="text-[1.25rem] font-medium tracking-[-0.02em] text-white">
                   {title}
                 </h3>

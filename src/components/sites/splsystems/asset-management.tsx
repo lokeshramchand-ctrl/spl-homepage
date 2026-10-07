@@ -18,7 +18,7 @@ const ITEMS = [
 
 export function AssetManagement() {
   return (
-    <section id="capabilities" className="relative px-5 py-16 md:px-10 md:py-24">
+    <section id="capabilities" className="relative px-5 pb-16 pt-12 md:px-10 md:pb-24 md:pt-16">
       <div className="relative z-20 mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-24">
         <div className="border-t border-[#18181833] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-[#18181899]">
           Capabilities
@@ -44,7 +44,7 @@ export function AssetManagement() {
                 key={item.title}
                 as="div"
                 stagger={i}
-                className="border-t border-[#18181833] py-8"
+                className="cc-row cc-row-light border-t border-[#18181833] py-8"
               >
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="text-[1.75rem] font-medium tracking-[-0.02em] text-[#181818] md:text-[2rem]">

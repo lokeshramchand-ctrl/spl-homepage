@@ -5,7 +5,7 @@ export function Infrastructure() {
   return (
     <section
       id="infrastructure"
-      className="relative px-5 py-24 text-white md:px-10 md:py-32"
+      className="relative px-5 pb-16 pt-24 text-white md:px-10 md:pb-20 md:pt-32"
     >
       {/* z-0: the shared SwirlBackdrop canvas (a band-level sibling, see
           page.tsx) paints above this but below the content below, so the
@@ -41,7 +41,7 @@ export function Infrastructure() {
               href="https://www.splsystems.com/ai-infrastructure"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[0.95rem] font-medium tracking-[-0.02em] text-white underline decoration-white/40 underline-offset-4"
+              className="text-[0.95rem] font-medium tracking-[-0.02em] text-white underline decoration-white/40 underline-offset-4 transition-[translate,text-decoration-color] duration-300 ease-[cubic-bezier(0.3,0,0,1)] hover:decoration-white hover:[translate:0_-1px]"
             >
               Explore AI Infrastructure
             </a>
@@ -50,10 +50,10 @@ export function Infrastructure() {
               href="https://stormgroup.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[0.95rem] font-medium tracking-[-0.02em] text-white underline decoration-white/40 underline-offset-4"
+              className="group inline-flex items-center gap-1.5 text-[0.95rem] font-medium tracking-[-0.02em] text-white underline decoration-white/40 underline-offset-4 transition-[translate,text-decoration-color] duration-300 ease-[cubic-bezier(0.3,0,0,1)] hover:decoration-white hover:[translate:0_-1px]"
             >
               Visit stormgroup.com
-              <ArrowUpRightIcon className="h-3.5 w-3.5" />
+              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 ease-[cubic-bezier(0.3,0,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </Reveal>
         </InView>
