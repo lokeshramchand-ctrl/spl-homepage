@@ -24,8 +24,8 @@ const VALUES = [
 
 export function Values() {
   return (
-    <section className="relative bg-[#181818] px-5 pb-20 pt-10 text-white md:px-10 md:pb-24 md:pt-12">
-      <div className="relative mx-auto flex max-w-[1800px] flex-col gap-16 md:gap-20">
+    <section className="relative flex min-h-svh flex-col justify-center bg-[#181818] px-5 py-20 text-white md:px-10 md:py-28">
+      <div className="relative mx-auto flex w-full max-w-[1800px] flex-col gap-16 md:gap-20">
         <div className="border-t border-[#ffffff33] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-white">
           Values
         </div>

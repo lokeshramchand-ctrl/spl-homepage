@@ -1,9 +1,3 @@
-/**
- * Geometry for the hero's 4 liquid "pipe" branches, read from the source
- * site's bundle (splsystems.com). Same bezier control points as the
- * static ribbon SVG, reused here to build the mask the WebGL shader flows
- * through.
- */
 export interface Branch {
   start: [number, number];
   /** Each curve is a cubic bezier: [c1x, c1y, c2x, c2y, ex, ey]. */
@@ -21,35 +15,39 @@ export const CROP_ASPECT = 1;
 export const REGION = { x: -90, y: -90, width: 1620, height: 1192.5 };
 
 export const BRANCHES: Branch[] = [
+  // Branch 1: Starts top-left, curves sharply down to the center, sweeps back up
   {
-    start: [-222.724, 504.473],
+    start: [-200, 50],
     curves: [
-      [-222.724, 504.473, 304.862, 504.473, 749.059, 504.473],
-      [1193.25, 504.473, 1176.74, 692.755, 1668, 692.755],
+      [100, 50, 300, 750, 720, 405],
+      [1140, 50, 1400, 750, 1700, 200],
     ],
     gray: 32 / 255,
   },
+  // Branch 2: Starts bottom-left, curves sharply up to the center, sweeps back down
   {
-    start: [-222.724, 504.473],
+    start: [-200, 760],
     curves: [
-      [-222.724, 504.473, 60.4716, 504.473, 504.668, 504.473],
-      [948.864, 504.473, 1176.74, -52.4742, 1668, -52.4742],
+      [100, 760, 300, 50, 720, 405],
+      [1140, 760, 1400, 50, 1700, 610],
     ],
     gray: 132 / 255,
   },
+  // Branch 3: Starts mid-top, crosses the center in a tighter loop
   {
-    start: [-222.724, 504.473],
+    start: [-200, 250],
     curves: [
-      [-222.724, 504.473, 304.862, 504.473, 749.059, 504.473],
-      [1193.25, 504.473, 1176.74, 259.574, 1668, 259.574],
+      [100, 250, 400, 800, 720, 405],
+      [1000, 0, 1400, 600, 1700, 100],
     ],
     gray: 56 / 255,
   },
+  // Branch 4: Starts mid-bottom, mirrors Branch 3's tight loop
   {
-    start: [-223.057, 504.476],
+    start: [-200, 560],
     curves: [
-      [-223.057, 504.476, -299.029, 504.476, 145.246, 504.476],
-      [912.887, 504.476, 657.455, 924.491, 1668, 924.491],
+      [100, 560, 400, 0, 720, 405],
+      [1000, 800, 1400, 200, 1700, 710],
     ],
     gray: 0,
   },

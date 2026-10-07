@@ -5,13 +5,13 @@ export function Infrastructure() {
   return (
     <section
       id="infrastructure"
-      className="relative px-5 pb-16 pt-24 text-white md:px-10 md:pb-20 md:pt-32"
+      className="relative flex min-h-svh flex-col justify-center px-5 py-20 text-white md:px-10 md:py-28"
     >
       {/* z-0: the shared SwirlBackdrop canvas (a band-level sibling, see
           page.tsx) paints above this but below the content below, so the
           swirl reads as bright shapes over this section's own dark ground. */}
       <div className="absolute inset-0 z-0 bg-[#181818]" aria-hidden="true" />
-      <div className="relative z-20 mx-auto flex max-w-[1800px] flex-col items-center gap-10 text-center md:gap-12">
+      <div className="relative z-20 mx-auto flex w-full max-w-[1800px] flex-col items-center gap-10 text-center md:gap-12">
         <div className="w-full border-t border-[#ffffff33] pt-4 text-[0.95rem] tracking-[-0.02em] text-white">
           Infrastructure
         </div>
