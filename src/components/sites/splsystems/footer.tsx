@@ -3,21 +3,21 @@ import { LogoMark } from "./icons";
 import { WipeLink } from "./reveal";
 
 const PRIMARY: { label: string; href: string }[] = [
-  { label: "Cypher", href: "https://www.cyphercapital.com/" },
-  { label: "Philosophy", href: "https://www.cyphercapital.com/philosophy" },
-  { label: "Capabilities", href: "https://www.cyphercapital.com/capabilities" },
-  { label: "AI Infrastructure", href: "https://www.cyphercapital.com/ai-infrastructure" },
-  { label: "Access Formats", href: "https://www.cyphercapital.com/access-formats" },
+  { label: "SPL", href: "https://www.splsystems.com/" },
+  { label: "Philosophy", href: "https://www.splsystems.com/philosophy" },
+  { label: "Capabilities", href: "https://www.splsystems.com/capabilities" },
+  { label: "AI Infrastructure", href: "https://www.splsystems.com/ai-infrastructure" },
+  { label: "Access Formats", href: "https://www.splsystems.com/access-formats" },
 ];
 
 const SECONDARY: { label: string; href: string; external?: boolean }[] = [
   {
     label: "Digital Multi-Strategy Fund",
-    href: "https://www.cyphercapital.com/digital-multi-strategy-fund",
+    href: "https://www.splsystems.com/digital-multi-strategy-fund",
   },
-  { label: "Leadership", href: "https://www.cyphercapital.com/leadership" },
-  { label: "Risk Management", href: "https://www.cyphercapital.com/risk-management" },
-  { label: "Insights", href: "https://www.cyphercapital.com/insights" },
+  { label: "Leadership", href: "https://www.splsystems.com/leadership" },
+  { label: "Risk Management", href: "https://www.splsystems.com/risk-management" },
+  { label: "Insights", href: "https://www.splsystems.com/insights" },
   { label: "Global presence", href: "/global-presence", external: false },
   { label: "Contact", href: "/global-presence#contacts", external: false },
 ];
@@ -52,22 +52,22 @@ export function Footer() {
             </ul>
 
             <AskAi
-              label="Ask your AI about Cypher"
-              prompt="Tell me about Cypher Capital, based on https://cyphercapital.com"
+              label="Ask your AI about SPL Systems"
+              prompt="Tell me about SPL Systems, based on https://splsystems.com"
             />
           </div>
         </nav>
 
         <div className="flex flex-col gap-16 text-[#1818184d] md:gap-3">
           <p className="max-w-none text-[0.75rem] leading-[1.3] tracking-[-0.03em]">
-            Investment management services are provided by Cypher Capital (BVI)
-            Limited, registered in the British Virgin Islands. Cypher Capital
-            (BVI) Limited and Cypher Investments Limited are not licensed or
+            Investment management services are provided by SPL Systems (BVI)
+            Limited, registered in the British Virgin Islands. SPL Systems
+            (BVI) Limited and SPL Investments Limited are not licensed or
             regulated by the Central Bank of the UAE (CBUAE), the Securities and
             Commodities Authority (SCA), or the Virtual Assets Regulatory
-            Authority (VARA). Cypher Proprietary Capital FZCO, registered in
+            Authority (VARA). SPL Proprietary Capital FZCO, registered in
             Dubai, is authorised by VARA solely as a Virtual Asset Proprietary
-            Trader. Cypher Proprietary Capital FZCO conducts proprietary trading
+            Trader. SPL Proprietary Capital FZCO conducts proprietary trading
             using its own capital only and does not provide investment
             management, advisory, or other financial services to third parties.
             This website and its contents are intended for Professional
@@ -81,16 +81,16 @@ export function Footer() {
           </p>
 
           <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.75rem] tracking-[-0.03em] md:gap-4">
-            <li>&copy; {new Date().getFullYear()} Cypher Capital</li>
+            <li>&copy; {new Date().getFullYear()} SPL Systems</li>
             <li>Zurich | Dubai</li>
             <li>All Rights Reserved</li>
             <li>
-              <WipeLink href="https://www.cyphercapital.com/privacy" external>
+              <WipeLink href="https://www.splsystems.com/privacy" external>
                 Privacy Policy
               </WipeLink>
             </li>
             <li>
-              <WipeLink href="https://www.cyphercapital.com/terms" external>
+              <WipeLink href="https://www.splsystems.com/terms" external>
                 Terms of Use
               </WipeLink>
             </li>
@@ -99,14 +99,14 @@ export function Footer() {
 
         <div className="flex items-end justify-between gap-3 pb-10 pt-16 md:gap-8">
           <span className="text-[2rem] leading-none tracking-[-0.016em] md:text-[4rem]">
-            Cypher
+            SPL
           </span>
           <LogoMark
             aria-hidden="true"
             className="h-[1.5rem] w-auto shrink-0 text-[#181818] md:h-[2.6rem]"
           />
           <span className="text-[2rem] leading-none tracking-[-0.016em] md:text-[4rem]">
-            Capital
+            Systems
           </span>
         </div>
       </div>

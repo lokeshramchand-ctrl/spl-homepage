@@ -1,7 +1,7 @@
 import { AiIconRow } from "./ai-links";
 import { InView, Reveal } from "./reveal";
 
-/** "Ask your AI about Cypher" / "Summarize this page with AI" — reused in the AI band and the footer. */
+/** "Ask your AI about SPL Systems" / "Summarize this page with AI" — reused in the AI band and the footer. */
 export function AskAi({
   label,
   prompt,

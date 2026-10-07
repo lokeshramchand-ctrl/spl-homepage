@@ -130,7 +130,7 @@
   }
 }
 
-/* Cypher Capital — scroll-reveal and hover-wipe system (matches source site) */
+/* SPL Systems — scroll-reveal and hover-wipe system (matches source site) */
 :root {
   --cc-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
   --cc-duration-slow: 0.3s;
@@ -231,7 +231,7 @@ html[data-entry] .cc-header-logo {
   position: absolute;
   inset: 0;
   color: transparent;
-  background-image: url("/sites/cyphercapital/images/effects/title-sheen.jpg");
+  background-image: url("/sites/splsystems/images/effects/title-sheen.jpg");
   background-repeat: no-repeat;
   background-size: auto 1200%;
   background-position: 42% 24%;

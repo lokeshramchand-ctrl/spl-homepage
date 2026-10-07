@@ -6,7 +6,7 @@ const VALUES = [
     icon: PawnIcon,
     title: "Skin in the Game",
     description:
-      "Principal capital comes first. Allocators participate in strategies already backed by Cypher Capital's own balance sheet.",
+      "Principal capital comes first. Allocators participate in strategies already backed by SPL Systems's own balance sheet.",
   },
   {
     icon: ShieldIcon,

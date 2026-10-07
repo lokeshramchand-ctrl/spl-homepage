@@ -2,8 +2,8 @@ import { InView, Reveal, RevealWords, SectionLabel } from "../reveal";
 import { ArrowUpRightIcon } from "../icons";
 
 const CONTACTS = [
-  { email: "info@cyphercapital.com", note: "For general questions" },
-  { email: "ir@cyphercapital.com", note: "For investor relations" },
+  { email: "info@splsystems.com", note: "For general questions" },
+  { email: "ir@splsystems.com", note: "For investor relations" },
 ];
 
 export function Contacts() {
@@ -18,7 +18,7 @@ export function Contacts() {
               as="h2"
               className="mx-auto max-w-[19ch] text-center text-[2.5rem] font-medium leading-[1] tracking-[-0.016em] text-[#181818] md:text-[4rem]"
             >
-              <RevealWords text="Speak to the Cypher team" />
+              <RevealWords text="Speak to the SPL Systems team" />
             </Reveal>
           </InView>
 

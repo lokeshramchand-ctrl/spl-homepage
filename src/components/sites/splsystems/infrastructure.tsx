@@ -26,9 +26,9 @@ export function Infrastructure() {
             stagger={1}
             className="max-w-[56ch] text-[1rem] leading-[1.6] tracking-[-0.01em] text-[#ffffff99]"
           >
-            Storm Group, Cypher Capital&rsquo;s affiliate, develops and operates AI
-            data-centre infrastructure in Europe. Through Storm Group, Cypher
-            Capital structures institutional access to the physical
+            Storm Group, SPL Systems&rsquo;s affiliate, develops and operates AI
+            data-centre infrastructure in Europe. Through Storm Group, SPL
+            Systems structures institutional access to the physical
             infrastructure powering AI and compute growth.
           </Reveal>
 
@@ -38,7 +38,7 @@ export function Infrastructure() {
             className="flex flex-col items-center gap-4 sm:flex-row sm:gap-8"
           >
             <a
-              href="https://www.cyphercapital.com/ai-infrastructure"
+              href="https://www.splsystems.com/ai-infrastructure"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[0.95rem] font-medium tracking-[-0.02em] text-white underline decoration-white/40 underline-offset-4"

@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRightIcon, LogoMark } from "./icons";
 
-const SITE_ORIGIN = "https://www.cyphercapital.com";
+const SITE_ORIGIN = "https://www.splsystems.com";
 
 const PRIMARY_LINKS: { label: string; href: string; external?: boolean }[] = [
-  { label: "Cypher", href: "/" },
+  { label: "SPL", href: "/" },
   { label: "Philosophy", href: `${SITE_ORIGIN}/philosophy`, external: true },
   { label: "Capabilities", href: `${SITE_ORIGIN}/capabilities`, external: true },
   { label: "AI Infrastructure", href: `${SITE_ORIGIN}/ai-infrastructure`, external: true },
@@ -23,8 +23,8 @@ const SECONDARY_LINKS: { label: string; href: string; external?: boolean }[] = [
 ];
 
 const CONTACT_LINKS: { email: string; note: string }[] = [
-  { email: "info@cyphercapital.com", note: "For general questions" },
-  { email: "ir@cyphercapital.com", note: "For investor relations" },
+  { email: "info@splsystems.com", note: "For general questions" },
+  { email: "ir@splsystems.com", note: "For investor relations" },
 ];
 
 function Rule() {
@@ -53,7 +53,7 @@ export function Header() {
         >
           <LogoMark className="h-6 w-10" />
           <span className="text-[16px] font-medium tracking-[-0.03em]">
-            Cypher Capital
+            SPL Systems
           </span>
         </Link>
         <button

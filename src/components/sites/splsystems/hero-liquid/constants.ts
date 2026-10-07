@@ -1,6 +1,6 @@
 /**
  * Geometry for the hero's 4 liquid "pipe" branches, read from the source
- * site's bundle (cyphercapital.com). Same bezier control points as the
+ * site's bundle (splsystems.com). Same bezier control points as the
  * static ribbon SVG, reused here to build the mask the WebGL shader flows
  * through.
  */

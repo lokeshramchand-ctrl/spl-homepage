@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/sites/cyphercapital/footer";
-import { Header } from "@/components/sites/cyphercapital/header";
-import { Contacts } from "@/components/sites/cyphercapital/global-presence/contacts";
-import { GlobalPresenceHero } from "@/components/sites/cyphercapital/global-presence/hero";
-import { Places } from "@/components/sites/cyphercapital/global-presence/places";
+import { Footer } from "@/components/sites/splsystems/footer";
+import { Header } from "@/components/sites/splsystems/header";
+import { Contacts } from "@/components/sites/splsystems/global-presence/contacts";
+import { GlobalPresenceHero } from "@/components/sites/splsystems/global-presence/hero";
+import { Places } from "@/components/sites/splsystems/global-presence/places";
 
 export const metadata: Metadata = {
-  title: "Cypher Capital | Global presence",
+  title: "SPL Systems | Global presence",
   description: "Headquartered in Hyderabad, India, with a presence in San Jose.",
 };
 

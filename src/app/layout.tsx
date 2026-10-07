@@ -9,7 +9,7 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Cypher Capital | Bridging capital with frontier opportunities",
+  title: "SPL Systems | Bridging capital with frontier opportunities",
   description:
     "Institutional asset management and proprietary investment across digital markets and AI data-centre infrastructure, headquartered in Zurich with a presence in Dubai.",
 };

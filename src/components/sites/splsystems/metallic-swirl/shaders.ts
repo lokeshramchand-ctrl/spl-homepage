@@ -1,4 +1,4 @@
-// Shaders and presets decompiled from cyphercapital.com's production bundle
+// Shaders and presets decompiled from splsystems.com's production bundle
 // (the "metallic swirl" scroll backdrop used behind Asset Management,
 // Proprietary Investments and Infrastructure). Kept byte-for-byte identical
 // to the source's GLSL.

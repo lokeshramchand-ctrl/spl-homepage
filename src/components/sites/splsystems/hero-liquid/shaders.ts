@@ -1,4 +1,4 @@
-// Shaders decompiled from cyphercapital.com's production bundle (hero liquid
+// Shaders decompiled from splsystems.com's production bundle (hero liquid
 // effect). Kept byte-for-byte identical to the source's GLSL.
 
 export const VERTEX_SHADER = `#version 300 es

@@ -3,7 +3,7 @@ import type { SVGProps } from "react";
 export function Wordmark(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="138.743 140 1906.677 223.342" role="img" focusable="false" {...props}>
-      <title>Cypher Capital</title>
+      <title>SPL Systems</title>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

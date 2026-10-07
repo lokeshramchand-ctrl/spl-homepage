@@ -1,13 +1,13 @@
-import { AiBand } from "@/components/sites/cyphercapital/ai-band";
-import { AssetManagement } from "@/components/sites/cyphercapital/asset-management";
-import { Footer } from "@/components/sites/cyphercapital/footer";
-import { Header } from "@/components/sites/cyphercapital/header";
-import { Hero } from "@/components/sites/cyphercapital/hero";
-import { Infrastructure } from "@/components/sites/cyphercapital/infrastructure";
-import { SwirlBackdrop } from "@/components/sites/cyphercapital/metallic-swirl/SwirlBackdrop";
-import { ProprietaryInvestments } from "@/components/sites/cyphercapital/proprietary-investments";
-import { Splash } from "@/components/sites/cyphercapital/splash";
-import { Values } from "@/components/sites/cyphercapital/values";
+import { AiBand } from "@/components/sites/splsystems/ai-band";
+import { AssetManagement } from "@/components/sites/splsystems/asset-management";
+import { Footer } from "@/components/sites/splsystems/footer";
+import { Header } from "@/components/sites/splsystems/header";
+import { Hero } from "@/components/sites/splsystems/hero";
+import { Infrastructure } from "@/components/sites/splsystems/infrastructure";
+import { SwirlBackdrop } from "@/components/sites/splsystems/metallic-swirl/SwirlBackdrop";
+import { ProprietaryInvestments } from "@/components/sites/splsystems/proprietary-investments";
+import { Splash } from "@/components/sites/splsystems/splash";
+import { Values } from "@/components/sites/splsystems/values";
 
 export default function Home() {
   return (

@@ -9,15 +9,15 @@ const LOCATIONS = [
     id: "hyderabad",
     name: "Hyderabad, India",
     description:
-      "Cypher Capital's Hyderabad office is the headquarters of the Cypher Capital group, coordinating the platform's South Asian presence and institutional relationships.",
-    image: "/sites/cyphercapital/images/global-presence/hyderabad.webp",
+      "SPL Systems's Hyderabad office is the headquarters of the SPL Systems group, coordinating the platform's South Asian presence and institutional relationships.",
+    image: "/sites/splsystems/images/global-presence/hyderabad.webp",
   },
   {
     id: "san-jose",
     name: "San Jose",
     description:
-      "Home of the Cypher Capital San Jose office, the group's shared-services presence for technology, operations and administration.",
-    image: "/sites/cyphercapital/images/global-presence/san-jose.webp",
+      "Home of the SPL Systems San Jose office, the group's shared-services presence for technology, operations and administration.",
+    image: "/sites/splsystems/images/global-presence/san-jose.webp",
   },
 ];
 

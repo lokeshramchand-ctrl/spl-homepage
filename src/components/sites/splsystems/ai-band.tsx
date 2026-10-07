@@ -7,7 +7,7 @@ export function AiBand() {
       <div className="relative mx-auto flex min-h-0 w-full max-w-[2000px] items-center justify-center md:min-h-[50vh]">
         <AskAi
           label="Summarize this page with AI"
-          prompt="Summarize this page: https://cyphercapital.com"
+          prompt="Summarize this page: https://splsystems.com"
           size="lg"
         />
       </div>

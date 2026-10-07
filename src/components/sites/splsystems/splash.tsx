@@ -101,7 +101,7 @@ export function Splash() {
             translate: live ? "0 0" : "min(6vw, 3rem) min(2rem, 8vh)",
           }}
         >
-          Cypher
+          SPL Systems
         </span>
         <LogoMark
           className="h-9 w-14 text-[#181818] md:h-14 md:w-24"
