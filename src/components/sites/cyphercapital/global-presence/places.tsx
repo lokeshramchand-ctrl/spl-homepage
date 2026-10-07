@@ -6,18 +6,18 @@ import { ParticleImage } from "./particle-image";
 
 const LOCATIONS = [
   {
-    id: "zurich",
-    name: "Zurich",
+    id: "hyderabad",
+    name: "Hyderabad, India",
     description:
-      "Cypher Capital (Switzerland) GmbH is the headquarters of the Cypher Capital group, coordinating the platform's European presence and institutional relationships.",
-    image: "/sites/cyphercapital/images/global-presence/zurich.webp",
+      "Cypher Capital's Hyderabad office is the headquarters of the Cypher Capital group, coordinating the platform's South Asian presence and institutional relationships.",
+    image: "/sites/cyphercapital/images/global-presence/hyderabad.webp",
   },
   {
-    id: "dubai",
-    name: "Dubai",
+    id: "san-jose",
+    name: "San Jose",
     description:
-      "Home of Cypher Capital Technology L.L.C., the group's shared-services entity for technology, operations and administration.",
-    image: "/sites/cyphercapital/images/global-presence/dubai.webp",
+      "Home of the Cypher Capital San Jose office, the group's shared-services presence for technology, operations and administration.",
+    image: "/sites/cyphercapital/images/global-presence/san-jose.webp",
   },
 ];
 

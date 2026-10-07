@@ -15,7 +15,7 @@ export function GlobalPresenceHero() {
           stagger={1}
           className="text-[1rem] font-medium tracking-[-0.03em] text-[#181818]/50"
         >
-          Headquartered in Zurich, with a presence in Dubai.
+          Headquartered in Hyderabad, India, with a presence in San Jose.
         </Reveal>
       </InView>
     </section>

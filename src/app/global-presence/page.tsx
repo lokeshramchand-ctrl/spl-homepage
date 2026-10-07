@@ -7,7 +7,7 @@ import { Places } from "@/components/sites/cyphercapital/global-presence/places"
 
 export const metadata: Metadata = {
   title: "Cypher Capital | Global presence",
-  description: "Headquartered in Zurich, with a presence in Dubai.",
+  description: "Headquartered in Hyderabad, India, with a presence in San Jose.",
 };
 
 export default function GlobalPresencePage() {
