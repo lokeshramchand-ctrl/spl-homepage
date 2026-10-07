@@ -48,7 +48,8 @@ export function Header() {
       <div className="relative flex items-center justify-between px-4 py-8 md:justify-center md:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3 text-[#181818] md:absolute md:left-8"
+          data-header-logo
+          className="cc-header-logo flex items-center gap-3 text-[#181818] md:absolute md:left-8"
         >
           <LogoMark className="h-6 w-10" />
           <span className="text-[16px] font-medium tracking-[-0.03em]">

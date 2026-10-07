@@ -6,11 +6,13 @@ import { Hero } from "@/components/sites/cyphercapital/hero";
 import { Infrastructure } from "@/components/sites/cyphercapital/infrastructure";
 import { SwirlBackdrop } from "@/components/sites/cyphercapital/metallic-swirl/SwirlBackdrop";
 import { ProprietaryInvestments } from "@/components/sites/cyphercapital/proprietary-investments";
+import { Splash } from "@/components/sites/cyphercapital/splash";
 import { Values } from "@/components/sites/cyphercapital/values";
 
 export default function Home() {
   return (
     <>
+      <Splash />
       <Header />
       <main className="flex-1 bg-[#fbfbfb]">
         <Hero />

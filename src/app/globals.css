@@ -207,6 +207,23 @@
   }
 }
 
+/* Entry gate: set on <html> for the homepage only (see RootLayout's
+   beforeInteractive script) while the intro splash owns the screen.
+   Keeps the header logo hidden and every reveal paused at its 0% frame
+   so they stay invisible underneath the splash instead of playing out
+   unseen, then release together when Splash removes the attribute. */
+html[data-entry] .cc-reveal {
+  animation-play-state: paused;
+}
+.cc-header-logo {
+  opacity: 1;
+  transition: opacity 200ms var(--cc-easing-emphasized);
+}
+html[data-entry] .cc-header-logo {
+  opacity: 0;
+  transition: none;
+}
+
 /* Page-title metallic sheen: a crop of a shared sheen photo is clipped to each
    word's glyph shapes and difference-blended against the page background,
    matching the source site's title treatment (see global-presence hero). */
