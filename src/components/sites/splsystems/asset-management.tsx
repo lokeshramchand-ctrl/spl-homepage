@@ -28,13 +28,20 @@ export function AssetManagement() {
           <InView className="flex flex-col gap-6">
             <Reveal as="div" stagger={0}>
               <h2 className="text-[2.5rem] font-medium leading-[1.05] tracking-[-0.02em] text-[#181818] md:text-[3rem]">
-                Asset Management
+                How can we help
+                your business
               </h2>
             </Reveal>
             <Reveal as="p" stagger={1} className="max-w-[42ch] text-[1rem] leading-[1.5] tracking-[-0.01em] text-[#18181899]">
-              Institutional investment strategies across digital markets and
-              emerging infrastructure, built on proprietary experience and
-              disciplined risk management.
+              SPL Systems has been at the forefront of digital transformation for over 10 years, delivering innovative software solutions that drive business growth and operational efficiency.
+
+
+            </Reveal>
+            <Reveal as="p" stagger={2} className="max-w-[42ch] text-[1rem] leading-[1.5] tracking-[-0.01em] text-[#18181899]">
+              Our expertise spans from comprehensive examination management systems to complex digitization projects, ensuring quality and confidentiality in every engagement.
+
+
+
             </Reveal>
           </InView>
 

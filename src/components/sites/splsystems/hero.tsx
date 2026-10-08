@@ -7,7 +7,7 @@ export function Hero() {
       <HeroLiquid />
       <InView className="relative mx-auto flex w-full max-w-[1800px] flex-col gap-8 md:gap-10">
         <h1 className="max-w-[18ch] text-[2.5rem] font-medium leading-[1] tracking-[-0.016em] text-[#181818] md:max-w-[20ch] md:text-[4rem]">
-          <RevealWords text="Bridging capital with frontier opportunities" />
+          <RevealWords text="Engineering the Intelligent Future." />
         </h1>
         <WipeButton href="#capabilities" className="w-fit text-[0.95rem] text-[#181818]">
           Explore capabilities
