@@ -10,7 +10,7 @@ export function Hero() {
           <RevealWords text="Engineering the Intelligent Future." />
         </h1>
         <WipeButton href="#capabilities" className="w-fit text-[0.95rem] text-[#181818]">
-          Explore capabilities
+          Reach out to us
         </WipeButton>
       </InView>
     </section>

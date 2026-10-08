@@ -324,3 +324,44 @@ html[data-entry] .cc-header-logo {
   color: #fff;
   mix-blend-mode: difference;
 }
+/* Sheen titles on dark grounds: the sheen photo is light-on-black, so a
+   metallic gradient is clipped to the glyphs instead (approximation of the
+   source's per-word canvas shader). */
+.cc-sheen-on-dark .cc-reveal > .text-transparent {
+  color: #fff;
+}
+.cc-sheen-on-dark .cc-sheen {
+  background-image: linear-gradient(100deg, #fff 0%, #e9d9b0 30%, #fff 48%, #a9b8d0 72%, #fff 100%);
+  background-size: 100% 100%;
+  background-position: 0 0;
+  mix-blend-mode: normal;
+  filter: none;
+}
+/* WebGL title sheen (SheenCanvas): canvas overlays the word; once live it
+   replaces the CSS fallbacks. Pad var is set per word from its font size. */
+.cc-sheen-canvas-word {
+  --sheen-pad: 0px;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.cc-sheen-canvas-word > canvas {
+  position: absolute;
+  top: calc(-1 * var(--sheen-pad));
+  left: calc(-1 * var(--sheen-pad));
+  width: calc(100% + 2 * var(--sheen-pad));
+  height: calc(100% + 2 * var(--sheen-pad));
+  visibility: hidden;
+}
+.cc-sheen-canvas-word[data-live] > canvas {
+  visibility: visible;
+}
+.cc-reveal:has(> .cc-sheen-canvas-word[data-live]) > .text-transparent,
+.cc-sheen-on-dark .cc-reveal:has(> .cc-sheen-canvas-word[data-live]) > .text-transparent {
+  color: transparent;
+}
+.cc-reveal:has(> .cc-sheen-canvas-word[data-live]) > .cc-sheen {
+  visibility: hidden;
+}
+/* rev 3 */

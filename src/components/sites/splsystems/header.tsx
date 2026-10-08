@@ -31,8 +31,9 @@ function Rule() {
   return <div className="h-px w-full shrink-0 bg-[#181818]/20" />;
 }
 
-export function Header() {
+export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
+  const ink = tone === "light" && !open ? "text-white" : "text-[#181818]";
 
   useEffect(() => {
     if (!open) return;
@@ -49,7 +50,7 @@ export function Header() {
         <Link
           href="/"
           data-header-logo
-          className="cc-header-logo flex items-center gap-3 text-[#181818] md:absolute md:left-8"
+          className={`cc-header-logo flex items-center gap-3 ${ink} md:absolute md:left-8`}
         >
           <LogoMark className="h-6 w-10" />
           <span className="text-[16px] font-medium tracking-[-0.03em]">
@@ -61,7 +62,7 @@ export function Header() {
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
           aria-expanded={open}
-          className="text-[16px] font-medium tracking-[-0.03em] text-[#181818]"
+          className={`text-[16px] font-medium tracking-[-0.03em] ${ink}`}
         >
           Menu
         </button>

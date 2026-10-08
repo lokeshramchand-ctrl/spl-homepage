@@ -1,4 +1,5 @@
 import { Fragment, type CSSProperties, type ElementType } from "react";
+import { SheenCanvas } from "./sheen-canvas";
 
 /**
  * Page-title treatment: each word rises in (shared `cc-reveal` timing) while
@@ -10,10 +11,13 @@ export function SheenText({
   text,
   as: Tag = "span",
   className = "",
+  shader = false,
 }: {
   text: string;
   as?: ElementType;
   className?: string;
+  /** Paint the glyphs with the source's WebGL sheen shader (photo crop is the fallback). */
+  shader?: boolean;
 }) {
   const words = text.split(" ");
   return (
@@ -28,6 +32,7 @@ export function SheenText({
             <span aria-hidden="true" className="cc-sheen">
               {word}
             </span>
+            {shader ? <SheenCanvas word={word} /> : null}
           </span>
           {i < words.length - 1 ? " " : ""}
         </Fragment>
