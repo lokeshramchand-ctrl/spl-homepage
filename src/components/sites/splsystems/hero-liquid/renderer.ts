@@ -1,4 +1,4 @@
-import { CROP_ASPECT, OVERFLOW_SCALE, REGION, VIEWBOX_HEIGHT, VIEWBOX_WIDTH, BRANCHES } from "./constants";
+import { CROP_ASPECT, MAX_BRANCHES, OVERFLOW_SCALE, REGION, VIEWBOX_HEIGHT, VIEWBOX_WIDTH, BRANCHES } from "./constants";
 import type { LiquidMask } from "./mask";
 import { FRAGMENT_SHADER, HERO_LIQUID_EFFECT, HERO_LIQUID_INTRO, VERTEX_SHADER, type IntroTiming, type LiquidEffectParams } from "./shaders";
 
@@ -141,7 +141,7 @@ export function createLiquidRenderer(
   const branchDelays = () => BRANCHES.map((_, i) => timing.startDelay + (BRANCHES.length - 1 - i) * timing.stagger);
   let delays = branchDelays();
 
-  const revealAll = () => gl.uniform1fv(uBranchReveal, new Float32Array([2, 2, 2, 2]));
+  const revealAll = () => gl.uniform1fv(uBranchReveal, new Float32Array(MAX_BRANCHES).fill(2));
 
   // Padded-mask -> viewBox mapping (same ratios the source computes from REGION/viewBox).
   const scaleX = VIEWBOX_WIDTH / REGION.width;
@@ -177,9 +177,9 @@ export function createLiquidRenderer(
     gl.uniform1f(uTime, elapsed * effectParams.speed);
     if (!introDone) {
       const e = elapsed - introStart;
-      const reveal = new Float32Array(4);
+      const reveal = new Float32Array(MAX_BRANCHES).fill(2);
       let allDone = true;
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < BRANCHES.length; i++) {
         const t = Math.min(Math.max((e - delays[i]) / timing.duration, 0), 1);
         if (t < 1) allDone = false;
         reveal[i] = easeInOutCubic(t) * (1 + 2 * timing.feather + 0.02);

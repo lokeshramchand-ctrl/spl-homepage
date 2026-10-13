@@ -1,5 +1,5 @@
-// Shaders decompiled from splsystems.com's production bundle (hero liquid
-// effect). Kept byte-for-byte identical to the source's GLSL.
+// Hero liquid shader, adapted from splsystems.com's: 8 ribbon slots and a
+// calmer, flow-only look (no swirl) for a bundle of lines streaming rightward.
 
 export const VERTEX_SHADER = `#version 300 es
 precision highp float;
@@ -35,7 +35,7 @@ uniform float u_flow;
 uniform vec2 u_uvScale;
 uniform vec2 u_uvOffset;
 
-uniform float u_branchReveal[4];
+uniform float u_branchReveal[8];
 uniform float u_feather;
 
 in vec2 v_uv;
@@ -131,7 +131,7 @@ void main() {
   vec4 img = textureGrad(u_image, uv, dudx, dudy);
   vec4 meta = textureGrad(u_meta, uv, dudx, dudy);
 
-  int branch = clamp(int(meta.r * 4.0), 0, 3);
+  int branch = clamp(int(meta.r * 8.0), 0, 7);
 
   // Interleaved gradient noise, shared by the reveal front and the color
   // banding fix (sin-based hashes pattern up on Apple GPUs)
@@ -297,12 +297,12 @@ export interface LiquidEffectParams {
 }
 
 export const HERO_LIQUID_EFFECT: LiquidEffectParams = {
-  repetition: 1.79,
+  repetition: 1.1,
   softness: 1,
   shiftRed: 0.61,
   shiftBlue: 0.33,
   shadowBlue: 0.075,
-  distortion: 0.07,
+  distortion: 0.03,
   contour: 0.97,
   angle: 0,
   flow: 1,
@@ -318,7 +318,7 @@ export interface IntroTiming {
 
 export const HERO_LIQUID_INTRO: IntroTiming = {
   startDelay: 0,
-  stagger: 0.13,
+  stagger: 0.12,
   duration: 2.5,
   feather: 0.2,
 };

@@ -1,4 +1,4 @@
-import { BRANCHES, REGION, STROKE_WIDTH, branchTone, buildBranchPath, flattenBranch } from "./constants";
+import { BRANCHES, MAX_BRANCHES, REGION, STROKE_WIDTH, branchTone, buildBranchPath, flattenBranch } from "./constants";
 
 export interface LiquidMask {
   /** RGBA: R blurred coverage, G sharp coverage, B shading, A 255. */
@@ -52,7 +52,7 @@ function arcLengthField(
   const scale = fieldWidth / REGION.width;
   const offsetX = -REGION.x * scale;
   const offsetY = -REGION.y * scale;
-  const pad = 75.537 * scale + 8;
+  const pad = (STROKE_WIDTH / 2) * scale + 8;
   const minDistSq = new Float32Array(fieldWidth * fieldHeight).fill(Infinity);
   const param = new Uint16Array(fieldWidth * fieldHeight);
 
@@ -185,7 +185,7 @@ export function buildLiquidMask({ width, shadeFloor }: { width: number; shadeFlo
       if (t > 0) field[i] = normalized[i] * t + field[i] * (1 - t);
     }
 
-    const branchId = Math.round((branchIndex + 0.5) * (255 / BRANCHES.length));
+    const branchId = Math.round((branchIndex + 0.5) * (255 / MAX_BRANCHES));
     const shade = Math.round(255 * branchTone(branch.gray, shadeFloor));
 
     for (let i = 0; i < coverage.length; i++) {
