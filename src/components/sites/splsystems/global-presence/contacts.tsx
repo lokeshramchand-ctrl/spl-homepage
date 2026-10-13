@@ -2,8 +2,8 @@ import { InView, Reveal, RevealWords, SectionLabel } from "../reveal";
 import { ArrowUpRightIcon } from "../icons";
 
 const CONTACTS = [
-  { email: "info@splsystems.com", note: "For general questions" },
-  { email: "ir@splsystems.com", note: "For investor relations" },
+  { callus: "+1 (650) 993-9799", note: "" },
+  { email: "pri@splsystems.com", note: "For general inquiries" },
 ];
 
 export function Contacts() {
@@ -25,17 +25,15 @@ export function Contacts() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {CONTACTS.map((item) => (
               <a
-                key={item.email}
-                href={`mailto:${item.email}`}
+                key={item.callus}
+                href={`tel:${item.callus}`}
                 className="group flex items-start justify-between gap-4 border-t border-[#181818]/20 py-3"
               >
                 <span className="flex flex-col gap-1">
                   <span className="text-[2rem] font-medium tracking-[-0.03em] text-[#181818] group-hover:underline">
                     {item.email}
                   </span>
-                  <span className="text-xs font-medium tracking-[-0.03em] text-[#181818]/50">
-                    {item.note}
-                  </span>
+
                 </span>
                 <ArrowUpRightIcon className="mt-2 shrink-0 text-[#181818]" />
               </a>
