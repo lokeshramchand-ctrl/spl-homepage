@@ -9,7 +9,9 @@ import { HERO_LIQUID_EFFECT, type LiquidEffectParams } from "./shaders";
 /** Flat-color fallback ribbons, generated from the same branch geometry the WebGL mask uses. */
 function HeroLines({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
   const grays =
-    tone === "light" ? ["#e8e8e8", "#b4b4b4", "#d6d6d6", "#ffffff"] : ["#202020", "#868383", "#383838", "#000000"];
+    tone === "light"
+      ? ["#a9e3d0", "#b4cbf5", "#f2b8bb", "#a9e3d0", "#b4cbf5"]
+      : ["#179e76", "#2b70e6", "#db4550", "#179e76", "#2b70e6"];
   return (
     <svg
       className={className}

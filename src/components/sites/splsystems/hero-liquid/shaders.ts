@@ -31,6 +31,8 @@ uniform float u_distortion;
 uniform float u_contour;
 uniform float u_angle;
 uniform float u_flow;
+uniform vec2 u_pointer;
+uniform float u_hover;
 
 uniform vec2 u_uvScale;
 uniform vec2 u_uvOffset;
@@ -272,18 +274,33 @@ void main() {
   float stripe_b = fract(direction - dispersionBlue);
   float b = getColorChanges(color1.b, color2.b, stripe_b, w, blur + fw_b, bump);
 
-  // Thin lines read busy with hard stripe bands: collapse to one smooth,
-  // single-tone gradient per line that still travels with the flow phase
-  float sheen = .5 + .5 * cos(2. * PI * direction);
-  sheen = smoothstep(0., 1., sheen);
-  // Deep indigo -> violet -> aqua ramp; shade keeps the pipe depth cues
-  vec3 deep = vec3(.10, .12, .45);
-  vec3 mid = vec3(.42, .24, .85);
-  vec3 glow = vec3(.30, .85, .92);
-  float s = sheen * .85;
-  vec3 ramp = mix(mix(deep, mid, smoothstep(0., .5, s)), glow, smoothstep(.5, 1., s));
-  float depth = mix(.55, 1., clamp((c2 + c1) * .5, 0., 1.));
-  vec3 smoothColor = ramp * depth;
+  // Soft pastel bands: red / blue / green, one hue per line (green, blue, red,
+  // green, blue), each bleeding into the next hue as the flow phase passes.
+  vec3 cRed = vec3(.86, .27, .31);
+  vec3 cBlue = vec3(.17, .44, .90);
+  vec3 cGreen = vec3(.09, .62, .46);
+  vec3 cols[3] = vec3[3](cRed, cBlue, cGreen);
+  int pick = branch == 0 ? 2 : branch == 1 ? 1 : branch == 2 ? 0 : branch == 3 ? 2 : 1;
+  vec3 base = cols[pick];
+  vec3 accent = cols[(pick + 1) % 3];
+
+  float fl = pathParam - .3 * u_time * .5;
+  float wave = .5 + .5 * cos(2. * PI * (fl * 1.2 + float(branch) * .17));
+  wave = smoothstep(0., 1., wave);
+  // Hover: near the pointer, bands lean into the next brand color and brighten
+  vec2 aspect = vec2(u_resolution.x / u_resolution.y, 1.);
+  float hoverD = distance(vec2(v_uv.x, 1.0 - v_uv.y) * aspect, u_pointer * aspect);
+  float h = u_hover * (1. - smoothstep(0., .45, hoverD));
+  vec3 hue = mix(base, accent, clamp(.55 * smoothstep(.55, 1., wave) * (1. - edgeRaw) + .75 * h, 0., 1.));
+
+  // Crisp rim at the band sides, soft glow toward the center, fading out
+  // toward the bottom-left tail
+  float rim = smoothstep(.55, .95, edgeRaw);
+  float glow = pow(1. - edgeRaw, 1.3) * (.25 + .75 * wave);
+  float along = smoothstep(.05, .6, pathParam);
+  float intensity = clamp((.55 * rim + glow) * (.25 + .75 * along), 0., 1.);
+  opacity *= clamp(intensity * (1. + .7 * h), 0., 1.);
+  vec3 smoothColor = hue;
 
   vec3 color = smoothColor * opacity;
 

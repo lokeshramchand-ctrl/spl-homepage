@@ -7,7 +7,7 @@ export interface Branch {
 
 export const VIEWBOX_WIDTH = 1440;
 export const VIEWBOX_HEIGHT = 810;
-export const STROKE_WIDTH = 15;
+export const STROKE_WIDTH = 150;
 export const OVERFLOW_SCALE = 1.25;
 export const CROP_ASPECT = 1;
 
@@ -17,30 +17,20 @@ export const REGION = { x: -90, y: -90, width: 1620, height: 1192.5 };
 /** Shader/renderer slot count for ribbons; BRANCHES.length must not exceed it. */
 export const MAX_BRANCHES = 8;
 
-// Six slim lines flowing as one neat bundle: they share a single wave and
-// fan out gently, each offset from the next so they never cross.
-const LINE_COUNT = 6;
-
-/** Base wave: [x, y, spread] per control point; spread scales the line offset. */
-const WAVE: [number, number, number][] = [
-  [-260, 600, 26],
-  [180, 610, 30],
-  [420, 250, 38],
-  [720, 340, 40],
-  [1040, 430, 46],
-  [1260, 190, 52],
-  [1740, 250, 58],
-];
+// Five wide diagonal bands rising from the bottom-left to the top-right,
+// anchored on the right side of the hero. Spacing is slightly under the stroke
+// width (measured perpendicular to the bands) so neighbours touch with no gap.
+const LINE_COUNT = 5;
+const BAND_SPACING = 185;
 
 export const BRANCHES: Branch[] = Array.from({ length: LINE_COUNT }, (_, i) => {
-  const o = i - (LINE_COUNT - 1) / 2;
-  const p = WAVE.map(([x, y, k]): [number, number] => [x, y + o * k]);
+  const x = 440 + i * BAND_SPACING;
+  const y = 1000;
+  const dx = 900;
+  const dy = -1100;
   return {
-    start: p[0],
-    curves: [
-      [...p[1], ...p[2], ...p[3]],
-      [...p[4], ...p[5], ...p[6]],
-    ],
+    start: [x, y],
+    curves: [[x + dx / 3, y + dy / 3, x + (2 * dx) / 3, y + (2 * dy) / 3, x + dx, y + dy]],
     gray: 0.15 + 0.07 * i,
   };
 });

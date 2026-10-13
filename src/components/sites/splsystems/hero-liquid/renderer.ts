@@ -119,6 +119,8 @@ export function createLiquidRenderer(
   const uResolution = loc("u_resolution");
   const uBranchReveal = loc("u_branchReveal");
   const uFeather = loc("u_feather");
+  const uPointer = loc("u_pointer");
+  const uHover = loc("u_hover");
 
   let effectParams = params;
   const writeEffectParams = () => {
@@ -173,7 +175,30 @@ export function createLiquidRenderer(
   const introStart = 0;
   if (introDone) revealAll();
 
-  const drawFrame = (elapsed: number) => {
+  // Pointer is tracked on window (the canvas itself is pointer-events: none)
+  const pointer = { x: 0.5, y: 0.5, hover: 0, target: 0 };
+  const onPointerMove = (event: PointerEvent) => {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+    const inside = px >= 0 && px <= 1 && py >= 0 && py <= 1;
+    if (inside) {
+      pointer.x = px;
+      pointer.y = py;
+    }
+    pointer.target = inside ? 1 : 0;
+  };
+  const onPointerLeave = () => {
+    pointer.target = 0;
+  };
+  window.addEventListener("pointermove", onPointerMove, { passive: true });
+  document.documentElement.addEventListener("pointerleave", onPointerLeave);
+
+  const drawFrame = (elapsed: number, dt = 0) => {
+    pointer.hover += (pointer.target - pointer.hover) * Math.min(1, dt * 5);
+    gl.uniform2f(uPointer, pointer.x, pointer.y);
+    gl.uniform1f(uHover, pointer.hover);
     gl.uniform1f(uTime, elapsed * effectParams.speed);
     if (!introDone) {
       const e = elapsed - introStart;
@@ -210,7 +235,7 @@ export function createLiquidRenderer(
     const dt = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.1) : 0;
     lastFrameTime = now;
     elapsed += dt;
-    drawFrame(elapsed);
+    drawFrame(elapsed, dt);
     if (!firedActive) {
       firedActive = true;
       onActive();
@@ -266,6 +291,8 @@ export function createLiquidRenderer(
     },
     dispose() {
       disposed = true;
+      window.removeEventListener("pointermove", onPointerMove);
+      document.documentElement.removeEventListener("pointerleave", onPointerLeave);
       setRunning(false);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
