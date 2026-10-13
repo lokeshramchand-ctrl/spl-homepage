@@ -369,3 +369,19 @@ const BASE: Partial<MetallicSwirlParams>[] = [
 ];
 
 export const SWIRL_BACKDROP_KEYFRAMES: MetallicSwirlParams[] = BASE.map((p) => ({ ...METALLIC_SWIRL_DEFAULTS, ...p }));
+
+/**
+ * Keyframes for the second backdrop (Values + AI band). Frame 0 continues
+ * the first backdrop's last frame (same palette and flow, centre moved to
+ * the top edge so the swirl carries across the seam); later frames drift the
+ * centre, spin and beam count so each section gets its own shapes while the
+ * motion stays continuous. Opacity eases down so the footer approach is calm.
+ */
+const TAIL = SWIRL_BACKDROP_KEYFRAMES[SWIRL_BACKDROP_KEYFRAMES.length - 1];
+const TAIL_BASE: Partial<MetallicSwirlParams>[] = [
+  { centerX: 0.5, centerY: 0, speed: 0.1 },
+  { centerX: 0.3, centerY: 0.5, speed: 0.1, radialFlow: 1.5, radialSpin: -0.18, twist: 0.15, vortex: -0.1, beams: 4, radialStretch: 1.6, opacity: 0.6 },
+  { centerX: 0.7, centerY: 0.5, speed: 0.1, radialFlow: 1.7, radialSpin: -0.3, twist: -0.1, vortex: -0.05, beams: 3, radialStretch: 1.3, opacity: 0.45 },
+  { centerX: 0.5, centerY: 0.9, speed: 0.1, radialFlow: 1.9, radialSpin: -0.24, beams: 4, radialStretch: 1.8, opacity: 0.3 },
+];
+export const SWIRL_TAIL_KEYFRAMES: MetallicSwirlParams[] = TAIL_BASE.map((p) => ({ ...TAIL, ...p }));

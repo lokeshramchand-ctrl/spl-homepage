@@ -9,7 +9,7 @@ import { SWIRL_BACKDROP_KEYFRAMES, hexToRgba, type MetallicSwirlParams } from ".
  * sits at the `[data-swirl-band]` wrapper's top, keyframes 1-3 at each
  * anchor's vertical midpoint, keyframe 4 at the wrapper's bottom.
  */
-const ANCHOR_IDS = ["capabilities", "proprietary-investments", "infrastructure"];
+const MAIN_ANCHOR_IDS = ["capabilities", "proprietary-investments", "infrastructure"];
 const SMOOTHING = 3;
 const GEOMETRIC_KEYS = new Set<keyof MetallicSwirlParams>(["zoom", "repetition"]);
 
@@ -119,16 +119,29 @@ function buildKeyframeInterpolator(frames: MetallicSwirlParams[]): (pos: number)
  * params smoothly interpolate across the keyframes above as the wrapper
  * scrolls past the viewport center.
  */
-export function SwirlBackdrop({ className = "" }: { className?: string }) {
+interface SwirlBackdropProps {
+  className?: string;
+  /** Attribute (without brackets) tagging the wrapper this canvas fills. */
+  band?: string;
+  anchorIds?: string[];
+  keyframes?: MetallicSwirlParams[];
+}
+
+export function SwirlBackdrop({
+  className = "",
+  band: bandAttr = "data-swirl-band",
+  anchorIds = MAIN_ANCHOR_IDS,
+  keyframes = SWIRL_BACKDROP_KEYFRAMES,
+}: SwirlBackdropProps) {
   const handleRef = useRef<MetallicSwirlHandle | null>(null);
 
   useEffect(() => {
-    const band = document.querySelector<HTMLElement>("[data-swirl-band]");
-    const anchors = ANCHOR_IDS.map((id) => document.getElementById(id));
+    const band = document.querySelector<HTMLElement>(`[${bandAttr}]`);
+    const anchors = anchorIds.map((id) => document.getElementById(id));
     if (!band || anchors.some((el) => !el)) return;
 
-    const interpolate = buildKeyframeInterpolator(SWIRL_BACKDROP_KEYFRAMES);
-    let positions: number[] = [0, 1, 2, 3, 4];
+    const interpolate = buildKeyframeInterpolator(keyframes);
+    let positions: number[] = keyframes.map((_, i) => i);
     let target = 0;
     let current = 0;
     let lastFrame = 0;
@@ -198,7 +211,7 @@ export function SwirlBackdrop({ className = "" }: { className?: string }) {
       window.removeEventListener("resize", onLayoutChange);
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [bandAttr, anchorIds, keyframes]);
 
-  return <MetallicSwirl ref={handleRef} params={SWIRL_BACKDROP_KEYFRAMES[0]} className={className} />;
+  return <MetallicSwirl ref={handleRef} params={keyframes[0]} className={className} />;
 }

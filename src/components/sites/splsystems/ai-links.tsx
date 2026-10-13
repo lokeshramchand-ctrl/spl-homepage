@@ -28,10 +28,13 @@ export function AiIconRow({
   prompt,
   size = 32,
   className = "",
+  tone = "light",
 }: {
   prompt: string;
   size?: number;
   className?: string;
+  /** "dark" is for black backgrounds (white icons). */
+  tone?: "light" | "dark";
 }) {
   return (
     <ul className={`flex items-center gap-3 ${className}`}>
@@ -42,7 +45,7 @@ export function AiIconRow({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Open in ${name}`}
-            className="block text-[#181818] transition-opacity duration-150 hover:opacity-70"
+            className={`block transition-opacity duration-150 hover:opacity-70 ${tone === "dark" ? "text-white" : "text-[#181818]"}`}
           >
             <Icon width={size} height={size} />
           </a>
