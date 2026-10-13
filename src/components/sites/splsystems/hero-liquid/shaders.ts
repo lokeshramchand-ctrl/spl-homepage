@@ -272,7 +272,20 @@ void main() {
   float stripe_b = fract(direction - dispersionBlue);
   float b = getColorChanges(color1.b, color2.b, stripe_b, w, blur + fw_b, bump);
 
-  vec3 color = vec3(r, g, b) * opacity;
+  // Thin lines read busy with hard stripe bands: collapse to one smooth,
+  // single-tone gradient per line that still travels with the flow phase
+  float sheen = .5 + .5 * cos(2. * PI * direction);
+  sheen = smoothstep(0., 1., sheen);
+  // Deep indigo -> violet -> aqua ramp; shade keeps the pipe depth cues
+  vec3 deep = vec3(.10, .12, .45);
+  vec3 mid = vec3(.42, .24, .85);
+  vec3 glow = vec3(.30, .85, .92);
+  float s = sheen * .85;
+  vec3 ramp = mix(mix(deep, mid, smoothstep(0., .5, s)), glow, smoothstep(.5, 1., s));
+  float depth = mix(.55, 1., clamp((c2 + c1) * .5, 0., 1.));
+  vec3 smoothColor = ramp * depth;
+
+  vec3 color = smoothColor * opacity;
 
   // Dither against banding: interleaved gradient noise — sin-based hashes
   // produce structured patterns on Apple GPUs. Scaled by opacity to keep the
