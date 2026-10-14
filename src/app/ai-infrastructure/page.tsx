@@ -9,8 +9,8 @@ import { SheenText } from "@/components/sites/splsystems/global-presence/sheen-t
 import { InView, Reveal, RevealWords, SectionLabel } from "@/components/sites/splsystems/reveal";
 
 export const metadata: Metadata = {
-  title: "SPL Systems | AI Infrastructure",
-  description: "Institutional access to AI data-centre infrastructure, with SPL Systems' affiliate Storm Group.",
+  title: "SPL Systems | Projects & Expertise",
+  description: "Over 10 years of building high-performance digital infrastructure for ambitious enterprises.",
 };
 
 // Live props of the source hero's <MetallicSwirl>, read from its React fiber.
@@ -32,48 +32,48 @@ const PROJECTS: {
 }[] = [
   {
     n: "01",
-    title: "Powered Land",
-    body: "Sites secured with grid capacity for AI data-centre development across Europe.",
+    title: "SheetSense",
+    body: "Reads and recognizes numbers and characters on paper sheets and barcode IDs.",
     span: "md:col-span-4 md:row-span-2",
   },
   {
     n: "02",
-    title: "Power & Grid",
-    body: "Early engagement with utilities to energise capacity at scale.",
+    title: "ZoningLens",
+    body: "A multimodal search experience for real estate listings.",
     span: "md:col-span-2",
   },
   {
     n: "03",
-    title: "Permit-Ready Capacity",
-    body: "Development taken through to permit-ready, energised sites.",
+    title: "Examination Management",
+    body: "Examination management systems built with a focus on quality and confidentiality.",
     span: "md:col-span-2",
   },
   {
     n: "04",
-    title: "Fund & SPV Structuring",
-    body: "Dedicated vehicles for institutional participation alongside SPL Systems’ principal capital.",
+    title: "Digitization Projects",
+    body: "Complex digitization projects delivered with quality and confidentiality.",
     span: "md:col-span-3",
   },
   {
     n: "05",
-    title: "Operations",
-    body: "Storm Group operates infrastructure through its full lifecycle.",
+    title: "AI-Powered Platforms",
+    body: "Custom software built around each client’s unique workflow. More projects to be shown soon.",
     span: "md:col-span-3",
   },
 ];
 
-const ECOSYSTEM = [
+const EXPERTISE = [
   {
-    title: "Storm Group.\nSourcing, Development & Operations",
-    body: "SPL Systems’ affiliate. Storm Group sources, develops and operates AI data-centre infrastructure across Europe, from site acquisition and power through to energised, permit-ready capacity.",
+    title: "Services.\nCustom Software & Automation",
+    body: "Web applications, enterprise systems, AI-powered platforms, mobile and cross-platform apps, automation tools and workflow systems, scalable, secure and designed for tomorrow.",
   },
   {
-    title: "SPL Systems.\nFund & SPV Structuring for LPs",
-    body: "SPL Systems structures dedicated funds and SPVs through which institutional investors participate alongside its own principal capital.",
+    title: "Industries.\nFinance, Real Estate, Government & Education",
+    body: "Over 10 years at the forefront of digital transformation, building high-performance digital infrastructure for ambitious enterprises.",
   },
 ];
 
-export default function AiInfrastructurePage() {
+export default function ProjectsExpertisePage() {
   return (
     <>
       <Header tone="light" />
@@ -85,33 +85,31 @@ export default function AiInfrastructurePage() {
               <SheenText
                 as="h1"
                 shader
-                text="AI Infrastructure & Storm Group"
+                text="Projects & Expertise"
                 className="max-w-[480px] text-[2.5rem] font-medium leading-[1] tracking-[-0.016em] md:text-[4rem]"
               />
               <Reveal as="p" stagger={1} className="max-w-[389px] text-[1rem] font-medium leading-[1.3] tracking-[-0.03em] text-white/50">
-                Institutional access to AI data-centre infrastructure, with SPL Systems’ affiliate Storm Group.
+                Engineering the Intelligent Future. High-performance digital infrastructure for ambitious enterprises.
               </Reveal>
             </InView>
 
             <div className="mt-24 flex flex-col items-center gap-10 md:mt-[160px] md:gap-12">
               <div className="w-full border-t border-white/30 pt-4 text-center text-xs font-medium tracking-[-0.03em]">
-                Infrastructure
+                Expertise
               </div>
               <InView className="flex flex-col items-center gap-10 text-center">
                 <h2 className="max-w-[20ch] text-[2.25rem] font-medium leading-[1.05] tracking-[-0.02em] md:text-[3rem]">
-                  <RevealWords text="Storm Group finds and develops powered land for AI data centres." />
+                  <RevealWords text="Over 10 years at the forefront of digital transformation." />
                 </h2>
                 <Reveal as="p" stagger={1} className="max-w-[440px] text-[1.5rem] font-medium leading-[1.1] tracking-[-0.03em] md:text-[2rem]">
-                  SPL Systems structures the capital and opens the door for investors to participate alongside them.
+                  Scalable, secure, and designed for tomorrow.
                 </Reveal>
                 <Reveal as="div" stagger={2}>
                   <a
-                    href="https://stormgroup.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="mailto:pri@splsystems.in"
                     className="group inline-flex items-center gap-2 border-b border-white pb-2 text-[0.95rem] font-medium tracking-[-0.03em]"
                   >
-                    Visit stormgroup.com
+                    Get a free consultation
                     <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
                 </Reveal>
@@ -159,22 +157,22 @@ export default function AiInfrastructurePage() {
 
         <section className="px-5 pb-24 md:px-8 md:pb-32">
           <div className="mx-auto max-w-[1800px]">
-            <SectionLabel>Storm Group × SPL Systems</SectionLabel>
+            <SectionLabel>Expertise</SectionLabel>
             <InView className="flex flex-col items-center gap-6 py-16 text-center md:py-24">
               <h2 className="text-[2.5rem] font-medium leading-none tracking-[-0.016em] text-[#181818] md:text-[4rem]">
-                <RevealWords text="One ecosystem" />
+                <RevealWords text="What we do" />
               </h2>
               <Reveal as="p" stagger={1} className="max-w-[440px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">
-                Storm Group builds and operates. SPL Systems structures institutional access.
+                Think, Create, Build, Grow.
               </Reveal>
             </InView>
             <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2">
-              {ECOSYSTEM.map((e) => (
+              {EXPERTISE.map((e) => (
                 <InView key={e.title} className="flex flex-col items-center gap-6 border-t border-[#181818]/15 pt-16 text-center">
                   <h3 className="whitespace-pre-line text-[2rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">{e.title}</h3>
                   <p className="max-w-[712px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">{e.body}</p>
                   <a
-                    href="mailto:info@splsystems.com"
+                    href="mailto:pri@splsystems.in"
                     className="mt-12 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818]"
                   >
                     Contact us for more information
