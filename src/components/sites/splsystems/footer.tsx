@@ -73,6 +73,9 @@ export function Footer() {
           <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.75rem] tracking-[-0.03em] md:gap-4">
             <li>&copy; {new Date().getFullYear()} SPL Systems, Inc.</li>
             <li>All rights reserved.</li>
+            <li>
+              <WipeLink href="/privacy">Privacy Policy</WipeLink>
+            </li>
           </ul>
         </div>
 

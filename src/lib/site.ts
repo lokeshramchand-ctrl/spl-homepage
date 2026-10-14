@@ -26,4 +26,5 @@ export const SITE_PAGES = [
   { path: "/", changeFrequency: "monthly", priority: 1 },
   { path: "/projects", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.7 },
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
 ] as const;
