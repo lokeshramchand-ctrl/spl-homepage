@@ -4,6 +4,7 @@ import { Header } from "@/components/sites/splsystems/header";
 import { ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
 import { MetallicSwirl } from "@/components/sites/splsystems/metallic-swirl/MetallicSwirl";
 import { METALLIC_SWIRL_DEFAULTS, type MetallicSwirlParams } from "@/components/sites/splsystems/metallic-swirl/shaders";
+import { ProjectArt } from "@/components/sites/splsystems/project-art";
 import { SheenText } from "@/components/sites/splsystems/global-presence/sheen-text";
 import { InView, Reveal, RevealWords, SectionLabel } from "@/components/sites/splsystems/reveal";
 
@@ -22,48 +23,42 @@ const HERO_SWIRL: MetallicSwirlParams = {
   spread: 0.02, bandWidth: 0.1, threshold: 0.72, detailFade: 1, backgroundColor: "#000000", fadeTop: 0.17, fadeBottom: 0,
 };
 
-// Each tile reuses the hero swirl with its own framing so the grid reads as one family.
+// Each tile gets its own line-art (see ProjectArt), indexed by position.
 const PROJECTS: {
   n: string;
   title: string;
   body: string;
   span: string;
-  swirl: Partial<MetallicSwirlParams>;
 }[] = [
   {
     n: "01",
     title: "Powered Land",
     body: "Sites secured with grid capacity for AI data-centre development across Europe.",
     span: "md:col-span-4 md:row-span-2",
-    swirl: { centerX: 0.05, centerY: 0.88 },
   },
   {
     n: "02",
     title: "Power & Grid",
     body: "Early engagement with utilities to energise capacity at scale.",
     span: "md:col-span-2",
-    swirl: { centerX: 0.8, centerY: 0.2, twist: -0.3, zoom: 2.1 },
   },
   {
     n: "03",
     title: "Permit-Ready Capacity",
     body: "Development taken through to permit-ready, energised sites.",
     span: "md:col-span-2",
-    swirl: { centerX: 0.3, centerY: 0.5, beams: 3, radialSpin: 0.3 },
   },
   {
     n: "04",
     title: "Fund & SPV Structuring",
     body: "Dedicated vehicles for institutional participation alongside SPL Systems’ principal capital.",
     span: "md:col-span-3",
-    swirl: { centerX: 0.9, centerY: 0.7, twist: 0.8, zoom: 2.9 },
   },
   {
     n: "05",
     title: "Operations",
     body: "Storm Group operates infrastructure through its full lifecycle.",
     span: "md:col-span-3",
-    swirl: { centerX: 0.15, centerY: 0.25, radialFlow: 1.2, vortex: 0.2 },
   },
 ];
 
@@ -139,13 +134,14 @@ export default function AiInfrastructurePage() {
                   <Reveal
                     as="div"
                     stagger={0}
-                    className="relative min-h-[260px] flex-1 overflow-hidden rounded-[4px] bg-black"
+                    className="relative min-h-[260px] flex-1 overflow-hidden rounded-[4px] border border-[#181818]/10 bg-white bg-[linear-gradient(to_right,rgb(24_24_24/0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgb(24_24_24/0.07)_1px,transparent_1px)] bg-[size:48px_48px]"
                   >
-                    <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
-                      <MetallicSwirl params={{ ...HERO_SWIRL, ...p.swirl, speed: 0.1 + (i % 3) * 0.03 }} />
-                    </div>
-                    <span className="absolute left-4 top-4 text-xs font-medium tracking-[-0.03em] text-white">{p.n}</span>
-                    <ArrowUpRightIcon className="absolute right-4 top-4 h-3.5 w-3.5 text-white transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    <ProjectArt
+                      variant={i}
+                      className="absolute inset-0 h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    />
+                    <span className="absolute left-4 top-4 text-xs font-medium tracking-[-0.03em] text-[#181818]">{p.n}</span>
+                    <ArrowUpRightIcon className="absolute right-4 top-4 h-3.5 w-3.5 text-[#181818] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </Reveal>
                   <div className="flex flex-col gap-2">
                     <Reveal as="h3" stagger={1} className="text-[1.5rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">
