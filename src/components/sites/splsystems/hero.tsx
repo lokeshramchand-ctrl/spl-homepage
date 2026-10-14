@@ -1,4 +1,4 @@
-import { SheenText } from "./global-presence/sheen-text";
+import { SheenText } from "./contact/sheen-text";
 import { InView, WipeButton } from "./reveal";
 import { HeroLiquid } from "./hero-liquid/HeroLiquid";
 
@@ -13,7 +13,7 @@ export function Hero() {
           text="Engineering the Intelligent Future."
           className="max-w-[18ch] text-[2.5rem] font-medium leading-[1] tracking-[-0.016em] text-[#181818] md:max-w-[20ch] md:text-[4rem]"
         />
-        <WipeButton href="#capabilities" className="w-fit text-[0.95rem] text-[#181818]">
+        <WipeButton href="/contact" className="w-fit text-[0.95rem] text-[#181818]">
           Reach out to us
         </WipeButton>
       </InView>

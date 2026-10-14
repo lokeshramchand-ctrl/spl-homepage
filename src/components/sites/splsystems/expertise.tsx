@@ -4,36 +4,36 @@ import { InView, Reveal, RevealWords } from "./reveal";
 const VALUES = [
   {
     icon: PawnIcon,
-    title: "Skin in the Game",
+    title: "Built around your workflow",
     description:
-      "Principal capital comes first. Allocators participate in strategies already backed by SPL Systems's own balance sheet.",
+      "Custom web applications, enterprise systems, mobile and cross-platform apps, and automation tools shaped to the way your team actually works.",
   },
   {
     icon: ShieldIcon,
-    title: "Risk-First Doctrine",
+    title: "Secure and confidential",
     description:
-      "Liquidity, position sizing and downside protection are set before return targets. Every strategy runs under one institutional risk framework.",
+      "Quality and confidentiality come first, from examination management to government-scale digitization.",
   },
   {
     icon: GlobeIcon,
-    title: "Global Presence",
+    title: "Scalable by design",
     description:
-      "Headquartered in Zurich, with a presence in Dubai. Institutional relationships in Europe and operations in the Gulf run as one continuous platform.",
+      "AI-powered platforms and workflow systems engineered to grow with your organization and designed for tomorrow.",
   },
 ];
 
-export function Values() {
+export function Expertise() {
   return (
-    <section id="values" className="relative flex min-h-svh flex-col justify-center px-5 py-20 text-white md:px-10 md:py-28">
+    <section id="expertise" className="relative flex min-h-svh flex-col justify-center px-5 py-20 text-white md:px-10 md:py-28">
       <div className="absolute inset-0 z-0 bg-[#181818]" aria-hidden="true" />
       <div className="relative z-20 mx-auto flex w-full max-w-[1800px] flex-col gap-16 md:gap-20">
         <div className="border-t border-[#ffffff33] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-white">
-          Values
+          Expertise
         </div>
 
         <InView>
           <h2 className="max-w-[22ch] text-[2.25rem] font-medium leading-[1.1] tracking-[-0.02em] md:text-[3rem]">
-            <RevealWords text="Built on principal capital. Governed by institutional standards." />
+            <RevealWords text="Custom software and automation, designed for tomorrow." />
           </h2>
         </InView>
 

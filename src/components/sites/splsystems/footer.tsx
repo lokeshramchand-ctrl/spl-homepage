@@ -3,23 +3,24 @@ import { LogoMark } from "./icons";
 import { InView, Reveal, WipeLink } from "./reveal";
 
 const PRIMARY: { label: string; href: string }[] = [
-  { label: "SPL", href: "https://www.splsystems.com/" },
-  { label: "Philosophy", href: "https://www.splsystems.com/philosophy" },
-  { label: "Capabilities", href: "https://www.splsystems.com/capabilities" },
-  { label: "AI Infrastructure", href: "https://www.splsystems.com/ai-infrastructure" },
-  { label: "Access Formats", href: "https://www.splsystems.com/access-formats" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Expertise", href: "/#expertise" },
+  { label: "Process", href: "/#approach" },
+  { label: "Support & Info", href: "/#faq" },
+  { label: "Contact us", href: "/contact" },
 ];
 
 const SECONDARY: { label: string; href: string; external?: boolean }[] = [
+  { label: "Projects & Expertise", href: "/projects" },
+  { label: "pri@splsystems.in", href: "mailto:pri@splsystems.in", external: true },
+  { label: "+1 (650) 993-9799", href: "tel:+16509939799", external: true },
   {
-    label: "Digital Multi-Strategy Fund",
-    href: "https://www.splsystems.com/digital-multi-strategy-fund",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/splsystems/",
+    external: true,
   },
-  { label: "Leadership", href: "https://www.splsystems.com/leadership" },
-  { label: "Risk Management", href: "https://www.splsystems.com/risk-management" },
-  { label: "Insights", href: "https://www.splsystems.com/insights" },
-  { label: "Global presence", href: "/global-presence", external: false },
-  { label: "Contact", href: "/global-presence#contacts", external: false },
 ];
 
 export function Footer() {
@@ -33,7 +34,7 @@ export function Footer() {
                 key={item.label}
                 className="text-[2rem] leading-[1.2] tracking-[-0.03em]"
               >
-                <WipeLink href={item.href} external className="block">
+                <WipeLink href={item.href} className="block">
                   {item.label}
                 </WipeLink>
               </li>
@@ -44,7 +45,11 @@ export function Footer() {
             <ul className="flex flex-col gap-3 text-[1rem] tracking-[-0.03em] md:gap-2">
               {SECONDARY.map((item) => (
                 <li key={item.label}>
-                  <WipeLink href={item.href} external={item.external !== false} className="block">
+                  <WipeLink
+                    href={item.href}
+                    external={item.external && item.href.startsWith("http")}
+                    className="block"
+                  >
                     {item.label}
                   </WipeLink>
                 </li>
@@ -53,47 +58,21 @@ export function Footer() {
 
             <AskAi
               label="Ask your AI about SPL Systems"
-              prompt="Tell me about SPL Systems, based on https://splsystems.com"
+              prompt="Tell me about SPL Systems, based on https://splsystems.in"
             />
           </div>
         </nav>
 
         <div className="flex flex-col gap-16 text-[#1818184d] md:gap-3">
           <p className="max-w-none text-[0.75rem] leading-[1.3] tracking-[-0.03em]">
-            Investment management services are provided by SPL Systems (BVI)
-            Limited, registered in the British Virgin Islands. SPL Systems
-            (BVI) Limited and SPL Investments Limited are not licensed or
-            regulated by the Central Bank of the UAE (CBUAE), the Securities and
-            Commodities Authority (SCA), or the Virtual Assets Regulatory
-            Authority (VARA). SPL Proprietary Capital FZCO, registered in
-            Dubai, is authorised by VARA solely as a Virtual Asset Proprietary
-            Trader. SPL Proprietary Capital FZCO conducts proprietary trading
-            using its own capital only and does not provide investment
-            management, advisory, or other financial services to third parties.
-            This website and its contents are intended for Professional
-            Investors, Accredited Investors, and Institutional Investors only.
-            Nothing on this website constitutes an offer or solicitation to
-            purchase or sell any investment product, nor does it constitute a
-            financial promotion within the United Arab Emirates or any other
-            jurisdiction where such communication would be unlawful. Past
-            performance is not indicative of future results. Investment
-            involves significant risks, including potential loss of principal.
+            SPL Systems builds high-performance digital infrastructure for
+            ambitious enterprises across finance, real estate, government and
+            education. Engineering the Intelligent Future.
           </p>
 
           <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.75rem] tracking-[-0.03em] md:gap-4">
-            <li>&copy; {new Date().getFullYear()} SPL Systems</li>
-            <li>Zurich | Dubai</li>
-            <li>All Rights Reserved</li>
-            <li>
-              <WipeLink href="https://www.splsystems.com/privacy" external>
-                Privacy Policy
-              </WipeLink>
-            </li>
-            <li>
-              <WipeLink href="https://www.splsystems.com/terms" external>
-                Terms of Use
-              </WipeLink>
-            </li>
+            <li>&copy; {new Date().getFullYear()} SPL Systems, Inc.</li>
+            <li>All rights reserved.</li>
           </ul>
         </div>
 

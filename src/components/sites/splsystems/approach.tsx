@@ -1,61 +1,59 @@
-import { ArrowUpRightIcon } from "./icons";
 import { InView, Reveal, RevealWords } from "./reveal";
 
-export function Infrastructure() {
+const STEPS = [
+  {
+    n: "01",
+    title: "Think",
+    description: "We identify opportunities, directions and missions before a line of code is written.",
+  },
+  {
+    n: "02",
+    title: "Create",
+    description: "We design the identities and systems that support your growth.",
+  },
+  {
+    n: "03",
+    title: "Build",
+    description: "We engineer scalable, secure digital products ready for production.",
+  },
+  {
+    n: "04",
+    title: "Grow",
+    description: "We support ongoing evolution and adaptation as your business changes.",
+  },
+];
+
+export function Approach() {
   return (
     <section
-      id="infrastructure"
+      id="approach"
       className="relative flex min-h-svh flex-col justify-center px-5 py-20 text-white md:px-10 md:py-28"
     >
       {/* z-0: the shared SwirlBackdrop canvas (a band-level sibling, see
           page.tsx) paints above this but below the content below, so the
           swirl reads as bright shapes over this section's own dark ground. */}
       <div className="absolute inset-0 z-0 bg-[#181818]" aria-hidden="true" />
-      <div className="relative z-20 mx-auto flex w-full max-w-[1800px] flex-col items-center gap-10 text-center md:gap-12">
-        <div className="w-full border-t border-[#ffffff33] pt-4 text-[0.95rem] tracking-[-0.02em] text-white">
-          Infrastructure
+      <div className="relative z-20 mx-auto flex w-full max-w-[1800px] flex-col gap-16 md:gap-20">
+        <div className="w-full border-t border-[#ffffff33] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-white">
+          Approach
         </div>
 
-        <InView className="flex flex-col items-center gap-10 md:gap-12">
-          <h2 className="max-w-[20ch] text-[2.25rem] font-medium leading-[1.1] tracking-[-0.02em] md:text-[3.25rem]">
-            <RevealWords text="Powering the AI transition: global data infrastructure" />
+        <InView>
+          <h2 className="max-w-[20ch] text-[2.25rem] font-medium leading-[1.1] tracking-[-0.02em] md:text-[3rem]">
+            <RevealWords text="From first idea to a product that keeps growing." />
           </h2>
+        </InView>
 
-          <Reveal
-            as="p"
-            stagger={1}
-            className="max-w-[56ch] text-[1rem] leading-[1.6] tracking-[-0.01em] text-[#ffffff99]"
-          >
-            Storm Group, SPL Systems&rsquo;s affiliate, develops and operates AI
-            data-centre infrastructure in Europe. Through Storm Group, SPL
-            Systems structures institutional access to the physical
-            infrastructure powering AI and compute growth.
-          </Reveal>
-
-          <Reveal
-            as="div"
-            stagger={2}
-            className="flex flex-col items-center gap-4 sm:flex-row sm:gap-8"
-          >
-            <a
-              href="https://www.splsystems.com/ai-infrastructure"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[0.95rem] font-medium tracking-[-0.02em] text-white underline decoration-white/40 underline-offset-4 transition-[translate,text-decoration-color] duration-300 ease-[cubic-bezier(0.3,0,0,1)] hover:decoration-white hover:[translate:0_-1px]"
-            >
-              Explore AI Infrastructure
-            </a>
-            <span className="hidden h-5 w-px bg-white/30 sm:block" />
-            <a
-              href="https://stormgroup.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 text-[0.95rem] font-medium tracking-[-0.02em] text-white underline decoration-white/40 underline-offset-4 transition-[translate,text-decoration-color] duration-300 ease-[cubic-bezier(0.3,0,0,1)] hover:decoration-white hover:[translate:0_-1px]"
-            >
-              Visit stormgroup.com
-              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 ease-[cubic-bezier(0.3,0,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-          </Reveal>
+        <InView className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+          {STEPS.map((step, i) => (
+            <Reveal key={step.title} as="div" stagger={i} className="cc-row cc-row-dark border-t border-[#ffffff4d] pt-4">
+              <span className="text-xs font-medium tracking-[-0.03em] text-[#ffffff99]">{step.n}</span>
+              <h3 className="mt-6 text-[1.75rem] font-medium tracking-[-0.02em] text-white">{step.title}</h3>
+              <p className="mt-3 max-w-[32ch] text-[0.95rem] leading-[1.5] tracking-[-0.01em] text-[#ffffff99]">
+                {step.description}
+              </p>
+            </Reveal>
+          ))}
         </InView>
       </div>
     </section>

@@ -9,9 +9,9 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SPL Systems",
+  title: "SPL Systems | Engineering the Intelligent Future",
   description:
-    "Institutional asset management and proprietary investment across digital markets and AI data-centre infrastructure, headquartered in Zurich with a presence in Dubai.",
+    "SPL Systems builds high-performance digital infrastructure for ambitious enterprises: custom software, AI-powered platforms and automation for finance, real estate, government and education.",
 };
 
 export default function RootLayout({

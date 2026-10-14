@@ -251,7 +251,7 @@ html[data-entry] .cc-header-logo {
 
 /* Page-title metallic sheen: a crop of a shared sheen photo is clipped to each
    word's glyph shapes and difference-blended against the page background,
-   matching the source site's title treatment (see global-presence hero). */
+   matching the source site's title treatment (see contact hero). */
 .cc-sheen {
   position: absolute;
   inset: 0;

@@ -9,7 +9,7 @@ import { SWIRL_BACKDROP_KEYFRAMES, hexToRgba, type MetallicSwirlParams } from ".
  * sits at the `[data-swirl-band]` wrapper's top, keyframes 1-3 at each
  * anchor's vertical midpoint, keyframe 4 at the wrapper's bottom.
  */
-const MAIN_ANCHOR_IDS = ["capabilities", "proprietary-investments", "infrastructure"];
+const MAIN_ANCHOR_IDS = ["about", "projects", "approach"];
 const SMOOTHING = 3;
 const GEOMETRIC_KEYS = new Set<keyof MetallicSwirlParams>(["zoom", "repetition"]);
 

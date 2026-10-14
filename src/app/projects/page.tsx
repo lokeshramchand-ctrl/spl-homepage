@@ -5,11 +5,11 @@ import { ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
 import { MetallicSwirl } from "@/components/sites/splsystems/metallic-swirl/MetallicSwirl";
 import { METALLIC_SWIRL_DEFAULTS, type MetallicSwirlParams } from "@/components/sites/splsystems/metallic-swirl/shaders";
 import { ProjectArt } from "@/components/sites/splsystems/project-art";
-import { SheenText } from "@/components/sites/splsystems/global-presence/sheen-text";
+import { SheenText } from "@/components/sites/splsystems/contact/sheen-text";
 import { InView, Reveal, RevealWords, SectionLabel } from "@/components/sites/splsystems/reveal";
 
 export const metadata: Metadata = {
-  title: "SPL Systems | Projects & Expertise",
+  title: "Projects & Expertise | SPL Systems",
   description: "Over 10 years of building high-performance digital infrastructure for ambitious enterprises.",
 };
 
@@ -88,7 +88,7 @@ export default function ProjectsExpertisePage() {
                 </Reveal>
                 <Reveal as="div" stagger={2}>
                   <a
-                    href="mailto:pri@splsystems.in"
+                    href="/contact"
                     className="group inline-flex items-center gap-2 border-b border-white pb-2 text-[0.95rem] font-medium tracking-[-0.03em]"
                   >
                     Get a free consultation
@@ -121,7 +121,6 @@ export default function ProjectsExpertisePage() {
                       className="absolute inset-0 h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                     <span className="absolute left-4 top-4 text-xs font-medium tracking-[-0.03em] text-[#181818]">{p.n}</span>
-                    <ArrowUpRightIcon className="absolute right-4 top-4 h-3.5 w-3.5 text-[#181818] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </Reveal>
                   <div className="flex flex-col gap-2">
                     <Reveal as="h3" stagger={1} className="text-[1.5rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">
@@ -154,7 +153,7 @@ export default function ProjectsExpertisePage() {
                   <h3 className="whitespace-pre-line text-[2rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">{e.title}</h3>
                   <p className="max-w-[712px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">{e.body}</p>
                   <a
-                    href="mailto:pri@splsystems.in"
+                    href="/contact"
                     className="mt-12 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818]"
                   >
                     Contact us for more information

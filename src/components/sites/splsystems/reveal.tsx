@@ -147,9 +147,9 @@ export function WipeButton({
   className?: string;
 }) {
   return (
-    <a href={href} className={`cc-wipe-button ${className}`}>
+    <Link href={href} className={`cc-wipe-button ${className}`}>
       <span className="cc-wipe-button__content">{children}</span>
       <span className="cc-wipe-button__sweep" aria-hidden="true" />
-    </a>
+    </Link>
   );
 }

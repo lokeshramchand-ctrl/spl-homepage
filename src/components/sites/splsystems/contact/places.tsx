@@ -9,7 +9,7 @@ const LOCATIONS = [
     id: "hyderabad",
     name: "Hyderabad, India",
     description:
-      "SPL Systems's Hyderabad office is the headquarters of the SPL Systems group, coordinating the platform's South Asian presence and institutional relationships.",
+      "The Hyderabad office is the headquarters of the SPL Systems group, coordinating the platform's South Asian presence and institutional relationships.",
     image: "/sites/splsystems/images/global-presence/hyderabad.webp",
   },
   {

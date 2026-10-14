@@ -4,27 +4,28 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRightIcon, LogoMark } from "./icons";
 
-const SITE_ORIGIN = "https://www.splsystems.com";
-
-const PRIMARY_LINKS: { label: string; href: string; external?: boolean }[] = [
-  { label: "SPL", href: "/" },
-  { label: "Philosophy", href: `${SITE_ORIGIN}/philosophy`, external: true },
-  { label: "Capabilities", href: `${SITE_ORIGIN}/capabilities`, external: true },
-  { label: "AI Infrastructure", href: `${SITE_ORIGIN}/ai-infrastructure`, external: true },
-  { label: "Access Formats", href: `${SITE_ORIGIN}/access-formats`, external: true },
+const PRIMARY_LINKS: { label: string; href: string }[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Approach", href: "/#approach" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const SECONDARY_LINKS: { label: string; href: string; external?: boolean }[] = [
-  { label: "Digital Multi-Strategy Fund", href: `${SITE_ORIGIN}/digital-multi-strategy-fund` },
-  { label: "Leadership", href: `${SITE_ORIGIN}/leadership` },
-  { label: "Risk Management", href: `${SITE_ORIGIN}/risk-management` },
-  { label: "Insights", href: `${SITE_ORIGIN}/insights` },
-  { label: "Global presence", href: "/global-presence", external: false },
+  { label: "Expertise", href: "/#expertise" },
+  { label: "Support & Info", href: "/#faq" },
+  { label: "Projects & Expertise", href: "/projects" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/splsystems/",
+    external: true,
+  },
 ];
 
-const CONTACT_LINKS: { email: string; note: string }[] = [
-  { email: "info@splsystems.com", note: "For general questions" },
-  { email: "ir@splsystems.com", note: "For investor relations" },
+const CONTACT_LINKS: { label: string; href: string; note: string }[] = [
+  { label: "pri@splsystems.in", href: "mailto:pri@splsystems.in", note: "For general inquiries" },
+  { label: "+1 (650) 993-9799", href: "tel:+16509939799", note: "Call us, available 24/7" },
 ];
 
 function Rule() {
@@ -39,8 +40,13 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
@@ -77,6 +83,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
         aria-modal="true"
         aria-label="Site menu"
         aria-hidden={!open}
+        inert={!open}
         className={`fixed inset-0 z-20 flex items-start justify-center md:px-4 md:pb-4 ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}
@@ -108,8 +115,6 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
                       <Link
                         href={item.href}
                         onClick={() => setOpen(false)}
-                        target={item.external ? "_blank" : undefined}
-                        rel={item.external ? "noopener noreferrer" : undefined}
                         className="block py-3 text-[32px] font-medium leading-[32px] tracking-[-0.016em] text-[#181818]"
                       >
                         {item.label}
@@ -125,8 +130,8 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
                       <Link
                         href={item.href}
                         onClick={() => setOpen(false)}
-                        target={item.external === false ? undefined : "_blank"}
-                        rel={item.external === false ? undefined : "noopener noreferrer"}
+                        target={item.external ? "_blank" : undefined}
+                        rel={item.external ? "noopener noreferrer" : undefined}
                         className="text-[16px] font-medium leading-[20.8px] tracking-[-0.03em] text-[#181818]"
                       >
                         {item.label}
@@ -138,14 +143,14 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
                 <ul className="flex flex-col">
                   <Rule />
                   {CONTACT_LINKS.map((item) => (
-                    <li key={item.email}>
+                    <li key={item.href}>
                       <a
-                        href={`mailto:${item.email}`}
+                        href={item.href}
                         className="flex items-center justify-between gap-4 py-2 text-[#181818]"
                       >
                         <span className="flex flex-col gap-0.5">
                           <span className="text-[16px] font-medium leading-[20.8px] tracking-[-0.03em]">
-                            {item.email}
+                            {item.label}
                           </span>
                           <span className="text-xs font-medium text-[#181818]/50">
                             {item.note}

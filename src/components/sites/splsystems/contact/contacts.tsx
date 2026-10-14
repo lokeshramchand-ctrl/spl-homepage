@@ -1,24 +1,25 @@
 import { InView, Reveal, RevealWords, SectionLabel } from "../reveal";
 import { ArrowUpRightIcon } from "../icons";
+import { ContactForm } from "./contact-form";
 
 const CONTACTS = [
   {
     label: "+1 (650) 993-9799",
     href: "tel:+16509939799",
-    note: "Call us",
+    note: "Call us, available 24/7",
   },
   {
-    label: "pri@splsystems.com",
-    href: "mailto:pri@splsystems.com",
+    label: "pri@splsystems.in",
+    href: "mailto:pri@splsystems.in",
     note: "For general inquiries",
   },
 ];
 
 export function Contacts() {
   return (
-    <section id="contacts" className="px-5 md:px-10">
+    <section id="contacts" className="px-5 pb-24 md:px-10 md:pb-32">
       <div className="mx-auto max-w-[1800px]">
-        <SectionLabel>Contacts</SectionLabel>
+        <SectionLabel>Get in touch</SectionLabel>
 
         <div className="flex flex-col gap-10 py-16 md:gap-16 md:py-24">
           <InView>
@@ -38,7 +39,7 @@ export function Contacts() {
                 className="group flex items-start justify-between gap-4 border-t border-[#181818]/20 py-3"
               >
                 <span className="flex flex-col gap-1">
-                  <span className="text-[2rem] font-medium tracking-[-0.03em] text-[#181818] group-hover:underline">
+                  <span className="text-[1.75rem] font-medium tracking-[-0.03em] text-[#181818] group-hover:underline md:text-[2rem]">
                     {item.label}
                   </span>
                   <span className="text-sm text-[#181818]/60">{item.note}</span>
@@ -47,6 +48,8 @@ export function Contacts() {
               </a>
             ))}
           </div>
+
+          <ContactForm />
         </div>
       </div>
     </section>
