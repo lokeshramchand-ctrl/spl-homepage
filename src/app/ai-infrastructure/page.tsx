@@ -22,21 +22,48 @@ const HERO_SWIRL: MetallicSwirlParams = {
   spread: 0.02, bandWidth: 0.1, threshold: 0.72, detailFade: 1, backgroundColor: "#000000", fadeTop: 0.17, fadeBottom: 0,
 };
 
-const PRINCIPLES = [
+// Each tile reuses the hero swirl with its own framing so the grid reads as one family.
+const PROJECTS: {
+  n: string;
+  title: string;
+  body: string;
+  span: string;
+  swirl: Partial<MetallicSwirlParams>;
+}[] = [
   {
     n: "01",
-    title: "Aligned Capital",
-    body: "SPL Systems invests alongside its partners. Allocators participate in hard-asset opportunities we back with our own principal capital.",
+    title: "Powered Land",
+    body: "Sites secured with grid capacity for AI data-centre development across Europe.",
+    span: "md:col-span-4 md:row-span-2",
+    swirl: { centerX: 0.05, centerY: 0.88 },
   },
   {
     n: "02",
-    title: "Operational Depth",
-    body: "Storm Group sources, develops and operates AI data-centre infrastructure projects across Europe.",
+    title: "Power & Grid",
+    body: "Early engagement with utilities to energise capacity at scale.",
+    span: "md:col-span-2",
+    swirl: { centerX: 0.8, centerY: 0.2, twist: -0.3, zoom: 2.1 },
   },
   {
     n: "03",
-    title: "Institutional Structuring",
-    body: "SPL Systems creates dedicated investment products, funds, and SPVs for institutional participation.",
+    title: "Permit-Ready Capacity",
+    body: "Development taken through to permit-ready, energised sites.",
+    span: "md:col-span-2",
+    swirl: { centerX: 0.3, centerY: 0.5, beams: 3, radialSpin: 0.3 },
+  },
+  {
+    n: "04",
+    title: "Fund & SPV Structuring",
+    body: "Dedicated vehicles for institutional participation alongside SPL Systems’ principal capital.",
+    span: "md:col-span-3",
+    swirl: { centerX: 0.9, centerY: 0.7, twist: 0.8, zoom: 2.9 },
+  },
+  {
+    n: "05",
+    title: "Operations",
+    body: "Storm Group operates infrastructure through its full lifecycle.",
+    span: "md:col-span-3",
+    swirl: { centerX: 0.15, centerY: 0.25, radialFlow: 1.2, vortex: 0.2 },
   },
 ];
 
@@ -100,22 +127,34 @@ export default function AiInfrastructurePage() {
 
         <section className="px-5 pb-24 md:px-8 md:pb-40">
           <div className="mx-auto max-w-[1800px]">
-            <SectionLabel>Investment Approach</SectionLabel>
+            <SectionLabel>Projects</SectionLabel>
             <InView className="py-16 md:py-32">
               <h2 className="text-center text-[2.5rem] font-medium leading-none tracking-[-0.016em] text-[#181818] md:text-[4rem]">
-                <RevealWords text="Co-investment principles" />
+                <RevealWords text="Our projects" />
               </h2>
             </InView>
-            <div className="mx-auto flex max-w-[640px] flex-col">
-              {PRINCIPLES.map((p) => (
-                <InView key={p.n} className="flex flex-col items-center gap-6 border-t border-[#181818]/15 py-16 text-center md:py-[72px]">
-                  <span className="text-xs font-medium tracking-[-0.03em] text-[#181818]">{p.n}</span>
-                  <Reveal as="h3" stagger={1} className="text-[2rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">
-                    {p.title}
+            <div className="grid grid-cols-1 gap-x-4 gap-y-10 md:grid-cols-6 md:gap-y-12">
+              {PROJECTS.map((p, i) => (
+                <InView key={p.n} className={`group flex min-h-[320px] flex-col gap-4 ${p.span}`}>
+                  <Reveal
+                    as="div"
+                    stagger={0}
+                    className="relative min-h-[260px] flex-1 overflow-hidden rounded-[4px] bg-black"
+                  >
+                    <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+                      <MetallicSwirl params={{ ...HERO_SWIRL, ...p.swirl, speed: 0.1 + (i % 3) * 0.03 }} />
+                    </div>
+                    <span className="absolute left-4 top-4 text-xs font-medium tracking-[-0.03em] text-white">{p.n}</span>
+                    <ArrowUpRightIcon className="absolute right-4 top-4 h-3.5 w-3.5 text-white transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </Reveal>
-                  <Reveal as="p" stagger={2} className="max-w-[440px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">
-                    {p.body}
-                  </Reveal>
+                  <div className="flex flex-col gap-2">
+                    <Reveal as="h3" stagger={1} className="text-[1.5rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">
+                      {p.title}
+                    </Reveal>
+                    <Reveal as="p" stagger={2} className="max-w-[440px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">
+                      {p.body}
+                    </Reveal>
+                  </div>
                 </InView>
               ))}
             </div>
