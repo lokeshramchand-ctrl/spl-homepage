@@ -42,24 +42,6 @@ const PROJECTS: {
     body: "A multimodal search experience for real estate listings.",
     span: "md:col-span-2",
   },
-  {
-    n: "03",
-    title: "Examination Management",
-    body: "Examination management systems built with a focus on quality and confidentiality.",
-    span: "md:col-span-2",
-  },
-  {
-    n: "04",
-    title: "Digitization Projects",
-    body: "Complex digitization projects delivered with quality and confidentiality.",
-    span: "md:col-span-3",
-  },
-  {
-    n: "05",
-    title: "AI-Powered Platforms",
-    body: "Custom software built around each client’s unique workflow. More projects to be shown soon.",
-    span: "md:col-span-3",
-  },
 ];
 
 const EXPERTISE = [
