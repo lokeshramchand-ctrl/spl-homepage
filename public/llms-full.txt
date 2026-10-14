@@ -1,0 +1,46 @@
+# SPL Systems (https://splsystems.in)
+
+Tagline: Engineering the Intelligent Future.
+
+SPL Systems builds high-performance digital infrastructure for ambitious enterprises: custom software, AI-powered platforms and automation for finance, real estate, government and education. The company has more than 10 years at the forefront of digital transformation. Its software is scalable, secure and designed for tomorrow. Motto: Think, Create, Build, Grow.
+
+## Offices
+
+- Hyderabad, India: headquarters of the SPL Systems group; coordinates the South Asian presence and institutional relationships.
+- San Jose, USA: the group's shared-services presence for technology, operations and administration.
+
+## Services
+
+Web applications, enterprise systems, AI-powered platforms, mobile and cross-platform apps, automation tools and workflow systems.
+
+## Industries
+
+Finance, Real Estate, Government and Education. Experience in examination management and large-scale digitization carries across regulated, data-heavy environments.
+
+## Projects
+
+1. SheetSense: reads and recognizes numbers and characters on paper sheets and barcode IDs.
+2. ZoningLens: a multimodal search experience for real estate listings.
+
+## FAQ
+
+Q: What services do you provide?
+A: Custom web applications, enterprise systems, AI-powered platforms, mobile apps, automation tools and workflow systems, all built to be scalable and secure.
+
+Q: What industries do you work with?
+A: Finance, Real Estate, Government and Education.
+
+Q: Do you develop AI-powered solutions?
+A: Yes. Examples are SheetSense (characters and barcodes on paper sheets) and ZoningLens (multimodal real estate search).
+
+Q: Can you build software for our unique workflow?
+A: Yes. Every engagement starts by understanding how your team works, then software is designed and built around that process.
+
+Q: Do you support mobile and cross-platform apps?
+A: Yes. They share one backend with your web and enterprise systems.
+
+## Contact
+
+- Email: pri@splsystems.in
+- Phone: +1 (650) 993-9799
+- Free consultation: https://splsystems.in/contact

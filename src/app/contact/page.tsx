@@ -6,7 +6,8 @@ import { ContactHero } from "@/components/sites/splsystems/contact/hero";
 import { Places } from "@/components/sites/splsystems/contact/places";
 
 export const metadata: Metadata = {
-  title: "Contact | SPL Systems",
+  title: "Contact",
+  alternates: { canonical: "/contact" },
   description: "Reach SPL Systems for a free consultation on your next project or idea. Call +1 (650) 993-9799 or email pri@splsystems.in.",
 };
 

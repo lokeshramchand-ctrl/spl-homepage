@@ -1,0 +1,38 @@
+# SPL Systems
+
+> SPL Systems builds high-performance digital infrastructure for ambitious enterprises: custom software, AI-powered platforms and automation for finance, real estate, government and education. Over 10 years of experience in digital transformation. Offices in Hyderabad, India (headquarters) and San Jose, USA.
+
+## Pages
+
+- [Home](https://splsystems.in/): Company overview, approach, expertise and FAQ.
+- [Projects & Expertise](https://splsystems.in/projects): Selected projects (SheetSense, ZoningLens) and areas of expertise.
+- [Contact](https://splsystems.in/contact): Offices, email, phone and a form to request a free consultation.
+
+## Services
+
+- Custom web applications and enterprise systems
+- AI-powered platforms
+- Mobile and cross-platform apps
+- Automation tools and workflow systems
+
+## Industries
+
+- Finance
+- Real Estate
+- Government
+- Education
+
+## Projects
+
+- SheetSense: reads and recognizes numbers and characters on paper sheets and barcode IDs.
+- ZoningLens: a multimodal search experience for real estate listings.
+
+## Contact
+
+- Email: pri@splsystems.in
+- Phone: +1 (650) 993-9799
+
+## Optional
+
+- [Full content for LLMs](https://splsystems.in/llms-full.txt)
+- [Sitemap](https://splsystems.in/sitemap.xml)

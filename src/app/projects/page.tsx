@@ -9,7 +9,8 @@ import { SheenText } from "@/components/sites/splsystems/contact/sheen-text";
 import { InView, Reveal, RevealWords, SectionLabel } from "@/components/sites/splsystems/reveal";
 
 export const metadata: Metadata = {
-  title: "Projects & Expertise | SPL Systems",
+  title: "Projects & Expertise",
+  alternates: { canonical: "/projects" },
   description: "Over 10 years of building high-performance digital infrastructure for ambitious enterprises.",
 };
 
