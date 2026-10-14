@@ -1,5 +1,5 @@
 import { AskAi } from "./ask-ai";
-import { LogoMark } from "./icons";
+import Image from "next/image";
 import { InView, Reveal, WipeLink } from "./reveal";
 
 const PRIMARY: { label: string; href: string }[] = [
@@ -77,17 +77,15 @@ export function Footer() {
         </div>
 
         <InView className="flex items-end justify-between gap-3 pb-10 pt-16 md:gap-8">
-          <Reveal as="span" stagger={0} className="text-[2rem] leading-none tracking-[-0.016em] md:text-[4rem]">
-            SPL
-          </Reveal>
-          <Reveal as="span" stagger={1}>
-            <LogoMark
-              aria-hidden="true"
-              className="h-[1.5rem] w-auto shrink-0 text-[#181818] md:h-[2.6rem]"
+          <Reveal as="span" stagger={0} className="w-full">
+            <Image
+              src="/sites/splsystems/images/logo/spl-systems.svg"
+              alt="SPL Systems"
+              width={3000}
+              height={350}
+              unoptimized
+              className="h-auto w-full"
             />
-          </Reveal>
-          <Reveal as="span" stagger={2} className="text-[2rem] leading-none tracking-[-0.016em] md:text-[4rem]">
-            Systems
           </Reveal>
         </InView>
       </div>

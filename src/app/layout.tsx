@@ -12,6 +12,17 @@ export const metadata: Metadata = {
   title: "SPL Systems | Engineering the Intelligent Future",
   description:
     "SPL Systems builds high-performance digital infrastructure for ambitious enterprises: custom software, AI-powered platforms and automation for finance, real estate, government and education.",
+  icons: { icon: "/sites/splsystems/images/logo/spl-systems.svg" },
+  openGraph: {
+    title: "SPL Systems | Engineering the Intelligent Future",
+    images: [
+      {
+        url: "/sites/splsystems/images/logo/spl-systems.svg",
+        width: 3000,
+        height: 350,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

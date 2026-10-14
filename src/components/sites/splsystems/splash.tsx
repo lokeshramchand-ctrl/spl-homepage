@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { LogoMark } from "./icons";
+import Image from "next/image";
 
 /**
- * Full-screen intro wordmark that docks down into the header logo, matching
+ * Full-screen intro logo that docks down into the header logo, matching
  * the source homepage's entry sequence (observed via its own CSS custom
  * properties: --wordmark-reveal 0.8s, --dock-duration 800ms,
  * --bg-duration 400ms). RootLayout's beforeInteractive script sets
@@ -58,7 +58,7 @@ export function Splash() {
 
     const from = wordmark.getBoundingClientRect();
     const to = target.getBoundingClientRect();
-    const scale = Math.min(1, to.height / from.height);
+    const scale = Math.min(1, to.width / from.width);
     const dx = to.left + to.width / 2 - (from.left + from.width / 2);
     const dy = to.top + to.height / 2 - (from.top + from.height / 2);
 
@@ -84,47 +84,30 @@ export function Splash() {
     >
       <div
         ref={wordmarkRef}
-        className="flex flex-col items-center gap-3 md:flex-row md:gap-8"
+        className="w-[min(56vw,14rem)]"
         style={{
           transitionProperty: "transform",
           transitionDuration: docking ? `${DOCK_MS}ms` : "0ms",
           transitionTimingFunction: "cubic-bezier(0.5,0,0,1)",
         }}
       >
-        <span
-          className="text-[2.5rem] font-medium leading-[1] tracking-[-0.016em] text-[#181818] md:text-[4rem]"
+        <Image
+          src="/sites/splsystems/images/logo/spl-systems.svg"
+          alt=""
+          width={3000}
+          height={350}
+          unoptimized
+          priority
+          className="h-auto w-full"
           style={{
-            transitionProperty: "opacity, translate",
+            transitionProperty: "opacity, translate, clip-path",
             transitionDuration: `${REVEAL_MS}ms`,
             transitionTimingFunction: "cubic-bezier(0,0,0,1)",
             opacity: live ? 1 : 0,
-            translate: live ? "0 0" : "min(6vw, 3rem) min(2rem, 8vh)",
-          }}
-        >
-          SPL
-        </span>
-        <LogoMark
-          className="h-9 w-14 text-[#181818] md:h-14 md:w-24"
-          style={{
-            transitionProperty: "opacity",
-            transitionDuration: `${REVEAL_MS}ms`,
-            transitionDelay: "120ms",
-            transitionTimingFunction: "cubic-bezier(0,0,0,1)",
-            opacity: live ? 1 : 0,
+            translate: live ? "0 0" : "0 1.5rem",
+            clipPath: live ? "inset(0 0 0 0)" : "inset(0 100% 0 0)",
           }}
         />
-        <span
-          className="text-[2.5rem] font-medium leading-[1] tracking-[-0.016em] text-[#181818] md:text-[4rem]"
-          style={{
-            transitionProperty: "opacity, translate",
-            transitionDuration: `${REVEAL_MS}ms`,
-            transitionTimingFunction: "cubic-bezier(0,0,0,1)",
-            opacity: live ? 1 : 0,
-            translate: live ? "0 0" : "min(-6vw, -3rem) min(-2rem, -8vh)",
-          }}
-        >
-          Systems
-        </span>
       </div>
     </div>
   );

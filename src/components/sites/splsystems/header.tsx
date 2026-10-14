@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRightIcon, LogoMark } from "./icons";
+import Image from "next/image";
+import { ArrowUpRightIcon } from "./icons";
 
 const PRIMARY_LINKS: { label: string; href: string }[] = [
   { label: "Home", href: "/" },
@@ -52,16 +53,21 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
   return (
     <header className="absolute inset-x-0 top-0 z-10">
-      <div className="relative flex items-center justify-between px-4 py-8 md:justify-center md:px-8">
+      <div className="relative flex items-center justify-between px-4 py-6 md:justify-center md:px-8">
         <Link
           href="/"
           data-header-logo
           className={`cc-header-logo flex items-center gap-3 ${ink} md:absolute md:left-8`}
         >
-          <LogoMark className="h-6 w-10" />
-          <span className="text-[16px] font-medium tracking-[-0.03em]">
-            SPL Systems
-          </span>
+          <Image
+            src="/sites/splsystems/images/logo/spl-systems.svg"
+            alt="SPL Systems"
+            width={3000}
+            height={350}
+            unoptimized
+            priority
+            className="h-auto w-[8.5rem] md:w-[10.5rem]"
+          />
         </Link>
         <button
           type="button"
