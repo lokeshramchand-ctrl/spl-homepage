@@ -89,21 +89,30 @@ export function HeroLiquid({
     let renderer: LiquidRenderer | null = null;
 
     const width = Math.max(window.innerWidth, window.innerHeight * 1.25) >= 1024 ? 2048 : 1024;
-    try {
-      const mask = loadLiquidMask(width, shadeFloor);
+
+    // Building the mask (rasterize + distance fields + relaxation) takes long
+    // enough to block the main thread, so let the first paint and the intro
+    // splash go out before starting it.
+    const start = () => {
       if (cancelled) return;
-      renderer = createLiquidRenderer(canvas, mask, {
-        intro,
-        params: params ? { ...HERO_LIQUID_EFFECT, ...params } : undefined,
-        onActive: () => !cancelled && setStatus("active"),
-        onError: () => !cancelled && setStatus("fallback"),
-      });
-    } catch {
-      if (!cancelled) setStatus("fallback");
-    }
+      try {
+        const mask = loadLiquidMask(width, shadeFloor);
+        if (cancelled) return;
+        renderer = createLiquidRenderer(canvas, mask, {
+          intro,
+          params: params ? { ...HERO_LIQUID_EFFECT, ...params } : undefined,
+          onActive: () => !cancelled && setStatus("active"),
+          onError: () => !cancelled && setStatus("fallback"),
+        });
+      } catch {
+        if (!cancelled) setStatus("fallback");
+      }
+    };
+    const timer = window.setTimeout(start, 150);
 
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
       renderer?.dispose();
     };
     // `params`/`mirror`/`fallbackTone` are a fixed per-instance tuning, not reactive

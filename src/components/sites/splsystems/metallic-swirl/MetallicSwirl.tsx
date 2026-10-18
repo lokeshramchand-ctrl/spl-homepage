@@ -20,10 +20,11 @@ export const MetallicSwirl = forwardRef<MetallicSwirlHandle, MetallicSwirlProps>
 ) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rendererRef = useRef<MetallicSwirlRenderer | null>(null);
-  const initialParams = useRef(params);
+  const latestParams = useRef(params);
 
   useImperativeHandle(ref, () => ({
     setParams(next) {
+      latestParams.current = next;
       rendererRef.current?.setParams(next);
     },
   }), []);
@@ -31,24 +32,36 @@ export const MetallicSwirl = forwardRef<MetallicSwirlHandle, MetallicSwirlProps>
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let cancelled = false;
-    let renderer: MetallicSwirlRenderer | null = null;
-    try {
-      renderer = createMetallicSwirlRenderer(canvas, {
-        params: initialParams.current,
-        animated: true,
-        onReady: () => {},
-        onError: () => {},
-      });
-      rendererRef.current = renderer;
-    } catch {
-      // Left blank: no WebGL2 support. The section's own background stands in.
-    }
+
+    const create = () => {
+      try {
+        rendererRef.current = createMetallicSwirlRenderer(canvas, {
+          params: latestParams.current,
+          animated: true,
+          onReady: () => {},
+          onError: () => {},
+        });
+      } catch {
+        // Left blank: no WebGL2 support. The section's own background stands in.
+      }
+    };
+
+    // These canvases sit far below the fold: don't spend a WebGL context and
+    // a shader compile on them until the reader is about to scroll to them.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        observer.disconnect();
+        create();
+      },
+      { rootMargin: "100% 0px" },
+    );
+    observer.observe(canvas);
+
     return () => {
-      cancelled = true;
-      void cancelled;
+      observer.disconnect();
+      rendererRef.current?.dispose();
       rendererRef.current = null;
-      renderer?.dispose();
     };
   }, []);
 

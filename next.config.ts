@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     },
   },
   // Add allowedDevOrigins directly inside the config object
-  allowedDevOrigins: ['192.168.1.7', 'localhost:3000'],
+  allowedDevOrigins: ['192.168.1.11', 'localhost:3000'],
 };
 
 export default nextConfig;
