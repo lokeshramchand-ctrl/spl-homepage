@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Footer } from "@/components/sites/splsystems/footer";
 import { Header } from "@/components/sites/splsystems/header";
 import { ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
@@ -30,18 +31,21 @@ const PROJECTS: {
   title: string;
   body: string;
   span: string;
+  href?: string;
 }[] = [
   {
     n: "01",
     title: "SheetSense",
     body: "Reads and recognizes numbers and characters on paper sheets and barcode IDs.",
     span: "md:col-span-4 md:row-span-2",
+    href: "/projects/sheetsense",
   },
   {
     n: "02",
     title: "ZoningLens",
-    body: "A multimodal search experience for real estate listings.",
+    body: "A lightweight React + GeoJSON mapping interface for San Diego zoning, built on OpenLayers.",
     span: "md:col-span-2",
+    href: "/projects/zoninglens",
   },
 ];
 
@@ -88,13 +92,13 @@ export default function ProjectsExpertisePage() {
                   Scalable, secure, and designed for tomorrow.
                 </Reveal>
                 <Reveal as="div" stagger={2}>
-                  <a
+                  <Link
                     href="/contact"
                     className="group inline-flex items-center gap-2 border-b border-white pb-2 text-[0.95rem] font-medium tracking-[-0.03em]"
                   >
                     Get a free consultation
                     <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
+                  </Link>
                 </Reveal>
               </InView>
             </div>
@@ -111,7 +115,7 @@ export default function ProjectsExpertisePage() {
             </InView>
             <div className="grid grid-cols-1 gap-x-4 gap-y-10 md:grid-cols-6 md:gap-y-12">
               {PROJECTS.map((p, i) => (
-                <InView key={p.n} className={`group flex min-h-[320px] flex-col gap-4 ${p.span}`}>
+                <InView key={p.n} className={`group relative flex min-h-[320px] flex-col gap-4 ${p.span}`}>
                   <Reveal
                     as="div"
                     stagger={0}
@@ -125,7 +129,14 @@ export default function ProjectsExpertisePage() {
                   </Reveal>
                   <div className="flex flex-col gap-2">
                     <Reveal as="h3" stagger={1} className="text-[1.5rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">
-                      {p.title}
+                      {p.href ? (
+                        <Link href={p.href} className="inline-flex items-center gap-2 after:absolute after:inset-0">
+                          {p.title}
+                          <ArrowUpRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </Link>
+                      ) : (
+                        p.title
+                      )}
                     </Reveal>
                     <Reveal as="p" stagger={2} className="max-w-[440px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">
                       {p.body}
@@ -153,13 +164,13 @@ export default function ProjectsExpertisePage() {
                 <InView key={e.title} className="flex flex-col items-center gap-6 border-t border-[#181818]/15 pt-16 text-center">
                   <h3 className="whitespace-pre-line text-[2rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">{e.title}</h3>
                   <p className="max-w-[712px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">{e.body}</p>
-                  <a
+                  <Link
                     href="/contact"
-                    className="mt-12 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818]"
+                    className="group mt-12 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818] transition-colors duration-300 hover:border-[#181818]"
                   >
                     Contact us for more information
-                    <ArrowUpRightIcon className="h-3.5 w-3.5" />
-                  </a>
+                    <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
                 </InView>
               ))}
             </div>
