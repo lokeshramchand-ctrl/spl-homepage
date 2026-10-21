@@ -18,8 +18,10 @@ type Rasterize = (branch: Path2D, width: number, height: number) => Uint8Array;
 const regionHeightFor = (width: number) => Math.round((width * REGION.height) / REGION.width);
 
 /** Creates a cached canvas-2d stroke rasterizer: branch path -> alpha coverage. */
-export function createRasterizer(makeContext: (width: number, height: number) => CanvasRenderingContext2D): Rasterize {
-  const cache = new Map<number, CanvasRenderingContext2D>();
+type Context2D = CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+
+export function createRasterizer(makeContext: (width: number, height: number) => Context2D): Rasterize {
+  const cache = new Map<number, Context2D>();
   return (branch, width, height) => {
     let ctx = cache.get(width);
     if (!ctx) {
@@ -102,13 +104,22 @@ function boxBlur5(src: Uint8Array, width: number, height: number): Uint8Array {
       sum += src[row + Math.min(x + 3, width - 1)] - src[row + Math.max(x - 2, 0)];
     }
   }
+  // Vertical pass walks rows with one running sum per column: the column-major
+  // version strides `width` floats per step and thrashes the cache (it was
+  // half the whole mask build at 2048px).
   const out = new Uint8Array(src.length);
-  for (let x = 0; x < width; x++) {
-    let sum = 0;
-    for (let k = -2; k <= 2; k++) sum += horizontal[Math.min(Math.max(k, 0), height - 1) * width + x];
-    for (let y = 0; y < height; y++) {
-      out[y * width + x] = Math.round(sum / 5);
-      sum += horizontal[Math.min(y + 3, height - 1) * width + x] - horizontal[Math.max(y - 2, 0) * width + x];
+  const sums = new Float64Array(width);
+  for (let k = -2; k <= 2; k++) {
+    const row = Math.min(Math.max(k, 0), height - 1) * width;
+    for (let x = 0; x < width; x++) sums[x] += horizontal[row + x];
+  }
+  for (let y = 0; y < height; y++) {
+    const row = y * width;
+    const add = Math.min(y + 3, height - 1) * width;
+    const sub = Math.max(y - 2, 0) * width;
+    for (let x = 0; x < width; x++) {
+      out[row + x] = Math.round(sums[x] / 5);
+      sums[x] += horizontal[add + x] - horizontal[sub + x];
     }
   }
   return out;

@@ -39,7 +39,7 @@ export const PRIVACY_SECTIONS: PolicySection[] = [
     id: "contact-form",
     title: "How the contact form works",
     paragraphs: [
-      `The Site has no server-side form handling. When you press "Send message", your own email app opens with a draft addressed to ${SITE_EMAIL}. Nothing is transmitted until you send that email, and your message then travels through your email provider and ours like any other email.`,
+      `When you press "Send message", the name, email address and message you entered are sent over an encrypted connection to our server, which emails them to ${SITE_EMAIL}. We do not store them in a database. To keep the form free of spam, your browser first solves a small computational puzzle (a proof-of-work check) that we generate ourselves; it uses no third-party service, cookies or tracking. Our server briefly keeps your IP address in memory to limit repeated submissions, and includes it in the enquiry email so we can investigate abuse.`,
     ],
   },
   {

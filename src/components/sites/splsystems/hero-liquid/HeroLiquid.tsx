@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BRANCHES, STROKE_WIDTH } from "./constants";
 import { buildLiquidMask, createRasterizer, type LiquidMask } from "./mask";
+import type { MaskRequest } from "./mask.worker";
 import { createLiquidRenderer, type LiquidRenderer } from "./renderer";
 import { HERO_LIQUID_EFFECT, type LiquidEffectParams } from "./shaders";
 
@@ -35,21 +36,58 @@ function HeroLines({ className, tone = "dark" }: { className?: string; tone?: "d
   );
 }
 
-const maskCache = new Map<string, LiquidMask>();
+// Promises, so a remount (React dev double-invoke, client-side return to
+// Home) reuses an in-flight build instead of starting another.
+const maskCache = new Map<string, Promise<LiquidMask>>();
 
-function loadLiquidMask(width: number, shadeFloor: number): LiquidMask {
+/** Main-thread build, for browsers without OffscreenCanvas in workers. */
+function buildOnMainThread(width: number, shadeFloor: number): Promise<LiquidMask> {
+  return new Promise((resolve, reject) => {
+    // Let the first paint and the intro splash go out before blocking.
+    window.setTimeout(() => {
+      try {
+        const rasterize = createRasterizer((w, h) => {
+          const canvas = document.createElement("canvas");
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d", { willReadFrequently: true });
+          if (!ctx) throw new Error("2d context unavailable");
+          return ctx;
+        });
+        resolve(buildLiquidMask({ width, shadeFloor }, rasterize));
+      } catch (error) {
+        reject(error);
+      }
+    }, 150);
+  });
+}
+
+function buildInWorker(width: number, shadeFloor: number): Promise<LiquidMask> {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL("./mask.worker.ts", import.meta.url), { type: "module" });
+    worker.onmessage = (event: MessageEvent<LiquidMask>) => {
+      worker.terminate();
+      resolve(event.data);
+    };
+    worker.onerror = (event) => {
+      event.preventDefault();
+      worker.terminate();
+      reject(new Error(event.message || "mask worker failed"));
+    };
+    worker.postMessage({ width, shadeFloor } satisfies MaskRequest);
+  });
+}
+
+function loadLiquidMask(width: number, shadeFloor: number): Promise<LiquidMask> {
   const key = `${width}:${shadeFloor}`;
   const cached = maskCache.get(key);
   if (cached) return cached;
-  const rasterize = createRasterizer((w, h) => {
-    const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    if (!ctx) throw new Error("2d context unavailable");
-    return ctx;
-  });
-  const mask = buildLiquidMask({ width, shadeFloor }, rasterize);
+  const canUseWorker = typeof Worker !== "undefined" && typeof OffscreenCanvas !== "undefined";
+  const mask = canUseWorker
+    ? buildInWorker(width, shadeFloor).catch(() => buildOnMainThread(width, shadeFloor))
+    : buildOnMainThread(width, shadeFloor);
+  // A failed build shouldn't poison later mounts.
+  mask.catch(() => maskCache.delete(key));
   maskCache.set(key, mask);
   return mask;
 }
@@ -91,29 +129,25 @@ export function HeroLiquid({
 
     const width = Math.max(window.innerWidth, window.innerHeight * 1.25) >= 1024 ? 2048 : 1024;
 
-    // Building the mask (rasterize + distance fields + relaxation) takes long
-    // enough to block the main thread, so let the first paint and the intro
-    // splash go out before starting it.
-    const start = () => {
-      if (cancelled) return;
-      try {
-        const mask = loadLiquidMask(width, shadeFloor);
+    loadLiquidMask(width, shadeFloor).then(
+      (mask) => {
         if (cancelled) return;
-        renderer = createLiquidRenderer(canvas, mask, {
-          intro,
-          params: params ? { ...HERO_LIQUID_EFFECT, ...params } : undefined,
-          onActive: () => !cancelled && setStatus("active"),
-          onError: () => !cancelled && setStatus("fallback"),
-        });
-      } catch {
-        if (!cancelled) setStatus("fallback");
-      }
-    };
-    const timer = window.setTimeout(start, 150);
+        try {
+          renderer = createLiquidRenderer(canvas, mask, {
+            intro,
+            params: params ? { ...HERO_LIQUID_EFFECT, ...params } : undefined,
+            onActive: () => !cancelled && setStatus("active"),
+            onError: () => !cancelled && setStatus("fallback"),
+          });
+        } catch {
+          setStatus("fallback");
+        }
+      },
+      () => !cancelled && setStatus("fallback"),
+    );
 
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
       renderer?.dispose();
     };
     // `params`/`mirror`/`fallbackTone` are a fixed per-instance tuning, not reactive

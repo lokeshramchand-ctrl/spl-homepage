@@ -13,6 +13,7 @@ const CONTENT_SECURITY_POLICY = [
   "img-src 'self' blob: data:",
   "font-src 'self'",
   "connect-src 'self'",
+  "worker-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self' mailto:",
