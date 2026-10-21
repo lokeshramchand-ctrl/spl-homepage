@@ -7,7 +7,7 @@ import { InView, Reveal } from "./reveal";
 export function CtaBand() {
   return (
     <section id="cta-band" className="relative flex min-h-[60svh] items-center px-4 py-20 text-white md:px-8 md:py-28">
-      <div className="absolute inset-0 z-0 bg-[#181818]" aria-hidden="true" />
+      <div className="absolute inset-0 z-0 bg-black" aria-hidden="true" />
       <InView className="relative z-20 mx-auto flex w-full max-w-[2000px] flex-col items-center gap-8 text-center">
         <Reveal as="p" stagger={0} className="max-w-[18ch] text-[2.25rem] font-medium leading-[1.1] tracking-[-0.02em] md:text-[3rem]">
           Have a project or an idea in mind?

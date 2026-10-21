@@ -32,7 +32,7 @@ export function Approach() {
       {/* z-0: the shared SwirlBackdrop canvas (a band-level sibling, see
           page.tsx) paints above this but below the content below, so the
           swirl reads as bright shapes over this section's own dark ground. */}
-      <div className="absolute inset-0 z-0 bg-[#181818]" aria-hidden="true" />
+      <div className="absolute inset-0 z-0 bg-black" aria-hidden="true" />
       <div className="relative z-20 mx-auto flex w-full max-w-[1800px] flex-col gap-16 md:gap-20">
         <div className="w-full border-t border-[#ffffff33] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-white">
           Approach
