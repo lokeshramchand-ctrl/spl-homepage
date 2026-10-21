@@ -10,7 +10,8 @@ import { SWIRL_BACKDROP_KEYFRAMES, hexToRgba, type MetallicSwirlParams } from ".
  * anchor's vertical midpoint, keyframe 4 at the wrapper's bottom.
  */
 const MAIN_ANCHOR_IDS = ["about", "projects", "approach"];
-const SMOOTHING = 3;
+// Lower = softer, longer glide between scroll keyframes.
+const SMOOTHING = 2;
 const GEOMETRIC_KEYS = new Set<keyof MetallicSwirlParams>(["zoom", "repetition"]);
 
 function isHexColor(value: unknown): value is string {

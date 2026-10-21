@@ -327,7 +327,7 @@ export function hexToRgba(hex: string): [number, number, number, number] {
  */
 const BASE: Partial<MetallicSwirlParams>[] = [
   {
-    speed: 0, initialTime: 0, zoom: 2.1, iterations: 2, sampleGap: 0.14, tangentForce: 0.83, gradientForce: 0.27,
+    speed: 0.05, initialTime: 0, zoom: 2.1, iterations: 2, sampleGap: 0.14, tangentForce: 0.83, gradientForce: 0.27,
     centerX: 0.17, centerY: 0.95, radialMix: 0, beams: 5, beamWidth: 0.62, radialStretch: 1.46, radialFlow: 2,
     radialSpin: -0.3, twist: -0.19, vortex: -0.55, hole: 0.16, colorMode: "stripes", colorA: "#a8d2ff",
     colorB: "#00000000", colorC: "#dfeaff00", tintColor: "#ffffff00", softness: 0.7, shiftRed: 0.3, shiftBlue: 0.2,
@@ -335,7 +335,7 @@ const BASE: Partial<MetallicSwirlParams>[] = [
     backgroundColor: "#00000000", opacity: 1, fadeTop: 0.5, fadeBottom: 0.5, threshold: 0.69,
   },
   {
-    speed: 0, initialTime: 0, zoom: 2.11, iterations: 2, sampleGap: 0.14, tangentForce: 0.83, gradientForce: 0.27,
+    speed: 0.05, initialTime: 0, zoom: 2.11, iterations: 2, sampleGap: 0.14, tangentForce: 0.83, gradientForce: 0.27,
     centerX: 0.17, centerY: 0.45, radialMix: 0, beams: 5, beamWidth: 1, radialStretch: 0.69, radialFlow: -2.07,
     radialSpin: -0.3, twist: -0.19, vortex: -0.55, hole: 0, colorMode: "stripes", colorA: "#a8d2ff",
     colorB: "#00000000", colorC: "#dfeaff00", tintColor: "#ffffff00", softness: 0.31, shiftRed: 0.3, shiftBlue: 0.2,
@@ -343,7 +343,7 @@ const BASE: Partial<MetallicSwirlParams>[] = [
     backgroundColor: "#00000000", opacity: 1, fadeTop: 0.5, fadeBottom: 0.5,
   },
   {
-    speed: 0, initialTime: 0, zoom: 0.25, iterations: 2, sampleGap: 0.147, tangentForce: 0.83, gradientForce: 0.2,
+    speed: 0.05, initialTime: 0, zoom: 0.25, iterations: 2, sampleGap: 0.147, tangentForce: 0.83, gradientForce: 0.2,
     centerX: 0.5, centerY: 0.59, radialMix: 0.39, beams: 5, beamWidth: 0.84, radialStretch: 1.3, radialFlow: -2.07,
     radialSpin: -0.3, twist: 0.12, vortex: -0.52, hole: 1, colorMode: "stripes", colorA: "#a8d2ff",
     colorB: "#00000000", colorC: "#dfeaff00", tintColor: "#ffffff00", softness: 0.31, shiftRed: 0.3, shiftBlue: 0.2,
@@ -359,7 +359,7 @@ const BASE: Partial<MetallicSwirlParams>[] = [
     backgroundColor: "#00000000", opacity: 1, fadeTop: 0.5, fadeBottom: 0.5, threshold: 0.72,
   },
   {
-    speed: 0, initialTime: 0, zoom: 2, iterations: 3, sampleGap: 0.147, tangentForce: -1.2, gradientForce: 0.5,
+    speed: 0.05, initialTime: 0, zoom: 2, iterations: 3, sampleGap: 0.147, tangentForce: -1.2, gradientForce: 0.5,
     centerX: 0.5, centerY: 1, radialMix: 1, beams: 5, beamWidth: 1, radialStretch: 2, radialFlow: 1.91,
     radialSpin: -0.24, twist: -0, vortex: -0, hole: 1, colorMode: "stripes", colorA: "#ffffffff",
     colorB: "#00000000", colorC: "#dfeaff00", tintColor: "#ffffff00", softness: 0.41, shiftRed: -0.7, shiftBlue: -0.59,
