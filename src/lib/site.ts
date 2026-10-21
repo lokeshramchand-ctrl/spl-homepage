@@ -25,6 +25,8 @@ export const SITE_KEYWORDS = [
 export const SITE_PAGES = [
   { path: "/", changeFrequency: "monthly", priority: 1 },
   { path: "/projects", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/projects/sheetsense", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/projects/zoninglens", changeFrequency: "monthly", priority: 0.6 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.7 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
 ] as const;

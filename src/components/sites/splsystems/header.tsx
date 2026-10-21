@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRightIcon } from "./icons";
@@ -35,10 +35,15 @@ function Rule() {
 
 export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const ink = tone === "light" && !open ? "text-white" : "text-[#181818]";
 
   useEffect(() => {
     if (!open) return;
+    // Move focus into the dialog, and hand it back to the trigger on close.
+    const menuButton = menuButtonRef.current;
+    closeButtonRef.current?.focus({ preventScroll: true });
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
@@ -48,6 +53,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
     return () => {
       document.body.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
+      menuButton?.focus({ preventScroll: true });
     };
   }, [open]);
 
@@ -70,6 +76,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
           />
         </Link>
         <button
+          ref={menuButtonRef}
           type="button"
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
@@ -106,6 +113,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
               }`}
             >
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={() => setOpen(false)}
                 className="w-full py-4 text-center text-[16px] font-medium tracking-[-0.03em] text-[#181818]"

@@ -54,7 +54,7 @@ const SHOWCASE: { n: string; caption: string; alt: string; image: StaticImageDat
 export default function SheetSensePage() {
   return (
     <>
-      <Header tone="light" />
+      <Header />
       <main className="flex-1 bg-white">
         <section className="px-5 pb-16 pt-[117px] md:px-8 md:pb-24">
           <div className="mx-auto max-w-[1800px]">
@@ -85,7 +85,7 @@ export default function SheetSensePage() {
             <InView className="grid grid-cols-1 gap-x-4 gap-y-8 border-t border-[#181818]/30 pt-8 sm:grid-cols-2 md:grid-cols-4">
               {META.map((m, i) => (
                 <Reveal key={m.label} as="div" stagger={i} className="flex flex-col gap-2">
-                  <h4 className="text-xs font-medium uppercase tracking-[-0.03em] text-[#181818]/50">{m.label}</h4>
+                  <h2 className="text-xs font-medium uppercase tracking-[-0.03em] text-[#181818]/50">{m.label}</h2>
                   {m.lines.map((line) => (
                     <p key={line} className="text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]">
                       {line}
@@ -126,7 +126,6 @@ export default function SheetSensePage() {
                       src={s.image}
                       alt={s.alt}
                       fill
-                      unoptimized
                       sizes="(min-width: 1800px) 1736px, 100vw"
                       className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                     />

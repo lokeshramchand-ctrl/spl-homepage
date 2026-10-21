@@ -7,7 +7,7 @@ export interface Branch {
 
 export const VIEWBOX_WIDTH = 1440;
 export const VIEWBOX_HEIGHT = 810;
-export const STROKE_WIDTH = 150;
+export const STROKE_WIDTH = 170;
 export const OVERFLOW_SCALE = 1.25;
 export const CROP_ASPECT = 1;
 
@@ -17,21 +17,24 @@ export const REGION = { x: -90, y: -90, width: 1620, height: 1192.5 };
 /** Shader/renderer slot count for ribbons; BRANCHES.length must not exceed it. */
 export const MAX_BRANCHES = 8;
 
-// Five wide diagonal bands rising from the bottom-left to the top-right,
+// Four wide diagonal bands rising from the bottom-left to the top-right,
 // anchored on the right side of the hero. Spacing is slightly under the stroke
-// width (measured perpendicular to the bands) so neighbours touch with no gap.
-const LINE_COUNT = 5;
-const BAND_SPACING = 185;
+// width (measured perpendicular to the bands: 208 * 1100/1421 ≈ 161 < 170) so
+// neighbours touch with no gap. The group is centred on x = 720 so the last
+// (brand red) band lands fully on screen instead of clipping off the edge.
+const LINE_COUNT = 4;
+const BAND_SPACING = 208;
+const GROUP_CENTER_X = 720;
 
 export const BRANCHES: Branch[] = Array.from({ length: LINE_COUNT }, (_, i) => {
-  const x = 440 + i * BAND_SPACING;
+  const x = GROUP_CENTER_X + (i - (LINE_COUNT - 1) / 2) * BAND_SPACING;
   const y = 1000;
   const dx = 900;
   const dy = -1100;
   return {
     start: [x, y],
     curves: [[x + dx / 3, y + dy / 3, x + (2 * dx) / 3, y + (2 * dy) / 3, x + dx, y + dy]],
-    gray: 0.15 + 0.07 * i,
+    gray: 0.15 + 0.09 * i,
   };
 });
 

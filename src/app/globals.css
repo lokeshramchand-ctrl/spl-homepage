@@ -128,6 +128,15 @@
   html {
     @apply font-sans;
     scroll-behavior: smooth;
+    /* Reserve the scrollbar so locking body scroll (menu open) doesn't
+       shift the layout sideways. */
+    scrollbar-gutter: stable;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
   }
 }
 
@@ -135,6 +144,27 @@
   html {
     scroll-behavior: auto;
   }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* FAQ accordion: animate the panel open/close where ::details-content is
+   supported; elsewhere it still toggles instantly. */
+details {
+  interpolate-size: allow-keywords;
+}
+details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.4s var(--cc-easing-emphasized),
+    content-visibility 0.4s var(--cc-easing-emphasized) allow-discrete;
+}
+details[open]::details-content {
+  block-size: auto;
 }
 
 /* SPL Systems — scroll-reveal and hover-wipe system (matches source site) */

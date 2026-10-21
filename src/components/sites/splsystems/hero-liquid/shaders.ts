@@ -274,15 +274,18 @@ void main() {
   float stripe_b = fract(direction - dispersionBlue);
   float b = getColorChanges(color1.b, color2.b, stripe_b, w, blur + fw_b, bump);
 
-  // Soft pastel bands: red / blue / green, one hue per line (green, blue, red,
-  // green, blue), each bleeding into the next hue as the flow phase passes.
-  vec3 cRed = vec3(.86, .27, .31);
-  vec3 cBlue = vec3(.17, .44, .90);
-  vec3 cGreen = vec3(.09, .62, .46);
-  vec3 cols[3] = vec3[3](cRed, cBlue, cGreen);
-  int pick = branch == 0 ? 2 : branch == 1 ? 1 : branch == 2 ? 0 : branch == 3 ? 2 : 1;
-  vec3 base = cols[pick];
-  vec3 accent = cols[(pick + 1) % 3];
+  // Four bands, one hue each, reading as a cool-to-warm spectrum that lands
+  // on the brand red (blue, green, amber, red). Each band bleeds toward its
+  // right-hand neighbour's hue as the flow phase passes, so the wave reads as
+  // one continuous gradient across the group.
+  const vec3 cols[4] = vec3[4](
+    vec3(.17, .44, .90),
+    vec3(.09, .62, .46),
+    vec3(.95, .64, .18),
+    vec3(.88, .22, .25)
+  );
+  vec3 base = cols[branch % 4];
+  vec3 accent = cols[(branch + 1) % 4];
 
   float fl = pathParam - .3 * u_time * .5;
   float wave = .5 + .5 * cos(2. * PI * (fl * 1.2 + float(branch) * .17));

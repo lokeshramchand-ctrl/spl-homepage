@@ -24,9 +24,19 @@ type Phase = "init" | "live" | "docking" | "done";
 
 export function Splash() {
   const wordmarkRef = useRef<HTMLDivElement | null>(null);
-  const [phase, setPhase] = useState<Phase>("init");
+  // The entry gate only flags a hard load of "/". On a client-side return to
+  // Home (or after the intro already played) the attribute is absent, so skip
+  // the splash instead of replaying it over a page that is already visible.
+  // The server and a gated hard load both render "init", so hydration matches.
+  const [phase, setPhase] = useState<Phase>(() =>
+    typeof document !== "undefined" &&
+    !document.documentElement.hasAttribute("data-entry")
+      ? "done"
+      : "init",
+  );
 
   useEffect(() => {
+    if (!document.documentElement.hasAttribute("data-entry")) return;
     // Reduced-motion users still get the handoff (header logo + hero reveal
     // released together) but collapsed to near-zero so nothing animates;
     // every step stays inside a timeout so this effect never calls setState
