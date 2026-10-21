@@ -274,15 +274,15 @@ void main() {
   float stripe_b = fract(direction - dispersionBlue);
   float b = getColorChanges(color1.b, color2.b, stripe_b, w, blur + fw_b, bump);
 
-  // Four bands, one hue each, reading as a cool-to-warm spectrum that lands
-  // on the brand red (blue, green, amber, red). Each band bleeds toward its
-  // right-hand neighbour's hue as the flow phase passes, so the wave reads as
-  // one continuous gradient across the group.
+  // Four bands in the logo's four colours, in logo order: S red #ed272e,
+  // P blue #0870b9, L green #3eb850, SYSTEMS periwinkle #8499e2. Each band
+  // bleeds toward its right-hand neighbour's hue as the flow phase passes,
+  // so the wave reads as one continuous gradient across the group.
   const vec3 cols[4] = vec3[4](
-    vec3(.17, .44, .90),
-    vec3(.09, .62, .46),
-    vec3(.95, .64, .18),
-    vec3(.88, .22, .25)
+    vec3(.929, .153, .180),
+    vec3(.031, .439, .725),
+    vec3(.243, .722, .314),
+    vec3(.518, .600, .886)
   );
   vec3 base = cols[branch % 4];
   vec3 accent = cols[(branch + 1) % 4];
