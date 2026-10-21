@@ -339,7 +339,7 @@ export const HERO_LIQUID_EFFECT: LiquidEffectParams = {
   contour: 0.97,
   angle: 0,
   flow: 1,
-  speed: 0.48,
+  speed: 0.36,
 };
 
 export interface IntroTiming {
