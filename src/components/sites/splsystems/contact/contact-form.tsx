@@ -115,6 +115,11 @@ export function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
+      onInput={(e) => {
+        // Clear a field's error as soon as the visitor edits it.
+        const name = (e.target as HTMLInputElement).name as keyof FieldErrors;
+        if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
+      }}
       noValidate
       className="relative mx-auto flex w-full max-w-[720px] flex-col gap-6 border-t border-[#181818]/20 pt-10"
     >

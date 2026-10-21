@@ -1,4 +1,4 @@
-import { CROP_ASPECT, MAX_BRANCHES, OVERFLOW_SCALE, REGION, VIEWBOX_HEIGHT, VIEWBOX_WIDTH, BRANCHES } from "./constants";
+import { CROP_ANCHOR_X, CROP_ASPECT, MAX_BRANCHES, OVERFLOW_SCALE, REGION, VIEWBOX_HEIGHT, VIEWBOX_WIDTH, BRANCHES } from "./constants";
 import type { LiquidMask } from "./mask";
 import { FRAGMENT_SHADER, HERO_LIQUID_EFFECT, HERO_LIQUID_INTRO, VERTEX_SHADER, type IntroTiming, type LiquidEffectParams } from "./shaders";
 
@@ -168,7 +168,7 @@ export function createLiquidRenderer(
     gl.uniform2f(uResolution, width, height);
     const crop = Math.min(1, clientWidth / clientHeight / CROP_ASPECT);
     gl.uniform2f(uUvScale, scaleX * crop, scaleY);
-    gl.uniform2f(uUvOffset, offsetX + (scaleX * (1 - crop)) / 2, offsetY);
+    gl.uniform2f(uUvOffset, offsetX + scaleX * (1 - crop) * CROP_ANCHOR_X, offsetY);
   };
 
   let introDone = !intro;

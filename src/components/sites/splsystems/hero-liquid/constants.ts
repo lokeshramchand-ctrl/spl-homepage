@@ -10,6 +10,12 @@ export const VIEWBOX_HEIGHT = 810;
 export const STROKE_WIDTH = 170;
 export const OVERFLOW_SCALE = 1.25;
 export const CROP_ASPECT = 1;
+/**
+ * Where a portrait crop sits horizontally (0 = left edge, 0.5 = centred,
+ * 1 = right edge). The bands rise to the right, so a centred crop on phones
+ * loses most of the right-hand bands; biasing right keeps all four in view.
+ */
+export const CROP_ANCHOR_X = 0.7;
 
 /** Padded region (in viewBox units) the mask texture covers. */
 export const REGION = { x: -90, y: -90, width: 1620, height: 1192.5 };
