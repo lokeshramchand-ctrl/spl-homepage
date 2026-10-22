@@ -164,16 +164,16 @@ export default function ProjectsExpertisePage() {
                 <InView key={e.title} className="flex flex-col items-center gap-6 border-t border-[#181818]/15 pt-16 text-center">
                   <h3 className="whitespace-pre-line text-[2rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#181818]">{e.title}</h3>
                   <p className="max-w-[712px] text-base font-medium leading-[1.3] tracking-[-0.03em] text-[#181818]/50">{e.body}</p>
-                  <Link
-                    href="/contact"
-                    className="group mt-12 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818] transition-colors duration-300 hover:border-[#181818]"
-                  >
-                    Contact us for more information
-                    <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
                 </InView>
               ))}
             </div>
+            <Link
+              href="/contact"
+              className="group mt-16 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818] transition-colors duration-300 hover:border-[#181818]"
+            >
+              Contact us for more information
+              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
           </div>
         </section>
       </main>
