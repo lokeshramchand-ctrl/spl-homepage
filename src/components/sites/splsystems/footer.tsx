@@ -5,7 +5,7 @@ import { InView, Reveal, WipeLink } from "./reveal";
 const PRIMARY: { label: string; href: string }[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/#about" },
-  { label: "Projects", href: "/#projects" },
+  { label: "Projects", href: "/projects" },
   { label: "Expertise", href: "/#expertise" },
   { label: "Process", href: "/#approach" },
   { label: "Support & Info", href: "/#faq" },
