@@ -2,24 +2,32 @@ import { InView, Reveal, RevealWords } from "./reveal";
 
 const FAQS = [
   {
-    q: "What services do you provide?",
-    a: "Custom web applications, enterprise systems, AI-powered platforms, mobile apps, automation tools and workflow systems, all built to be scalable and secure.",
+    q: "What services do you offer?",
+    a: "Custom web and enterprise applications, AI-powered platforms, mobile apps, and automation or workflow tooling, each engineered to stay secure and scale as your business grows.",
   },
   {
-    q: "What industries do you work with?",
-    a: "Finance, Real Estate, Government and Education. Our experience in examination management and large-scale digitization carries across regulated, data-heavy environments.",
+    q: "Which industries do you work with?",
+    a: "Finance, real estate, government and education. Our experience with examination management and large-scale digitization translates well to any regulated, data-heavy environment.",
   },
   {
-    q: "Do you develop AI-powered solutions?",
-    a: "Yes. We build AI-powered platforms such as SheetSense, which recognizes characters and barcodes on paper sheets, and ZoningLens, a multimodal search experience for real estate.",
+    q: "Do you build AI-powered solutions?",
+    a: "Yes. Recent platforms include SheetSense, which reads characters and barcodes from paper sheets, and ZoningLens, a multimodal search experience for real estate.",
   },
   {
-    q: "Can you build software for our unique workflow?",
-    a: "Yes. Every engagement starts by understanding how your team works, then we design and build software around that process instead of forcing you into a template.",
+    q: "Can you build around our existing workflow?",
+    a: "Yes. Every engagement starts with understanding how your team actually works, so the software fits that process instead of forcing you into a template.",
   },
   {
-    q: "Do you support mobile and cross-platform apps?",
-    a: "Yes. We build mobile and cross-platform applications that share one backend with your web and enterprise systems.",
+    q: "Do you build mobile and cross-platform apps?",
+    a: "Yes. Our mobile and cross-platform apps share a single backend with your web and enterprise systems, so data stays consistent everywhere.",
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "It depends on scope, from a few weeks for a focused tool to several months for a full platform. We size up the timeline with you during an initial scoping conversation, before any commitment.",
+  },
+  {
+    q: "Do you support the product after launch?",
+    a: "Yes. We stay engaged after launch, handling fixes, monitoring and new features as your needs evolve, so you have a long-term technical partner rather than a one-off vendor.",
   },
 ];
 
