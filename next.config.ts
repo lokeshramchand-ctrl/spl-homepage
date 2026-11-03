@@ -44,7 +44,7 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
-  allowedDevOrigins: ["192.168.1.11", "localhost"],
+  allowedDevOrigins: ["192.168.1.16", "localhost"],
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 85],
