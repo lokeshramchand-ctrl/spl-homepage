@@ -2,32 +2,20 @@ import { InView, Reveal, RevealWords } from "./reveal";
 
 const FAQS = [
   {
-    q: "What services do you offer?",
-    a: "Custom web and enterprise applications, AI-powered platforms, mobile apps, and automation or workflow tooling, each engineered to stay secure and scale as your business grows.",
+    q: "What services and technologies do you specialize in?",
+    a: "We build custom web and enterprise applications, mobile apps, and AI-powered platforms. Because our cross-platform apps share a unified backend, your data stays secure and consistent everywhere. Our recent AI work includes SheetSense (character/barcode recognition) and ZoningLens (multimodal real estate search).",
   },
   {
-    q: "Which industries do you work with?",
-    a: "Finance, real estate, government and education. Our experience with examination management and large-scale digitization translates well to any regulated, data-heavy environment.",
+    q: "Which industries do you typically work with?",
+    a: "We primarily partner with finance, real estate, government, and education sectors. Our experience with examination management and large-scale digitization translates perfectly to any regulated, data-heavy environment.",
   },
   {
-    q: "Do you build AI-powered solutions?",
-    a: "Yes. Recent platforms include SheetSense, which reads characters and barcodes from paper sheets, and ZoningLens, a multimodal search experience for real estate.",
-  },
-  {
-    q: "Can you build around our existing workflow?",
-    a: "Yes. Every engagement starts with understanding how your team actually works, so the software fits that process instead of forcing you into a template.",
-  },
-  {
-    q: "Do you build mobile and cross-platform apps?",
-    a: "Yes. Our mobile and cross-platform apps share a single backend with your web and enterprise systems, so data stays consistent everywhere.",
-  },
-  {
-    q: "How long does a typical project take?",
-    a: "It depends on scope, from a few weeks for a focused tool to several months for a full platform. We size up the timeline with you during an initial scoping conversation, before any commitment.",
+    q: "How do you handle timelines and existing workflows?",
+    a: "Every engagement starts by understanding how your team actually works, ensuring the software fits your process rather than forcing a template. Projects take anywhere from a few weeks for a focused tool to several months for a full platform, which we size up together before any commitment.",
   },
   {
     q: "Do you support the product after launch?",
-    a: "Yes. We stay engaged after launch, handling fixes, monitoring and new features as your needs evolve, so you have a long-term technical partner rather than a one-off vendor.",
+    a: "Yes. We stay engaged post-launch to handle fixes, monitor performance, and build new features as your needs evolve. We act as a long-term technical partner rather than a one-off vendor.",
   },
 ];
 
