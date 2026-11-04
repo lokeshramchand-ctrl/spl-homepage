@@ -18,6 +18,8 @@ export const metadata: Metadata = {
 
 const LIVE_URL = "https://real-estate-tool.deploy.priyatham.in/";
 
+const WHITE_PAPER_URL = "/main.pdf";
+
 const META: { label: string; lines: string[] }[] = [
   { label: "Role", lines: ["Frontend & Mapping Interface Engineering"] },
   { label: "Frontend stack", lines: ["React (TypeScript)", "Vite + OpenLayers"] },
@@ -85,7 +87,7 @@ export default function ZoningLensPage() {
             </InView>
 
             <InView className="pt-12">
-              <Reveal as="div" stagger={0}>
+              <Reveal as="div" stagger={0} className="flex flex-wrap items-center gap-x-8 gap-y-4">
                 <a
                   href={LIVE_URL}
                   target="_blank"
@@ -93,6 +95,15 @@ export default function ZoningLensPage() {
                   className="group inline-flex items-center gap-2 border-b border-[#181818] pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
                 >
                   Main site
+                  <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+                <a
+                  href={WHITE_PAPER_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 border-b border-[#181818] pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
+                >
+                  White paper
                   <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </Reveal>
