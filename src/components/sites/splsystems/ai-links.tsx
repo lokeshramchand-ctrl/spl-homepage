@@ -45,7 +45,8 @@ export function AiIconRow({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Open in ${name}`}
-            className={`block transition-opacity duration-150 hover:opacity-70 ${tone === "dark" ? "text-white" : "text-[#181818]"}`}
+            data-tip={name}
+            className={`cc-lift block ${tone === "dark" ? "cc-lift-dark text-white" : "text-[#181818]"}`}
           >
             <Icon width={size} height={size} />
           </a>

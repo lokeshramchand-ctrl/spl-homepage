@@ -77,7 +77,7 @@ export function SectionLabel({
 }) {
   return (
     <div
-      className={`flex min-h-10 w-full items-center justify-center border-b border-[#181818]/30 px-4 py-3 ${className}`}
+      className={`cc-rule cc-rule-b flex min-h-10 w-full items-center justify-center border-b border-[#181818]/30 px-4 py-3 [--cc-rule:rgb(24_24_24/0.3)] ${className}`}
     >
       <span className="text-xs font-medium tracking-[-0.03em] text-[#181818]">
         {children}

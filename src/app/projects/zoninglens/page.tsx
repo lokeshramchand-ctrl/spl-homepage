@@ -6,7 +6,8 @@ import lightMode from "@/assets/AI-RealEstate/lightmode.png";
 import { CtaBand } from "@/components/sites/splsystems/cta-band";
 import { Footer } from "@/components/sites/splsystems/footer";
 import { Header } from "@/components/sites/splsystems/header";
-import { ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
+import { ArrowSwap, ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
+import { LazyVideo } from "@/components/sites/splsystems/lazy-video";
 import { InView, Reveal, RevealWords, SectionLabel } from "@/components/sites/splsystems/reveal";
 
 export const metadata: Metadata = {
@@ -27,17 +28,19 @@ const META: { label: string; lines: string[] }[] = [
   { label: "Deployment", lines: ["Docker + Compose", "Jenkins CI/CD"] },
 ];
 
-// Animated GIFs live in public/ and are served as-is: importing ~37 MB of GIFs
-// would make Turbopack hash and copy them on every cold compile, and the image
-// optimizer passes animated files through untouched anyway.
-const GIF_DIR = "/sites/splsystems/images/projects/zoninglens";
+// Screen recordings were ~37 MB of animated GIFs; they now ship as H.264
+// MP4s (~1.6 MB total, visually lossless) with first-frame WebP posters, and
+// LazyVideo only fetches each clip once it scrolls into view.
+const MEDIA_DIR = "/sites/splsystems/images/projects/zoninglens";
 
-const SHOWCASE: { n: string; caption: string; image: StaticImageData | string }[] = [
-  { n: "01", caption: "Load and visualize GeoJSON datasets directly in the browser using OpenLayers.", image: `${GIF_DIR}/first-animation.gif` },
-  { n: "02", caption: "Main workspace with zoning layers, base tiles, and clean controls.", image: `${GIF_DIR}/mainpage.gif` },
-  { n: "03", caption: "Switch between vector layers and custom overlays from the left sidebar.", image: `${GIF_DIR}/leftsidebar.gif` },
-  { n: "04", caption: "Search, marker interaction, and parcel details in the right sidebar.", image: `${GIF_DIR}/rightsidebar.gif` },
-  { n: "05", caption: "Prompting chat interface with the zones pretrained.", image: `${GIF_DIR}/spatial-chat.gif` },
+type ShowcaseItem = { n: string; caption: string } & ({ video: string } | { image: StaticImageData });
+
+const SHOWCASE: ShowcaseItem[] = [
+  { n: "01", caption: "Load and visualize GeoJSON datasets directly in the browser using OpenLayers.", video: "first-animation" },
+  { n: "02", caption: "Main workspace with zoning layers, base tiles, and clean controls.", video: "mainpage" },
+  { n: "03", caption: "Switch between vector layers and custom overlays from the left sidebar.", video: "leftsidebar" },
+  { n: "04", caption: "Search, marker interaction, and parcel details in the right sidebar.", video: "rightsidebar" },
+  { n: "05", caption: "Prompting chat interface with the zones pretrained.", video: "spatial-chat" },
   { n: "06", caption: "Light mode.", image: lightMode },
   { n: "07", caption: "Dark mode.", image: darkMode },
 ];
@@ -54,7 +57,7 @@ export default function ZoningLensPage() {
                 href="/projects"
                 className="group inline-flex w-fit items-center gap-2 text-xs font-medium tracking-[-0.03em] text-[#181818]/50 transition-colors hover:text-[#181818]"
               >
-                <ArrowUpRightIcon className="h-3 w-3 -rotate-[135deg]" />
+                <ArrowUpRightIcon className="h-3 w-3 -rotate-[135deg] transition-[translate] duration-300 ease-[cubic-bezier(0.3,0,0,1)] group-hover:-translate-x-1" />
                 Projects
               </Link>
               <h1 className="text-[2.5rem] font-medium leading-none tracking-[-0.016em] text-[#181818] md:text-[4rem]">
@@ -92,19 +95,19 @@ export default function ZoningLensPage() {
                   href={LIVE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 border-b border-[#181818] pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
+                  className="group cc-underline inline-flex items-center gap-2 border-b border-[#181818]/30 pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
                 >
                   Main site
-                  <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowSwap />
                 </a>
                 <a
                   href={WHITE_PAPER_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 border-b border-[#181818] pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
+                  className="group cc-underline inline-flex items-center gap-2 border-b border-[#181818]/30 pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
                 >
                   White paper
-                  <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowSwap />
                 </a>
               </Reveal>
             </InView>
@@ -122,14 +125,23 @@ export default function ZoningLensPage() {
                     stagger={0}
                     className="relative aspect-[16/9] overflow-hidden rounded-[4px] border border-[#181818]/10 bg-white bg-[linear-gradient(to_right,rgb(24_24_24/0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgb(24_24_24/0.07)_1px,transparent_1px)] bg-[size:48px_48px]"
                   >
-                    <Image
-                      src={s.image}
-                      alt={s.caption}
-                      fill
-                      unoptimized={typeof s.image === "string"}
-                      sizes="(min-width: 1800px) 1736px, 100vw"
-                      className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                    />
+                    {"video" in s ? (
+                      <LazyVideo
+                        src={`${MEDIA_DIR}/${s.video}.mp4`}
+                        poster={`${MEDIA_DIR}/${s.video}.poster.webp`}
+                        label={s.caption}
+                        className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <Image
+                        src={s.image}
+                        alt={s.caption}
+                        fill
+                        placeholder="blur"
+                        sizes="(min-width: 1800px) 1736px, 100vw"
+                        className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      />
+                    )}
                     <span className="absolute left-4 top-4 text-xs font-medium tracking-[-0.03em] text-[#181818]">{s.n}</span>
                   </Reveal>
                   <Reveal as="p" stagger={1} className="max-w-[640px] text-xs font-medium uppercase tracking-[-0.03em] text-[#181818]">

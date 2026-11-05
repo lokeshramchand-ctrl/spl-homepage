@@ -4,10 +4,12 @@ import { useCallback, useRef, useState, type FormEvent } from "react";
 import type { CaptchaSolution } from "@/lib/contact/captcha-types";
 import { LIMITS, validateContact, type FieldErrors } from "@/lib/contact/validate";
 import { SITE_EMAIL } from "@/lib/site";
+import { ArrowSwap } from "../icons";
 import { Captcha, type CaptchaHandle } from "./captcha";
 
+// The focus state is the ink line `.cc-field` draws along this underline.
 const FIELD =
-  "w-full border-b bg-transparent py-3 text-[1rem] tracking-[-0.03em] text-[#181818] outline-none transition-colors placeholder:text-[#181818]/40 focus:border-[#181818] aria-[invalid=true]:border-[#db4550]";
+  "block w-full border-b bg-transparent py-3 text-[1rem] tracking-[-0.03em] text-[#181818] outline-none placeholder:text-[#181818]/40 aria-[invalid=true]:border-[#db4550]";
 const LABEL = "flex flex-col gap-1 text-xs font-medium text-[#181818]/60";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -89,8 +91,8 @@ export function ContactForm() {
         role="status"
         className="mx-auto flex w-full max-w-[720px] flex-col gap-4 border-t border-[#181818]/20 pt-10"
       >
-        <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-[#179e76] text-white">
-          <svg viewBox="0 0 12 12" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <span aria-hidden="true" className="cc-pop flex h-10 w-10 items-center justify-center rounded-full bg-[#179e76] text-white">
+          <svg viewBox="0 0 12 12" className="cc-draw h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
             <path d="M2 6.5 4.8 9 10 3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
@@ -101,7 +103,7 @@ export function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="w-fit border-b border-[#181818] pb-1 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
+          className="cc-press cc-underline w-fit border-b border-[#181818]/30 pb-1 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
         >
           Send another message
         </button>
@@ -126,52 +128,58 @@ export function ContactForm() {
       <h3 className="text-[1.5rem] font-medium tracking-[-0.03em] text-[#181818]">Send us a message</h3>
       <label className={LABEL}>
         Name
-        <input
-          name="name"
-          type="text"
-          required
-          maxLength={LIMITS.name}
-          autoComplete="name"
-          placeholder="Your name"
-          aria-invalid={invalid("name")}
-          aria-describedby={errors.name ? "name-error" : undefined}
-          className={`${FIELD} ${border("name")}`}
-        />
+        <span className="cc-field">
+          <input
+            name="name"
+            type="text"
+            required
+            maxLength={LIMITS.name}
+            autoComplete="name"
+            placeholder="Your name"
+            aria-invalid={invalid("name")}
+            aria-describedby={errors.name ? "name-error" : undefined}
+            className={`${FIELD} ${border("name")}`}
+          />
+        </span>
         <FieldError id="name-error" message={errors.name} />
       </label>
       <label className={LABEL}>
         Contact email
-        <input
-          name="email"
-          type="email"
-          required
-          maxLength={LIMITS.email}
-          autoComplete="email"
-          placeholder="you@company.com"
-          aria-invalid={invalid("email")}
-          aria-describedby={errors.email ? "email-error" : undefined}
-          className={`${FIELD} ${border("email")}`}
-        />
+        <span className="cc-field">
+          <input
+            name="email"
+            type="email"
+            required
+            maxLength={LIMITS.email}
+            autoComplete="email"
+            placeholder="you@company.com"
+            aria-invalid={invalid("email")}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            className={`${FIELD} ${border("email")}`}
+          />
+        </span>
         <FieldError id="email-error" message={errors.email} />
       </label>
       <label className={LABEL}>
         <span className="flex justify-between">
           Message
-          <span className={messageLength > LIMITS.messageMax ? "text-[#db4550]" : "text-[#181818]/40"}>
+          <span className={`transition-colors duration-300 ${messageLength > LIMITS.messageMax ? "text-[#db4550]" : "text-[#181818]/40"}`}>
             {messageLength}/{LIMITS.messageMax}
           </span>
         </span>
-        <textarea
-          name="message"
-          required
-          rows={5}
-          maxLength={LIMITS.messageMax}
-          placeholder="Tell us about your project"
-          onChange={(e) => setMessageLength(e.target.value.length)}
-          aria-invalid={invalid("message")}
-          aria-describedby={errors.message ? "message-error" : undefined}
-          className={`${FIELD} ${border("message")} resize-y`}
-        />
+        <span className="cc-field">
+          <textarea
+            name="message"
+            required
+            rows={5}
+            maxLength={LIMITS.messageMax}
+            placeholder="Tell us about your project"
+            onChange={(e) => setMessageLength(e.target.value.length)}
+            aria-invalid={invalid("message")}
+            aria-describedby={errors.message ? "message-error" : undefined}
+            className={`${FIELD} ${border("message")} resize-y`}
+          />
+        </span>
         <FieldError id="message-error" message={errors.message} />
       </label>
 
@@ -192,12 +200,13 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex items-center gap-2 bg-[#181818] px-6 py-3 text-[0.95rem] font-medium tracking-[-0.03em] text-white transition-opacity hover:opacity-80 disabled:cursor-wait disabled:opacity-60"
+          className="group cc-press inline-flex items-center gap-2.5 bg-[#181818] px-6 py-3 text-[0.95rem] font-medium tracking-[-0.03em] text-white hover:bg-[#333] disabled:cursor-wait disabled:opacity-60"
         >
           {status === "sending" ? (
             <span aria-hidden="true" className="h-3 w-3 animate-spin rounded-full border-[1.5px] border-white/30 border-t-white" />
           ) : null}
           {status === "sending" ? "Sending…" : "Send message"}
+          {status === "sending" ? null : <ArrowSwap />}
         </button>
         {serverError ? (
           <p role="alert" className="text-sm text-[#db4550]">

@@ -24,7 +24,7 @@ export function Faq() {
     <section id="faq" className="relative flex min-h-svh flex-col justify-center px-5 py-20 text-white md:px-10 md:py-28">
       <div className="absolute inset-0 z-0 bg-black" aria-hidden="true" />
       <div className="relative z-20 mx-auto flex w-full max-w-[1800px] flex-col gap-16 md:gap-20">
-        <div className="border-t border-[#ffffff33] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-white">
+        <div className="cc-rule border-t border-[#ffffff33] pt-4 [--cc-rule:#ffffff33] text-center text-[0.95rem] tracking-[-0.02em] text-white">
           Support &amp; Info
         </div>
 
@@ -37,14 +37,17 @@ export function Faq() {
         <InView className="flex flex-col">
           {FAQS.map((item, i) => (
             <Reveal key={item.q} as="div" stagger={i} className="border-t border-[#ffffff4d] last:border-b">
-              <details className="group">
+              <details className="group cc-faq">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-[1.25rem] font-medium tracking-[-0.02em] marker:hidden [&::-webkit-details-marker]:hidden md:text-[1.5rem]">
-                  {item.q}
-                  <span aria-hidden="true" className="text-[1.5rem] leading-none transition-transform duration-300 group-open:rotate-45">
+                  <span className="cc-faq-q">{item.q}</span>
+                  <span
+                    aria-hidden="true"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/0 text-[1.5rem] leading-none transition-[rotate,border-color,background-color] duration-500 ease-[cubic-bezier(0.3,0,0,1)] group-open:rotate-45 group-open:border-white/30 group-hover:border-white/30 group-hover:bg-white/[0.06]"
+                  >
                     +
                   </span>
                 </summary>
-                <p className="max-w-[60ch] pb-6 text-[1rem] leading-[1.5] tracking-[-0.01em] text-[#ffffff99]">
+                <p className="cc-faq-a max-w-[60ch] pb-6 text-[1rem] leading-[1.5] tracking-[-0.01em] text-[#ffffff99]">
                   {item.a}
                 </p>
               </details>

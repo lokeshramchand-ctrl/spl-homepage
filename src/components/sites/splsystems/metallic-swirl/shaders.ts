@@ -1,13 +1,18 @@
 // Shaders and presets decompiled from splsystems.com's production bundle
 // (the "metallic swirl" scroll backdrop used behind Asset Management,
-// Proprietary Investments and Infrastructure). Kept byte-for-byte identical
-// to the source's GLSL.
+// Proprietary Investments and Infrastructure). The fragment shader is kept
+// byte-for-byte identical to the source's GLSL. The vertex shader adds a
+// window transform: the canvas only covers the part of the band near the
+// viewport, and uUvScale/uUvOffset map that window back into full-band UVs
+// so the pattern is unchanged while far fewer pixels are shaded.
 
 export const VERTEX_SHADER = `#version 300 es
 in vec2 aPosition;
+uniform vec2 uUvScale;
+uniform vec2 uUvOffset;
 out vec2 vUv;
 void main() {
-  vUv = aPosition * 0.5 + 0.5;
+  vUv = (aPosition * 0.5 + 0.5) * uUvScale + uUvOffset;
   gl_Position = vec4(aPosition, 0.0, 1.0);
 }
 `;

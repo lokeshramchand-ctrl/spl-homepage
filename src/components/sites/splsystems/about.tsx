@@ -23,7 +23,7 @@ export function About() {
   return (
     <section id="about" className="relative flex min-h-svh flex-col justify-center px-5 py-20 md:px-10 md:py-28">
       <div className="relative z-20 mx-auto flex w-full max-w-[1800px] flex-col gap-16 md:gap-24">
-        <div className="border-t border-[#18181833] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-[#18181899]">
+        <div className="cc-rule border-t border-[#18181833] pt-4 text-center text-[0.95rem] tracking-[-0.02em] text-[#18181899]">
           About
         </div>
 

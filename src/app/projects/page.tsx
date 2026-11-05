@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/sites/splsystems/footer";
 import { Header } from "@/components/sites/splsystems/header";
-import { ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
+import { ArrowSwap } from "@/components/sites/splsystems/icons";
 import { MetallicSwirl } from "@/components/sites/splsystems/metallic-swirl/MetallicSwirl";
 import { METALLIC_SWIRL_DEFAULTS, type MetallicSwirlParams } from "@/components/sites/splsystems/metallic-swirl/shaders";
 import { ProjectArt } from "@/components/sites/splsystems/project-art";
@@ -81,7 +81,7 @@ export default function ProjectsExpertisePage() {
             </InView>
 
             <div className="mt-24 flex flex-col items-center gap-10 md:mt-[160px] md:gap-12">
-              <div className="w-full border-t border-white/30 pt-4 text-center text-xs font-medium tracking-[-0.03em]">
+              <div className="cc-rule w-full border-t border-white/30 pt-4 [--cc-rule:rgb(255_255_255/0.3)] text-center text-xs font-medium tracking-[-0.03em]">
                 Expertise
               </div>
               <InView className="flex flex-col items-center gap-10 text-center">
@@ -94,10 +94,10 @@ export default function ProjectsExpertisePage() {
                 <Reveal as="div" stagger={2}>
                   <Link
                     href="/contact"
-                    className="group inline-flex items-center gap-2 border-b border-white pb-2 text-[0.95rem] font-medium tracking-[-0.03em]"
+                    className="group cc-underline inline-flex items-center gap-2 border-b border-white/40 pb-2 text-[0.95rem] font-medium tracking-[-0.03em]"
                   >
                     Get a free consultation
-                    <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowSwap />
                   </Link>
                 </Reveal>
               </InView>
@@ -132,7 +132,7 @@ export default function ProjectsExpertisePage() {
                       {p.href ? (
                         <Link href={p.href} className="inline-flex items-center gap-2 after:absolute after:inset-0">
                           {p.title}
-                          <ArrowUpRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          <ArrowSwap className="h-4 w-4" />
                         </Link>
                       ) : (
                         p.title
@@ -169,10 +169,10 @@ export default function ProjectsExpertisePage() {
             </div>
             <Link
               href="/contact"
-              className="group mt-16 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818] transition-colors duration-300 hover:border-[#181818]"
+              className="group cc-underline mt-16 flex w-full items-center justify-between border-b border-[#181818]/30 pb-2 text-xs font-medium tracking-[-0.03em] text-[#181818]"
             >
               Contact us for more information
-              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowSwap />
             </Link>
           </div>
         </section>

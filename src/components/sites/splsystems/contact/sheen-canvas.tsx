@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createFrameGovernor } from "../frame-governor";
+import { compileProgram } from "../webgl-program";
 
 // Port of the source's per-word title shader. One shared WebGL2 canvas paints
 // every visible word; each word's glyph mask is composited from it (source-in).
@@ -141,6 +143,14 @@ const P = {
   onLight: { lit: [0.93, 0.96, 1], chroma: 1 },
   onDark: { lit: [0.82, 0.86, 0.95], chroma: 0.5 },
 };
+// The sheen is soft noise, so it's shaded at (at most) one sample per CSS
+// pixel and upscaled into the word canvas; the glyph mask it's clipped to
+// stays at full device resolution, so letter edges remain crisp. On a 2x
+// screen that's a quarter of the fragments. It also drifts slowly enough
+// that 30fps reads as smooth.
+const SHEEN_DPR = 1;
+const pacer = createFrameGovernor({ fps: 30 });
+
 const UNIFORMS = ["resolution", "origin", "dpr", "unit", "time", "repetition", "warp", "shiftRed", "shiftBlue", "softness", "seed", "text", "lit", "chroma"] as const;
 
 interface Word {
@@ -152,7 +162,14 @@ interface Word {
   text: string;
   w: number;
   h: number;
+  /** Shading resolution (device px), at most one sample per CSS px. */
+  gw: number;
+  gh: number;
+  gdpr: number;
   dpr: number;
+  /** Cached text colour (0-1) and the matching sheen tuning. */
+  rgb: [number, number, number];
+  mode: (typeof P)["onLight"];
   origin: [number, number];
   unit: number;
   pad: number;
@@ -168,39 +185,44 @@ interface Gl {
 }
 
 const words = new Set<Word>();
+/** undefined: not ready yet; null: WebGL2 unavailable. */
 let shared: Gl | null | undefined;
+let starting = false;
 let raf = 0;
 let t0 = 0;
 
-function compile(gl: WebGL2RenderingContext, type: number, src: string) {
-  const s = gl.createShader(type)!;
-  gl.shaderSource(s, src);
-  gl.compileShader(s);
-  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) ?? "shader compile failed");
-  return s;
-}
-
-function getGl(): Gl | null {
-  if (shared !== undefined) return shared;
+/**
+ * Starts the shared context and its (async, non-blocking) shader compile on
+ * first use. Returns false only once it's known to be unavailable; words
+ * register while it's pending and keep their CSS sheen until it's ready.
+ */
+function startGl(): boolean {
+  if (shared !== undefined) return shared !== null;
+  if (starting) return true;
+  starting = true;
   try {
     const canvas = document.createElement("canvas");
     const gl = canvas.getContext("webgl2", { alpha: false, antialias: false, depth: false, stencil: false });
     if (!gl) throw new Error("webgl2 unavailable");
-    const prog = gl.createProgram()!;
-    gl.attachShader(prog, compile(gl, gl.VERTEX_SHADER, VERT));
-    gl.attachShader(prog, compile(gl, gl.FRAGMENT_SHADER, FRAG));
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error("link failed");
-    gl.useProgram(prog);
-    const u = Object.fromEntries(UNIFORMS.map((n) => [n, gl.getUniformLocation(prog, `u_${n}`)])) as Gl["u"];
-    for (const n of ["repetition", "warp", "shiftRed", "shiftBlue", "softness", "seed"] as const) gl.uniform1f(u[n], P[n]);
-    shared = { gl, canvas, u };
-    window.addEventListener("resize", relayoutAll);
-    document.fonts.ready.then(relayoutAll);
+    compileProgram(gl, VERT, FRAG).then(
+      (prog) => {
+        gl.useProgram(prog);
+        const u = Object.fromEntries(UNIFORMS.map((n) => [n, gl.getUniformLocation(prog, `u_${n}`)])) as Gl["u"];
+        for (const n of ["repetition", "warp", "shiftRed", "shiftBlue", "softness", "seed"] as const) gl.uniform1f(u[n], P[n]);
+        shared = { gl, canvas, u };
+        window.addEventListener("resize", relayoutAll);
+        document.fonts.ready.then(relayoutAll);
+        relayoutAll();
+      },
+      () => {
+        shared = null;
+      },
+    );
   } catch {
     shared = null;
+    return false;
   }
-  return shared;
+  return true;
 }
 
 function pageOffset(el: HTMLElement | null): [number, number] {
@@ -225,6 +247,12 @@ function layout(w: Word) {
   w.w = Math.round(w.canvas.offsetWidth * dpr);
   w.h = Math.round(w.canvas.offsetHeight * dpr);
   w.dpr = dpr;
+  w.gdpr = Math.min(dpr, SHEEN_DPR);
+  w.gw = Math.max(1, Math.round((w.w / dpr) * w.gdpr));
+  w.gh = Math.max(1, Math.round((w.h / dpr) * w.gdpr));
+  const [cr, cg, cb] = (cs.color.match(/[\d.]+/g) ?? ["0", "0", "0"]).map((n) => Number(n) / 255);
+  w.rgb = [cr, cg, cb];
+  w.mode = cr + cg + cb > 1.5 ? P.onDark : P.onLight;
   const heading = w.root.closest("h1, h2, h3") as HTMLElement | null;
   const [cx, cy] = pageOffset(w.canvas);
   const [hx, hy] = heading ? pageOffset(heading) : [0, 0];
@@ -253,12 +281,17 @@ function relayoutAll() {
 
 function frame(now: number) {
   raf = 0;
-  const s = getGl();
+  const s = shared;
   if (!s || document.hidden) return;
+  if (!pacer.shouldDraw(now)) {
+    schedule();
+    return;
+  }
+  pacer.record(now);
   const { gl, canvas, u } = s;
   let mw = 0;
   let mh = 0;
-  for (const w of words) if (w.visible) [mw, mh] = [Math.max(mw, w.w), Math.max(mh, w.h)];
+  for (const w of words) if (w.visible) [mw, mh] = [Math.max(mw, w.gw), Math.max(mh, w.gh)];
   if (!mw || !mh) return;
   if (canvas.width < mw || canvas.height < mh) {
     canvas.width = Math.max(canvas.width, mw);
@@ -268,14 +301,13 @@ function frame(now: number) {
   gl.uniform1f(u.time, ((now - t0) / 1000) * P.speed);
   for (const w of words) {
     if (!w.visible || !w.w || !w.h) continue;
-    gl.viewport(0, 0, w.w, w.h);
-    gl.uniform2f(u.resolution, w.w, w.h);
+    gl.viewport(0, 0, w.gw, w.gh);
+    gl.uniform2f(u.resolution, w.gw, w.gh);
     gl.uniform2f(u.origin, w.origin[0], w.origin[1]);
-    gl.uniform1f(u.dpr, w.dpr);
+    gl.uniform1f(u.dpr, w.gdpr);
     gl.uniform1f(u.unit, w.unit);
-    const [r, g, b] = (getComputedStyle(w.root).color.match(/[\d.]+/g) ?? ["0", "0", "0"]).map((n) => Number(n) / 255);
-    const mode = r + g + b > 1.5 ? P.onDark : P.onLight;
-    gl.uniform3f(u.text, r, g, b);
+    const { rgb, mode } = w;
+    gl.uniform3f(u.text, rgb[0], rgb[1], rgb[2]);
     gl.uniform3f(u.lit, mode.lit[0], mode.lit[1], mode.lit[2]);
     gl.uniform1f(u.chroma, mode.chroma);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -284,7 +316,7 @@ function frame(now: number) {
     c.clearRect(0, 0, w.w, w.h);
     c.drawImage(w.glyphs, 0, 0);
     c.globalCompositeOperation = "source-in";
-    c.drawImage(canvas, 0, canvas.height - w.h, w.w, w.h, 0, 0, w.w, w.h);
+    c.drawImage(canvas, 0, canvas.height - w.gh, w.gw, w.gh, 0, 0, w.w, w.h);
     if (!w.live) {
       w.live = true;
       w.onLive();
@@ -308,10 +340,10 @@ function Word({ word }: { word: string }) {
     const p = probe.current;
     const c = canvas.current;
     const ctx = c?.getContext("2d");
-    if (!r || !p || !c || !ctx || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !getGl()) return;
+    if (!r || !p || !c || !ctx || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !startGl()) return;
     const w: Word = {
       root: r, probe: p, canvas: c, ctx, glyphs: document.createElement("canvas"), text: word,
-      w: 0, h: 0, dpr: 1, origin: [0, 0], unit: 1, pad: -1, visible: false, live: false, onLive: () => setLive(true),
+      w: 0, h: 0, gw: 1, gh: 1, gdpr: 1, dpr: 1, rgb: [0, 0, 0], mode: P.onLight, origin: [0, 0], unit: 1, pad: -1, visible: false, live: false, onLive: () => setLive(true),
     };
     words.add(w);
     const ro = new ResizeObserver(relayoutAll);

@@ -101,19 +101,26 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {/* Flags the root path before hydration so the header logo and
             in-view reveals stay hidden under the intro splash instead of
-            flashing in first (matches source's own entry-detection script). */}
+            flashing in first (matches source's own entry-detection script).
+            The intro plays once per browser session: Splash records it in
+            sessionStorage, and later loads of "/" skip straight to content.
+            `data-intro` keeps the overlay visible until it finishes, and
+            input before hydration is noted so Splash can skip right away. */}
         <Script
           id="cc-entry-gate"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{if(location.pathname.replace(/\\/+$/,'')!=='')return;document.documentElement.setAttribute('data-entry','');}catch(e){}})()",
+              "(function(){try{if(location.pathname.replace(/\\/+$/,'')!=='')return;if(sessionStorage.getItem('spl-intro'))return;var d=document.documentElement;d.setAttribute('data-entry','');d.setAttribute('data-intro','');var k=function(){d.setAttribute('data-entry-skip','')};['pointerdown','keydown','wheel','touchstart'].forEach(function(t){addEventListener(t,k,{once:true,passive:true})});}catch(e){}})()",
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        {/* Reading-progress bar: pure CSS scroll-driven animation (see
+            .cc-scroll-progress); renders nothing where unsupported. */}
+        <div className="cc-scroll-progress" aria-hidden="true" />
         {children}
       </body>
     </html>

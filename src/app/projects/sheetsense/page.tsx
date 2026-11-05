@@ -9,7 +9,7 @@ import thirdPage from "@/assets/AI-OCR/thirdpage.png";
 import { CtaBand } from "@/components/sites/splsystems/cta-band";
 import { Footer } from "@/components/sites/splsystems/footer";
 import { Header } from "@/components/sites/splsystems/header";
-import { ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
+import { ArrowSwap, ArrowUpRightIcon } from "@/components/sites/splsystems/icons";
 import { InView, Reveal, RevealWords, SectionLabel } from "@/components/sites/splsystems/reveal";
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function SheetSensePage() {
                 href="/projects"
                 className="group inline-flex w-fit items-center gap-2 text-xs font-medium tracking-[-0.03em] text-[#181818]/50 transition-colors hover:text-[#181818]"
               >
-                <ArrowUpRightIcon className="h-3 w-3 -rotate-[135deg]" />
+                <ArrowUpRightIcon className="h-3 w-3 -rotate-[135deg] transition-[translate] duration-300 ease-[cubic-bezier(0.3,0,0,1)] group-hover:-translate-x-1" />
                 Projects
               </Link>
               <h1 className="text-[2.5rem] font-medium leading-none tracking-[-0.016em] text-[#181818] md:text-[4rem]">
@@ -101,10 +101,10 @@ export default function SheetSensePage() {
                   href={LIVE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 border-b border-[#181818] pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
+                  className="group cc-underline inline-flex items-center gap-2 border-b border-[#181818]/30 pb-2 text-[0.95rem] font-medium tracking-[-0.03em] text-[#181818]"
                 >
                   Main site
-                  <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowSwap />
                 </a>
               </Reveal>
             </InView>

@@ -1,5 +1,6 @@
 import { AskAi } from "./ask-ai";
 import Image from "next/image";
+import { ArrowUpRightIcon } from "./icons";
 import { InView, Reveal, WipeLink } from "./reveal";
 
 const PRIMARY: { label: string; href: string }[] = [
@@ -75,6 +76,19 @@ export function Footer() {
             <li>All rights reserved.</li>
             <li>
               <WipeLink href="/privacy">Privacy Policy</WipeLink>
+            </li>
+            <li className="md:ml-auto">
+              {/* "#top" scrolls to the top natively (no element has that id),
+                  smoothly or not per the visitor's motion preference. */}
+              <a
+                href="#top"
+                className="group cc-press inline-flex items-center gap-1.5 transition-colors duration-300 hover:text-[#181818]"
+              >
+                Back to top
+                <span aria-hidden="true" className="inline-flex h-3 w-3 overflow-hidden">
+                  <ArrowUpRightIcon className="h-full w-full -rotate-45 transition-[translate] duration-500 ease-[cubic-bezier(0.3,0,0,1)] group-hover:-translate-y-0.5" />
+                </span>
+              </a>
             </li>
           </ul>
         </div>

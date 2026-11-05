@@ -1,40 +1,17 @@
+import { createFrameGovernor } from "../frame-governor";
+import { compileProgram, nextFrame } from "../webgl-program";
 import { CROP_ANCHOR_X, CROP_ASPECT, MAX_BRANCHES, OVERFLOW_SCALE, REGION, VIEWBOX_HEIGHT, VIEWBOX_WIDTH, BRANCHES } from "./constants";
 import type { LiquidMask } from "./mask";
 import { FRAGMENT_SHADER, HERO_LIQUID_EFFECT, HERO_LIQUID_INTRO, VERTEX_SHADER, type IntroTiming, type LiquidEffectParams } from "./shaders";
 
+// Soft liquid ribbons hold up well below native density: 1.5x and a ~4MP
+// ceiling cost roughly half the fragments of 2x on a retina laptop, and the
+// frame governor steps lower still on devices that can't keep up.
+const MAX_DPR = 1.5;
+const PIXEL_BUDGET = 4e6;
+const FPS = 60;
+
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
-function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
-  const shader = gl.createShader(type);
-  if (!shader) throw new Error("shader allocation failed");
-  gl.shaderSource(shader, source);
-  gl.compileShader(shader);
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    const log = gl.getShaderInfoLog(shader);
-    gl.deleteShader(shader);
-    throw new Error(`shader compile failed: ${log ?? "unknown"}`);
-  }
-  return shader;
-}
-
-function linkProgram(gl: WebGL2RenderingContext, vertexSource: string, fragmentSource: string): WebGLProgram {
-  const vertex = compileShader(gl, gl.VERTEX_SHADER, vertexSource);
-  const fragment = compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
-  const program = gl.createProgram();
-  if (!program) throw new Error("program allocation failed");
-  gl.attachShader(program, vertex);
-  gl.attachShader(program, fragment);
-  gl.linkProgram(program);
-  const ok = gl.getProgramParameter(program, gl.LINK_STATUS);
-  const log = ok ? "" : [gl.getShaderInfoLog(vertex), gl.getShaderInfoLog(fragment), gl.getProgramInfoLog(program)].filter(Boolean).join(" | ");
-  gl.deleteShader(vertex);
-  gl.deleteShader(fragment);
-  if (!ok) {
-    gl.deleteProgram(program);
-    throw new Error(`program link failed: ${log || "unknown"}`);
-  }
-  return program;
-}
 
 export interface LiquidRenderer {
   setParams(params: LiquidEffectParams): void;
@@ -50,11 +27,16 @@ export interface CreateLiquidRendererOptions {
   introTiming?: IntroTiming;
 }
 
-export function createLiquidRenderer(
+/**
+ * Async so nothing here blocks the main thread for long: the shader compiles
+ * in parallel with the mask build (pass the mask's promise straight in), and
+ * the three mask textures upload on separate frames instead of one ~25MB burst.
+ */
+export async function createLiquidRenderer(
   canvas: HTMLCanvasElement,
-  mask: LiquidMask,
+  maskSource: LiquidMask | Promise<LiquidMask>,
   { intro, onActive, onError, params = HERO_LIQUID_EFFECT, introTiming = HERO_LIQUID_INTRO }: CreateLiquidRendererOptions,
-): LiquidRenderer {
+): Promise<LiquidRenderer> {
   const gl = canvas.getContext("webgl2", {
     alpha: true,
     antialias: false,
@@ -65,7 +47,7 @@ export function createLiquidRenderer(
   });
   if (!gl) throw new Error("webgl2 unavailable");
 
-  const program = linkProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER);
+  const [program, mask] = await Promise.all([compileProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER), maskSource]);
   gl.useProgram(program);
   gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
@@ -86,9 +68,11 @@ export function createLiquidRenderer(
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   };
 
-  const uploadMask = (m: LiquidMask) => {
+  const uploadMask = async (m: LiquidMask) => {
     uploadRgba(0, imageTex!, m.width, m.height, m.base, gl.LINEAR);
+    await nextFrame();
     uploadRgba(1, metaTex!, m.width, m.height, m.meta, gl.NEAREST);
+    await nextFrame();
     gl.activeTexture(gl.TEXTURE2);
     gl.bindTexture(gl.TEXTURE_2D, edgeTex);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, m.fieldWidth, m.fieldHeight, 0, gl.RED, gl.FLOAT, m.field);
@@ -97,7 +81,19 @@ export function createLiquidRenderer(
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   };
-  uploadMask(mask);
+  await uploadMask(mask);
+
+  // Re-assert this renderer's program and textures each frame: in React's
+  // dev double-mount two renderers can briefly share this canvas's context.
+  const bindState = () => {
+    gl.useProgram(program);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, imageTex);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, metaTex);
+    gl.activeTexture(gl.TEXTURE2);
+    gl.bindTexture(gl.TEXTURE_2D, edgeTex);
+  };
 
   const loc = (name: string) => gl.getUniformLocation(program, name);
   gl.uniform1i(loc("u_image"), 0);
@@ -151,13 +147,16 @@ export function createLiquidRenderer(
   const offsetX = -REGION.x / REGION.width;
   const offsetY = -REGION.y / REGION.height;
 
+  const governor = createFrameGovernor({ fps: FPS });
+
   const resize = () => {
+    gl.useProgram(program);
     const clientWidth = canvas.clientWidth;
     const clientHeight = canvas.clientHeight;
     if (!clientWidth || !clientHeight) return;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR) * governor.scale;
     const totalPixels = clientWidth * clientHeight * dpr * dpr;
-    if (totalPixels > 125e5) dpr *= Math.sqrt(125e5 / totalPixels);
+    if (totalPixels > PIXEL_BUDGET) dpr *= Math.sqrt(PIXEL_BUDGET / totalPixels);
     const width = Math.max(1, Math.round(clientWidth * dpr));
     const height = Math.max(1, Math.round(clientHeight * dpr));
     if (canvas.width !== width || canvas.height !== height) {
@@ -175,13 +174,26 @@ export function createLiquidRenderer(
   const introStart = 0;
   if (introDone) revealAll();
 
-  // Pointer is tracked on window (the canvas itself is pointer-events: none)
-  const pointer = { x: 0.5, y: 0.5, hover: 0, target: 0 };
+  // Pointer is tracked on window (the canvas itself is pointer-events: none).
+  // The handler only stores coordinates; they're mapped into the canvas once
+  // per drawn frame, so a 120Hz mouse never forces a layout read per event.
+  const pointer = { x: 0.5, y: 0.5, hover: 0, target: 0, clientX: 0, clientY: 0, dirty: false };
   const onPointerMove = (event: PointerEvent) => {
+    pointer.clientX = event.clientX;
+    pointer.clientY = event.clientY;
+    pointer.dirty = true;
+  };
+  const onPointerLeave = () => {
+    pointer.dirty = false;
+    pointer.target = 0;
+  };
+  const updatePointer = () => {
+    if (!pointer.dirty) return;
+    pointer.dirty = false;
     const rect = canvas.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
-    const px = (event.clientX - rect.left) / rect.width;
-    const py = (event.clientY - rect.top) / rect.height;
+    const px = (pointer.clientX - rect.left) / rect.width;
+    const py = (pointer.clientY - rect.top) / rect.height;
     const inside = px >= 0 && px <= 1 && py >= 0 && py <= 1;
     if (inside) {
       pointer.x = px;
@@ -189,13 +201,12 @@ export function createLiquidRenderer(
     }
     pointer.target = inside ? 1 : 0;
   };
-  const onPointerLeave = () => {
-    pointer.target = 0;
-  };
   window.addEventListener("pointermove", onPointerMove, { passive: true });
   document.documentElement.addEventListener("pointerleave", onPointerLeave);
 
   const drawFrame = (elapsed: number, dt = 0) => {
+    bindState();
+    updatePointer();
     pointer.hover += (pointer.target - pointer.hover) * Math.min(1, dt * 5);
     gl.uniform2f(uPointer, pointer.x, pointer.y);
     gl.uniform1f(uHover, pointer.hover);
@@ -232,6 +243,7 @@ export function createLiquidRenderer(
 
   const tick = (now: number) => {
     rafId = requestAnimationFrame(tick);
+    if (!governor.shouldDraw(now)) return;
     const dt = lastFrameTime ? Math.min((now - lastFrameTime) / 1000, 0.1) : 0;
     lastFrameTime = now;
     elapsed += dt;
@@ -240,6 +252,7 @@ export function createLiquidRenderer(
       firedActive = true;
       onActive();
     }
+    if (governor.record(now)) resize();
     if (!shouldRun()) setRunning(false);
   };
 
@@ -248,6 +261,7 @@ export function createLiquidRenderer(
     running = next;
     if (next) {
       lastFrameTime = 0;
+      governor.reset();
       rafId = requestAnimationFrame(tick);
     } else {
       cancelAnimationFrame(rafId);
@@ -280,11 +294,13 @@ export function createLiquidRenderer(
   return {
     setParams(next) {
       if (disposed) return;
+      gl.useProgram(program);
       effectParams = next;
       writeEffectParams();
     },
     setIntroTiming(next) {
       if (disposed) return;
+      gl.useProgram(program);
       timing = next;
       delays = branchDelays();
       writeFeather();

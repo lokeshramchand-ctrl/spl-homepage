@@ -50,7 +50,7 @@ export function Places() {
                   className="absolute inset-0 transition-opacity duration-500 ease-[cubic-bezier(0.3,0,0,1)]"
                   style={{ opacity: active === i ? 1 : 0 }}
                 >
-                  <ParticleImage src={loc.image} alt={`${loc.name} cityscape`} />
+                  <ParticleImage src={loc.image} alt={`${loc.name} cityscape`} eager={i === 0} />
                 </div>
               ))}
             </div>
@@ -67,9 +67,21 @@ export function Places() {
                     type="button"
                     onClick={() => setActive(i)}
                     aria-pressed={active === i}
-                    className="text-left text-[2rem] font-medium tracking-[-0.03em] text-[#181818]"
+                    className="group cc-press flex items-center gap-3 text-left text-[2rem] font-medium tracking-[-0.03em] text-[#181818]"
                   >
-                    {loc.name}
+                    <span
+                      aria-hidden="true"
+                      className={`h-2.5 w-2.5 shrink-0 rounded-full bg-[#181818] transition-[scale,opacity] duration-500 ease-[cubic-bezier(0.3,0,0,1)] ${
+                        active === i ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                      }`}
+                    />
+                    <span
+                      className={`transition-[translate,opacity] duration-500 ease-[cubic-bezier(0.3,0,0,1)] group-hover:translate-x-1 ${
+                        active === i ? "opacity-100" : "opacity-50 group-hover:opacity-80"
+                      }`}
+                    >
+                      {loc.name}
+                    </span>
                   </button>
                   <p className="mt-3 max-w-[40ch] text-[1rem] font-medium tracking-[-0.03em] text-[#181818]/50">
                     {loc.description}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AskAi } from "./ask-ai";
-import { ArrowUpRightIcon } from "./icons";
+import { ArrowSwap } from "./icons";
 import { InView, Reveal } from "./reveal";
 
 /** Closing black band between the FAQ and the footer. */
@@ -15,10 +15,10 @@ export function CtaBand() {
         <Reveal as="div" stagger={1}>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 border-b border-white pb-2 text-[0.95rem] font-medium tracking-[-0.03em]"
+            className="group cc-underline inline-flex items-center gap-2 border-b border-white/40 pb-2 text-[0.95rem] font-medium tracking-[-0.03em]"
           >
             Get a free consultation
-            <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowSwap />
           </Link>
         </Reveal>
         <Reveal as="div" stagger={2} className="mt-8">

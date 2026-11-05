@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRightIcon } from "./icons";
+import { ArrowSwap } from "./icons";
 
 const PRIMARY_LINKS: { label: string; href: string }[] = [
   { label: "Home", href: "/" },
@@ -32,6 +32,18 @@ const CONTACT_LINKS: { label: string; href: string; note: string }[] = [
 function Rule() {
   return <div className="h-px w-full shrink-0 bg-[#181818]/20" />;
 }
+
+/** Label whose text rolls up to an identical copy on hover (see `.cc-roll`). */
+function RollLabel({ children }: { children: string }) {
+  return (
+    <span className="cc-roll" data-label={children}>
+      <span>{children}</span>
+    </span>
+  );
+}
+
+/** Stagger index for `.cc-menu-item`'s entrance delay. */
+const stagger = (i: number) => ({ "--cc-i": i }) as CSSProperties;
 
 export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
@@ -71,7 +83,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
             width={3000}
             height={350}
             unoptimized
-            priority
+            preload
             className="h-auto w-[8.5rem] md:w-[10.5rem]"
           />
         </Link>
@@ -81,9 +93,9 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
           aria-expanded={open}
-          className={`text-[16px] font-medium tracking-[-0.03em] ${ink}`}
+          className={`group cc-press text-[16px] font-medium tracking-[-0.03em] ${ink}`}
         >
-          Menu
+          <RollLabel>Menu</RollLabel>
         </button>
       </div>
 
@@ -97,11 +109,20 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
         aria-label="Site menu"
         aria-hidden={!open}
         inert={!open}
+        data-open={open || undefined}
         className={`fixed inset-0 z-20 flex items-start justify-center md:px-4 md:pb-4 ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
-        <div className="flex max-h-full w-full flex-col overflow-hidden md:max-w-[502px]">
+        {/* Dimmed backdrop; clicking outside the panel closes the menu. */}
+        <div
+          aria-hidden="true"
+          onClick={() => setOpen(false)}
+          className={`absolute inset-0 bg-[#181818]/25 transition-opacity duration-500 ease-[cubic-bezier(0.3,0,0,1)] ${
+            open ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <div className="relative flex max-h-full w-full flex-col overflow-hidden md:max-w-[502px]">
           <div
             className={`flex min-h-0 flex-col overflow-hidden bg-[#fafafa] transition-transform duration-500 ease-[cubic-bezier(0.3,0,0,1)] ${
               open ? "translate-y-0" : "-translate-y-full"
@@ -116,22 +137,27 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
                 ref={closeButtonRef}
                 type="button"
                 onClick={() => setOpen(false)}
-                className="w-full py-4 text-center text-[16px] font-medium tracking-[-0.03em] text-[#181818]"
+                className="group cc-press w-full py-4 text-center text-[16px] font-medium tracking-[-0.03em] text-[#181818]"
               >
-                Close
+                <RollLabel>Close</RollLabel>
               </button>
 
               <nav aria-label="Site menu" className="flex flex-col gap-[42px]">
                 <ul className="flex flex-col">
-                  {PRIMARY_LINKS.map((item) => (
-                    <li key={item.label}>
+                  {PRIMARY_LINKS.map((item, i) => (
+                    <li key={item.label} className="cc-menu-item" style={stagger(i)}>
                       <Rule />
                       <Link
                         href={item.href}
                         onClick={() => setOpen(false)}
-                        className="block py-3 text-[32px] font-medium leading-[32px] tracking-[-0.016em] text-[#181818]"
+                        className="group flex items-center justify-between py-3 text-[32px] font-medium leading-[32px] tracking-[-0.016em] text-[#181818]"
                       >
-                        {item.label}
+                        <span className="transition-[translate] duration-500 ease-[cubic-bezier(0.3,0,0,1)] group-hover:translate-x-2">
+                          {item.label}
+                        </span>
+                        <span className="opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                          <ArrowSwap className="h-5 w-5" />
+                        </span>
                       </Link>
                     </li>
                   ))}
@@ -139,14 +165,14 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
                 </ul>
 
                 <ul className="flex flex-col gap-3">
-                  {SECONDARY_LINKS.map((item) => (
-                    <li key={item.label}>
+                  {SECONDARY_LINKS.map((item, i) => (
+                    <li key={item.label} className="cc-menu-item" style={stagger(PRIMARY_LINKS.length + i)}>
                       <Link
                         href={item.href}
                         onClick={() => setOpen(false)}
                         target={item.external ? "_blank" : undefined}
                         rel={item.external ? "noopener noreferrer" : undefined}
-                        className="text-[16px] font-medium leading-[20.8px] tracking-[-0.03em] text-[#181818]"
+                        className="text-[16px] font-medium leading-[20.8px] tracking-[-0.03em] text-[#181818] transition-opacity duration-300 hover:opacity-55"
                       >
                         {item.label}
                       </Link>
@@ -156,11 +182,15 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
                 <ul className="flex flex-col">
                   <Rule />
-                  {CONTACT_LINKS.map((item) => (
-                    <li key={item.href}>
+                  {CONTACT_LINKS.map((item, i) => (
+                    <li
+                      key={item.href}
+                      className="cc-menu-item"
+                      style={stagger(PRIMARY_LINKS.length + SECONDARY_LINKS.length + i)}
+                    >
                       <a
                         href={item.href}
-                        className="flex items-center justify-between gap-4 py-2 text-[#181818]"
+                        className="group flex items-center justify-between gap-4 py-2 text-[#181818]"
                       >
                         <span className="flex flex-col gap-0.5">
                           <span className="text-[16px] font-medium leading-[20.8px] tracking-[-0.03em]">
@@ -170,7 +200,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
                             {item.note}
                           </span>
                         </span>
-                        <ArrowUpRightIcon />
+                        <ArrowSwap className="h-5 w-[10px]" />
                       </a>
                       <Rule />
                     </li>

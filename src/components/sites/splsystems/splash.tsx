@@ -14,29 +14,41 @@ import Image from "next/image";
  * The dock motion is a measured FLIP: at the moment docking starts we read
  * the wordmark's and the header logo's real screen rects and animate a
  * translate+scale between them, rather than hard-coding a position.
+ *
+ * Tuned for speed over ceremony: the whole intro is ~1.6s (it was ~2.5s),
+ * any click, tap, key or wheel skips straight to the dock, and it only
+ * plays on the first visit to "/" per session (see the entry gate).
  */
-const REVEAL_MS = 800;
-const HOLD_MS = 900;
-const DOCK_MS = 800;
-const BG_FADE_MS = 400;
+const REVEAL_MS = 600;
+const HOLD_MS = 350;
+const DOCK_MS = 650;
+const BG_FADE_MS = 350;
+/** sessionStorage key the entry gate script in RootLayout checks. */
+const INTRO_SEEN_KEY = "spl-intro";
+const SKIP_EVENTS = ["pointerdown", "keydown", "wheel", "touchstart"] as const;
 
 type Phase = "init" | "live" | "docking" | "done";
 
 export function Splash() {
   const wordmarkRef = useRef<HTMLDivElement | null>(null);
-  // The entry gate only flags a hard load of "/". On a client-side return to
-  // Home (or after the intro already played) the attribute is absent, so skip
-  // the splash instead of replaying it over a page that is already visible.
-  // The server and a gated hard load both render "init", so hydration matches.
-  const [phase, setPhase] = useState<Phase>(() =>
-    typeof document !== "undefined" &&
-    !document.documentElement.hasAttribute("data-entry")
-      ? "done"
-      : "init",
-  );
+  // Always start at "init" so hydration matches the server HTML, which
+  // includes the overlay. When no intro is due (a repeat visit this session,
+  // or a client-side return to Home) the entry gate never set `data-intro`,
+  // so CSS hides that overlay from the very first paint (`.cc-splash` in
+  // globals.css) and the effect below just finishes it off.
+  const [phase, setPhase] = useState<Phase>("init");
 
   useEffect(() => {
-    if (!document.documentElement.hasAttribute("data-entry")) return;
+    const root = document.documentElement;
+    if (!root.hasAttribute("data-entry")) {
+      const id = window.setTimeout(() => setPhase("done"), 0);
+      return () => window.clearTimeout(id);
+    }
+    try {
+      sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+    } catch {
+      // Storage blocked (private mode, policy): the intro just replays.
+    }
     // Reduced-motion users still get the handoff (header logo + hero reveal
     // released together) but collapsed to near-zero so nothing animates;
     // every step stays inside a timeout so this effect never calls setState
@@ -47,17 +59,42 @@ export function Splash() {
     const start = reduced ? 0 : 20;
     const reveal = reduced ? 0 : REVEAL_MS;
     const hold = reduced ? 0 : HOLD_MS;
-    const dock = reduced ? 0 : DOCK_MS;
+    const dockMs = reduced ? 0 : DOCK_MS;
 
-    const timers = [
+    const timers: number[] = [];
+    let docked = false;
+    const removeSkipListeners = () =>
+      SKIP_EVENTS.forEach((type) => window.removeEventListener(type, dock));
+    function dock() {
+      if (docked) return;
+      docked = true;
+      removeSkipListeners();
+      timers.forEach(window.clearTimeout);
+      root.removeAttribute("data-entry");
+      root.removeAttribute("data-entry-skip");
+      setPhase("docking");
+      timers.push(
+        window.setTimeout(() => {
+          root.removeAttribute("data-intro");
+          setPhase("done");
+        }, dockMs),
+      );
+    }
+
+    // Don't hold anyone hostage: the first interaction docks immediately,
+    // including one made before hydration (recorded by the entry gate).
+    const skippedEarly = root.hasAttribute("data-entry-skip");
+    timers.push(
       window.setTimeout(() => setPhase("live"), start),
-      window.setTimeout(() => {
-        document.documentElement.removeAttribute("data-entry");
-        setPhase("docking");
-      }, start + reveal + hold),
-      window.setTimeout(() => setPhase("done"), start + reveal + hold + dock),
-    ];
-    return () => timers.forEach(window.clearTimeout);
+      window.setTimeout(dock, skippedEarly ? start : start + reveal + hold),
+    );
+    SKIP_EVENTS.forEach((type) =>
+      window.addEventListener(type, dock, { passive: true }),
+    );
+    return () => {
+      removeSkipListeners();
+      timers.forEach(window.clearTimeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -83,7 +120,7 @@ export function Splash() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center bg-[#fbfbfb]"
+      className="cc-splash pointer-events-none fixed inset-0 z-[100] flex items-center justify-center bg-[#fbfbfb]"
       style={{
         transitionProperty: "opacity",
         transitionDuration: `${BG_FADE_MS}ms`,
@@ -107,7 +144,7 @@ export function Splash() {
           width={3000}
           height={350}
           unoptimized
-          priority
+          loading="eager"
           className="h-auto w-full"
           style={{
             transitionProperty: "opacity, translate, clip-path",
