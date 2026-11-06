@@ -15,8 +15,7 @@ export function ContactHero() {
           stagger={1}
           className="max-w-[48ch] text-[1rem] font-medium tracking-[-0.03em] text-[#181818]/50"
         >
-          Tell us about a new project or idea and get a free consultation. We are available 24/7.
-        </Reveal>
+          Tell us about a new project or idea and get a free consultation.        </Reveal>
       </InView>
     </section>
   );

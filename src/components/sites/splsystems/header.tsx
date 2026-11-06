@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowSwap } from "./icons";
 
 const PRIMARY_LINKS: { label: string; href: string }[] = [
   { label: "Home", href: "/" },
@@ -22,11 +21,6 @@ const SECONDARY_LINKS: { label: string; href: string; external?: boolean }[] = [
     href: "https://www.linkedin.com/company/splsystems/",
     external: true,
   },
-];
-
-const CONTACT_LINKS: { label: string; href: string; note: string }[] = [
-  { label: "pri@splsystems.in", href: "mailto:pri@splsystems.in", note: "For general inquiries" },
-  { label: "+1 (650) 993-9799", href: "tel:+16509939799", note: "Call us, available 24/7" },
 ];
 
 function Rule() {
@@ -176,33 +170,6 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
                       >
                         {item.label}
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                <ul className="flex flex-col">
-                  <Rule />
-                  {CONTACT_LINKS.map((item, i) => (
-                    <li
-                      key={item.href}
-                      className="cc-menu-item"
-                      style={stagger(PRIMARY_LINKS.length + SECONDARY_LINKS.length + i)}
-                    >
-                      <a
-                        href={item.href}
-                        className="group flex items-center justify-between gap-4 py-2 text-[#181818]"
-                      >
-                        <span className="flex flex-col gap-0.5">
-                          <span className="text-[16px] font-medium leading-[20.8px] tracking-[-0.03em]">
-                            {item.label}
-                          </span>
-                          <span className="text-xs font-medium text-[#181818]/50">
-                            {item.note}
-                          </span>
-                        </span>
-                        <ArrowSwap className="h-5 w-[10px]" />
-                      </a>
-                      <Rule />
                     </li>
                   ))}
                 </ul>

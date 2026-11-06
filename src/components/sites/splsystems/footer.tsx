@@ -15,8 +15,6 @@ const PRIMARY: { label: string; href: string }[] = [
 
 const SECONDARY: { label: string; href: string; external?: boolean }[] = [
   { label: "Projects & Expertise", href: "/projects" },
-  { label: "pri@splsystems.in", href: "mailto:pri@splsystems.in", external: true },
-  { label: "+1 (650) 993-9799", href: "tel:+16509939799", external: true },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/company/splsystems/",
