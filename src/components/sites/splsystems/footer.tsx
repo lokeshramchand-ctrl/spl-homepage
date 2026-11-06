@@ -14,7 +14,6 @@ const PRIMARY: { label: string; href: string }[] = [
 ];
 
 const SECONDARY: { label: string; href: string; external?: boolean }[] = [
-  { label: "Projects & Expertise", href: "/projects" },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/company/splsystems/",
