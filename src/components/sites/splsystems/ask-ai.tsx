@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { AiIconRow } from "./ai-links";
 import { InView, Reveal } from "./reveal";
 
@@ -16,7 +17,7 @@ export function AskAi({
   tone?: "light" | "dark";
 }) {
   return (
-    <InView className={`flex flex-wrap items-center gap-8 ${className}`}>
+    <InView className={cn("flex flex-wrap items-center gap-8", className)}>
       <Reveal
         as="p"
         className={`whitespace-nowrap text-[1rem] tracking-[-0.03em] ${tone === "dark" ? "text-white" : "text-[#181818]"}`}

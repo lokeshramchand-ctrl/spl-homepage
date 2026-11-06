@@ -244,7 +244,7 @@ function layout(w: Word) {
     w.pad = pad;
     w.root.style.setProperty("--sheen-pad", `${pad}px`);
   }
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const dpr = Math.min(window.devicePixelRatio || 1, window.matchMedia("(pointer: coarse)").matches ? 1.5 : 2);
   w.w = Math.round(w.canvas.offsetWidth * dpr);
   w.h = Math.round(w.canvas.offsetHeight * dpr);
   w.dpr = dpr;

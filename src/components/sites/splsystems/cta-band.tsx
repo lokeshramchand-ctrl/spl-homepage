@@ -27,6 +27,7 @@ export function CtaBand() {
             prompt="Summarize this page: https://splsystems.in"
             size="lg"
             tone="dark"
+            className="max-md:flex-col max-md:justify-center max-md:gap-4 max-md:text-center"
           />
         </Reveal>
       </InView>

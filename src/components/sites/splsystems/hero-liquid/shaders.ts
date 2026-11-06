@@ -351,7 +351,7 @@ export interface IntroTiming {
 
 export const HERO_LIQUID_INTRO: IntroTiming = {
   startDelay: 0,
-  stagger: 0.12,
-  duration: 2.5,
+  stagger: 0.08,
+  duration: 1.4,
   feather: 0.2,
 };

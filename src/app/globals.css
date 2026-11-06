@@ -178,8 +178,8 @@ details::details-content {
   block-size: 0;
   overflow: clip;
   transition:
-    block-size 0.4s var(--cc-easing-emphasized),
-    content-visibility 0.4s var(--cc-easing-emphasized) allow-discrete;
+    block-size 0.3s var(--cc-easing-emphasized),
+    content-visibility 0.3s var(--cc-easing-emphasized) allow-discrete;
 }
 details[open]::details-content {
   block-size: auto;
@@ -189,10 +189,10 @@ details[open]::details-content {
 :root {
   --cc-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
   --cc-duration-slow: 0.3s;
-  --cc-reveal-duration: 0.75s;
-  --cc-reveal-delay: 0.25s;
-  --cc-reveal-stagger: 0.1s;
-  --cc-reveal-stagger-fine: 50ms;
+  --cc-reveal-duration: 0.5s;
+  --cc-reveal-delay: 0.05s;
+  --cc-reveal-stagger: 0.06s;
+  --cc-reveal-stagger-fine: 30ms;
 }
 
 .cc-reveal-group {
