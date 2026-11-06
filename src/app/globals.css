@@ -847,3 +847,14 @@ html[data-entry] .cc-header-logo {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Phones don't run the WebGL title sheen, and the photo fallback's
+   difference blend over the animated hero background garbles the glyphs.
+   Show plain ink instead (the on-dark variant keeps its own gradient). */
+@media (max-width: 767px) {
+  .cc-sheen {
+    background-image: none;
+    mix-blend-mode: normal;
+    color: #181818;
+  }
+}
