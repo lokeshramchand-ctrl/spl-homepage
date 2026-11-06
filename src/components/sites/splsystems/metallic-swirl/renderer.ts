@@ -1,15 +1,36 @@
-import { createFrameGovernor } from "../frame-governor";
-import { compileProgram } from "../webgl-program";
 import { FRAGMENT_SHADER, QUAD_VERTICES, VERTEX_SHADER, hexToRgba, type MetallicSwirlParams } from "./shaders";
 
-const MAX_DPR = 1.5;
-// The backdrop drifts slowly, so 30fps is indistinguishable from 60 here and
-// halves the shading cost (more on 120Hz displays).
-const FPS = 30;
-/** The canvas spans the viewport plus this fraction of its height above and below. */
-const WINDOW_MARGIN = 0.3;
-/** Re-centre once the viewport edge comes within this fraction of the canvas edge. */
-const WINDOW_GUARD = 0.08;
+function compileShader(gl: WebGL2RenderingContext, type: number, source: string): WebGLShader {
+  const shader = gl.createShader(type);
+  if (!shader) throw new Error("shader allocation failed");
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    const log = gl.getShaderInfoLog(shader);
+    gl.deleteShader(shader);
+    throw new Error(`shader compile failed: ${log ?? "unknown"}`);
+  }
+  return shader;
+}
+
+function linkProgram(gl: WebGL2RenderingContext, vertexSource: string, fragmentSource: string): WebGLProgram {
+  const vertex = compileShader(gl, gl.VERTEX_SHADER, vertexSource);
+  const fragment = compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
+  const program = gl.createProgram();
+  if (!program) throw new Error("program allocation failed");
+  gl.attachShader(program, vertex);
+  gl.attachShader(program, fragment);
+  gl.linkProgram(program);
+  const ok = gl.getProgramParameter(program, gl.LINK_STATUS);
+  const log = ok ? "" : [gl.getShaderInfoLog(vertex), gl.getShaderInfoLog(fragment), gl.getProgramInfoLog(program)].filter(Boolean).join(" | ");
+  gl.deleteShader(vertex);
+  gl.deleteShader(fragment);
+  if (!ok) {
+    gl.deleteProgram(program);
+    throw new Error(`program link failed: ${log || "unknown"}`);
+  }
+  return program;
+}
 
 export interface MetallicSwirlRenderer {
   setParams(next: MetallicSwirlParams): void;
@@ -23,29 +44,14 @@ export interface CreateMetallicSwirlRendererOptions {
   onError: () => void;
 }
 
-/**
- * `host` is the box the swirl visually fills (a whole multi-section band);
- * `canvas` is a child of it that only covers the stretch near the viewport
- * and is moved (translateY) as the page scrolls — see `place()`.
- */
-export async function createMetallicSwirlRenderer(
+export function createMetallicSwirlRenderer(
   canvas: HTMLCanvasElement,
-  host: HTMLElement,
   { params, animated, onReady, onError }: CreateMetallicSwirlRendererOptions,
-): Promise<MetallicSwirlRenderer> {
-  // No MSAA: the only geometry is a full-screen quad, so multisampling buys
-  // nothing but a resolve pass and 4x the framebuffer memory every frame.
-  const gl = canvas.getContext("webgl2", {
-    antialias: false,
-    alpha: true,
-    premultipliedAlpha: true,
-    depth: false,
-    stencil: false,
-  });
+): MetallicSwirlRenderer {
+  const gl = canvas.getContext("webgl2", { antialias: false, alpha: true, premultipliedAlpha: true, powerPreference: "low-power" });
   if (!gl) throw new Error("webgl2 unavailable");
 
-  // Compiles off the main thread where supported (see webgl-program.ts).
-  const program = await compileProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER);
+  const program = linkProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER);
   gl.useProgram(program);
 
   const buffer = gl.createBuffer();
@@ -60,7 +66,6 @@ export async function createMetallicSwirlRenderer(
 
   const loc = (name: string) => gl.getUniformLocation(program, name);
   const u = {
-    uvScale: loc("uUvScale"), uvOffset: loc("uUvOffset"),
     time: loc("uTime"), res: loc("uRes"), zoom: loc("uZoom"), iter: loc("uIter"), eps: loc("uEps"),
     tangent: loc("uTangent"), grad: loc("uGrad"), bright: loc("uBright"), contrast: loc("uContrast"), bg: loc("uBg"),
     alpha: loc("uAlpha"), radial: loc("uRadial"), beams: loc("uBeams"), stretch: loc("uStretch"), flow: loc("uFlow"),
@@ -74,10 +79,7 @@ export async function createMetallicSwirlRenderer(
   };
 
   let p = params;
-  // Each uniform write targets this renderer's program explicitly: React's
-  // dev double-mount can briefly put two renderers on one canvas context.
   const writeParams = () => {
-    gl.useProgram(program);
     const [bgR, bgG, bgB, bgA] = hexToRgba(p.backgroundColor);
     const [aR, aG, aB, aA] = hexToRgba(p.colorA);
     const [bR, bG, bB, bA] = hexToRgba(p.colorB);
@@ -133,90 +135,26 @@ export async function createMetallicSwirlRenderer(
   let stripePhase = lastTime * p.stripeFlow;
   let spinPhase = lastTime * p.radialSpin;
 
-  const governor = createFrameGovernor({ fps: FPS });
-  let hostH = 1;
-  let winH = 1;
-  let offset = -1;
-  let dpr = 1;
-  let viewportH = window.innerHeight;
-  let viewportW = window.innerWidth;
-
-  // uRes is the *whole host's* size in device pixels, so aspect, pixel-size
-  // and fwidth() maths in the fragment shader match a full-size canvas.
-  const writeWindow = () => {
-    gl.useProgram(program);
-    gl.uniform2f(u.uvScale, 1, winH / hostH);
-    gl.uniform2f(u.uvOffset, 0, (hostH - offset - winH) / hostH);
-    gl.uniform2f(u.res, canvas.width, (canvas.height * hostH) / winH);
-  };
-
-  /** Moves the canvas so it covers the viewport; true if it moved. */
-  const place = (force = false): boolean => {
-    const maxOffset = Math.max(0, hostH - winH);
-    const top = -host.getBoundingClientRect().top;
-    const visibleTop = Math.max(0, top);
-    const visibleBottom = Math.min(hostH, top + viewportH);
-    if (!force && visibleBottom <= visibleTop) return false;
-    const guard = viewportH * WINDOW_GUARD;
-    const lo = offset <= 0 ? 0 : offset + guard;
-    const hi = offset >= maxOffset ? hostH : offset + winH - guard;
-    if (!force && offset >= 0 && visibleTop >= lo && visibleBottom <= hi) return false;
-    const centred = Math.min(Math.max(top - (winH - viewportH) / 2, 0), maxOffset);
-    // Land on whole device pixels so the canvas isn't resampled.
-    const next = Math.round(centred * dpr) / dpr;
-    if (next === offset && !force) return false;
-    offset = next;
-    canvas.style.transform = `translate3d(0,${offset}px,0)`;
-    writeWindow();
-    return true;
-  };
-
   const resize = () => {
-    hostH = Math.max(1, host.clientHeight);
-    winH = Math.min(hostH, Math.ceil(viewportH * (1 + 2 * WINDOW_MARGIN)));
-    dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR) * governor.scale;
-    const width = Math.max(1, Math.round(host.clientWidth * dpr));
-    const height = Math.max(1, Math.round(winH * dpr));
-    canvas.style.height = `${winH}px`;
+    // The canvas spans the whole multi-section band (several viewports
+    // tall) and the swirl is soft, so cap the backing store hard, harder
+    // still on phones, instead of shading millions of off-screen pixels.
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    let dpr = Math.min(window.devicePixelRatio || 1, coarse ? 1 : 1.5);
+    const budget = coarse ? 2e6 : 6e6;
+    const total = canvas.clientWidth * canvas.clientHeight * dpr * dpr;
+    if (total > budget) dpr *= Math.sqrt(budget / total);
+    const width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
+    const height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
     if (canvas.width !== width || canvas.height !== height) {
       canvas.width = width;
       canvas.height = height;
+      gl.viewport(0, 0, width, height);
+      if (!running) draw();
     }
-    gl.viewport(0, 0, width, height);
-    place(true);
-    if (!running) draw(performance.now());
   };
 
-  const onWindowResize = () => {
-    // Mobile URL bars resize the viewport height while scrolling; only grow
-    // the window for those (never reallocate mid-scroll to shrink it), and
-    // start over when the width changes (rotation, desktop resize).
-    const widthChanged = window.innerWidth !== viewportW;
-    const nextH = widthChanged ? window.innerHeight : Math.max(viewportH, window.innerHeight);
-    viewportW = window.innerWidth;
-    if (nextH === viewportH && !widthChanged) return;
-    viewportH = nextH;
-    resize();
-  };
-
-  let scrollQueued = false;
-  const onScrollFrame = (now: number) => {
-    scrollQueued = false;
-    if (!disposed && visible && place()) draw(now);
-  };
-  const onScroll = () => {
-    if (scrollQueued || disposed || !visible) return;
-    scrollQueued = true;
-    requestAnimationFrame(onScrollFrame);
-  };
-
-  // rAF timestamp of the last draw: a scroll-driven re-centre and the
-  // animation tick can land in the same frame, and only one needs to draw.
-  let drawnAt = -1;
-  const draw = (frameTime: number) => {
-    if (frameTime === drawnAt) return;
-    drawnAt = frameTime;
-    gl.useProgram(program);
+  const draw = () => {
     const now = time();
     const dt = now - lastTime;
     lastTime = now;
@@ -225,6 +163,7 @@ export async function createMetallicSwirlRenderer(
     gl.uniform1f(u.time, now);
     gl.uniform1f(u.stripePhase, stripePhase);
     gl.uniform1f(u.spinPhase, spinPhase);
+    gl.uniform2f(u.res, canvas.width, canvas.height);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -244,26 +183,21 @@ export async function createMetallicSwirlRenderer(
   const shouldRun = () => !disposed && visible && document.visibilityState === "visible" && animated && p.speed !== 0;
 
   const tick = (now: number) => {
-    if (!shouldRun()) {
-      running = false;
-      return;
-    }
-    rafId = requestAnimationFrame(tick);
-    if (!governor.shouldDraw(now)) return;
-    // rAF timestamps can precede the performance.now() taken when resuming.
-    const dt = Math.min(Math.max((now - lastFrameTime) / 1000, 0), 0.1);
+    const dt = Math.min((now - lastFrameTime) / 1000, 0.1);
     lastFrameTime = now;
     elapsed += dt * p.speed;
-    place();
-    draw(now);
-    if (governor.record(now)) resize();
+    draw();
+    if (shouldRun()) {
+      rafId = requestAnimationFrame(tick);
+    } else {
+      running = false;
+    }
   };
 
   const setRunning = (next: boolean) => {
     if (running === next) return;
     running = next;
     if (next) {
-      governor.reset();
       lastFrameTime = performance.now();
       rafId = requestAnimationFrame(tick);
     } else {
@@ -274,19 +208,17 @@ export async function createMetallicSwirlRenderer(
   const evaluate = () => setRunning(shouldRun());
 
   resize();
+  draw();
   evaluate();
 
   const resizeObserver = new ResizeObserver(resize);
-  resizeObserver.observe(host);
-  window.addEventListener("resize", onWindowResize);
-  window.addEventListener("scroll", onScroll, { passive: true });
+  resizeObserver.observe(canvas);
 
   const intersectionObserver = new IntersectionObserver(([entry]) => {
     visible = entry?.isIntersecting ?? true;
-    if (visible && place()) draw(performance.now());
     evaluate();
   });
-  intersectionObserver.observe(host);
+  intersectionObserver.observe(canvas);
 
   const onVisibilityChange = () => evaluate();
   document.addEventListener("visibilitychange", onVisibilityChange);
@@ -303,7 +235,7 @@ export async function createMetallicSwirlRenderer(
       if (disposed) return;
       p = next;
       writeParams();
-      if (!running) draw(performance.now());
+      if (!running) draw();
       evaluate();
     },
     dispose() {
@@ -311,8 +243,6 @@ export async function createMetallicSwirlRenderer(
       setRunning(false);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
-      window.removeEventListener("resize", onWindowResize);
-      window.removeEventListener("scroll", onScroll);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       canvas.removeEventListener("webglcontextlost", onContextLost);
       gl.deleteBuffer(buffer);

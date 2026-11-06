@@ -129,16 +129,19 @@ export function HeroLiquid({
 
     const width = Math.max(window.innerWidth, window.innerHeight * 1.25) >= 1024 ? 2048 : 1024;
 
-    // The shader compiles while the worker builds the mask (both async).
-    createLiquidRenderer(canvas, loadLiquidMask(width, shadeFloor), {
-      intro,
-      params: params ? { ...HERO_LIQUID_EFFECT, ...params } : undefined,
-      onActive: () => !cancelled && setStatus("active"),
-      onError: () => !cancelled && setStatus("fallback"),
-    }).then(
-      (created) => {
-        if (cancelled) created.dispose();
-        else renderer = created;
+    loadLiquidMask(width, shadeFloor).then(
+      (mask) => {
+        if (cancelled) return;
+        try {
+          renderer = createLiquidRenderer(canvas, mask, {
+            intro,
+            params: params ? { ...HERO_LIQUID_EFFECT, ...params } : undefined,
+            onActive: () => !cancelled && setStatus("active"),
+            onError: () => !cancelled && setStatus("fallback"),
+          });
+        } catch {
+          setStatus("fallback");
+        }
       },
       () => !cancelled && setStatus("fallback"),
     );
