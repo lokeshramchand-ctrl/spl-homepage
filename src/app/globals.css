@@ -827,3 +827,23 @@ html[data-entry] .cc-header-logo {
     stroke-dashoffset: 0;
   }
 }
+
+/* Phones: skip scroll-reveal and micro-interaction animation entirely.
+   Content is simply visible (same static state reduced-motion users get). */
+@media (max-width: 767px) {
+  .cc-reveal,
+  .cc-arrow > svg,
+  .cc-pop,
+  .cc-draw path,
+  .cc-rule::before {
+    animation: none !important;
+  }
+  .cc-draw path {
+    stroke-dashoffset: 0;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

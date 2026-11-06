@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { isLiteMode } from "./lite-mode";
 
 /**
  * Full-screen intro logo that docks down into the header logo, matching
@@ -41,9 +42,7 @@ export function Splash() {
     // released together) but collapsed to near-zero so nothing animates;
     // every step stays inside a timeout so this effect never calls setState
     // synchronously on mount.
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reduced = isLiteMode();
     const start = reduced ? 0 : 16;
     const reveal = reduced ? 0 : REVEAL_MS;
     const hold = reduced ? 0 : HOLD_MS;

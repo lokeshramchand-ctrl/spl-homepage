@@ -3,6 +3,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { createMetallicSwirlRenderer, type MetallicSwirlRenderer } from "./renderer";
 import { METALLIC_SWIRL_DEFAULTS, type MetallicSwirlParams } from "./shaders";
+import { isLiteMode } from "../lite-mode";
 
 export interface MetallicSwirlHandle {
   setParams(next: MetallicSwirlParams): void;
@@ -31,7 +32,7 @@ export const MetallicSwirl = forwardRef<MetallicSwirlHandle, MetallicSwirlProps>
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!canvas || isLiteMode()) return;
 
     const create = () => {
       try {

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFrameGovernor } from "../frame-governor";
 import { compileProgram } from "../webgl-program";
+import { isLiteMode } from "../lite-mode";
 
 // Port of the source's per-word title shader. One shared WebGL2 canvas paints
 // every visible word; each word's glyph mask is composited from it (source-in).
@@ -340,7 +341,7 @@ function Word({ word }: { word: string }) {
     const p = probe.current;
     const c = canvas.current;
     const ctx = c?.getContext("2d");
-    if (!r || !p || !c || !ctx || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !startGl()) return;
+    if (!r || !p || !c || !ctx || isLiteMode() || !startGl()) return;
     const w: Word = {
       root: r, probe: p, canvas: c, ctx, glyphs: document.createElement("canvas"), text: word,
       w: 0, h: 0, gw: 1, gh: 1, gdpr: 1, dpr: 1, rgb: [0, 0, 0], mode: P.onLight, origin: [0, 0], unit: 1, pad: -1, visible: false, live: false, onLive: () => setLive(true),
