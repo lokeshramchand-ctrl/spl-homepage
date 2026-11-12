@@ -32,7 +32,7 @@ export function LazyVideo({
     const video = videoRef.current;
     if (!video) return;
     const saveData = (navigator as NavigatorWithConnection).connection?.saveData === true;
-    if (saveData || window.matchMedia("(prefers-reduced-motion: reduce)").matches) heldRef.current = true;
+    if (saveData) heldRef.current = true;
 
     const observer = new IntersectionObserver(
       ([entry]) => {

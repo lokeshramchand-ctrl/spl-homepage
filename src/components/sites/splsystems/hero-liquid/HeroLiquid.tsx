@@ -117,7 +117,7 @@ export function HeroLiquid({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (!canvas) {
       // One-time feature detection on mount (reduced-motion / no canvas), not a
       // response to a prop/state change — the synchronous setState here is the
       // progressive-enhancement fallback, mirroring the source site's behavior.

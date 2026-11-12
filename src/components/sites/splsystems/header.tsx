@@ -8,7 +8,7 @@ import { ArrowSwap } from "./icons";
 const PRIMARY_LINKS: { label: string; href: string }[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/#about" },
-  { label: "Projects", href: "/#projects" },
+  { label: "Projects", href: "/projects" },
   { label: "Approach", href: "/#approach" },
   { label: "Contact", href: "/contact" },
 ];

@@ -158,17 +158,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-  }
-}
-
 /* FAQ accordion: animate the panel open/close where ::details-content is
    supported; elsewhere it still toggles instantly. */
 details {
@@ -253,12 +242,6 @@ details[open]::details-content {
   100% {
     opacity: 1;
     translate: 0 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cc-reveal {
-    animation: none !important;
   }
 }
 
@@ -809,21 +792,6 @@ html[data-entry] .cc-header-logo {
 }
 @keyframes cc-draw {
   to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cc-arrow > svg,
-  .cc-faq[open] .cc-faq-a,
-  .cc-field,
-  .cc-pop,
-  .cc-draw path,
-  .cc-rule::before,
-  :focus-visible {
-    animation: none !important;
-  }
-  .cc-draw path {
     stroke-dashoffset: 0;
   }
 }
