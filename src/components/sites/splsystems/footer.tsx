@@ -1,5 +1,6 @@
 import { AskAi } from "./ask-ai";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRightIcon } from "./icons";
 import { InView, Reveal, WipeLink } from "./reveal";
 
@@ -72,7 +73,15 @@ export function Footer() {
             <li>&copy; {new Date().getFullYear()} SPL Systems, Inc.</li>
             <li>All rights reserved.</li>
             <li>
-              <WipeLink href="/privacy">Privacy Policy</WipeLink>
+              {/* Small muted legal link: darken + underline on hover, like
+                  "Back to top", instead of the wipe sweep (which reads as a
+                  black block at this size). */}
+              <Link
+                href="/privacy"
+                className="cc-press underline-offset-2 transition-colors duration-300 hover:text-[#181818] hover:underline focus-visible:text-[#181818] focus-visible:underline"
+              >
+                Privacy Policy
+              </Link>
             </li>
             <li className="md:ml-auto">
               {/* "#top" scrolls to the top natively (no element has that id),
