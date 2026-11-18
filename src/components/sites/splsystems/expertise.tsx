@@ -1,21 +1,21 @@
-import { GlobeIcon, PawnIcon, ShieldIcon } from "./icons";
+import { GearIcon, LayersIcon, LockIcon } from "./icons";
 import { InView, Reveal, RevealWords } from "./reveal";
 
 const VALUES = [
   {
-    icon: PawnIcon,
+    icon: GearIcon,
     title: "Built around your workflow",
     description:
       "Custom web applications, enterprise systems, mobile and cross-platform apps, and automation tools shaped to the way your team actually works.",
   },
   {
-    icon: ShieldIcon,
+    icon: LockIcon,
     title: "Secure and confidential",
     description:
       "Quality and confidentiality come first, from examination management to government-scale digitization.",
   },
   {
-    icon: GlobeIcon,
+    icon: LayersIcon,
     title: "Scalable by design",
     description:
       "AI-powered platforms and workflow systems engineered to grow with your organization and designed for tomorrow.",
