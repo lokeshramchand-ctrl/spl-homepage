@@ -65,6 +65,12 @@ export function createMetallicSwirlRenderer(
   gl.blendFuncSeparate(gl.ONE, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
   const loc = (name: string) => gl.getUniformLocation(program, name);
+  // The vertex shader maps a canvas "window" back into full-band UVs. This
+  // canvas covers the whole band, so the window is the identity. Left unset,
+  // both uniforms default to 0 and every pixel samples the same corner point,
+  // which the edge fades turn fully transparent (the swirl vanishes).
+  gl.uniform2f(loc("uUvScale"), 1, 1);
+  gl.uniform2f(loc("uUvOffset"), 0, 0);
   const u = {
     time: loc("uTime"), res: loc("uRes"), zoom: loc("uZoom"), iter: loc("uIter"), eps: loc("uEps"),
     tangent: loc("uTangent"), grad: loc("uGrad"), bright: loc("uBright"), contrast: loc("uContrast"), bg: loc("uBg"),
