@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { ArrowSwap } from "./icons";
 
@@ -42,6 +43,7 @@ const stagger = (i: number) => ({ "--cc-i": i }) as CSSProperties;
 
 export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const ink = tone === "light" && !open ? "text-white" : "text-[#181818]";
@@ -57,9 +59,17 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
+    // Desktop shows the inline nav instead, so close the overlay if the
+    // viewport grows past the breakpoint while it is open.
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onDesktop = (e: MediaQueryListEvent) => {
+      if (e.matches) setOpen(false);
+    };
+    desktop.addEventListener("change", onDesktop);
     return () => {
       document.body.style.overflow = prev;
       window.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onDesktop);
       menuButton?.focus({ preventScroll: true });
     };
   }, [open]);
@@ -82,13 +92,29 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
             className="h-auto w-[8.5rem] md:w-[10.5rem]"
           />
         </Link>
+        {/* Desktop: every primary link inline in the bar. */}
+        <nav aria-label="Primary" className="hidden lg:block">
+          <ul className="flex items-center gap-10">
+            {PRIMARY_LINKS.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  aria-current={pathname === item.href ? "page" : undefined}
+                  className={`group cc-press text-[16px] font-medium tracking-[-0.03em] ${ink}`}
+                >
+                  <RollLabel>{item.label}</RollLabel>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <button
           ref={menuButtonRef}
           type="button"
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
           aria-expanded={open}
-          className={`group cc-press text-[16px] font-medium tracking-[-0.03em] ${ink}`}
+          className={`group cc-press text-[16px] font-medium tracking-[-0.03em] lg:hidden ${ink}`}
         >
           <RollLabel>Menu</RollLabel>
         </button>
@@ -105,7 +131,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
         aria-hidden={!open}
         inert={!open}
         data-open={open || undefined}
-        className={`fixed inset-0 z-20 flex items-start justify-center md:px-4 md:pb-4 ${
+        className={`fixed inset-0 z-20 flex items-start justify-center md:px-4 md:pb-4 lg:hidden ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
