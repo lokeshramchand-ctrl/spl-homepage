@@ -75,7 +75,11 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   }, [open]);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-10">
+    <header className="absolute inset-x-0 top-0 z-50">
+      {/* z-50: the header is a stacking context, so the menu overlay inside it
+          can only sit as high as the header itself. Sections lift their content
+          to z-10/z-20, which would otherwise paint over the open menu. Stays
+          under the splash (z-[100]). */}
       <div className="relative flex items-center justify-between px-4 py-6 md:justify-center md:px-8">
         <Link
           href="/"
